@@ -1,9 +1,11 @@
 import * as React from 'react';
-import {Button, Grid} from '@mui/material';
+import {Button, Grid, Container} from '@mui/material';
 import HeaderBox from '.././Components/HeaderBox';
+//import BackgroundContainer from '../Components/BackgroundContainer';
 
 // Allows us to navigate between pages
 import { useNavigate } from 'react-router-dom';
+
 
 function AccountSelection() {
   
@@ -16,13 +18,13 @@ function AccountSelection() {
 
   return (
     <div className="AccountSelection">
-        <Grid container spacing={2}
+      <Container maxWidth='sm' style={{ background: '#f2f6fc' }} >
+        <Grid container spacing={4}
             direction="column"
             alignItems="center"
             justifyContent="center">
           <Grid item xs={1}>
-            <HeaderBox text = "Edu Collaborate">
-            </HeaderBox>
+            <HeaderBox text={'Edu Collaborate'}></HeaderBox>
           </Grid>
           <Grid item xs={2}>
             <Button variant="contained" color="primary" size="large"  onClick={handleClick} style={{ width: '200px' }} >
@@ -35,7 +37,7 @@ function AccountSelection() {
             </Button>
           </Grid>
         </Grid>
-  
+      </Container>
     </div>
     );
   }
