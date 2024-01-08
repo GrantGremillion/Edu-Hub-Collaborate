@@ -1,7 +1,10 @@
 
-function HeaderBox() {
+
+
+
+function HeaderBox({text}) {
     return (
-        <h1>Edu Hub Collaborate</h1>
+        <h1>{text}</h1>
     );
   }
   

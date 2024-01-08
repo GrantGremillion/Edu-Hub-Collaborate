@@ -1,4 +1,4 @@
-import UserProfileHeaderBox from './Components/UserProfileHeaderBox';
+import UserProfileHeaderBox from '../Components/UserProfileHeaderBox';
 import * as React from 'react';
 import {Button, Grid} from '@mui/material';
 
