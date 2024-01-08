@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // importing all web pages
 import AccountSelection from './Pages/AccountSelection';
 import UserProfile from './Pages/UserProfile';
+import UserAccountSettings from './Pages/UserAccountSettings';
 
 
 
@@ -18,6 +19,9 @@ function App() {
         <Routes>
           <Route path="/UserProfile" element={<UserProfile />} />
         </Routes>
+        <Router>
+          <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
+        </Router>
       </div>
     </Router>
   

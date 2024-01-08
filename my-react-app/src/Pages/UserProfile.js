@@ -2,12 +2,10 @@ import * as React from 'react';
 import {Button, Grid} from '@mui/material';
 import HeaderBox from '.././Components/HeaderBox';
 
-
 function UserProfile() {
 
 return (
-    <div className="App">
-
+    <div>
         <Grid container spacing={2}
             direction="column"
             alignItems="center"
@@ -26,8 +24,6 @@ return (
                 </Button>
             </Grid>
         </Grid>
-    
-
     </div>
     );
 }
