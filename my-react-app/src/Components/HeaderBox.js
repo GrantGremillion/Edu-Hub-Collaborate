@@ -3,13 +3,17 @@ import { Box, ThemeProvider } from '@mui/material';
 
 
 function HeaderBox({text}) {
-    
+
     return (
-        <ThemeProvider
+
+    <div>
+    
+    {/* Theme proveider allows us to define multiple colors for use in our component (main and white)*/}
+    <ThemeProvider
       theme={{
         palette: {
           primary: {
-            main: '#1769aa',
+            main: '#009688',
             white: '#FFFFFF'
           },
         },
@@ -34,6 +38,8 @@ function HeaderBox({text}) {
       </Box>
     </ThemeProvider>
   
+    </div>
+
     );
   }
   

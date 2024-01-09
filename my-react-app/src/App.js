@@ -1,5 +1,5 @@
 
-// Used to handel routing between different pages in website
+// Used to create routes between different pages in website by assigning a path to each .js file
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // importing all web pages
 import AccountSelection from './Pages/AccountSelection';
@@ -7,25 +7,24 @@ import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
 
 
-
 // Root Component for React App
 function App() {
   return (
     <Router>
-      <div className='App'>
+      <div>
         <Routes>
+          {/* The / indicates that this is the default/home page for the website */}
           <Route path="/" element={<AccountSelection />} />
         </Routes>
         <Routes>
+          {/* If someone where to add the path below to their url, they would be redirected to the UserProfile page */}
           <Route path="/UserProfile" element={<UserProfile />} />
         </Routes>
-        <Router>
+        <Routes>
           <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
-        </Router>
+        </Routes>
       </div>
-    </Router>
-  
+    </Router> 
   );
 }
-
 export default App;
