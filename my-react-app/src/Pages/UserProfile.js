@@ -6,6 +6,7 @@ function UserProfile() {
 
 return (
     <div>
+        
         <Grid container spacing={2}
             direction="column"
             alignItems="center"
@@ -17,6 +18,7 @@ return (
                 <Button variant="contained" color="primary" size="large"  onClick={() => {alert('would edit profile');}} style={{ width: '200px' }} >
                     Edit Profile
                 </Button>
+                
             </Grid>
             <Grid item xs={3}>
                 <Button variant="contained" color="primary" size="large"  onClick={() => {alert('opens settings :D');}} style={{ width: '200px' }} >
@@ -24,6 +26,7 @@ return (
                 </Button>
             </Grid>
         </Grid>
+        
     </div>
     );
 }

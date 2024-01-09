@@ -30,8 +30,8 @@ function HeaderBox({text}) {
           fontSize: '2rem', 
           bgcolor: 'primary.main',
           color: 'primary.white',
-          zIndex: '0'
-          
+          zIndex: '0',
+          fontFamily: 'Courier New'
         }}
       >
         {text}

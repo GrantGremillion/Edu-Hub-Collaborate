@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 // Material UI components
-import {Button, Grid, Container, Box} from '@mui/material';
+import {Button, Grid, Container, Box, Divider} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '.././Components/HeaderBox';
@@ -40,37 +40,37 @@ function AccountSelection() {
         right: 0,
         bottom: 0,
         }}>
-        
       </Box>
     
-      <NavBar></NavBar>
+
+      <NavBar text='Edu Collaborate'></NavBar>
       
-      {/* Container organizes HeaderBox and Buttons */}
+
+      {/* Container and Grid organizes HeaderBox and Buttons */}
       <Container maxWidth='sm' style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}} >
         <Grid container spacing={5}
             direction="column"
             alignItems="center"
             justifyContent="center">
           <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-            <HeaderBox text={'Please select your account type'}></HeaderBox>
+            <HeaderBox text={'Select your account type'}></HeaderBox>
           </Grid>
           <Grid item xs={1}>
-            <Button variant="contained"  size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} >
+            <Button variant="contained"  size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
               Student
             </Button>
           </Grid>
-          <Grid item xs={2}>
-            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} >
+          <Divider orientation="horizontal" flexItem style={{ margin: '5%', width: '50%', marginLeft: '28%', marginBottom: '0%'}} >or</Divider>
+          <Grid item xs={1}>
+            
+            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
               Teacher
             </Button>
           </Grid>
-          <Grid item xs={3}>
-
-              <img src={pencil} alt="pencil" style={{marginTop: '10%', marginLeft: '60%', width: '35%'}} />
+          <Grid item xs={1}>
+              <img src={pencil} alt="pencil" style={{marginTop: '5%', marginLeft: '65%', width: '35%'}} />
             
-              <img src={paper} alt="paper" style={{marginTop: '-50%', marginLeft: '0%', width: '40%'}}/>
-        
-            
+              <img src={paper} alt="paper" style={{ marginTop: '-40%', marginLeft: '-5%', width: '40%'}}/>     
           </Grid>
           
         </Grid>
