@@ -6,6 +6,7 @@ import AccountSelection from './Pages/AccountSelection';
 import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
 import CreateAccount from './Pages/CreateAccount';
+import Login from './Pages/Login'; 
 
 
 // Root Component for React App
@@ -26,6 +27,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/CreateAccount" element={<CreateAccount />} />
+        </Routes>
+        <Routes>
+        <Route path="/Login" element={<Login/>} />
         </Routes>
       </div>
     </Router> 
