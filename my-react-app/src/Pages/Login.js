@@ -26,7 +26,7 @@ function Login() {
 
   // Handler for forgot password click, a feature not in CreateAccount.js but necessary for login
   const handleForgotPasswordClick = () => {
-    navigate('/ForgotPassword');
+    navigate('/RecoverPassword');
   }
 
   return (

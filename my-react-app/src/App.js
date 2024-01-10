@@ -7,6 +7,7 @@ import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
 import CreateAccount from './Pages/CreateAccount';
 import Login from './Pages/Login';
+import RecoverPassword from './Pages/RecoverPassword'; 
 import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
 
@@ -32,7 +33,8 @@ function App() {
         </Routes>
         <Routes>
         <Route path="/Login" element={<Login/>} />
-=======
+        <Route path="/RecoverPassword" element={<RecoverPassword/>} />
+
         <Route path="/CreateClass" element={<CreateClass />} />
         </Routes>
         <Routes>
