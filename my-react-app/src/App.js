@@ -7,7 +7,6 @@ import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
 import CreateAccount from './Pages/CreateAccount';
 
-
 // Root Component for React App
 function App() {
   return (
@@ -18,7 +17,7 @@ function App() {
           <Route path="/" element={<AccountSelection />} />
         </Routes>
         <Routes>
-          {/* If someone where to add the path below to their url, they would be redirected to the UserProfile page */}
+          {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
           <Route path="/UserProfile" element={<UserProfile />} />
         </Routes>
         <Routes>
