@@ -6,6 +6,8 @@ import AccountSelection from './Pages/AccountSelection';
 import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
 import CreateAccount from './Pages/CreateAccount';
+import CreateClass from './Pages/CreateClass';
+import JoinClass from './Pages/JoinClass';
 
 
 // Root Component for React App
@@ -26,6 +28,12 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/CreateAccount" element={<CreateAccount />} />
+        </Routes>
+        <Routes>
+          <Route path="/CreateClass" element={<CreateClass />} />
+        </Routes>
+        <Routes>
+          <Route path="/JoinClass" element={<JoinClass />} />
         </Routes>
       </div>
     </Router> 

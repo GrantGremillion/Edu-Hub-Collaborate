@@ -19,7 +19,7 @@ function CreateAccount() {
   const navigate = useNavigate();
   const handleClick = () => {
     // Use navigate to go to the UserProfile page
-    navigate('/UserProfile');
+    navigate('/JoinClass');
   }
 
   return (
