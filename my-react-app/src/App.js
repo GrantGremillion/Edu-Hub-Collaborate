@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AccountSelection from './Pages/AccountSelection';
 import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
+import CreateAccount from './Pages/CreateAccount';
 
 
 // Root Component for React App
@@ -22,6 +23,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
+        </Routes>
+        <Routes>
+          <Route path="/CreateAccount" element={<CreateAccount />} />
         </Routes>
       </div>
     </Router> 

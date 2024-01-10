@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, Divider} from '@mui/material';
+import {Button, Grid, Container, Box, TextField} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '.././Components/HeaderBox';
@@ -12,8 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 // background image
 import bg from '.././Images/bg.jpg';
-import pencil from '.././Images/pencil.png';
-import paper from '.././Images/paper.png';
+
 
 
 function AccountSelection() {
@@ -22,7 +21,7 @@ function AccountSelection() {
   const navigate = useNavigate();
   const handleClick = () => {
     // Use navigate to go to the UserProfile page
-    navigate('/CreateAccount');
+    navigate('/UserProfile');
   }
 
   return (
@@ -53,25 +52,27 @@ function AccountSelection() {
             alignItems="center"
             justifyContent="center">
           <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-            <HeaderBox text={'Select your account type'}></HeaderBox>
+            <HeaderBox text={'Create your account'}></HeaderBox>
           </Grid>
+
           <Grid item xs={1}>
-            <Button variant="contained"  size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
-              Student
+            <TextField id="filled-basic" label="Email" variant="filled" />
+          </Grid>
+
+          <Grid item xs={1}>
+            <TextField id="filled-basic" label="Password" variant="filled" type="password"/>
+          </Grid>
+
+          <Grid item xs={1}>
+            <TextField id="filled-basic" label="Confirm password" variant="filled" type="password"/>
+          </Grid>
+  
+          <Grid item xs={1}>
+            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%'}} >
+              Submit
             </Button>
           </Grid>
-          <Divider orientation="horizontal" flexItem style={{ margin: '5%', width: '50%', marginLeft: '28%', marginBottom: '0%'}} >or</Divider>
-          <Grid item xs={1}>
-            
-            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
-              Teacher
-            </Button>
-          </Grid>
-          <Grid item xs={1}>
-              <img src={pencil} alt="pencil" style={{marginTop: '5%', marginLeft: '65%', width: '35%'}} />
-            
-              <img src={paper} alt="paper" style={{ marginTop: '-40%', marginLeft: '-5%', width: '40%'}}/>     
-          </Grid>
+          
           
         </Grid>
       </Container>
