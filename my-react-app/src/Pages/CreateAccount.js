@@ -13,9 +13,7 @@ import { useNavigate } from 'react-router-dom';
 // background image
 import bg from '.././Images/bg.jpg';
 
-
-
-function AccountSelection() {
+function CreateAccount() {
   
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
@@ -80,5 +78,5 @@ function AccountSelection() {
     );
   }
 
-  export default AccountSelection;
+  export default CreateAccount;
   
