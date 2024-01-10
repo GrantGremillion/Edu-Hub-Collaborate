@@ -6,7 +6,9 @@ import AccountSelection from './Pages/AccountSelection';
 import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
 import CreateAccount from './Pages/CreateAccount';
-import Login from './Pages/Login'; 
+import Login from './Pages/Login';
+import CreateClass from './Pages/CreateClass';
+import JoinClass from './Pages/JoinClass';
 
 
 // Root Component for React App
@@ -19,7 +21,7 @@ function App() {
           <Route path="/" element={<AccountSelection />} />
         </Routes>
         <Routes>
-          {/* If someone where to add the path below to their url, they would be redirected to the UserProfile page */}
+          {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
           <Route path="/UserProfile" element={<UserProfile />} />
         </Routes>
         <Routes>
@@ -30,6 +32,11 @@ function App() {
         </Routes>
         <Routes>
         <Route path="/Login" element={<Login/>} />
+=======
+        <Route path="/CreateClass" element={<CreateClass />} />
+        </Routes>
+        <Routes>
+          <Route path="/JoinClass" element={<JoinClass />} />
         </Routes>
       </div>
     </Router> 

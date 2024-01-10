@@ -19,7 +19,11 @@ function CreateAccount() {
   const navigate = useNavigate();
   const handleClick = () => {
     // Use navigate to go to the UserProfile page
-    navigate('/UserProfile');
+    navigate('/JoinClass');
+  }
+  const handleClickBack = () => {
+    // Use navigate to go to the UserProfile page
+    navigate('/');
   }
 
   return (
@@ -68,6 +72,12 @@ function CreateAccount() {
           <Grid item xs={1}>
             <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%'}} >
               Submit
+            </Button>
+          </Grid>
+
+          <Grid item xs={1}>
+            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-10%', marginLeft: '-225%'}} >
+              Back
             </Button>
           </Grid>
           

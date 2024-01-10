@@ -1,0 +1,18 @@
+1/3-1/5/2024:
+Not much was done other than trying to figure out how to go about the creation of this.
+
+1/6-1/8/2024:
+I got all the necessary programs up and running allowing me to code. This was downloading
+all the componants to make my-react-app work. When all the installs 
+and pathing was done I got to work. I made my own branch and tested out how to use javascript 
+and webpages. I made a simple file for testing via grants previous work to help me gain 
+knowledge on the code. I eventually understood it leaving it there as I got sick...very sick.
+
+1/10:
+I restarted my work to be in line with everyone elses. I also left behind my branch to 
+avoid any merging pains. Createclass was made with simple code trying to use colors like 
+jeremy's and grant's. JoinClass was done the same. CreateClass has a simple 2 prompt input 
+for a teacher to fill in to create their class. Join class has one prompt if they are joining 
+a class and a view classes section to see other classes they already have. I also made 
+a label box from grant's header box to allow for smaller uses of simple labels. 
+I used one such case in the joinClass file.
