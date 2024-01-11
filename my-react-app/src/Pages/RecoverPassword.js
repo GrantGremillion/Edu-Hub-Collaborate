@@ -32,7 +32,9 @@ function RecoverPassword() {
                     width: '100%',
                     height: '100%'
                 }}
-            />
+            ></Box>
+
+                <NavBar text= 'Edu Hub Collaborate'></NavBar>
             <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}}>
                 <Grid container spacing={5}
                     direction="column"
