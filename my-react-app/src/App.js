@@ -32,7 +32,6 @@ function App() {
         </Routes>
         <Routes>
         <Route path="/Login" element={<Login/>} />
-=======
         <Route path="/CreateClass" element={<CreateClass />} />
         </Routes>
         <Routes>

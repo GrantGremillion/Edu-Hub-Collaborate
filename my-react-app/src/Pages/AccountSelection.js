@@ -43,7 +43,7 @@ function AccountSelection() {
       </Box>
     
 
-      <NavBar text='Edu Collaborate'></NavBar>
+      <NavBar text='Edu Hub Collaborate'></NavBar>
       
 
       {/* Container and Grid organizes HeaderBox and Buttons */}

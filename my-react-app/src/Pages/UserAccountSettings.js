@@ -41,7 +41,7 @@ function UserAccountSettings() {
             }}>
         </Box>
     
-        <NavBar text='Edu Collaborate'></NavBar>
+        <NavBar text='Edu Hub Collaborate'></NavBar>
         {/* Container and Grid organizes HeaderBox and Buttons */}
         <Container maxWidth='sm' style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}} >
             <Grid container spacing={5}
