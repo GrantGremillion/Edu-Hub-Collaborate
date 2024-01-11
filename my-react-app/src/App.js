@@ -20,27 +20,20 @@ function App() {
         <Routes>
           {/* The / indicates that this is the default/home page for the website */}
           <Route path="/" element={<AccountSelection />} />
-        </Routes>
-        <Routes>
+          
           {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
           <Route path="/UserProfile" element={<UserProfile />} />
-        </Routes>
-        <Routes>
+       
           <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
-        </Routes>
-        <Routes>
+       
           <Route path="/CreateAccount" element={<CreateAccount />} />
-        </Routes>
-        <Routes>
-        <Route path="/Login" element={<Login/>} />
-<<<<<<< HEAD
-=======
-        <Route path="/RecoverPassword" element={<RecoverPassword/>} />
+       
+          <Route path="/Login" element={<Login/>} />
 
->>>>>>> 3589a279b575658a2417a28370d04ddc76107713
-        <Route path="/CreateClass" element={<CreateClass />} />
-        </Routes>
-        <Routes>
+          <Route path="/RecoverPassword" element={<RecoverPassword/>} />
+
+          <Route path="/CreateClass" element={<CreateClass />} />
+       
           <Route path="/JoinClass" element={<JoinClass />} />
         </Routes>
       </div>

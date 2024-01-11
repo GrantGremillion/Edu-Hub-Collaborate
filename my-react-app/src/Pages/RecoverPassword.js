@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Button, Grid, Container, TextField, Box } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox'; // Assuming this is your custom header component
 import NavBar from '../Components/NavBar'; // Assuming this is your custom navigation component
-import { useNavigate } from 'react-router-dom';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 
 function RecoverPassword() {
     const [email, setEmail] = useState('');
-    const navigate = useNavigate();
+  
 
     const handleRequestVerification = async () => {
         // Here you would typically make an API call to your backend to handle the password recovery process
