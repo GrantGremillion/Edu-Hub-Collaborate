@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AccountSelection from './Pages/AccountSelection';
 import UserProfile from './Pages/UserProfile';
 import UserAccountSettings from './Pages/UserAccountSettings';
-import CreateAccount from './Pages/CreateAccount';
+import CreateStudentAccount from './Pages/CreateStudentAccount';
 import Login from './Pages/Login';
 import RecoverPassword from './Pages/RecoverPassword'; 
 import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
-
+import CreateTeacherAccount from './Pages/CreateTeacherAccount';
 
 // Root Component for React App
 function App() {
@@ -26,8 +26,10 @@ function App() {
        
           <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
        
-          <Route path="/CreateAccount" element={<CreateAccount />} />
-       
+          <Route path="/CreateStudentAccount" element={<CreateStudentAccount />} />
+
+          <Route path="/CreateTeacherAccount" element={<CreateTeacherAccount />} />
+
           <Route path="/Login" element={<Login/>} />
 
           <Route path="/RecoverPassword" element={<RecoverPassword/>} />

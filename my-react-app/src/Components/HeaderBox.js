@@ -31,7 +31,8 @@ function HeaderBox({text}) {
           bgcolor: 'primary.main',
           color: 'primary.white',
           zIndex: '0',
-          fontFamily: 'Courier New'
+          fontFamily: 'Courier New',
+          fontSize: 30
         }}
       >
         {text}

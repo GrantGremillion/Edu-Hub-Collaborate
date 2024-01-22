@@ -4,8 +4,8 @@ import * as React from 'react';
 import {Button, Grid, Container, Box, TextField} from '@mui/material';
 
 // Our own pre-built components in the components folder
-import HeaderBox from '.././Components/HeaderBox';
-import NavBar from '.././Components/NavBar'
+import HeaderBox from '../Components/HeaderBox';
+import NavBar from '../Components/NavBar'
 
 // Allows us to navigate between web pages
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 // background image
 import bg from '.././Images/bg.jpg';
 
-function CreateAccount() {
+function CreateStudentAccount() {
   
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ function CreateAccount() {
             alignItems="center"
             justifyContent="center">
           <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-            <HeaderBox text={'Create your account'}></HeaderBox>
+            <HeaderBox text={'Create your student account'}></HeaderBox>
           </Grid>
 
           <Grid item xs={1}>
@@ -88,5 +88,5 @@ function CreateAccount() {
     );
   }
 
-  export default CreateAccount;
+  export default CreateStudentAccount;
   

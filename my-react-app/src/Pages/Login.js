@@ -1,11 +1,10 @@
-
 import * as React from 'react';
 // Material UI components, similar to CreateAccount.js
 import {Button, Grid, Container, Box, TextField} from '@mui/material';
 
 // Importing custom components as used in CreateAccount.js
-import HeaderBox from '.././Components/HeaderBox';
-import NavBar from '.././Components/NavBar'; 
+import HeaderBox from '../Components/HeaderBox';
+import NavBar from '../Components/NavBar'; 
 
 // Using the same navigation functionality
 import { useNavigate } from 'react-router-dom';
