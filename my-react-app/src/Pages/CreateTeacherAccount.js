@@ -24,6 +24,10 @@ function CreateTeacherAccount() {
     // Use navigate to go to the UserProfile page
     navigate('/');
   }
+  const handleLoginClick = () => {
+    // Use navigate to go to the UserProfile page
+    navigate('/Login');
+  }
 
   return (
     <div>
@@ -69,14 +73,18 @@ function CreateTeacherAccount() {
           </Grid>
   
           <Grid item xs={1}>
-            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%'}} >
+            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
               Submit
             </Button>
           </Grid>
 
           <Grid item xs={1}>
-            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-10%', marginLeft: '-225%'}} >
+            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '3%', marginLeft: '-30%'}} >
               Back
+            </Button>
+
+            <Button fullWidth color="secondary" size="small" onClick={handleLoginClick} sx={{ width: '235px', marginTop: '-20%', marginLeft: '65%'}}>
+              Already have an account?
             </Button>
           </Grid>
           

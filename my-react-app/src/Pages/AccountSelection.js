@@ -20,9 +20,13 @@ function AccountSelection() {
   
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
-  const handleClick = () => {
-    // Use navigate to go to the UserProfile page
-    navigate('/CreateAccount');
+  const handleStudentClick = () => {
+    // Use navigate to go to the student account creation page
+    navigate('/CreateStudentAccount');
+  }
+  const handleTeacherClick = () => {
+    // Use navigate to go to the teacher account creation page
+    navigate('/CreateTeacherAccount');
   }
 
   return (
@@ -56,14 +60,14 @@ function AccountSelection() {
             <HeaderBox text={'Select your account type'}></HeaderBox>
           </Grid>
           <Grid item xs={1}>
-            <Button variant="contained"  size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
+            <Button variant="contained"  size="large"  onClick={handleStudentClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
               Student
             </Button>
           </Grid>
           <Divider orientation="horizontal" flexItem style={{ margin: '5%', width: '50%', marginLeft: '28%', marginBottom: '0%'}} >or</Divider>
           <Grid item xs={1}>
             
-            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
+            <Button variant="contained" size="large"  onClick={handleTeacherClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
               Teacher
             </Button>
           </Grid>

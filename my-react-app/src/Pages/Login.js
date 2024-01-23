@@ -22,7 +22,10 @@ function Login() {
     // Logic to authenticate user (to be implemented)
     navigate('/UserProfile'); // Navigating to user profile after successful login
   }
-
+  const handleClickBack = () => {
+    // Use navigate to go to the UserProfile page
+    navigate('/');
+  }
   // Handler for forgot password click, a feature not in CreateAccount.js but necessary for login
   const handleForgotPasswordClick = () => {
     navigate('/RecoverPassword');
@@ -72,11 +75,16 @@ function Login() {
               Login
             </Button>
           </Grid>
-          <Grid item xs={12}>
-            <Button fullWidth color="secondary" onClick={handleForgotPasswordClick}>
-              Forgot Password?
+
+          <Grid item xs={1}>
+            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%', marginLeft: '-30%'}} >
+              Back
+            </Button>
+            <Button fullWidth color="secondary" size="small" onClick={handleForgotPasswordClick} sx={{ width: '235px', marginTop: '-15%', marginLeft: '65%'}}>
+              Forgot password?
             </Button>
           </Grid>
+          
         </Grid>
       </Container>
     </div>
