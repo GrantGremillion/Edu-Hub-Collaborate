@@ -9,19 +9,47 @@ import NavBar from '../Components/NavBar';
 // Using the same navigation functionality
 import { useNavigate } from 'react-router-dom';
 
+import {useState} from 'react';
+
 // Assuming the use of the same background image
 import bg from '.././Images/bg.jpg';
+// Used to make http requests from the browser
+import axios from 'axios'
 
 function Login() {
-  
-  // Navigation handler, similar to CreateAccount.js
+
+
+  const [values, setValues] = useState({
+    email: '',
+    password: ''
+  })
+
+  // Navigation handler
   const navigate = useNavigate();
 
-  // Handler for login button click, similar structure to the account creation process
-  const handleLoginClick = () => {
-    // Logic to authenticate user (to be implemented)
-    navigate('/UserProfile'); // Navigating to user profile after successful login
+
+  // Handler for login button click
+  // e = event object
+  const handleLoginClick = (e) => {
+
+    // Prevent default event (e) from occuring
+    e.preventDefault();
+    // sends an HTTP POST request to the URL login backend API
+    axios.post('http://localhost:8081/login', values)
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/UserProfile')
+      }
+      else{
+        alert(res.data.Message)
+      }
+    })
+    .catch(err => console.log(err));
   }
+
+
   const handleClickBack = () => {
     // Use navigate to go to the UserProfile page
     navigate('/');
@@ -58,19 +86,23 @@ function Login() {
             direction="column"
             alignItems="center"
             justifyContent="center">
-          <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
+          <Grid item xs={1} style={{ marginTop: '20px', marginBottom: '20px'}}>
             <HeaderBox text={'Login to your account'}></HeaderBox>
           </Grid>
+
+
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="College Email" variant="filled" />
+            <TextField id="filled-basic" label="College Email" variant="filled" 
+             onChange={e => setValues({...values,email:e.target.value})}/>
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Password" variant="filled" type="password"/>
+            <TextField id="filled-basic" label="Password" variant="filled" type="password"
+             onChange={e => setValues({...values,password:e.target.value})}/>
           </Grid>
 
-          
-          <Grid item xs={12}>
+      
+          <Grid item xs={1}>
             <Button fullWidth variant="contained" color="primary" onClick={handleLoginClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%'}} >
               Login
             </Button>

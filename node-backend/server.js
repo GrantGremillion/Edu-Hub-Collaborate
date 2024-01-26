@@ -1,50 +1,58 @@
-const express = require('express')
-// Express Mysql API
-const mysql = require('mysql')
-//const serveIndex = require('serve-index');
+import express from "express";
+import mysql from 'mysql2';
+import cors from 'cors';
+import cookieParser from "cookie-parser";
+import jwt from 'jsonwebtoken'
 
-const app = express()
+const app = express();
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'database'
-  })
-  
-  connection.connect()
-  
-  connection.query('SELECT 1+1 AS solution', (err, rows, fields) => {
-    if (err) throw err
-  
-    console.log('The solution is: ', rows[0].solution)
-  })
-  
-  connection.end()
+// built in middleware function express.json for parsing json data
+app.use(express.json());
 
-// // Sample middleware function
-// app.use((req, res, next) => {
-//     console.log('Time: ', Date.now());
-//     // tells the middleware to go to the next middleware function
-//     next();
-// });
+// built in middleware to allow users to request recources
+app.use(cors(
+  {
+    origin: "*",
 
-// // Will only work for requests sent to localhost:3000/request-type
-// app.use('/request-type', (req, res, next) => {
-//     console.log('Request type: ', req.method);
-//     next();
-// });
+  }
+))
 
-//app.use('/public', express.static('public'));
-//app.use('/public', serveIndex('public'));
-
-// routes
-app.get('/', (req,res) =>{
-    res.send('Hello Node API')
+// Creating connection to mysql database
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "database"
 })
 
 
 
-app.listen(5000, ()=>{
-    console.log('Node API app is running on port 5000')
+// Login API
+app.post('/login', (req,res) => {
+  const sql = "SELECT * FROM login WHERE email = ? AND password = ?"
+
+  // Send query to db to search for account with email=req.body.email and password=req.body.password
+  db.query(sql, [req.body.email, req.body.password], (err,data) => {
+ 
+    console.log(data)
+    if(err) return res.json({Message: "Server Side Error"});
+    // If a result was found with matching email and password in the db
+    if(data.length > 0){
+        const id = data[0].id;
+        // Store id of account in a cookie for later use
+        res.cookie('id', id);
+        return res.json({Status: "Success"})
+    }
+    else{
+      return res.json({Message: "No Records existed"});
+    }
+  })
+}) 
+
+
+
+// Start app
+app.listen(8081, ()=> {
+  console.log("Running")
 })
+

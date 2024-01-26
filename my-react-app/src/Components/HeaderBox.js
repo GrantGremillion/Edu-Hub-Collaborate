@@ -27,7 +27,6 @@ function HeaderBox({text}) {
           alignItems: 'center',
           justifyContent: 'center',
           display: 'flex',
-          fontSize: '2rem', 
           bgcolor: 'primary.main',
           color: 'primary.white',
           zIndex: '0',
