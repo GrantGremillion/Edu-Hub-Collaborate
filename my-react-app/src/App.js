@@ -11,6 +11,7 @@ import RecoverPassword from './Pages/RecoverPassword';
 import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
 import CreateTeacherAccount from './Pages/CreateTeacherAccount';
+import ChatInterface from './Pages/ChatInterface';
 
 // Root Component for React App
 function App() {
@@ -35,9 +36,12 @@ function App() {
           <Route path="/RecoverPassword" element={<RecoverPassword/>} />
 
           <Route path="/CreateClass" element={<CreateClass />} />
+
+          <Route path="/ChatInterface" element={<ChatInterface />} />
        
           <Route path="/JoinClass" element={<JoinClass />} />
         </Routes>
+          
       </div>
     </Router> 
   );
