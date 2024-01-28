@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Grid, Container, TextField, Box } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox'; // Assuming this is your custom header component
-import NavBar from '../Components/NavBar'; // Assuming this is your custom navigation component
+import NavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 
 function RecoverPassword() {
@@ -33,7 +33,6 @@ function RecoverPassword() {
                 }}
             ></Box>
 
-                <NavBar text= 'Edu Hub Collaborate'></NavBar>
             <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}}>
                 <Grid container spacing={5}
                     direction="column"

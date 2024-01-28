@@ -7,7 +7,7 @@ import HeaderBox from '.././Components/HeaderBox';
 import LabelBox from '.././Components/LabelBox';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
-import NavBar from '../Components/NavBar'; // Assuming this is your custom navigation component
+import NavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 
 function JoinClass() {
 
@@ -30,7 +30,7 @@ return (
             }}
         ></Box>
 
-            <NavBar text= 'Edu Hub Collaborate'></NavBar>
+            
         <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}}>
 
 

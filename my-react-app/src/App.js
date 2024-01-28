@@ -12,6 +12,7 @@ import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
 import CreateTeacherAccount from './Pages/CreateTeacherAccount';
 import ChatInterface from './Pages/ChatInterface';
+import Home from './Pages/Home';
 
 // Root Component for React App
 function App() {
@@ -40,6 +41,8 @@ function App() {
           <Route path="/ChatInterface" element={<ChatInterface />} />
        
           <Route path="/JoinClass" element={<JoinClass />} />
+
+          <Route path="/Home" element={<Home />} />
         </Routes>
           
       </div>

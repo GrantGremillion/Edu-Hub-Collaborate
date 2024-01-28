@@ -4,7 +4,7 @@ import * as React from 'react';
 import {Button, Grid, Container, Box, TextField} from '@mui/material';
 // Premade components we set up and put in the Components folder for reusability
 import HeaderBox from '.././Components/HeaderBox';
-import NavBar from '.././Components/NavBar'
+import NavBar from '../Components/PlainNavBar'
 // Used to navigate between web pages
 import { useNavigate } from 'react-router-dom';
 // solid background images for website

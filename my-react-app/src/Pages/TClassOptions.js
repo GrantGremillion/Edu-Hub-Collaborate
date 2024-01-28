@@ -30,7 +30,7 @@ return (
             }}
         ></Box>
 
-            <NavBar text= 'Edu Hub Collaborate'></NavBar>
+            
         <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}}>
 
 

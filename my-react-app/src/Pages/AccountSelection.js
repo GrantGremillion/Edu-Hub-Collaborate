@@ -3,9 +3,9 @@ import * as React from 'react';
 // Material UI components
 import {Button, Grid, Container, Box, Divider} from '@mui/material';
 
-// Our own pre-built components in the components folder
+// Our own custom-built components 
 import HeaderBox from '.././Components/HeaderBox';
-import NavBar from '.././Components/NavBar'
+import NavBar from '../Components/PlainNavBar'
 
 // Allows us to navigate between web pages
 import { useNavigate } from 'react-router-dom';

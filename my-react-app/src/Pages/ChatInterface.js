@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Grid, Container, Box, TextField } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
-import NavBar from '../Components/NavBar';
+import NavBar from '../Components/PlainNavBar';
 import { useState } from 'react';
 import bg from '.././Images/bg.jpg'; // Assuming the use of the same background image
 
