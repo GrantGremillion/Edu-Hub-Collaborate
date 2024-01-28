@@ -30,7 +30,7 @@ function UserProfile() {
             <div>
                 {/* Box used to display background image - bg.jpg */}
                 <Box
-                    class="bg"
+                    className="bg"
                     style={{
                     backgroundImage: `url(${dark_bg})`,
                     backgroundSize: "cover",
@@ -94,7 +94,7 @@ function UserProfile() {
             <div>
                 {/* Box used to display background image - bg.jpg */}
                 <Box
-                    class="bg"
+                    className="bg"
                     style={{
                     backgroundImage: `url(${bg})`,
                     backgroundSize: "cover",

@@ -13,14 +13,46 @@ import { useNavigate } from 'react-router-dom';
 // background image
 import bg from '.././Images/bg.jpg';
 
+import axios from 'axios';
+
+
 function CreateStudentAccount() {
   
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
-  const handleClick = () => {
-    // Use navigate to go to the UserProfile page
-    navigate('/JoinClass');
+
+
+  const [values, setValues] = React.useState({
+    email: '',
+    password: '',
+    cpassword: ''
+  })
+
+
+  // Handler for login button click
+  // e = event object
+  const handleClickSubmit = (e) => {
+
+    // Prevent default event (e) from occuring
+    e.preventDefault();
+    // sends an HTTP POST request to the URL login backend API
+    axios.post('http://localhost:8081/create_account', values)
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/Login')
+      }
+      else{
+        alert(res.data.Status)
+      }
+      
+    })
+    //.catch(err => console.log(err.response.data));
   }
+
+
+
   const handleClickBack = () => {
     // Use navigate to go to the UserProfile page
     navigate('/');
@@ -34,7 +66,7 @@ function CreateStudentAccount() {
     <div>
       {/* Box used to display background image - bg.jpg */}
       <Box
-        class="bg"
+        className="bg"
         style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
@@ -62,19 +94,22 @@ function CreateStudentAccount() {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Email" variant="filled" />
+            <TextField id="filled-basic" label="Email" variant="filled" 
+             onChange={e => setValues({...values,email:e.target.value})}/>
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Password" variant="filled" type="password"/>
+            <TextField id="filled-basic" label="Password" variant="filled" type="password"
+             onChange={e => setValues({...values,password:e.target.value})}/>
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Confirm password" variant="filled" type="password"/>
+            <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
+             onChange={e => setValues({...values,cpassword:e.target.value})}/>
           </Grid>
   
           <Grid item xs={1}>
-            <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
+            <Button variant="contained" size="large"  onClick={handleClickSubmit} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
               Submit
             </Button>
           </Grid>

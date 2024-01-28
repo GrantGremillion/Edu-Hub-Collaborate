@@ -63,7 +63,7 @@ function Login() {
     <div>
        <NavBar />
       <Box
-        class="bg"
+        className="bg"
         style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
