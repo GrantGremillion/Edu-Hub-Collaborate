@@ -11,6 +11,8 @@ import RecoverPassword from './Pages/RecoverPassword';
 import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
 import CreateTeacherAccount from './Pages/CreateTeacherAccount';
+import TClassOptions from './Pages/TClassOptions';
+import TeacherAnswering from './Pages/TeacherAnswering'
 import ChatInterface from './Pages/ChatInterface';
 import Home from './Pages/Home';
 
@@ -41,6 +43,10 @@ function App() {
           <Route path="/ChatInterface" element={<ChatInterface />} />
        
           <Route path="/JoinClass" element={<JoinClass />} />
+
+          <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
+
+          <Route path="/TClassOptions" element={<TClassOptions />} />
 
           <Route path="/Home" element={<Home />} />
         </Routes>
