@@ -11,7 +11,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-
 const pages = ['Classes'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -19,6 +18,7 @@ function HomeNavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  // eslint-disable-next-line
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -75,7 +75,6 @@ function HomeNavBar() {
               ))}
             </Menu>
           </Box>
-          
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

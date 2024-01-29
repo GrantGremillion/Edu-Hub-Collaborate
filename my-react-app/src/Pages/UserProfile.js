@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 // solid background images for website
 import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
+// handles darkmode toggle on the page
 import {DARKMODE} from '.././Config';
-
 
 function UserProfile() {
 
@@ -23,6 +23,9 @@ function UserProfile() {
     }
     const goToSettings = () => {
         navigate("/UserAccountSettings");
+    }
+    const goToHome = () => {
+        navigate("/");
     }
 
     if (DARKMODE) {
@@ -81,6 +84,12 @@ function UserProfile() {
                         <Grid item xs={4}>
                             <Button size="small"  onClick={goToSettings} style={{ color: 'white', width: '200px', background: '#009688'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
                                 Account Settings
+                            </Button>
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <Button size="small"  onClick={goToHome} style={{ color: 'white', width: '200px', background: '#009688'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
+                                Back to Home
                             </Button>
                         </Grid>
 
@@ -145,6 +154,12 @@ function UserProfile() {
                         <Grid item xs={4}>
                             <Button size="small"  onClick={goToSettings} style={{ color: 'black', width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
                                 Account Settings
+                            </Button>
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <Button size="small"  onClick={goToHome} style={{ color: 'black', width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
+                                Back to Home
                             </Button>
                         </Grid>
 

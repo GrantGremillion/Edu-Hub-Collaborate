@@ -1,14 +1,11 @@
-
 import * as React from 'react';
 import {Box} from '@mui/material';
 
 // Our own custom-built components 
 import HomeNavBar from '../Components/HomeNavBar';
 
-
 // background image
 import bg from '.././Images/bg.jpg';
-
 
 function Home() {
   
