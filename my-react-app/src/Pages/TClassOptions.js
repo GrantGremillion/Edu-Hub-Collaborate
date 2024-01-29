@@ -7,14 +7,14 @@ import HeaderBox from '.././Components/HeaderBox';
 import LabelBox from '.././Components/LabelBox';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
-import NavBar from '../Components/NavBar'; // Assuming this is your custom navigation component
 import Sidebar from '../Components/Sidebar';
+import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 
 function TClassOptions() {
 
 return (
   <div className="TClassOptions" id="outer-container">
-          <NavBar />
+  <div>
         <Box
             id="page-wrap"
             className="bg"
@@ -31,9 +31,9 @@ return (
                 height: '100%'
             }}
         ></Box>
-            <NavBar text= 'Edu Hub Collaborate'></NavBar>
+            <PlainNavBar text= 'Edu Hub Collaborate'></PlainNavBar>
             <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
-            
+        </div>
   </div>
   );
 }

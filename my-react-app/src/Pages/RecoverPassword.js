@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Grid, Container, TextField, Box } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox'; // Assuming this is your custom header component
-import NavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
+import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 
 function RecoverPassword() {
@@ -16,7 +16,7 @@ function RecoverPassword() {
 
     return (
         <div>
-            <NavBar />
+            <PlainNavBar />
             <Box
                 className="bg"
                 style={{

@@ -5,7 +5,7 @@ import {Button, Grid, Container, Box, TextField} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
-import NavBar from '../Components/PlainNavBar'
+import PlainNavBar from '../Components/PlainNavBar'
 
 // Allows us to navigate between web pages
 import { useNavigate } from 'react-router-dom';
@@ -80,7 +80,7 @@ function CreateStudentAccount() {
       </Box>
     
 
-      <NavBar text='Edu Hub Collaborate'></NavBar>
+      <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
       
 
       {/* Container and Grid organizes HeaderBox and Buttons */}

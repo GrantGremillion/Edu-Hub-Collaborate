@@ -5,7 +5,7 @@ import {Button, Grid, Container, Box, Divider} from '@mui/material';
 
 // Our own custom-built components 
 import HeaderBox from '.././Components/HeaderBox';
-import NavBar from '../Components/PlainNavBar'
+import PlainNavBar from '../Components/PlainNavBar'
 
 // Allows us to navigate between web pages
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +47,7 @@ function AccountSelection() {
       </Box>
     
 
-      <NavBar text='Edu Hub Collaborate'></NavBar>
+      <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
       
 
       {/* Container and Grid organizes HeaderBox and Buttons */}

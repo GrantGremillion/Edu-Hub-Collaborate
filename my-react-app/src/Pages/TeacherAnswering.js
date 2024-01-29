@@ -4,16 +4,24 @@ import {Button, Grid, Container, TextField, Box} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '.././Components/HeaderBox';
-import LabelBox from '.././Components/LabelBox';
+
+// Allows us to navigate between web pages
+import { useNavigate } from 'react-router-dom';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
-import NavBar from '../Components/NavBar'; // Assuming this is your custom navigation component
+import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 
 function TeacherAnswering() {
 
+const navigate = useNavigate();
+const handleClickBack = () => {
+  // Use navigate to go to the UserProfile page
+  navigate('/');
+}
+
 return (
   <div>
-          <NavBar />
+          <PlainNavBar />
         <Box
             className="bg"
             style={{
@@ -39,23 +47,23 @@ return (
         alignItems="center"
         justifyContent="center">
         <Grid item>
-          <HeaderBox text="Student Classes" />
+          <HeaderBox text="Student Question" />
 
         </Grid>
         <Grid item xs={2}>
-          <TextField variant="filled" label="Class ID" />
+          <TextField variant="filled" label="Answer Here" />
 
         </Grid>
         <Grid item xs={2}>
-          <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px'}} >
-            Join Class
+          <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
+            Submit Answer
           </Button>
-
         </Grid>
-        <Grid item xs={2}>
-          <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px'}} >
-            View Classes
-          </Button>
+
+        <Grid item xs={1}>
+        <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '310%', marginLeft: '-230%'}} >
+          Back
+        </Button>
 
         </Grid> 
 
