@@ -11,6 +11,8 @@ import RecoverPassword from './Pages/RecoverPassword';
 import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
 import CreateTeacherAccount from './Pages/CreateTeacherAccount';
+import TClassOptions from './Pages/TClassOptions';
+import TeacherAnswering from './Pages/TeacherAnswering'
 
 // Root Component for React App
 function App() {
@@ -37,6 +39,10 @@ function App() {
           <Route path="/CreateClass" element={<CreateClass />} />
        
           <Route path="/JoinClass" element={<JoinClass />} />
+
+          <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
+
+          <Route path="/TClassOptions" element={<TClassOptions />} />
         </Routes>
       </div>
     </Router> 

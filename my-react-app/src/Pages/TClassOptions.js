@@ -8,13 +8,15 @@ import LabelBox from '.././Components/LabelBox';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import NavBar from '../Components/NavBar'; // Assuming this is your custom navigation component
+import Sidebar from '../Components/Sidebar';
 
 function TClassOptions() {
 
 return (
-  <div>
+  <div className="TClassOptions" id="outer-container">
           <NavBar />
         <Box
+            id="page-wrap"
             className="bg"
             style={{
                 backgroundImage: `url(${bg})`,
@@ -29,38 +31,8 @@ return (
                 height: '100%'
             }}
         ></Box>
-
             <NavBar text= 'Edu Hub Collaborate'></NavBar>
-        <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}}>
-
-
-      <Grid container spacing={4}
-        direction="column"
-        alignItems="center"
-        justifyContent="center">
-        <Grid item>
-          <HeaderBox text="Student Classes" />
-
-        </Grid>
-        <Grid item xs={2}>
-          <TextField variant="filled" label="Class ID" />
-
-        </Grid>
-        <Grid item xs={2}>
-          <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px'}} >
-            Join Class
-          </Button>
-
-        </Grid>
-        <Grid item xs={2}>
-          <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px'}} >
-            View Classes
-          </Button>
-
-        </Grid> 
-
-      </Grid>
-    </Container>   
+            <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
   </div>
   );
 }
