@@ -33,6 +33,7 @@ return (
         ></Box>
             <NavBar text= 'Edu Hub Collaborate'></NavBar>
             <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
+            
   </div>
   );
 }

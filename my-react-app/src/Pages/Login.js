@@ -4,7 +4,7 @@ import {Button, Grid, Container, Box, TextField} from '@mui/material';
 
 // Importing custom components as used in CreateAccount.js
 import HeaderBox from '../Components/HeaderBox';
-import NavBar from '../Components/NavBar'; 
+import NavBar from '../Components/PlainNavBar'; 
 
 // Using the same navigation functionality
 import { useNavigate } from 'react-router-dom';
@@ -63,7 +63,7 @@ function Login() {
     <div>
        <NavBar />
       <Box
-        class="bg"
+        className="bg"
         style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
@@ -78,7 +78,7 @@ function Login() {
         }}
       ></Box>
 
-        <NavBar text='Edu Hub Collaborate'></NavBar>
+        
 
 
       <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}} >

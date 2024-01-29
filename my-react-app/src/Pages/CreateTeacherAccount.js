@@ -4,7 +4,7 @@ import {Button, Grid, Container, Box, TextField} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
-import NavBar from '../Components/NavBar'
+import NavBar from '../Components/PlainNavBar'
 
 // Allows us to navigate between web pages
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,7 @@ function CreateTeacherAccount() {
     <div>
       {/* Box used to display background image - bg.jpg */}
       <Box
-        class="bg"
+        className="bg"
         style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",

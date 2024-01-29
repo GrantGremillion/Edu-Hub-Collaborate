@@ -13,6 +13,8 @@ import JoinClass from './Pages/JoinClass';
 import CreateTeacherAccount from './Pages/CreateTeacherAccount';
 import TClassOptions from './Pages/TClassOptions';
 import TeacherAnswering from './Pages/TeacherAnswering'
+import ChatInterface from './Pages/ChatInterface';
+import Home from './Pages/Home';
 
 // Root Component for React App
 function App() {
@@ -37,13 +39,18 @@ function App() {
           <Route path="/RecoverPassword" element={<RecoverPassword/>} />
 
           <Route path="/CreateClass" element={<CreateClass />} />
+
+          <Route path="/ChatInterface" element={<ChatInterface />} />
        
           <Route path="/JoinClass" element={<JoinClass />} />
 
           <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
 
           <Route path="/TClassOptions" element={<TClassOptions />} />
+
+          <Route path="/Home" element={<Home />} />
         </Routes>
+          
       </div>
     </Router> 
   );

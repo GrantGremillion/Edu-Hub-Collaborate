@@ -4,7 +4,7 @@ import * as React from 'react';
 import {Button, Grid, Container, Box, TextField} from '@mui/material';
 // Premade components we set up and put in the Components folder for reusability
 import HeaderBox from '.././Components/HeaderBox';
-import NavBar from '.././Components/NavBar'
+import NavBar from '../Components/PlainNavBar'
 // Used to navigate between web pages
 import { useNavigate } from 'react-router-dom';
 // solid background images for website
@@ -30,7 +30,7 @@ function UserProfile() {
             <div>
                 {/* Box used to display background image - bg.jpg */}
                 <Box
-                    class="bg"
+                    className="bg"
                     style={{
                     backgroundImage: `url(${dark_bg})`,
                     backgroundSize: "cover",
@@ -94,7 +94,7 @@ function UserProfile() {
             <div>
                 {/* Box used to display background image - bg.jpg */}
                 <Box
-                    class="bg"
+                    className="bg"
                     style={{
                     backgroundImage: `url(${bg})`,
                     backgroundSize: "cover",
