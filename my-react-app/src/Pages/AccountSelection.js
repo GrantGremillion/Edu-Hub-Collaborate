@@ -101,10 +101,10 @@ function AccountSelection() {
           }}>
         </Box>
       
-        <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
+        <PlainNavBar></PlainNavBar>
         
         {/* Container and Grid organizes HeaderBox and Buttons */}
-        <Container maxWidth='sm' style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}} >
+        <Container  maxWidth='sm' style={{ background: '#e0f2f1', marginTop: '75px', marginBottom:'75px'}} >
           <Grid container spacing={5}
               direction="column"
               alignItems="center"

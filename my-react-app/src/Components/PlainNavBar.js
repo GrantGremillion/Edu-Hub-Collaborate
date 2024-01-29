@@ -13,9 +13,11 @@ function PlainNavBar() {
         <Toolbar>
           <Typography
             variant="h4"
+            marginLeft="-5%"
             sx={{
               mr: 8,
               fontFamily: 'Corier New',
+              fontSize: '200%',
               letterSpacing: '.2rem',
             }}
           >

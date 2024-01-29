@@ -41,7 +41,7 @@ function Login() {
     // testing 
     .then(res => {
       if(res.data.Status === "Success") {
-        navigate('/UserProfile')
+        navigate('/Home')
       }
       else{
         alert(res.data.Message)
