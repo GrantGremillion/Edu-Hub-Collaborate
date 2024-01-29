@@ -6,13 +6,13 @@ import {Button, Grid, Container, TextField, Box} from '@mui/material';
 import HeaderBox from '.././Components/HeaderBox';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
-import NavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
+import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 
 function CreateClass() {
 
 return (
   <div>
-          <NavBar />
+          <PlainNavBar />
         <Box
             className="bg"
             style={{

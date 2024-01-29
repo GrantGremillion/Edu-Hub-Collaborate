@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import {Button, Grid, Container, Box, Switch, FormGroup, FormControlLabel} from '@mui/material';
 // Premade components we set up and put in the Components folder for reusability
 import HeaderBox from '.././Components/HeaderBox';
-import NavBar from '../Components/PlainNavBar'
+import PlainNavBar from '../Components/PlainNavBar'
 // Used to navigate between web pages
 import { useNavigate } from 'react-router-dom';
 // solid background image for website
@@ -55,7 +55,7 @@ function UserAccountSettings() {
                     }}>
                 </Box>
             
-                <NavBar text='Edu Hub Collaborate'></NavBar>
+                <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
                 {/* Container and Grid organizes HeaderBox and Buttons */}
                 <Container maxWidth='sm' style={{ background: '#216E6B', marginTop: '75px', height: '700px', marginBottom:'75px'}} >
                     <Grid container spacing={5}
@@ -138,7 +138,7 @@ function UserAccountSettings() {
                 }}>
             </Box>
         
-            <NavBar text='Edu Hub Collaborate'></NavBar>
+            <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
             {/* Container and Grid organizes HeaderBox and Buttons */}
             <Container maxWidth='sm' style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}} >
                 <Grid container spacing={5}

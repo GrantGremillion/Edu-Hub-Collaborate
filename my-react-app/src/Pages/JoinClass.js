@@ -7,13 +7,13 @@ import HeaderBox from '.././Components/HeaderBox';
 import LabelBox from '.././Components/LabelBox';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
-import NavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
+import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 
 function JoinClass() {
 
 return (
   <div>
-          <NavBar />
+          <PlainNavBar />
         <Box
             className="bg"
             style={{
