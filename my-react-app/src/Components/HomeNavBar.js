@@ -6,33 +6,46 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const pages = ['View Classes', 'Join a class', 'Settings'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { useNavigate } from 'react-router-dom';
+
+const settings = ['User Profile', 'Account Settings', 'Logout'];
 
 function HomeNavBar() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   // eslint-disable-next-line
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+ 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
+  }
+
+  
+
+  const handleViewClassesClick = () => {
+    // Use navigate to go to the student account creation page
+    navigate('/TClassOptions');
+  }
+
+  const handleJoinAClassClick = () => {
+    // Use navigate to go to the student account creation page
+    navigate('/JoinClass');
+  }
+
+  const handleSettingsClick = () => {
+    // Use navigate to go to the student account creation page
+    alert('needs implementation')
+  }
 
   return (
     <AppBar position="static" sx={{background:'#009688'}}>
@@ -55,22 +68,22 @@ function HomeNavBar() {
 
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ mr:'5%',my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
+              <Button onClick={handleViewClassesClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+                View Classes
               </Button>
-            ))}
+              <Button onClick={handleJoinAClassClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+                Join a class
+              </Button>
+              <Button onClick={handleSettingsClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+                Settings
+              </Button>
           </Box>
 
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }}></AccountCircleIcon>
               </IconButton>
             </Tooltip>
             <Menu
