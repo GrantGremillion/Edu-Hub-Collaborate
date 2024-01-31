@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as DarkOptions from '.././Config';
+import GoBackButton from '../Components/GoBackButton';
 
 
 function UserAccountSettings() {
@@ -191,6 +192,9 @@ function UserAccountSettings() {
                             Return to Profile
                         </Button>
                     </Grid>
+                    <Grid item xs={12}>
+                        <GoBackButton />
+                        </Grid>
                 </Grid>
             </Container>
         </div>  

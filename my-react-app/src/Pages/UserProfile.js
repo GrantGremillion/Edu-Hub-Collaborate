@@ -12,6 +12,7 @@ import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 // handles darkmode toggle on the page
 import {DARKMODE} from '.././Config';
+import GoBackButton from '../Components/GoBackButton';
 
 function UserProfile() {
 
@@ -162,7 +163,9 @@ function UserProfile() {
                                 Back to Home
                             </Button>
                         </Grid>
-
+                        <Grid item xs={12}>
+                            <GoBackButton />
+                            </Grid>
                     </Grid>
                 </Container>
             </div>

@@ -7,6 +7,7 @@ import HeaderBox from '.././Components/HeaderBox';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
+import GoBackButton from '../Components/GoBackButton';
 
 function CreateClass() {
 
@@ -54,7 +55,9 @@ return (
             </Button>
 
           </Grid> 
-
+          <Grid item xs={12}>
+            <GoBackButton />
+            </Grid>
         </Grid>
       </Container>
   </div>

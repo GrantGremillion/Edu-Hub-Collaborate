@@ -4,6 +4,7 @@ import HeaderBox from '../Components/HeaderBox';
 import PlainNavBar from '../Components/PlainNavBar';
 import { useState } from 'react';
 import bg from '.././Images/bg.jpg'; // Assuming the use of the same background image
+import GoBackButton from '../Components/GoBackButton';
 
 function ChatInterface() {
   const [message, setMessage] = useState('');
@@ -84,7 +85,9 @@ function ChatInterface() {
               />
             </Button>
           </Grid>
-
+          <Grid item xs={12}>
+            <GoBackButton />
+            </Grid>
         </Grid>
       </Container>
     </div>
