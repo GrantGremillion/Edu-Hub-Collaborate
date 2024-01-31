@@ -3,15 +3,11 @@ import { Button, Grid, Container, TextField, Box } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox'; // Assuming this is your custom header component
 import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
-<<<<<<< Updated upstream
 // Using the same navigation functionality
 import { useNavigate } from 'react-router-dom';
 // used to handle user toggled dark mode
 import dark_bg from '.././Images/dark_bg.jpg';
 import {DARKMODE} from '.././Config';
-=======
-import GoBackButton from '../Components/GoBackButton';
->>>>>>> Stashed changes
 
 function RecoverPassword() {
     const [email, setEmail] = useState('');
@@ -149,31 +145,12 @@ function RecoverPassword() {
                             </Button>
                         </Grid>
                     </Grid>
-<<<<<<< Updated upstream
+
                 </Container>
             </div>
         );
     }
     
-=======
-                    <Grid item xs={12}>
-                        <Button 
-                            fullWidth 
-                            variant="contained" 
-                            style={{ background: '#004d40', color: 'white' }}
-                            onClick={handleRequestVerification}
-                        >
-                            Request Verification Code
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <GoBackButton />
-                        </Grid>
-                </Grid>
-            </Container>
-        </div>
-    );
->>>>>>> Stashed changes
 }
 
 export default RecoverPassword;
