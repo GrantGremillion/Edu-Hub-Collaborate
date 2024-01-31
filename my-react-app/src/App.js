@@ -14,6 +14,7 @@ import CreateTeacherAccount from './Pages/CreateTeacherAccount';
 import TClassOptions from './Pages/TClassOptions';
 import TeacherAnswering from './Pages/TeacherAnswering'
 import ChatInterface from './Pages/ChatInterface';
+import ReportPage from './Pages/ReportPage';
 import Home from './Pages/Home';
 
 // Root Component for React App
@@ -47,6 +48,8 @@ function App() {
           <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
 
           <Route path="/TClassOptions" element={<TClassOptions />} />
+
+          <Route path="/ReportPage" element={<ReportPage />} />
 
           <Route path="/Home" element={<Home />} />
         </Routes>
