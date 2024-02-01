@@ -3,6 +3,7 @@ import { Button, Grid, Container, TextField, Box } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import PlainNavBar from '../Components/PlainNavBar';
 import bg from '../Images/bg.jpg';
+import GoBackButton from '../Components/GoBackButton';
 
 function ReportPage() {
     const [issueReport, setIssueReport] = useState('');
@@ -85,6 +86,9 @@ function ReportPage() {
                             Report to Professor
                         </Button>
                     </Grid>
+                        <Grid item xs={12}>
+                        <GoBackButton />
+                        </Grid>
                 </Grid>
             </Container>
         </div>
