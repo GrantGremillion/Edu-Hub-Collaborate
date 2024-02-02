@@ -12,7 +12,7 @@ import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 // handles darkmode toggle on the page
 import {DARKMODE} from '.././Config';
-import GoBackButton from '../Components/GoBackButton';
+//import GoBackButton from '../Components/GoBackButton';
 
 function UserProfile() {
 
@@ -26,9 +26,9 @@ function UserProfile() {
         navigate("/UserAccountSettings");
     }
     const goToHome = () => {
-        navigate("/");
+        navigate("/Home");
     }
-
+     // Dark theme page
     if (DARKMODE) {
         return (
             <div>
@@ -99,6 +99,7 @@ function UserProfile() {
             </div>
         );
     }
+    // Normal theme page
     else {
         return (
             <div>
@@ -139,7 +140,6 @@ function UserProfile() {
                             />
                         </Grid>
 
-                        {/* put buttons */}
                         <Grid item xs={2}>
                             <Button size="small"  onClick={handleClick} style={{ color: 'black', width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
                                 Notifications
@@ -163,9 +163,10 @@ function UserProfile() {
                                 Back to Home
                             </Button>
                         </Grid>
-                        <Grid item xs={12}>
+
+                        {/*<Grid item xs={12}>
                             <GoBackButton />
-                            </Grid>
+                        </Grid>*/}
                     </Grid>
                 </Container>
             </div>

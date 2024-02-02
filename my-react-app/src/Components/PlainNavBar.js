@@ -4,7 +4,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-
 function PlainNavBar() {
   
   return (
@@ -13,7 +12,7 @@ function PlainNavBar() {
         <Toolbar>
           <Typography
             variant="h4"
-            marginLeft="-5%"
+            marginLeft="-3%"
             sx={{
               mr: 8,
               fontFamily: 'Corier New',

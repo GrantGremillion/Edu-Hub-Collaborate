@@ -12,8 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as DarkOptions from '.././Config';
-import GoBackButton from '../Components/GoBackButton';
-
+//import GoBackButton from '../Components/GoBackButton';
 
 function UserAccountSettings() {
 
@@ -21,15 +20,15 @@ function UserAccountSettings() {
     const navigate = useNavigate();
     const handleClick = () => {
         // Use navigate to go to the UserProfile page
-        alert('Placeholder: No backend settings implemented yet!');
+        alert('Placeholder: functionality not implemented yet!');
     }
     const goToProfile = () => {
         // Use navigate to go to the UserProfile page
         navigate("/UserProfile");
     }
 
-    // initialize darkmode switch's state with false
-    const [check, setCheck] = useState(false);
+    // initialize darkmode switch's state with DARKMODE's value
+    const [check, setCheck] = useState(DarkOptions.DARKMODE);
 
     // handle's the change of the switch
     function handleChange() {
@@ -192,9 +191,10 @@ function UserAccountSettings() {
                             Return to Profile
                         </Button>
                     </Grid>
-                    <Grid item xs={12}>
+
+                    {/*<Grid item xs={12}>
                         <GoBackButton />
-                        </Grid>
+                    </Grid>*/}
                 </Grid>
             </Container>
         </div>  

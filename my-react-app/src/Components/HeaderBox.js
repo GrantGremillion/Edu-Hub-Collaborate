@@ -21,7 +21,7 @@ function HeaderBox({text}) {
     >
       <Box
         sx={{
-          width: 500,
+          width: 525,
           height: 100,
           borderRadius: 1,
           alignItems: 'center',

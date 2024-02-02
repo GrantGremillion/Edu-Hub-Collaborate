@@ -8,6 +8,8 @@ import GoBackButton from '../Components/GoBackButton';
 
 function ChatInterface() {
   const [message, setMessage] = useState('');
+  // The below comment is here to prevent a warning from appearing in the terminal.
+  // eslint-disable-next-line
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSendMessage = (e) => {

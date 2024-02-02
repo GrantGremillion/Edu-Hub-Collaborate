@@ -17,11 +17,11 @@ const settings = ['User Profile', 'Account Settings', 'Logout'];
 
 function HomeNavBar() {
   const navigate = useNavigate();
+  // The below comment is here to prevent a warning from appearing in the terminal.
+  // eslint-disable-next-line
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  // eslint-disable-next-line
- 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -29,22 +29,29 @@ function HomeNavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   }
-
-  
+  // Replaced the handleCloseUserMenu onClick in the actual menu part below, this
+  // can be changed later of course. It's just for the presentation tomorrow.
+  const handleUserProfileClick = () => {
+    navigate('/UserProfile');
+  }
 
   const handleViewClassesClick = () => {
-    // Use navigate to go to the student account creation page
+    // Use navigate to go to the TClass page
     navigate('/TClassOptions');
   }
 
   const handleJoinAClassClick = () => {
-    // Use navigate to go to the student account creation page
+    // Use navigate to go to the Join Class page
     navigate('/JoinClass');
   }
 
   const handleSettingsClick = () => {
-    // Use navigate to go to the student account creation page
+    // Use navigate to go to the {doesnt exist(?)} page
     alert('needs implementation')
+  }
+
+  const handleReportClick = () => {
+    navigate('/ReportPage');
   }
 
   return (
@@ -53,7 +60,7 @@ function HomeNavBar() {
         <Toolbar>
           <Typography
             variant="h4"
-            marginLeft="-6%"
+            marginLeft="-3%"
             marginBottom="2%"
             marginTop="2%"
             sx={{
@@ -61,24 +68,24 @@ function HomeNavBar() {
               fontFamily: 'Corier New',
               fontSize: '225%',
               letterSpacing: '.2rem',
-            }}
-          >
+            }}>
             Edu Hub Collaborate
           </Typography>
 
-          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button onClick={handleViewClassesClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
-                View Classes
-              </Button>
-              <Button onClick={handleJoinAClassClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
-                Join a class
-              </Button>
-              <Button onClick={handleSettingsClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
-                Settings
-              </Button>
+            <Button onClick={handleViewClassesClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+              View Classes
+            </Button>
+            <Button onClick={handleJoinAClassClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+              Join a class
+            </Button>
+            <Button onClick={handleSettingsClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+              Settings
+            </Button>
+            <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+              Report Issues/Violations
+            </Button>
           </Box>
-
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -86,6 +93,7 @@ function HomeNavBar() {
                 <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }}></AccountCircleIcon>
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -103,7 +111,7 @@ function HomeNavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={handleUserProfileClick}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
