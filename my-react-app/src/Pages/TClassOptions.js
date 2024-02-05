@@ -13,7 +13,6 @@ import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your cu
 function TClassOptions() {
 
 return (
-  <div className="TClassOptions" id="outer-container">
   <div>
         <Box
             id="page-wrap"
@@ -30,11 +29,13 @@ return (
                 width: '100%',
                 height: '100%'
             }}
-        ></Box>
+        >
+        </Box>
             <PlainNavBar text= 'Edu Hub Collaborate'></PlainNavBar>
             <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
-        </div>
-  </div>
+        <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '60px', height: '700px', marginBottom:'60px'}}>
+        </Container>
+    </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 // Material UI components
 import {Button, Grid, Container, TextField, Box} from '@mui/material';
 
@@ -13,10 +14,16 @@ import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your cu
 
 function TeacherAnswering() {
 
+const [text, setText] = useState("");
+const handleSubmit = (event) => {
+  event.preventDefault();
+  setText(event.target[0].value);
+};
+
 const navigate = useNavigate();
 const handleClickBack = () => {
   // Use navigate to go to the UserProfile page
-  navigate('/');
+  navigate('/TClassOptions');
 }
 
 return (
@@ -54,8 +61,9 @@ return (
           <TextField variant="filled" label="Answer Here" />
 
         </Grid>
+
         <Grid item xs={2}>
-          <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
+          <Button variant="contained" size="large"  onClick={(handleSubmit)} style={{ width: '220px'}} sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
             Submit Answer
           </Button>
         </Grid>

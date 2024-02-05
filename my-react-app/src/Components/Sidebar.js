@@ -1,28 +1,46 @@
-import * as React from 'react';
-// eslint-disable-next-line
-import {slide as menu} from 'react-burger-menu';
-import './Sidebar.css';
+import React, { useState } from "react";
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { SidebarData } from "./SidebarData";
+import "./Sidebar.css";
+import { IconContext } from "react-icons";
 
-// NOTE: the "eslint-disable-next-line" comments merely disable a warning that shows up
-// in the terminal. They can be removed freely later
+function Sidebar() {
+  const [sidebar, setSidebar] = useState(false);
 
-// eslint-disable-next-line
-export default props => {
+  const showSidebar = () => setSidebar(!sidebar);
+
   return (
-    <menu>
-      <a className="menu-item" href="/Home">
-        Home
-      </a>
-      <a className="menu-item" href="/TeacherAnswering">
-        Answer
-      </a>
-      <a className="menu-item" href="/UserProfile">
-        User Profile
-      </a>
-      <a className="menu-item" href="/UserAccountSettings">
-        Settings
-      </a>
-    </menu>
+    <>
+      <IconContext.Provider value={{ color: "undefined" }}>
+        <div className="navbar">
+          <Link to="#" className="menu-bars">
+            <FaIcons.FaBars onClick={showSidebar} />
+          </Link>
+        </div>
+        <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
+          <ul className="nav-menu-items" onClick={showSidebar}>
+            <li className="navbar-toggle">
+              <Link to="#" className="menu-bars">
+                <AiIcons.AiOutlineClose />
+              </Link>
+            </li>
+            {SidebarData.map((item, index) => {
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </IconContext.Provider>
+    </>
   );
-};
+}
 
+export default Sidebar;

@@ -16,6 +16,7 @@ import TeacherAnswering from './Pages/TeacherAnswering'
 import ChatInterface from './Pages/ChatInterface';
 import ReportPage from './Pages/ReportPage';
 import Home from './Pages/Home';
+import Test from './Pages/Test';
 
 // Root Component for React App
 function App() {
@@ -52,6 +53,8 @@ function App() {
           <Route path="/ReportPage" element={<ReportPage />} />
 
           <Route path="/Home" element={<Home />} />
+
+          <Route path="/Test" element={<Test />} />
         </Routes>
           
       </div>
