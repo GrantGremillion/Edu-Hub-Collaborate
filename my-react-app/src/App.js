@@ -17,48 +17,63 @@ import ChatInterface from './Pages/ChatInterface';
 import ReportPage from './Pages/ReportPage';
 import Home from './Pages/Home';
 import Test from './Pages/Test';
+// Library to handle cookies
+import { CookiesProvider, useCookies } from "react-cookie";
 
 // Root Component for React App
 function App() {
+  const [setCookie, removeCookie] = useCookies(["user"]);
+
+  function handleLogin(user) {
+    setCookie('user', user, { path: '/' });
+  }
+
+  function handleLogout(user){
+    removeCookie('user')
+  }
+
   return (
-    <Router>
-      <div>
-        <Routes>
-          {/* The / indicates that this is the default/home page for the website */}
-          <Route path="/" element={<AccountSelection />} />
-          
-          {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
-          <Route path="/UserProfile" element={<UserProfile />} />
-       
-          <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
-       
-          <Route path="/CreateStudentAccount" element={<CreateStudentAccount />} />
+    <CookiesProvider>
+      <Router>
+        <div>
+          <Routes>
 
-          <Route path="/CreateTeacherAccount" element={<CreateTeacherAccount />} />
+            {/* The / indicates that this is the default/home page for the website */}
+            <Route path="/" element={<AccountSelection />} />
+            
+            {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
+            <Route path="/UserProfile" element={<UserProfile />} />
+        
+            <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
+        
+            <Route path="/CreateStudentAccount" element={<CreateStudentAccount />} />
 
-          <Route path="/Login" element={<Login/>} />
+            <Route path="/CreateTeacherAccount" element={<CreateTeacherAccount />} />
 
-          <Route path="/RecoverPassword" element={<RecoverPassword/>} />
+            <Route path="/Login" element={<Login onLogin={handleLogin}/>} />
 
-          <Route path="/CreateClass" element={<CreateClass />} />
+            <Route path="/RecoverPassword" element={<RecoverPassword/>} />
 
-          <Route path="/ChatInterface" element={<ChatInterface />} />
-       
-          <Route path="/JoinClass" element={<JoinClass />} />
+            <Route path="/CreateClass" element={<CreateClass />} />
 
-          <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
+            <Route path="/ChatInterface" element={<ChatInterface />} />
+        
+            <Route path="/JoinClass" element={<JoinClass />} />
 
-          <Route path="/TClassOptions" element={<TClassOptions />} />
+            <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
 
-          <Route path="/ReportPage" element={<ReportPage />} />
+            <Route path="/TClassOptions" element={<TClassOptions />} />
 
-          <Route path="/Home" element={<Home />} />
+            <Route path="/ReportPage" element={<ReportPage />} />
 
-          <Route path="/Test" element={<Test />} />
-        </Routes>
-          
-      </div>
-    </Router> 
+            <Route path="/Home" element={<Home onLogout={handleLogout}/>} />
+
+            <Route path="/Test" element={<Test />} />
+          </Routes>
+            
+        </div>
+      </Router> 
+    </CookiesProvider>
   );
 }
 export default App;

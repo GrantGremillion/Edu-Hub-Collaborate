@@ -1,10 +1,7 @@
 import * as React from 'react';
 // Material UI components
-import {Button, Grid, Container, TextField, Box} from '@mui/material';
+import {Container, Box} from '@mui/material';
 
-// Our own pre-built components in the components folder
-import HeaderBox from '.././Components/HeaderBox';
-import LabelBox from '.././Components/LabelBox';
 
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';

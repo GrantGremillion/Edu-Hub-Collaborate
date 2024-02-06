@@ -19,7 +19,7 @@ import axios from 'axios'
 import dark_bg from '.././Images/dark_bg.jpg';
 import {DARKMODE} from '.././Config';
 
-function Login() {
+function Login({onLogin}) {
 
   const [values, setValues] = useState({
     email: '',
@@ -41,6 +41,7 @@ function Login() {
     // testing 
     .then(res => {
       if(res.data.Status === "Success") {
+        onLogin({values});
         navigate('/Home')
       }
       else{

@@ -1,8 +1,10 @@
 import * as React from 'react';
-import {Box, Container, Typography, Divider} from '@mui/material';
+import {Box, Container, Typography, Divider, Button} from '@mui/material';
 
 // Our own custom-built components 
 import HomeNavBar from '../Components/HomeNavBar';
+
+import { useNavigate } from 'react-router-dom';
 
 // background images
 import bg from '.././Images/bg.jpg';
@@ -10,7 +12,16 @@ import dark_bg from '.././Images/dark_bg.jpg';
 // handles darkmode toggle on the page
 import {DARKMODE} from '.././Config';
 
-function Home() {
+
+function Home({onLogout}) {
+
+  const navigate = useNavigate();
+
+  const handleLogoutClick = (e) => {
+    e.preventDefault();
+    onLogout();
+    navigate('/Login');
+  }
   
   if (DARKMODE) {
     return (
@@ -65,6 +76,7 @@ function Home() {
           }}>
         </Box>
         <HomeNavBar></HomeNavBar>
+
   
         {/* Container that will hold all home page components */}
         <Container fixed>
@@ -73,6 +85,7 @@ function Home() {
               <Typography variant='h3' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%'}}>
                 Notifications
               </Typography>
+              <Button onClick={handleLogoutClick}>Logout</Button>
               <Divider></Divider>
               <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%'}}>
                 This area whill be used to display any direct messages from freinds or announcments from teachers in a class you are in

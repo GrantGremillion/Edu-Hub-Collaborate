@@ -14,7 +14,7 @@ import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your cu
 
 function TeacherAnswering() {
 
-const [text, setText] = useState("");
+const [setText] = useState("");
 const handleSubmit = (event) => {
   event.preventDefault();
   setText(event.target[0].value);
