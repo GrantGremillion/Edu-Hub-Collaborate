@@ -41,7 +41,7 @@ function Login({onLogin}) {
     // testing 
     .then(res => {
       if(res.data.Status === "Success") {
-        onLogin({values});
+        onLogin(values);
         navigate('/Home')
       }
       else{

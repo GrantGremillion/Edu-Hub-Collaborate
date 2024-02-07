@@ -1,7 +1,6 @@
 import express from "express";
 import mysql from 'mysql2';
 import cors from 'cors';
-import session from 'express-session';
 
 
 const app = express();

@@ -22,7 +22,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 
 // Root Component for React App
 function App() {
-  const [setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   function handleLogin(user) {
     setCookie('user', user, { path: '/' });
@@ -32,6 +32,9 @@ function App() {
     removeCookie('user')
   }
 
+  // Check if the user cookie exists to determin which page to redirect the user to
+  const isCookieSet = cookies['user'] !== undefined;
+
   return (
     <CookiesProvider>
       <Router>
@@ -39,7 +42,7 @@ function App() {
           <Routes>
 
             {/* The / indicates that this is the default/home page for the website */}
-            <Route path="/" element={<AccountSelection />} />
+            <Route path="/" element={isCookieSet ? <Home/> : <AccountSelection />} />
             
             {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
             <Route path="/UserProfile" element={<UserProfile />} />
