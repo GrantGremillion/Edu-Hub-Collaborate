@@ -45,9 +45,9 @@ function HomeNavBar() {
     navigate('/JoinClass');
   }
 
-  const handleSettingsClick = () => {
+  const handleAccountSettingsClick = () => {navigate('/UserAccountSettings')
     // Use navigate to go to the {doesnt exist(?)} page
-    alert('needs implementation')
+    
   }
 
   const handleReportClick = () => {
@@ -79,7 +79,7 @@ function HomeNavBar() {
             <Button onClick={handleJoinAClassClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Join a class
             </Button>
-            <Button onClick={handleSettingsClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+            <Button onClick={handleAccountSettingsClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Settings
             </Button>
             <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
@@ -112,6 +112,9 @@ function HomeNavBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleUserProfileClick}>
+                <MenuItem key={setting} onClick={ handleAccountSettingsClick}>
+
+                </MenuItem>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
