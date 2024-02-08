@@ -85,11 +85,12 @@ function Home({onLogout}) {
               <Typography variant='h3' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%'}}>
                 Notifications
               </Typography>
-              <Button onClick={handleLogoutClick}>Logout</Button>
+              
               <Divider></Divider>
               <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%'}}>
                 This area whill be used to display any direct messages from freinds or announcments from teachers in a class you are in
               </Typography>
+              <Button onClick={handleLogoutClick}>Logout</Button>
             </div> 
           </Box>
           <Box sx={{height: '100vh', width: '120%', marginTop: '5%', marginLeft: '-10%', bgcolor: '#e0f2f1'}} />
