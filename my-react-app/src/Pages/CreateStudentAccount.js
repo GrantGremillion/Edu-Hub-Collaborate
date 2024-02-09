@@ -17,6 +17,7 @@ import dark_bg from '.././Images/dark_bg.jpg';
 // dark theme functionality
 import {DARKMODE} from '.././Config';
 
+// Used to call API's on the backend
 import axios from 'axios';
 
 function CreateStudentAccount() {
@@ -30,14 +31,13 @@ function CreateStudentAccount() {
     cpassword: ''
   })
 
-  // Handler for login button click
-  // e = event object
+  // Handler for Submit button click
   const handleClickSubmit = (e) => {
 
     // Prevent default event (e) from occuring
     e.preventDefault();
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/create_account', values)
+    axios.post('http://localhost:8081/create_Saccount', values)
 
     // testing 
     .then(res => {
@@ -49,7 +49,6 @@ function CreateStudentAccount() {
       }
       
     })
-    //.catch(err => console.log(err.response.data));
   }
 
   const handleClickBack = () => {

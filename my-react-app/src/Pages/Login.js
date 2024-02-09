@@ -19,7 +19,11 @@ import axios from 'axios'
 import dark_bg from '.././Images/dark_bg.jpg';
 import {DARKMODE} from '.././Config';
 
+import {useCookies} from "react-cookie";
+
 function Login({onLogin}) {
+
+  const [cookies, setCookie] = useCookies(["user","account"]);
 
   const [values, setValues] = useState({
     email: '',
@@ -41,6 +45,12 @@ function Login({onLogin}) {
     // testing 
     .then(res => {
       if(res.data.Status === "Success") {
+        if(res.data.Account === "Student"){
+          setCookie('account', 'student', { path: '/' });
+        }
+        else{
+          setCookie('account', 'teacher', { path: '/' });
+        }
         onLogin();
         navigate('/Home')
       }

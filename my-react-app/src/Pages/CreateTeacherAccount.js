@@ -16,14 +16,40 @@ import dark_bg from '.././Images/dark_bg.jpg';
 // dark theme functionality
 import {DARKMODE} from '.././Config';
 
+// Used to call API's on the backend
+import axios from 'axios';
+
 function CreateTeacherAccount() {
   
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
-  const handleClick = () => {
-    // Use navigate to go to the UserProfile page
-    navigate('/JoinClass');
+
+  const [values, setValues] = React.useState({
+    email: '',
+    password: '',
+    cpassword: ''
+  })
+
+  // Handler for Submit button click
+  const handleClickSubmit = (e) => {
+
+    // Prevent default event (e) from occuring
+    e.preventDefault();
+    // sends an HTTP POST request to the URL login backend API
+    axios.post('http://localhost:8081/create_Taccount', values)
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/Login')
+      }
+      else{
+        alert(res.data.Status)
+      }
+      
+    })
   }
+
   const handleClickBack = () => {
     // Use navigate to go to the UserProfile page
     navigate('/');
@@ -64,19 +90,32 @@ function CreateTeacherAccount() {
             </Grid>
 
             <Grid item xs={1}>
-              <TextField id="filled-basic" label="Email" variant="filled" />
+              <TextField id="filled-basic" label="Email" variant="filled" 
+              onChange={e => setValues({...values,email:e.target.value})}/>
             </Grid>
 
             <Grid item xs={1}>
-              <TextField id="filled-basic" label="Password" variant="filled" type="password"/>
+              <TextField id="filled-basic" label="Password" variant="filled" type="password"
+              onChange={e => setValues({...values,password:e.target.value})}/>
             </Grid>
 
             <Grid item xs={1}>
-              <TextField id="filled-basic" label="Confirm password" variant="filled" type="password"/>
+              <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
+              onChange={e => setValues({...values,cpassword:e.target.value})}/>
             </Grid>
+
+            {/*File submission form*/}
+            <Grid item xs={1}>
+                <form>
+                  <TextField type="file" />
+                    <Button variant="contained" component="span" sx={{bgcolor: '#009688'}}>
+                    Upload
+                    </Button>
+                </form>
+              </Grid>
     
             <Grid item xs={1}>
-              <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#009688'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
+              <Button variant="contained" size="large"  onClick={handleClickSubmit} style={{ width: '200px', background: '#009688'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
                 Submit
               </Button>
             </Grid>
@@ -117,7 +156,7 @@ function CreateTeacherAccount() {
           <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
           
           {/* Container and Grid organizes HeaderBox and Buttons */}
-          <Container maxWidth='sm' style={{ background: '#e0f2f1', marginTop: '75px', height: '700px', marginBottom:'75px'}} >
+          <Container maxWidth='sm' style={{ background: '#e0f2f1', marginTop: '75px', height: '800px', marginBottom:'75px'}} >
             <Grid container spacing={5}
                 direction="column"
                 alignItems="center"
@@ -127,19 +166,33 @@ function CreateTeacherAccount() {
               </Grid>
   
               <Grid item xs={1}>
-                <TextField id="filled-basic" label="Email" variant="filled" />
+                <TextField id="filled-basic" label="Email" variant="filled" 
+                onChange={e => setValues({...values,email:e.target.value})}/>
               </Grid>
-  
+
               <Grid item xs={1}>
-                <TextField id="filled-basic" label="Password" variant="filled" type="password"/>
+                <TextField id="filled-basic" label="Password" variant="filled" type="password"
+                onChange={e => setValues({...values,password:e.target.value})}/>
               </Grid>
-  
+
               <Grid item xs={1}>
-                <TextField id="filled-basic" label="Confirm password" variant="filled" type="password"/>
+                <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
+                onChange={e => setValues({...values,cpassword:e.target.value})}/>
               </Grid>
+
+              {/*File submission form*/}
+              <Grid item xs={1}>
+                <form>
+                  <TextField type="file" />
+                    <Button variant="contained" component="span" sx={{bgcolor: '#009688'}}>
+                    Upload
+                    </Button>
+                </form>
+              </Grid>
+
       
               <Grid item xs={1}>
-                <Button variant="contained" size="large"  onClick={handleClick} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
+                <Button variant="contained" size="large"  onClick={handleClickSubmit} style={{ width: '200px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
                   Submit
                 </Button>
               </Grid>

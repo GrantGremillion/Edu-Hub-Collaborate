@@ -30,6 +30,7 @@ function App() {
 
   function handleLogout(){
     removeCookie('user');
+    removeCookie('account');
   }
 
   // Check if the user cookie exists to determin which page to redirect the user to
