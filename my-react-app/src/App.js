@@ -42,33 +42,33 @@ function App() {
           <Routes>
 
             {/* The / indicates that this is the default/home page for the website */}
-            <Route path="/" element={isCookieSet ? <Home/> : <AccountSelection />} />
+            <Route path="/" element={isCookieSet ? <Home onLogout={handleLogout}/> : <AccountSelection />} />
             
             {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
             <Route path="/UserProfile" element={isCookieSet ? <UserProfile /> : <Login onLogin={handleLogin}/>} />
         
-            <Route path="/UserAccountSettings" element={<UserAccountSettings />} />
+            <Route path="/UserAccountSettings" element={isCookieSet ? <UserAccountSettings /> : <Login onLogin={handleLogin}/>} />
         
-            <Route path="/CreateStudentAccount" element={<CreateStudentAccount />} />
+            <Route path="/CreateStudentAccount" element={isCookieSet ? <Home onLogout={handleLogout}/> : <CreateStudentAccount />} />
 
-            <Route path="/CreateTeacherAccount" element={<CreateTeacherAccount />} />
+            <Route path="/CreateTeacherAccount" element={isCookieSet ? <Home onLogout={handleLogout}/> : <CreateTeacherAccount />} />
 
             {/*If a cookie has been set and the user tries to access the login page, redirect them to the Home page*/}
             <Route path="/Login" element={isCookieSet ? <Home onLogout={handleLogout}/>: <Login onLogin={handleLogin}/>} />
 
-            <Route path="/RecoverPassword" element={<RecoverPassword/>} />
+            <Route path="/RecoverPassword" element={isCookieSet ? <RecoverPassword/>: <Login onLogin={handleLogin}/>} />
 
-            <Route path="/CreateClass" element={<CreateClass />} />
+            <Route path="/CreateClass" element={isCookieSet ? <CreateClass /> : <Login onLogin={handleLogin}/>}/>
 
             <Route path="/ChatInterface" element={<ChatInterface />} />
         
-            <Route path="/JoinClass" element={<JoinClass />} />
+            <Route path="/JoinClass" element={isCookieSet ? <JoinClass /> : <Login onLogin={handleLogin}/>} />
 
             <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
 
             <Route path="/TClassOptions" element={<TClassOptions />} />
 
-            <Route path="/ReportPage" element={<ReportPage />} />
+            <Route path="/ReportPage" element={isCookieSet ? <ReportPage /> : <Login onLogin={handleLogin}/>} />
 
             <Route path="/Home" element={isCookieSet ? <Home onLogout={handleLogout}/> : <Login onLogin={handleLogin}/>} />
 
