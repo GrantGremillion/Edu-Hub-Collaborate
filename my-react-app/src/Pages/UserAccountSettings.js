@@ -88,7 +88,7 @@ function UserAccountSettings() {
                                 borderRadius: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                display: 'flex',
+                                display: 'default',
                                 fontSize: '2rem', 
                                 bgcolor: '#009688',
                                 color: 'primary.white',
@@ -104,8 +104,6 @@ function UserAccountSettings() {
                                 </FormGroup>
 
                             </Box>
-
-                            
                         </Grid>
 
                         <Grid item xs={4}>
@@ -170,7 +168,7 @@ function UserAccountSettings() {
                             borderRadius: 1,
                             alignItems: 'center',
                             justifyContent: 'center',
-                            display: 'flex',
+                            display: 'default',
                             fontSize: '2rem', 
                             bgcolor: '#b2dfdb',
                             color: 'primary.white',
@@ -191,10 +189,6 @@ function UserAccountSettings() {
                             Return to Profile
                         </Button>
                     </Grid>
-
-                    {/*<Grid item xs={12}>
-                        <GoBackButton />
-                    </Grid>*/}
                 </Grid>
             </Container>
         </div>  
