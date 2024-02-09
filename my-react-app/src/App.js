@@ -12,7 +12,6 @@ import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
 import CreateTeacherAccount from './Pages/CreateTeacherAccount';
 import TClassOptions from './Pages/TClassOptions';
-import TeacherAnswering from './Pages/TeacherAnswering'
 import ChatInterface from './Pages/ChatInterface';
 import ReportPage from './Pages/ReportPage';
 import Home from './Pages/Home';
@@ -64,8 +63,6 @@ function App() {
             <Route path="/ChatInterface" element={<ChatInterface />} />
         
             <Route path="/JoinClass" element={isCookieSet ? <JoinClass /> : <Login onLogin={handleLogin}/>} />
-
-            <Route path="/TeacherAnswering" element={<TeacherAnswering />} />
 
             <Route path="/TClassOptions" element={<TClassOptions />} />
 
