@@ -22,9 +22,9 @@ function UserAccountSettings() {
         // Use navigate to go to the UserProfile page
         alert('Placeholder: functionality not implemented yet!');
     }
-    const goToProfile = () => {
+    const goToHome = () => {
         // Use navigate to go to the UserProfile page
-        navigate("/UserProfile");
+        navigate("/Home");
     }
 
     // initialize darkmode switch's state with DARKMODE's value
@@ -69,7 +69,7 @@ function UserAccountSettings() {
         
             <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
             {/* Container and Grid organizes HeaderBox and Buttons */}
-            <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}} >
+            <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '600px', marginBottom:'75px'}} >
                 <Grid container spacing={5}
                     direction="column"
                     alignItems="center"
@@ -117,8 +117,8 @@ function UserAccountSettings() {
                     </Grid>
 
                     <Grid item xs={4}>
-                        <Button size="small"  onClick={goToProfile} style={{ color: textColor, width: '250px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
-                            Return to Profile
+                        <Button size="small"  onClick={goToHome} style={{ color: textColor, width: '250px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
+                            Return to Home
                         </Button>
                     </Grid>
                 </Grid>

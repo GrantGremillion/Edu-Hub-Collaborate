@@ -11,136 +11,86 @@ import GoBackButton from '../Components/GoBackButton';
 
 // handles darkmode toggle on the page
 import dark_bg from '.././Images/dark_bg.jpg';
-import {DARKMODE} from '.././Config';
+import * as themes from '.././Config';
 
 function JoinClass() {
 
-  if (DARKMODE) {
-    return (
-      <div>
-        <PlainNavBar />
-    
-        <Box
-            className="bg"
-            style={{
-                backgroundImage: `url(${dark_bg})`,
-                backgroundSize: "cover",
-                zIndex: '-1',
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                width: '100%',
-                height: '100%'
-            }}> 
-        </Box>
-      
-        <Container maxWidth="sm" style={{ background: '#216E6B', marginTop: '75px', height: '550px', marginBottom:'75px'}}>
-          <Grid container spacing={4}
-            direction="column"
-            alignItems="center"
-            justifyContent="center">
-    
-            <Grid item>
-              <HeaderBox text="Student Classes" />
-            </Grid>
-    
-            <Grid item xs={2}>
-              <TextField variant="filled" label="Class ID" />
-            </Grid>
-    
-            <Grid item xs={2}>
-              <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: 'black', background: '#009688'}} >
-                Join Class
-              </Button>
-            </Grid>
-    
-            <Divider 
-              orientation="horizontal" 
-              flexItem 
-              style={{ margin: '5%', width: '50%', marginLeft: '28%', marginBottom: '0%', color: 'black'}}>
-                or
-            </Divider>
-    
-            <Grid item xs={2}>
-              <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: 'black', background: '#009688'}} >
-                View Classes
-              </Button>
-            </Grid> 
-    
-            <Grid item xs={12}>
-              <GoBackButton />
-            </Grid>
-    
-          </Grid>
-        </Container>   
-      </div>
-    );
+  // checks for the theme the page is in, and applys it to these variables
+  if (themes.DARKMODE) {
+    var containerColor = themes.darkContainer;
+    var buttonColor = themes.darkButton;
+    var textColor = themes.darkText;
+    var background = dark_bg;
   }
   else {
-    return (
-      <div>
-        <PlainNavBar />
-    
-        <Box
-            className="bg"
-            style={{
-                backgroundImage: `url(${bg})`,
-                backgroundSize: "cover",
-                zIndex: '-1',
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                width: '100%',
-                height: '100%'
-            }}> 
-        </Box>
-      
-        <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '550px', marginBottom:'75px'}}>
-          <Grid container spacing={4}
-            direction="column"
-            alignItems="center"
-            justifyContent="center">
-    
-            <Grid item>
-              <HeaderBox text="Student Classes" />
-            </Grid>
-    
-            <Grid item xs={2}>
-              <TextField variant="filled" label="Class ID" />
-            </Grid>
-    
-            <Grid item xs={2}>
-              <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: 'black', background: '#b2dfdb'}} >
-                Join Class
-              </Button>
-            </Grid>
-    
-            <Divider 
-              orientation="horizontal" 
-              flexItem 
-              style={{ margin: '5%', width: '50%', marginLeft: '28%', marginBottom: '0%', color: 'black'}}>
-                or
-            </Divider>
-    
-            <Grid item xs={2}>
-              <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: 'black', background: '#b2dfdb'}} >
-                View Classes
-              </Button>
-            </Grid> 
-    
-            <Grid item xs={12}>
-              <GoBackButton />
-            </Grid>
-    
-          </Grid>
-        </Container>   
-      </div>
-    );
+    var containerColor = themes.normalContainer;
+    var buttonColor = themes.normalButton;
+    var textColor = themes.normalText;
+    var background = bg;
   }
+
+  return (
+    <div>
+      <PlainNavBar />
+  
+      <Box
+          className="bg"
+          style={{
+              backgroundImage: `url(${background})`,
+              backgroundSize: "cover",
+              zIndex: '-1',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: '100%',
+              height: '100%'
+          }}> 
+      </Box>
+    
+      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '550px', marginBottom:'75px'}}>
+        <Grid container spacing={4}
+          direction="column"
+          alignItems="center"
+          justifyContent="center">
+  
+          <Grid item>
+            <HeaderBox text="Student Classes" />
+          </Grid>
+  
+          <Grid item xs={2}>
+            <TextField variant="filled" label="Class ID" />
+          </Grid>
+  
+          <Grid item xs={2}>
+            <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: textColor, background: buttonColor}} >
+              Join Class
+            </Button>
+          </Grid>
+  
+          <Divider 
+            orientation="horizontal" 
+            flexItem 
+            style={{ marginTop: '5%', marginLeft: '3%', color: textColor}}>
+            or
+          </Divider>
+  
+          <Grid item xs={2}>
+            <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: textColor, background: buttonColor}} >
+              View Classes
+            </Button>
+          </Grid> 
+  
+          <Grid item xs={12}>
+            <GoBackButton />
+          </Grid>
+  
+        </Grid>
+      </Container>   
+    </div>
+  );
+
 }
 
 export default JoinClass;

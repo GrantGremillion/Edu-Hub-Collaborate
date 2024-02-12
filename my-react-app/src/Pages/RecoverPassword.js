@@ -7,7 +7,7 @@ import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import { useNavigate } from 'react-router-dom';
 // used to handle user toggled dark mode
 import dark_bg from '.././Images/dark_bg.jpg';
-import {DARKMODE} from '.././Config';
+import * as themes from '.././Config';
 
 function RecoverPassword() {
     const [email, setEmail] = useState('');
@@ -25,131 +25,80 @@ function RecoverPassword() {
         navigate('/Login');
     }
 
-    if (DARKMODE) {
-        return (
-            <div>
-                <PlainNavBar />
-                <Box
-                    className="bg"
-                    style={{
-                        backgroundImage: `url(${dark_bg})`,
-                        backgroundSize: "cover",
-                        zIndex: '-1',
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        width: '100%',
-                        height: '100%'
-                    }}
-                ></Box>
-    
-                <Container maxWidth="sm" style={{ background: '#216E6B', marginTop: '75px', height: '400px', marginBottom:'75px'}}>
-                    <Grid container spacing={5}
-                        direction="column"
-                        alignItems="center"
-                        justifyContent="center">
-
-                        <Grid item xs={12}>
-                            <HeaderBox text={'Recover Your Password'} />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField 
-                                fullWidth 
-                                id="email-input" 
-                                label="Username / Email" 
-                                variant="filled" 
-                                value={email} 
-                                onChange={(e) => setEmail(e.target.value)} 
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Button 
-                                fullWidth 
-                                variant="contained" 
-                                style={{ background: '#009688', color: 'white' }}
-                                onClick={handleRequestVerification}
-                            >
-                                Request Verification Code
-                            </Button>
-                        </Grid>
-    
-                        <Grid item xs={1}>
-                            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: '#009688'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-15%', marginLeft: '-225%'}} >
-                                Back
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </div>
-        );
+    // checks for the theme the page is in, and applys it to these variables
+    if (themes.DARKMODE) {
+        var containerColor = themes.darkContainer;
+        var buttonColor = themes.darkButton;
+        var textColor = themes.darkText;
+        var background = dark_bg;
     }
     else {
-        return (
-            <div>
-                <PlainNavBar />
-                <Box
-                    className="bg"
-                    style={{
-                        backgroundImage: `url(${bg})`,
-                        backgroundSize: "cover",
-                        zIndex: '-1',
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        width: '100%',
-                        height: '100%'
-                    }}
-                ></Box>
+        var containerColor = themes.normalContainer;
+        var buttonColor = themes.normalButton;
+        var textColor = themes.normalText;
+        var background = bg;
+    }
     
-                <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', height: '400px', marginBottom:'75px'}}>
-                    <Grid container spacing={5}
-                        direction="column"
-                        alignItems="center"
-                        justifyContent="center">
+    return (
+        <div>
+            <PlainNavBar />
+            <Box
+                className="bg"
+                style={{
+                    backgroundImage: `url(${background})`,
+                    backgroundSize: "cover",
+                    zIndex: '-1',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: '100%',
+                    height: '100%'
+                }}
+            ></Box>
 
-                        <Grid item xs={12}>
-                            <HeaderBox text={'Recover Your Password'} />
-                        </Grid>
+            <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '400px', marginBottom:'75px'}}>
+                <Grid container spacing={5}
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center">
 
-                        <Grid item xs={12}>
-                            <TextField 
-                                fullWidth 
-                                id="email-input" 
-                                label="Username / Email" 
-                                variant="filled" 
-                                value={email} 
-                                onChange={(e) => setEmail(e.target.value)} 
-                            />
-                        </Grid>
-                        {/* original button background = #004d40 */}
-                        <Grid item xs={12}>
-                            <Button 
-                                fullWidth 
-                                variant="contained" 
-                                style={{ background: '#b2dfdb', color: 'white' }}
-                                onClick={handleRequestVerification}
-                            >
-                                Request Verification Code
-                            </Button>
-                        </Grid>
-    
-                        <Grid item xs={1}>
-                            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: '#b2dfdb'}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-15%', marginLeft: '-225%'}} >
-                                Back
-                            </Button>
-                        </Grid>
+                    <Grid item xs={12}>
+                        <HeaderBox text={'Recover Your Password'} />
                     </Grid>
 
-                </Container>
-            </div>
-        );
-    }
+                    <Grid item xs={12}>
+                        <TextField 
+                            fullWidth 
+                            id="email-input" 
+                            label="Username / Email" 
+                            variant="filled" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button 
+                            fullWidth 
+                            variant="contained" 
+                            style={{ background: buttonColor, color: textColor }}
+                            onClick={handleRequestVerification}
+                        >
+                            Request Verification Code
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={1}>
+                        <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-15%', marginLeft: '-225%'}} >
+                            Back
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Container>
+        </div>
+    );
     
 }
 
