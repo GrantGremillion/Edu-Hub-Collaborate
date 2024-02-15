@@ -56,7 +56,7 @@ function App() {
             {/*If a cookie has been set and the user tries to access the login page, redirect them to the Home page*/}
             <Route path="/Login" element={isCookieSet ? <Home onLogout={handleLogout}/>: <Login onLogin={handleLogin}/>} />
 
-            <Route path="/RecoverPassword" element={isCookieSet ? <RecoverPassword/>: <Login onLogin={handleLogin}/>} />
+            <Route path="/RecoverPassword" element={isCookieSet ? <Home onLogout={handleLogout}/> : <RecoverPassword/>} />
 
             <Route path="/CreateClass" element={isCookieSet ? <CreateClass /> : <Login onLogin={handleLogin}/>}/>
 

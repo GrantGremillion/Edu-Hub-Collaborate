@@ -2,12 +2,18 @@ import express from "express";
 import mysql from 'mysql2';
 import cors from 'cors';
 
+// These lines are necessary to import multer using require keyword
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 const app = express();
 
 // built in middleware function express.json for parsing json data
 app.use(express.json());
 
+// multer library allows us to store images on our local machine
+const multer = require('multer')
+const upload = multer({ dest: 'C:/Users/Grant/OneDrive/Desktop/images/' })
 
 
 // cors is a built in middleware to allow users to request recources
@@ -18,7 +24,6 @@ app.use(cors(
 ))
 
 
-
 // Creating connection to mysql database
 const db = mysql.createConnection({
   host: "localhost",
@@ -26,6 +31,8 @@ const db = mysql.createConnection({
   password: "password",
   database: "database"
 })
+
+
 
 
 ////// Login API //////
@@ -155,6 +162,19 @@ app.post('/create_Taccount', (req,res) => {
       });
   });
 });
+
+
+////// Upload File API //////
+app.post('/upload', upload.single('image'), (req, res) => {
+  
+  const imageName = req.file.filename
+
+  // Save this data to a database 
+  console.log(imageName)
+  //console.log(imageName)
+  res.send({imageName})
+})
+
 
 
 // Start app
