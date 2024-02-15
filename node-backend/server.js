@@ -42,9 +42,11 @@ app.post('/login', (req,res) => {
 
   // Send query to db to search for account with email=req.body.email and password=req.body.password
   db.query(sql, [req.body.email, req.body.password], (err,data) => {
- 
-    console.log("Data:", data)
-    if(err) return res.json({Message: "Server Side Error"});
+    
+    if(data.length > 0){
+      console.log("Data:", data)
+    }
+
     // If a result was found with matching email and password in the db
     if(data.length > 0){
         // Student account was found
@@ -52,19 +54,20 @@ app.post('/login', (req,res) => {
     }
     else{
       // If no records were found in the student table, then search the teacher table
-      const sql = "SELECT * FROM Tlogin WHERE email = ? AND password = ?"
+      // verified must be true (indicating an admin has verified that the user is a teacher) in order for them to login
+      const sql = "SELECT * FROM Tlogin WHERE email = ? AND password = ? AND verified = 1"
 
       db.query(sql, [req.body.email, req.body.password], (err,data) => {
     
         console.log("Data:", data)
-        if(err) return res.json({Message: "Server Side Error"});
+
         // If a result was found with matching email and password in the db
         if(data.length > 0){
             // Teacher account was found
             return res.json({Status: "Success", Account: "Teacher"})
         }
         else{
-          return res.json({Message: "No Records existed"});
+          return res.json({Message: "No account found"});
         }
       })
     }
@@ -153,7 +156,8 @@ app.post('/create_Taccount', (req,res) => {
       }
 
       // If the email doesn't exist, insert the new user into the database
-      const insertUserQuery = "INSERT INTO Tlogin (email, password) VALUES (?, ?)";
+      // by default verified = false because an admin will need to verify they are a teacher via their submitted document
+      const insertUserQuery = "INSERT INTO Tlogin (email, password, verified) VALUES (?, ?, false)";
       db.query(insertUserQuery, [req.body.email, req.body.password], (err) => {
           if (err) {
               return res.json({ Status: "Server Side Error" });
@@ -167,9 +171,7 @@ app.post('/create_Taccount', (req,res) => {
 ////// Upload File API //////
 app.post('/upload', upload.single('image'), (req, res) => {
   
-  const imageName = req.file.filename
-
-  // Save this data to a database 
+  const imageName = req.file.filename   
   console.log(imageName)
   //console.log(imageName)
   res.send({imageName})

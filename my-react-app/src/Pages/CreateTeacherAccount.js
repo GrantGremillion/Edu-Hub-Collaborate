@@ -61,6 +61,7 @@ function CreateTeacherAccount() {
   const handleFormSubmit = () => {
     const formData = new FormData()
     formData.append("image", file)
+      // check that the user has selected a file
       if(file){
 
         axios.post('http://localhost:8081/upload', formData, { headers: {'Content-Type': 'multipart/form-data'}})
