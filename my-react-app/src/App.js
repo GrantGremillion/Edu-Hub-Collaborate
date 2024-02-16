@@ -1,5 +1,6 @@
 
 // Used to create routes between different pages in website by assigning a path to each .js file
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // importing all web pages
 import AccountSelection from './Pages/AccountSelection';
@@ -14,10 +15,13 @@ import CreateTeacherAccount from './Pages/CreateTeacherAccount';
 import TClassOptions from './Pages/TClassOptions';
 import ChatInterface from './Pages/ChatInterface';
 import ReportPage from './Pages/ReportPage';
+import OTPVerificationPage from './Pages/OTPVerificationPage';
+import PasswordReset from './Pages/PasswordReset';
 import Home from './Pages/Home';
 import Test from './Pages/Test';
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
+
 
 // Root Component for React App
 function App() {
@@ -69,6 +73,10 @@ function App() {
             <Route path="/ReportPage" element={isCookieSet ? <ReportPage /> : <Login onLogin={handleLogin}/>} />
 
             <Route path="/Home" element={isCookieSet ? <Home onLogout={handleLogout}/> : <Login onLogin={handleLogin}/>} />
+
+            <Route path="/OTPVerificationPage" element={<OTPVerificationPage />} />
+            
+            <Route path="/password-reset" element={<PasswordReset />} />
 
             <Route path="/Test" element={<Test />} />
           </Routes>
