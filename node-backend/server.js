@@ -12,10 +12,11 @@ const app = express();
 app.use(express.json());
 
 // multer library allows us to store images on our local machine
-const multer = require('multer')
-const upload = multer({ dest: 'C:/Users/Grant/OneDrive/Desktop/images/' })
+//const multer = require('multer')
+//const upload = multer({ dest: 'C:/Users/Grant/OneDrive/Desktop/images/' })
 
 
+<<<<<<< Updated upstream
 // cors is a built in middleware to allow users to request recources
 app.use(cors(
   {
@@ -25,6 +26,8 @@ app.use(cors(
 
 
 // Creating connection to mysql database
+=======
+>>>>>>> Stashed changes
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -121,6 +124,7 @@ app.post('/create_Saccount', (req,res) => {
 });
 
 
+<<<<<<< Updated upstream
 ////// Create Teacher Account API //////
 app.post('/create_Taccount', (req,res) => {
 
@@ -183,4 +187,11 @@ app.post('/upload', upload.single('image'), (req, res) => {
 app.listen(8081, ()=> {
   console.log("Running")
 })
+=======
+// Forgot Password Endpoint
+app.post('/send-otp', (req, res) => {
+  const { email } = req.body;
+  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate OTP
+  const expirationTime = new Date(new Date().getTime() + 30*60000); // OTP expires in 30 min
+>>>>>>> Stashed changes
 

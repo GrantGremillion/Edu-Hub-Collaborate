@@ -58,7 +58,19 @@ function App() {
 
             <Route path="/RecoverPassword" element={isCookieSet ? <Home onLogout={handleLogout}/> : <RecoverPassword/>} />
 
+<<<<<<< Updated upstream
             <Route path="/CreateClass" element={isCookieSet ? <CreateClass /> : <Login onLogin={handleLogin}/>}/>
+=======
+
+            <Route path="/CreateClass" element={isCookieSet ? <CreateClass /> : <Login onLogin={handleLogin}/>}/>
+
+            <Route path="/otp-verification" element={<OTPVerificationPage />} />
+
+            <Route path="/password-reset" element={<PasswordReset />} />
+
+            <Route path="/CreateClass" element={<CreateClass />} />
+
+>>>>>>> Stashed changes
 
             <Route path="/ChatInterface" element={<ChatInterface />} />
         
