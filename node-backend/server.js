@@ -1,28 +1,21 @@
 import express from "express";
 import mysql from 'mysql2';
 import cors from 'cors';
-import nodemailer from 'nodemailer';
-import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-import emailService from './emailService.js';
-
-dotenv.config();
 
 // These lines are necessary to import multer using require keyword
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 const app = express();
-app.use(cors());
+
+// built in middleware function express.json for parsing json data
 app.use(express.json());
 
 // multer library allows us to store images on our local machine
 const multer = require('multer')
 const upload = multer({ dest: 'C:/Users/Grant/OneDrive/Desktop/images/' })
 
-app.use('/api', emailService);
 
-<<<<<<< Updated upstream
 // cors is a built in middleware to allow users to request recources
 app.use(cors(
   {
@@ -32,27 +25,12 @@ app.use(cors(
 
 
 // Creating connection to mysql database
-=======
->>>>>>> Stashed changes
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
   database: "database"
-});
-
-db.connect(error => {
-  if (error) throw error;
-  console.log("Successfully connected to the database.");
-});
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+})
 
 
 
@@ -143,7 +121,6 @@ app.post('/create_Saccount', (req,res) => {
 });
 
 
-<<<<<<< Updated upstream
 ////// Create Teacher Account API //////
 app.post('/create_Taccount', (req,res) => {
 
@@ -206,78 +183,4 @@ app.post('/upload', upload.single('image'), (req, res) => {
 app.listen(8081, ()=> {
   console.log("Running")
 })
-=======
-// Forgot Password Endpoint
-app.post('/send-otp', (req, res) => {
-  const { email } = req.body;
-  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate OTP
-  const expirationTime = new Date(new Date().getTime() + 30*60000); // OTP expires in 30 min
->>>>>>> Stashed changes
 
-  // Store OTP and expiration in your DB associated with the email
-  const updateOtpQuery = 'UPDATE login SET reset_otp = ?, otp_expiration = ? WHERE email = ?';
-  db.query(updateOtpQuery, [otp, expirationTime, email], (err, result) => {
-    if (err) {
-      console.error('Error updating user with OTP:', err);
-      return res.json({ Status: "Server Side Error" });
-    }
-  
-    // Send email with OTP
-    const mailOptions = {
-      from: 'eduhubcollaborate@gmail.com',
-      to: email,
-      subject: 'Password Reset OTP',
-      text: `Your OTP is ${otp}. It will expire in 30 minutes.`
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-        res.status(500).send('Error sending email');
-      } else {
-        console.log('Email sent: ' + info.response);
-        res.send('OTP sent to your email');
-      }
-    });
-  });
-});
-
-// Verify OTP and Reset Password Endpoint
-app.post('/reset-password', async (req, res) => {
-  const { email, otp, newPassword } = req.body;
-
-  // Verify OTP and expiration
-  const verifyOtpQuery = 'SELECT * FROM login WHERE email = ?';
-  db.query(verifyOtpQuery, [email], async (err, users) => {
-    if (err) {
-      console.error('Error fetching user:', err);
-      return res.status(500).json({ Status: "Server Side Error" });
-    }
-    const user = users[0];
-    if (!user) {
-      return res.status(404).json({ Status: "User not found" });
-    }
-    if (user.reset_otp === otp && new Date() < new Date(user.otp_expiration)) {
-      // Hash new password and update in the database
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-      const updatePasswordQuery = 'UPDATE login SET password = ? WHERE email = ?';
-      db.query(updatePasswordQuery, [hashedPassword, email], (err, result) => {
-        if (err) {
-          console.error('Error updating password:', err);
-          return res.status(500).json({ Status: "Server Side Error" });
-        }
-        res.json({ Status: "Password updated successfully" });
-      });
-    } else {
-      return res.status(400).json({ Status: "Invalid OTP or OTP expired" });
-    }
-  });
-});
-
-// Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});

@@ -16,9 +16,6 @@ import ChatInterface from './Pages/ChatInterface';
 import ReportPage from './Pages/ReportPage';
 import Home from './Pages/Home';
 import Test from './Pages/Test';
-import OTPVerificationPage from './Pages/OTPVerificationPage';
-import PasswordReset from './Pages/PasswordReset';
-
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
 
@@ -61,15 +58,7 @@ function App() {
 
             <Route path="/RecoverPassword" element={isCookieSet ? <Home onLogout={handleLogout}/> : <RecoverPassword/>} />
 
-<<<<<<< Updated upstream
             <Route path="/CreateClass" element={isCookieSet ? <CreateClass /> : <Login onLogin={handleLogin}/>}/>
-=======
-            <Route path="/otp-verification" element={<OTPVerificationPage />} />
-
-            <Route path="/password-reset" element={<PasswordReset />} />
-
-            <Route path="/CreateClass" element={<CreateClass />} />
->>>>>>> Stashed changes
 
             <Route path="/ChatInterface" element={<ChatInterface />} />
         
