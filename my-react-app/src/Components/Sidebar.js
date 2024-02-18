@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "./Sidebar.css";
 import { IconContext } from "react-icons";
+import Typography from '@mui/material/Typography';
 
 function Sidebar() {
   const [sidebar, setSidebar] = useState(false);
@@ -18,6 +19,21 @@ function Sidebar() {
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
+          <Typography
+            variant="h4"
+            marginLeft="2%"
+            marginTop="-.4%"
+            sx={{
+              mr: 8,
+              color: 'white',
+              fontFamily: 'Corier New',
+              fontSize: '200%',
+              fontColor: "white",
+              letterSpacing: '.2rem',
+            }}
+          >
+            Edu Hub Collaborate
+          </Typography>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
