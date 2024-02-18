@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { Button, TextField, Container, Grid } from '@mui/material';
+import { Button, TextField, Container, Grid, Box } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import HeaderBox from '../Components/HeaderBox';
+import PlainNavBar from '../Components/PlainNavBar';
+import bg from '../Images/bg.jpg';
+import dark_bg from '../Images/dark_bg.jpg';
+import { DARKMODE } from '../Config';
 
 function PasswordReset() {
     const [password, setPassword] = useState('');
@@ -10,6 +15,7 @@ function PasswordReset() {
     const email = location.state?.email; // Ensure the email is passed from the previous page
 
     const handlePasswordReset = async () => {
+        // Your password reset logic
         if (!password || !confirmPassword) {
             alert('Please enter all required fields.');
             return;
@@ -26,7 +32,7 @@ function PasswordReset() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }), // Make sure to match these fields with your backend
+                body: JSON.stringify({ email, password }),
             });
 
             if (response.ok) {
@@ -43,36 +49,81 @@ function PasswordReset() {
         }
     };
 
+
+
+    // Theme-based styling
+    const containerColor = DARKMODE ? '#216E6B' : '#e0f2f1';
+    const buttonColor = DARKMODE ? '#009688' : '#b2dfdb';
+    const backgroundImage = DARKMODE ? dark_bg : bg;
+
     return (
-        <Container>
-            <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center">
-                <Grid item xs={12}>
-                    <TextField
-                        label="New Password"
-                        variant="outlined"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        fullWidth
-                    />
+        <div>
+            <PlainNavBar />
+            <Box
+                className="bg"
+                style={{
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundSize: 'cover',
+                    zIndex: '-1',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: '100%',
+                    height: '100%',
+                }}
+            ></Box>
+            <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}}>
+                <Grid container spacing={5} direction="column" alignItems="center" justifyContent="center">
+                    <Grid item xs={12}>
+                        <HeaderBox text={'Reset Your Password'} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            id="password-input"
+                            label="New Password"
+                            variant="filled"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            id="confirm-password-input"
+                            label="Confirm New Password"
+                            variant="filled"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            style={{ background: buttonColor, color: 'white' }}
+                            onClick={handlePasswordReset}
+                        >
+                            Reset Password
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            variant="contained"
+                            size="small"
+                            onClick={() => navigate(-1)}
+                            style={{ width: '100px', background: buttonColor, color: 'white', marginTop: '15px' }}
+                        >
+                            Back
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Confirm New Password"
-                        variant="outlined"
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handlePasswordReset}>
-                        Reset Password
-                    </Button>
-                </Grid>
-            </Grid>
-        </Container>
+            </Container>
+        </div>
     );
 }
 

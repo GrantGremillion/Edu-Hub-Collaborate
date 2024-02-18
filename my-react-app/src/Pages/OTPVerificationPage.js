@@ -32,7 +32,7 @@ function OTPVerificationPage() {
           if (response.ok) {
             const data = await response.json();
             alert(data.message); // "OTP verified successfully."
-            // Navigate to the next page or perform the next action
+            navigate('/password-reset', { state: { email } }); // Navigate to the next page or perform the next action
           } else {
             const errorData = await response.json();
             console.error('Error verifying OTP:', errorData);
