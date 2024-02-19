@@ -124,13 +124,13 @@ function Login({onLogin}) {
           </Grid>
 
           <Grid item xs={1}>
-            <Button fullWidth variant="contained" color="primary" onClick={handleLoginClick} style={{ width: '200px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%'}} >
+            <Button fullWidth variant="contained" color="primary" onClick={handleLoginClick} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%'}} >
               Login
             </Button>
           </Grid>
 
           <Grid item xs={1}>
-            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%', marginLeft: '-30%'}} >
+            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%', marginLeft: '-30%'}} >
               Back
             </Button>
             <Button fullWidth color="secondary" size="small" onClick={handleForgotPasswordClick} sx={{ width: '235px', marginTop: '-15%', marginLeft: '70%'}}>
