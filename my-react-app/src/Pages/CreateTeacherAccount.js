@@ -21,7 +21,6 @@ import axios from 'axios';
 
 function CreateTeacherAccount() {
   
-  // Temporary values to handle the button click redirection
   const navigate = useNavigate();
 
   const [values, setValues] = React.useState({
@@ -30,11 +29,20 @@ function CreateTeacherAccount() {
     cpassword: ''
   })
 
+  const [file, setFile] = React.useState();
+
   // Handler for Submit button click
   const handleClickSubmit = (e) => {
 
     // Prevent default event (e) from occuring
     e.preventDefault();
+
+    // if the user does not upload their file to prove they are a teacher
+    if(handleFormSubmit() === false){
+      alert("Please select a file")
+      return;
+    }
+
     // sends an HTTP POST request to the URL login backend API
     axios.post('http://localhost:8081/create_Taccount', values)
 
@@ -42,12 +50,25 @@ function CreateTeacherAccount() {
     .then(res => {
       if(res.data.Status === "Success") {
         navigate('/Login')
+        
       }
       else{
         alert(res.data.Status)
-      }
-      
+      }  
     })
+  }
+
+  const handleFormSubmit = () => {
+    const formData = new FormData()
+    formData.append("image", file)
+      // check that the user has selected a file
+      if(file){
+
+        axios.post('http://localhost:8081/upload', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        return true
+      }
+
+      return false
   }
 
   const handleClickBack = () => {
@@ -119,12 +140,12 @@ function CreateTeacherAccount() {
 
           {/*File submission form*/}
           <Grid item xs={1}>
-            <form>
-              <TextField type="file" />
-              <Button variant="contained" component="span" sx={{marginTop: '2%', bgcolor: buttonColor, color: textColor}}>
-              Upload
-              </Button>
-            </form>
+              <input
+                filename={file} 
+                onChange={e => setFile(e.target.files[0])} 
+                type="file" 
+                accept="image/*"
+              ></input>
           </Grid>
   
           <Grid item xs={1}>

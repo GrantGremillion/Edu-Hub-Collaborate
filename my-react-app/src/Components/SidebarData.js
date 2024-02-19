@@ -11,13 +11,13 @@ export const SidebarData = [
   },
   {
     title: "Questions",
-    path: "/TeacherAnswering",
+    path: "/ChatInterface",
     icon: <IoIcons.IoIosChatboxes />,
     cName: "nav-text",
   },
   {
     title: "Class",
-    path: "/idk",
+    path: "/TClassOptions",
     icon: <IoIcons.IoIosAperture />,
     cName: "nav-text",
   },

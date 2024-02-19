@@ -1,33 +1,52 @@
-import * as React from 'react';
-import { Button, Grid, Container, Box, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, Grid, Container, Box, TextField, Paper } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
-import PlainNavBar from '../Components/PlainNavBar';
-import { useState } from 'react';
-import bg from '.././Images/bg.jpg'; // Assuming the use of the same background image
+import Sidebar from '../Components/Sidebar';
 import GoBackButton from '../Components/GoBackButton';
+import bg from '.././Images/bg.jpg';
 
 function ChatInterface() {
   const [message, setMessage] = useState('');
-  // The below comment is here to prevent a warning from appearing in the terminal.
-  // eslint-disable-next-line
+  const [messages, setMessages] = useState([]); // Array to store messages
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
-    console.log('Message sent:', message);
+    if (message.trim() === '' && !selectedFile) return; // Do not send empty messages or if no file is selected
+
+    const newMessage = {
+      id: messages.length + 1, // Simple incrementing ID
+      text: message,
+      timestamp: new Date(),
+    };
+    setMessages([...messages, newMessage]);
     setMessage('');
-    // Add the logic to send message here
+
+    // TODO: Send the message to the server here
+    // If there's a file to be sent, call a function to handle the file upload.
+    if (selectedFile) {
+      await handleFileUpload(selectedFile);
+      setSelectedFile(null); // Reset file input after sending
+    }
+  };
+
+  const handleFileUpload = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // TODO: Implement file upload logic here
+    // You'll need to send the formData to the server using fetch or axios
+    console.log('Uploading file:', file.name);
   };
 
   const handleFileSelect = (e) => {
     setSelectedFile(e.target.files[0]);
     console.log('File selected:', e.target.files[0]);
-    // Add the logic to handle file here
   };
 
   return (
     <div>
-      <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
+      <Sidebar />
       <Box
         className="bg"
         style={{
@@ -40,57 +59,51 @@ function ChatInterface() {
           right: 0,
           bottom: 0,
           width: '100%',
-          height: '100%'
+          height: '100%',
         }}
       ></Box>
 
-      <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '75px', paddingBottom: '75px' }}>
-        <Grid container spacing={5}
-            direction="column"
-            alignItems="center"
-            justifyContent="center">
-          
-          <Grid item xs={12}>
-            <HeaderBox text={'Chat with us'}></HeaderBox>
-          </Grid>
-
-          <Grid item xs={12} style={{ width: '100%' }}>
-            <TextField
-              fullWidth
-              id="outlined-multiline-static"
-              label="Type your message here..."
-              multiline
-              rows={4}
-              variant="outlined"
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Button fullWidth variant="contained" color="primary" onClick={handleSendMessage} sx={{ background: '#b2dfdb' }}>
-              Send Message
-            </Button>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              component="label"
-              sx={{ background: '#b2dfdb' }}
-            >
-              Upload File
-              <input
-                type="file"
-                hidden
-                onChange={handleFileSelect}
-              />
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <GoBackButton />
-            </Grid>
-        </Grid>
+      <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
+        <HeaderBox text={'Chat with us'} />
+        <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
+          {messages.map((msg) => (
+            <div key={msg.id} style={{ margin: '10px 0' }}>
+              <Box style={{ wordWrap: 'break-word' }}>{msg.text}</Box>
+              <Box textAlign="right" fontSize="0.75rem" color="gray">
+                {msg.timestamp.toLocaleTimeString()}
+              </Box>
+            </div>
+          ))}
+        </Paper>
+        <TextField
+          fullWidth
+          id="outlined-multiline-static"
+          label="Type your message here..."
+          multiline
+          rows={3}
+          variant="outlined"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          style={{ marginBottom: '10px' }}
+        />
+        <Button fullWidth variant="contained" style={{ background: '#b2dfdb', color: 'white' }} onClick={handleSendMessage}>
+          Send Message
+        </Button>
+        <input
+          accept="image/*"
+          style={{ display: 'none' }}
+          id="raised-button-file"
+          multiple
+          type="file"
+          onChange={handleFileSelect}
+        />
+        <label htmlFor="raised-button-file">
+          <Button variant="contained" component="span" sx={{ background: '#b2dfdb', marginY: 2 }}>
+            Upload File
+          </Button>
+        </label>
+        {selectedFile && <Box mt={2}>File: {selectedFile.name}</Box>}
+        <GoBackButton />
       </Container>
     </div>
   );

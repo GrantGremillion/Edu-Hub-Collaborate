@@ -63,7 +63,7 @@ function Home({onLogout}) {
             
             <Divider></Divider>
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
-              This area whill be used to display any direct messages from friends or announcements from teachers in a class you are in
+              This area will be used to display any direct messages from friends or announcements from teachers in a class you are in
             </Typography>
             <Button style={{background: buttonColor, color: textColor}} onClick={handleLogoutClick}>Logout</Button>
           </div> 

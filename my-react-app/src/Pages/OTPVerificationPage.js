@@ -4,43 +4,49 @@ import HeaderBox from '../Components/HeaderBox';
 import PlainNavBar from '../Components/PlainNavBar';
 import bg from '../Images/bg.jpg';
 import dark_bg from '../Images/dark_bg.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DARKMODE } from '../Config';
 
-function RecoverPassword() {
-    const [email, setEmail] = useState('');
+function OTPVerificationPage() {
+    const [otp, setOtp] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const email = location.state?.email;
 
-    const handleRequestVerification = async () => {
-        if (!email) {
-            alert('Please enter an email address.');
-            return;
+    const handleVerifyOTP = async () => {
+        if (!otp) {
+          alert('Please enter the OTP.');
+          return;
         }
-
+      
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-
+          console.log('Sending OTP for verification:', otp);
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/verify-otp`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, otp }),
+          });
+      
+          if (response.ok) {
             const data = await response.json();
-            if (response.ok) {
-                alert(data.message); // "OTP sent successfully."
-                navigate('/OTPVerificationPage', { state: { email } }); // Navigate to OTP verification page
-            } else {
-                throw new Error(data.error || 'Failed to send OTP.');
-            }
+            alert(data.message); // "OTP verified successfully."
+            navigate('/password-reset', { state: { email } }); // Navigate to the next page or perform the next action
+          } else {
+            const errorData = await response.json();
+            console.error('Error verifying OTP:', errorData);
+            alert(errorData.error || 'Failed to verify OTP.');
+          }
         } catch (error) {
-            alert(error.message);
+          console.error('Network error when verifying OTP:', error);
+          alert('Network error when verifying OTP.');
         }
-    };
+      };
 
-    const handleClickBack = () => {
-        navigate('/login'); // Make sure this route is defined in your routing configuration
-    };
+        
+
+      
 
     const backgroundImage = DARKMODE ? dark_bg : bg;
     const containerStyle = DARKMODE ? { background: '#216E6B', marginTop: '75px', height: '400px', marginBottom: '75px' }
@@ -67,16 +73,16 @@ function RecoverPassword() {
             <Container maxWidth="sm" style={containerStyle}>
                 <Grid container spacing={5} direction="column" alignItems="center" justifyContent="center">
                     <Grid item xs={12}>
-                        <HeaderBox text={'Recover Your Password'} />
+                        <HeaderBox text={'OTP Verification'} />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            id="email-input"
-                            label="Username / Email"
+                            id="otp-input"
+                            label="OTP"
                             variant="filled"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -84,16 +90,16 @@ function RecoverPassword() {
                             fullWidth
                             variant="contained"
                             style={{ background: DARKMODE ? '#009688' : '#b2dfdb', color: 'white' }}
-                            onClick={handleRequestVerification}
+                            onClick={handleVerifyOTP}
                         >
-                            Request Verification Code
+                            Verify OTP
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Button
                             variant="contained"
                             size="small"
-                            onClick={handleClickBack}
+                            onClick={() => navigate(-1)}
                             style={{ width: '100px', background: DARKMODE ? '#009688' : '#b2dfdb', color: 'white', marginTop: '15px' }}
                         >
                             Back
@@ -105,4 +111,4 @@ function RecoverPassword() {
     );
 }
 
-export default RecoverPassword;
+export default OTPVerificationPage;

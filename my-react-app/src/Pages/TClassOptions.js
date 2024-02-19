@@ -1,11 +1,8 @@
 import * as React from 'react';
 // Material UI components
 import {Container, Box} from '@mui/material';
-
-
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
-import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
 
 function TClassOptions() {
 
@@ -28,8 +25,7 @@ return (
             }}
         >
         </Box>
-            <PlainNavBar text= 'Edu Hub Collaborate'></PlainNavBar>
-            <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
+            <Sidebar/>
         <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '60px', height: '700px', marginBottom:'60px'}}>
         </Container>
     </div>

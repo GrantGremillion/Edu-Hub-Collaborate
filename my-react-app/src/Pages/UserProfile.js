@@ -4,7 +4,7 @@ import * as React from 'react';
 import {Button, Grid, Container, Box, TextField} from '@mui/material';
 // Premade components we set up and put in the Components folder for reusability
 import HeaderBox from '.././Components/HeaderBox';
-import PlainNavBar from '../Components/PlainNavBar'
+import Sidebar from '../Components/Sidebar';
 // Used to navigate between web pages
 import { useNavigate } from 'react-router-dom';
 // solid background images for website
@@ -60,7 +60,7 @@ function UserProfile() {
                 }}>
             </Box>
         
-            <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
+            <Sidebar/>
             {/* Container and Grid organizes HeaderBox and Buttons */}
             <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}} >
                 <Grid container spacing={5}
