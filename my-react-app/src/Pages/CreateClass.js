@@ -12,6 +12,11 @@ import bg from '../Images/bg.jpg';
 import dark_bg from '../Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
+
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
 function CreateClass() {
 
   // checks for the theme the page is in, and applys it to these variables
@@ -22,10 +27,37 @@ function CreateClass() {
     var background = dark_bg;
   }
   else {
-    var containerColor = themes.normalContainer;
-    var buttonColor = themes.normalButton;
-    var textColor = themes.normalText;
-    var background = bg;
+    containerColor = themes.normalContainer;
+    buttonColor = themes.normalButton;
+    textColor = themes.normalText;
+    background = bg;
+  }
+
+  const navigate = useNavigate();
+
+  const [values, setValues] = React.useState({
+    cname: '',
+    cdes: '',
+    keyexp: '1'
+  })
+
+  const handleClickSubmit = () => {
+
+    console.log("hi");
+    // sends an HTTP POST request to the URL login backend API
+    axios.post('http://localhost:8081/create_class', {class_name:values[0], class_description:values[1], keyexp:values[2] })
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        console.log("Success")
+        navigate('/TClassOptions')
+      }
+      else{
+        alert(res.data.Status)
+      }
+      
+    })
   }
 
   return (
@@ -58,16 +90,16 @@ function CreateClass() {
           </Grid>
 
           <Grid item xs={2}>
-            <TextField variant="filled" label="Class Name" />
+            <TextField variant="filled" label="Class Name" onChange={e => setValues({...values,cname:e.target.value})}/>
           </Grid>
 
           <Grid item xs={2}>
-            <TextField variant="filled" label="Class Description" />
+            <TextField variant="filled" label="Class Description" onChange={e => setValues({...values,cdes:e.target.value})}/>
           </Grid>
 
           <Grid item xs={3}>
-            <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', background: buttonColor, color: textColor}} >
-              Confirm Class
+            <Button variant="contained" size="large"  onClick={handleClickSubmit()} style={{ width: '220px', background: buttonColor, color: textColor}} >
+              Submit
             </Button>
           </Grid> 
 

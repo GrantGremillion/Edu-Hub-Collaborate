@@ -3,7 +3,7 @@
 import express from 'express';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import { Router } from 'express';
+
 
 dotenv.config();
 
@@ -59,7 +59,6 @@ router.post('/verify-otp', async (req, res) => {
     res.status(400).json({ error: 'Invalid OTP.' });
   }
 });
-
 
 
 export default router;

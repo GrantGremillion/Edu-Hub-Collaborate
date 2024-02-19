@@ -31,10 +31,10 @@ function ReportPage() {
         var background = dark_bg;
     }
     else {
-        var containerColor = themes.normalContainer;
-        var buttonColor = themes.normalButton;
-        var textColor = themes.normalText;
-        var background = bg;
+        containerColor = themes.normalContainer;
+        buttonColor = themes.normalButton;
+        textColor = themes.normalText;
+        background = bg;
     }
 
     return (

@@ -28,7 +28,6 @@ app.use(cors(
   }
 ))
 
-app.use(cors());
 app.use('/api',emailService);
 
 // Creating connection to mysql database
@@ -243,8 +242,12 @@ app.post('/verify-otp', async (req, res) => {
 });
 
 
+app.post('/create_class', (req,res) =>{
+  
+});
 
-const PORT = process.env.PORT || 3001;
+
+const PORT = 8081;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

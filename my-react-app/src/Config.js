@@ -13,9 +13,7 @@ export var darkButton = '#009688';
 export var darkContainer = '#216E6B';
 export var darkText = 'white';
 
-export function DarkmodeToggle() {
-
-  
+export function darkmodeToggle() {
 
   if (!DARKMODE) {
     DARKMODE = true;
