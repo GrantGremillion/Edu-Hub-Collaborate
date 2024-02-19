@@ -19,6 +19,7 @@ import OTPVerificationPage from './Pages/OTPVerificationPage';
 import PasswordReset from './Pages/PasswordReset';
 import Home from './Pages/Home';
 import Test from './Pages/Test';
+import ClassesDisplay from './Pages/ClassesDisplay';
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
 
@@ -79,6 +80,8 @@ function App() {
             <Route path="/password-reset" element={<PasswordReset />} />
 
             <Route path="/Test" element={<Test />} />
+
+            <Route path="/ClassesDisplay" element={<ClassesDisplay />} />
           </Routes>
             
         </div>
