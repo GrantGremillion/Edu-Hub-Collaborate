@@ -24,9 +24,21 @@ import ClassesDisplay from './Pages/ClassesDisplay';
 import { CookiesProvider, useCookies } from "react-cookie";
 
 
+
 // Root Component for React App
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [getTheme, setTheme] = useCookies(["theme"]);
+
+  // declares a cookie for the theme and handles the case when the user has
+  // not set their preference yet.
+  var themeVal = getTheme.theme;
+  if (themeVal == null) {
+    setTheme("theme", false, {path: '/'});
+  }
+  function handleTheme(dark) {
+    setTheme("theme", dark, {path: '/'});
+  }
 
   function handleLogin(user) {
     setCookie('user', user, { path: '/' });
@@ -52,7 +64,7 @@ function App() {
             {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
             <Route path="/UserProfile" element={isCookieSet ? <UserProfile /> : <Login onLogin={handleLogin}/>} />
         
-            <Route path="/UserAccountSettings" element={isCookieSet ? <UserAccountSettings /> : <Login onLogin={handleLogin}/>} />
+            <Route path="/UserAccountSettings" element={isCookieSet ? <UserAccountSettings themeToggle={handleTheme} /> : <Login onLogin={handleLogin}/>} />
         
             <Route path="/CreateStudentAccount" element={isCookieSet ? <Home onLogout={handleLogout}/> : <CreateStudentAccount />} />
 

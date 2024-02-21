@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 // Material UI components
 // FormGroup and FormControlLabel are needed for switches with text.
-import {Button, Grid, Container, Box, Switch, FormGroup, FormControlLabel} from '@mui/material';
+import {Button, Grid, Container, Box, Switch, FormGroup, FormControlLabel, Typography} from '@mui/material';
 // Premade components we set up and put in the Components folder for reusability
 import HeaderBox from '.././Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
@@ -12,9 +12,12 @@ import { useNavigate } from 'react-router-dom';
 import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
-//import GoBackButton from '../Components/GoBackButton';
+import {useCookies} from "react-cookie";
 
-function UserAccountSettings() {
+function UserAccountSettings({themeToggle}) {
+
+    // fetches the user set dark theme preference from cookie
+    const [getTheme] = useCookies(["theme"]);
 
     // Handles the page's button presses (temporarily)
     const navigate = useNavigate();
@@ -28,16 +31,19 @@ function UserAccountSettings() {
     }
 
     // initialize darkmode switch's state with DARKMODE's value
-    const [check, setCheck] = useState(themes.DARKMODE);
+    const [check, setCheck] = useState(getTheme.theme);
 
     // handle's the change of the switch
+    // need to edit ALL pages to use cookies and getTheme now...
     function handleChange() {
         setCheck((prevCheck) => !prevCheck);    // this actually toggles the switch's state
-        themes.darkmodeToggle();
+        themeToggle(!getTheme.theme);
+        //themes.DarkmodeToggle(getTheme.theme);
+        
     }
 
     // checks for the theme the page is in, and applys it to these variables
-    if (themes.DARKMODE) {
+    if (getTheme.theme) {
         var containerColor = themes.darkContainer;
         var buttonColor = themes.darkButton;
         var textColor = themes.darkText;
@@ -105,12 +111,11 @@ function UserAccountSettings() {
                             bgcolor: buttonColor,
                             color: 'primary.white',
                             zIndex: '0',
-                            fontFamily: 'Courier New',
-                            fontSize: 30
+                            fontFamily: 'Courier New'
                             }}>
 
-                            <FormGroup>
-                                <FormControlLabel control={<Switch onChange={handleChange} checked={check} color='default' />} label="Dark Theme" sx={{color: textColor}} />
+                            <FormGroup sx={{marginLeft: '3%'}}>
+                                <FormControlLabel control={<Switch onChange={handleChange} checked={check} color='default' sx={{marginTop: '-1%'}} />} label={<Typography sx={{marginLeft: '5%', marginTop: '-2%'}}>Dark Theme</Typography> } sx={{color: textColor}} />
                             </FormGroup>
 
                         </Box>

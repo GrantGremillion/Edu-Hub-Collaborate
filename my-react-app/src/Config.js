@@ -1,8 +1,7 @@
 
-// import {useCookies} from "react-cookie";
-
 // this file handles website theme config settings since global variables are frowned upon
 export var DARKMODE = false;
+export var THEMECOOKIE = false;
 
 // normal page color scheme
 export var normalButton = '#b2dfdb';
@@ -13,14 +12,15 @@ export var darkButton = '#009688';
 export var darkContainer = '#216E6B';
 export var darkText = 'white';
 
-export function darkmodeToggle() {
+export function DarkmodeToggle(state) {
 
-  
-
+  DARKMODE = state;
+  /*
   if (!DARKMODE) {
     DARKMODE = true;
   }
   else {
     DARKMODE = false;
   }
+  */
 }
