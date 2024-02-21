@@ -49,8 +49,8 @@ function OTPVerificationPage() {
       
 
     const backgroundImage = DARKMODE ? dark_bg : bg;
-    const containerStyle = DARKMODE ? { background: '#216E6B', marginTop: '75px', height: '400px', marginBottom: '75px' }
-                                    : { background: '#e0f2f1', marginTop: '75px', height: '400px', marginBottom: '75px' };
+    const containerStyle = DARKMODE ? { background: '#216E6B', marginTop: '75px', height: '425px', marginBottom: '75px' }
+                                    : { background: '#e0f2f1', marginTop: '75px', height: '425px', marginBottom: '75px' };
 
     return (
         <div>
@@ -70,7 +70,7 @@ function OTPVerificationPage() {
                     height: '100%',
                 }}
             ></Box>
-            <Container maxWidth="sm" style={containerStyle}>
+            <Container maxWidth="sm" style={containerStyle} >
                 <Grid container spacing={5} direction="column" alignItems="center" justifyContent="center">
                     <Grid item xs={12}>
                         <HeaderBox text={'OTP Verification'} />

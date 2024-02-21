@@ -22,6 +22,7 @@ import Test from './Pages/Test';
 import ClassesDisplay from './Pages/ClassesDisplay';
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
+import * as themes from './Config';
 
 
 
@@ -36,6 +37,7 @@ function App() {
   if (themeVal == null) {
     setTheme("theme", false, {path: '/'});
   }
+  themes.DarkmodeToggle(getTheme.theme);
   function handleTheme(dark) {
     setTheme("theme", dark, {path: '/'});
   }

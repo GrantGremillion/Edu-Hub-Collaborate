@@ -38,12 +38,12 @@ function UserAccountSettings({themeToggle}) {
     function handleChange() {
         setCheck((prevCheck) => !prevCheck);    // this actually toggles the switch's state
         themeToggle(!getTheme.theme);
-        //themes.DarkmodeToggle(getTheme.theme);
+        themes.DarkmodeToggle(getTheme.theme);
         
     }
 
     // checks for the theme the page is in, and applys it to these variables
-    if (getTheme.theme) {
+    if (themes.DARKMODE) {
         var containerColor = themes.darkContainer;
         var buttonColor = themes.darkButton;
         var textColor = themes.darkText;
