@@ -107,22 +107,20 @@ router.post('/login', (req,res) => {
       
       try{
         const Sid = data[0].Sid;
+        if(data.length > 0){
+          console.log("Data:", data)
+        }
+        // If a result was found with matching email and password in the db
+        if(data.length > 0){
+        // Student account was found
+        return res.json({Status: "Success", ID:Sid, Account: "Student"})
+        }
       }
-      catch{
-        console.log('teacher account');
-      }
+   
       
-
-      if(data.length > 0){
-        console.log("Data:", data)
-      }
   
-      // If a result was found with matching email and password in the db
-      if(data.length > 0){
-          // Student account was found
-          return res.json({Status: "Success", ID:Sid, Account: "Student"})
-      }
-      else{
+      
+      catch{
         // If no records were found in the student table, then search the teacher table
         // verified must be true (indicating an admin has verified that the user is a teacher) in order for them to login
         const sql = "SELECT Tid,email,password FROM Tlogin WHERE email = ? AND password = ? AND verified = 1"
