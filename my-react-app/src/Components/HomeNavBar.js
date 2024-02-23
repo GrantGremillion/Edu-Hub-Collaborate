@@ -57,12 +57,11 @@ function HomeNavBar() {
 
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const handleLogoutClick = () => {
-    removeCookie('user');
+    removeCookie('userID');
     removeCookie('account');  
     navigate('/Login');
   }
 
-  
 
   return (
     <AppBar position="static" sx={{background:'#009688'}}>

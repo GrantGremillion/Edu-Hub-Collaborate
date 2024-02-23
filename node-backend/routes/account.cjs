@@ -100,11 +100,19 @@ router.post('/create_Saccount', (req,res) => {
   ////// Login API //////
 // Used for both students and teachers
 router.post('/login', (req,res) => {
-    const sql = "SELECT * FROM Slogin WHERE email = ? AND password = ?"
+    const sql = "SELECT Sid,email,password FROM Slogin WHERE email = ? AND password = ?"
   
     // Send query to db to search for account with email=req.body.email and password=req.body.password
     db.query(sql, [req.body.email, req.body.password], (err,data) => {
       
+      try{
+        const Sid = data[0].Sid;
+      }
+      catch{
+        console.log('teacher account');
+      }
+      
+
       if(data.length > 0){
         console.log("Data:", data)
       }
@@ -112,21 +120,22 @@ router.post('/login', (req,res) => {
       // If a result was found with matching email and password in the db
       if(data.length > 0){
           // Student account was found
-          return res.json({Status: "Success", Account: "Student"})
+          return res.json({Status: "Success", ID:Sid, Account: "Student"})
       }
       else{
         // If no records were found in the student table, then search the teacher table
         // verified must be true (indicating an admin has verified that the user is a teacher) in order for them to login
-        const sql = "SELECT * FROM Tlogin WHERE email = ? AND password = ? AND verified = 1"
+        const sql = "SELECT Tid,email,password FROM Tlogin WHERE email = ? AND password = ? AND verified = 1"
   
         db.query(sql, [req.body.email, req.body.password], (err,data) => {
       
+          const Tid = data[0].Tid;
           console.log("Data:", data)
   
           // If a result was found with matching email and password in the db
           if(data.length > 0){
               // Teacher account was found
-              return res.json({Status: "Success", Account: "Teacher"})
+              return res.json({Status: "Success", ID:Tid, Account: "Teacher"})
           }
           else{
             return res.json({Message: "No account found"});

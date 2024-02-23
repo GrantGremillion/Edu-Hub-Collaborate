@@ -11,17 +11,13 @@ dotenv.config();
 const require = createRequire(import.meta.url);
 const accountRoute = require('./routes/account.cjs');
 const classesRoute = require('./routes/classes.cjs');
-
+const uploadFile = require('./routes/uploadFile.cjs');
 
 
 const app = express();
 
 // built in middleware function express.json for parsing json data
 app.use(express.json());
-
-// multer library allows us to store images on our local machine
-const multer = require('multer')
-//const upload = multer({ dest: 'C:/Users/Grant/OneDrive/Desktop/images/' })
 
 
 // cors is a built in middleware to allow users to request recources
@@ -33,8 +29,6 @@ app.use(cors(
 
 app.use('/api',emailService);
 
-
-
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -44,18 +38,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-
-
-////// Upload File API //////
-/*
-app.post('/upload', upload.single('image'), (req, res) => {
-  
-  const imageName = req.file.filename   
-  console.log(imageName)
-  //console.log(imageName)
-  res.send({imageName})
-})
-*/
 
 // Send OTP endpoint
 app.post('/api/send-otp', async (req, res) => {
@@ -100,9 +82,10 @@ app.post('/verify-otp', async (req, res) => {
   }
 });
 
-
-app.use('/account', accountRoute)
-app.use('/classes', classesRoute)
+// Point to routes
+app.use('/upload', uploadFile);
+app.use('/account', accountRoute);
+app.use('/classes', classesRoute);
 
 const PORT = 8081;
 app.listen(PORT, () => {

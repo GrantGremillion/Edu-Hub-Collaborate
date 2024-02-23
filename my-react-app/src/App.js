@@ -28,7 +28,7 @@ import * as themes from './Config';
 
 // Root Component for React App
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["userID","account"]);
   const [getTheme, setTheme] = useCookies(["theme"]);
 
   // declares a cookie for the theme and handles the case when the user has
@@ -42,13 +42,20 @@ function App() {
     setTheme("theme", dark, {path: '/'});
   }
 
-  function handleLogin(user) {
-    setCookie('user', user, { path: '/' });
+  function handleLogin(Cookies) {
+    if(Cookies['account'] === "Student"){
+      setCookie('account', 'student', { path: '/' });
+    }
+    else{
+      setCookie('account', 'teacher', { path: '/' });
+    }
+    setCookie('userID', Cookies['userID'], { path: '/' });
+
+    console.log(cookies);
   }
 
-
   // Check if the user cookie exists to determin which page to redirect the user to
-  const isCookieSet = cookies['user'] !== undefined;
+  const isCookieSet = cookies['userID'] !== undefined;
 
   return (
     <CookiesProvider>

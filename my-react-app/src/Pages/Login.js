@@ -44,14 +44,9 @@ function Login({onLogin}) {
 
     // testing 
     .then(res => {
+      console.log(res.data);
       if(res.data.Status === "Success") {
-        if(res.data.Account === "Student"){
-          setCookie('account', 'student', { path: '/' });
-        }
-        else{
-          setCookie('account', 'teacher', { path: '/' });
-        }
-        onLogin();
+        onLogin({ account: res.data.Account, userID: res.data.ID });
         navigate('/Home')
       }
       else{
@@ -85,6 +80,7 @@ function Login({onLogin}) {
   }
 
   return (
+
     <div>
       <PlainNavBar />
       <Box
@@ -141,6 +137,7 @@ function Login({onLogin}) {
         </Grid>
       </Container>
     </div>
+
   );
 
 }
