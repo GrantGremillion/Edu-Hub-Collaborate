@@ -37,7 +37,7 @@ function CreateStudentAccount() {
     // Prevent default event (e) from occuring
     e.preventDefault();
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/create_Saccount', values)
+    axios.post('http://localhost:8081/account/create_Saccount', values)
 
     // testing 
     .then(res => {

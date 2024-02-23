@@ -40,7 +40,7 @@ function Login({onLogin}) {
     // Prevent default event (e) from occuring
     e.preventDefault();
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/login', values)
+    axios.post('http://localhost:8081/account/login', values)
 
     // testing 
     .then(res => {

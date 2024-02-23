@@ -27,7 +27,7 @@ function CreateTeacherAccount() {
     email: '',
     password: '',
     cpassword: ''
-  })
+  });
 
   const [file, setFile] = React.useState();
 
@@ -44,7 +44,7 @@ function CreateTeacherAccount() {
     }
 
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/create_Taccount', values)
+    axios.post('http://localhost:8081/account/create_Taccount', values)
 
     // testing 
     .then(res => {

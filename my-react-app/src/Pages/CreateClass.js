@@ -38,14 +38,16 @@ function CreateClass() {
   const [values, setValues] = React.useState({
     cname: '',
     cdes: '',
-    keyexp: '1'
-  })
+    keyexp: ''
+  });
 
-  const handleClickSubmit = () => {
+  const handleClickSubmit = (e) => {
 
-    console.log("hi");
+
+    e.preventDefault();
+    
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/create_class', {class_name:values[0], class_description:values[1], keyexp:values[2] })
+    axios.post('http://localhost:8081/classes/create_class', values)
 
     // testing 
     .then(res => {
@@ -57,7 +59,7 @@ function CreateClass() {
         alert(res.data.Status)
       }
       
-    })
+    });
   }
 
   return (
@@ -98,7 +100,7 @@ function CreateClass() {
           </Grid>
 
           <Grid item xs={3}>
-            <Button variant="contained" size="large"  onClick={handleClickSubmit()} style={{ width: '220px', background: buttonColor, color: textColor}} >
+            <Button variant="contained" size="large"  onClick={handleClickSubmit} style={{ width: '220px', background: buttonColor, color: textColor}} >
               Submit
             </Button>
           </Grid> 
