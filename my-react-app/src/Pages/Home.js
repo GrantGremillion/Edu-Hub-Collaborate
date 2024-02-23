@@ -16,12 +16,6 @@ function Home({onLogout}) {
 
   const navigate = useNavigate();
 
-  const handleLogoutClick = (e) => {
-    e.preventDefault();
-    onLogout();
-    navigate('/Login');
-  }
-  
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
     var containerColor = themes.darkContainer;
@@ -63,9 +57,8 @@ function Home({onLogout}) {
             
             <Divider></Divider>
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
-              This area will be used to display any direct messages from friends or announcements from teachers in a class you are in
+              This area will be used to display any direct messages from friends or announcements from teachers in a class you have joined
             </Typography>
-            <Button style={{background: buttonColor, color: textColor}} onClick={handleLogoutClick}>Logout</Button>
           </div> 
         </Box>
         <Box sx={{height: '100vh', width: '120%', marginTop: '5%', marginLeft: '-10%', bgcolor: containerColor}} />

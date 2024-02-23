@@ -13,7 +13,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { useNavigate } from 'react-router-dom';
 
-const settings = ['User Profile', 'Account Settings', 'Logout'];
+import { CookiesProvider, useCookies } from "react-cookie";
+
+
 
 function HomeNavBar() {
   const navigate = useNavigate();
@@ -45,14 +47,22 @@ function HomeNavBar() {
     navigate('/JoinClass');
   }
 
-  const handleAccountSettingsClick = () => {navigate('/UserAccountSettings')
-    // Use navigate to go to the {doesnt exist(?)} page
-    
+  const handleAccountSettingsClick = () => {
+    navigate('/UserAccountSettings');
   }
 
   const handleReportClick = () => {
     navigate('/ReportPage');
   }
+
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const handleLogoutClick = () => {
+    removeCookie('user');
+    removeCookie('account');  
+    navigate('/Login');
+  }
+
+  
 
   return (
     <AppBar position="static" sx={{background:'#009688'}}>
@@ -79,9 +89,6 @@ function HomeNavBar() {
             <Button onClick={handleJoinAClassClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Join a class
             </Button>
-            <Button onClick={handleAccountSettingsClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
-              Settings
-            </Button>
             <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Report Issues/Violations
             </Button>
@@ -93,6 +100,7 @@ function HomeNavBar() {
                 <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }}></AccountCircleIcon>
               </IconButton>
             </Tooltip>
+            
 
             <Menu
               sx={{ mt: '45px' }}
@@ -110,15 +118,14 @@ function HomeNavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleUserProfileClick}>
-                <MenuItem key={setting} onClick={ handleAccountSettingsClick}>
 
-                </MenuItem>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleUserProfileClick}>User Profile</MenuItem>
+              <MenuItem onClick={ handleAccountSettingsClick}>Account Settings</MenuItem>
+              <MenuItem onClick={ handleLogoutClick}>Logout</MenuItem>
+
             </Menu>
+
+
           </Box>
         </Toolbar>
       </Container>

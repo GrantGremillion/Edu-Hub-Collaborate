@@ -46,10 +46,6 @@ function App() {
     setCookie('user', user, { path: '/' });
   }
 
-  function handleLogout(){
-    removeCookie('user');
-    removeCookie('account');
-  }
 
   // Check if the user cookie exists to determin which page to redirect the user to
   const isCookieSet = cookies['user'] !== undefined;
@@ -61,21 +57,21 @@ function App() {
           <Routes>
 
             {/* The / indicates that this is the default/home page for the website */}
-            <Route path="/" element={isCookieSet ? <Home onLogout={handleLogout}/> : <AccountSelection />} />
+            <Route path="/" element={isCookieSet ? <Home /> : <AccountSelection />} />
             
             {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
             <Route path="/UserProfile" element={isCookieSet ? <UserProfile /> : <Login onLogin={handleLogin}/>} />
         
             <Route path="/UserAccountSettings" element={isCookieSet ? <UserAccountSettings themeToggle={handleTheme} /> : <Login onLogin={handleLogin}/>} />
         
-            <Route path="/CreateStudentAccount" element={isCookieSet ? <Home onLogout={handleLogout}/> : <CreateStudentAccount />} />
+            <Route path="/CreateStudentAccount" element={isCookieSet ? <Home /> : <CreateStudentAccount />} />
 
-            <Route path="/CreateTeacherAccount" element={isCookieSet ? <Home onLogout={handleLogout}/> : <CreateTeacherAccount />} />
+            <Route path="/CreateTeacherAccount" element={isCookieSet ? <Home /> : <CreateTeacherAccount />} />
 
             {/*If a cookie has been set and the user tries to access the login page, redirect them to the Home page*/}
-            <Route path="/Login" element={isCookieSet ? <Home onLogout={handleLogout}/>: <Login onLogin={handleLogin}/>} />
+            <Route path="/Login" element={isCookieSet ? <Home />: <Login onLogin={handleLogin}/>} />
 
-            <Route path="/RecoverPassword" element={isCookieSet ? <Home onLogout={handleLogout}/> : <RecoverPassword/>} />
+            <Route path="/RecoverPassword" element={isCookieSet ? <Home /> : <RecoverPassword/>} />
 
             <Route path="/CreateClass" element={isCookieSet ? <CreateClass /> : <Login onLogin={handleLogin}/>}/>
 
@@ -87,7 +83,7 @@ function App() {
 
             <Route path="/ReportPage" element={isCookieSet ? <ReportPage /> : <Login onLogin={handleLogin}/>} />
 
-            <Route path="/Home" element={isCookieSet ? <Home onLogout={handleLogout}/> : <Login onLogin={handleLogin}/>} />
+            <Route path="/Home" element={isCookieSet ? <Home /> : <Login onLogin={handleLogin}/>} />
 
             <Route path="/OTPVerificationPage" element={<OTPVerificationPage />} />
             

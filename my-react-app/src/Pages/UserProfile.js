@@ -100,6 +100,7 @@ function UserProfile() {
                         </Button>
                     </Grid>
 
+
                     <Grid item xs={4}>
                         <Button size="small"  onClick={goToHome} style={{ color: textColor, width: '200px', background: buttonColor }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
                             Back to Home
