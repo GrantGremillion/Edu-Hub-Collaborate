@@ -118,8 +118,6 @@ router.post('/login', (req,res) => {
       }
    
       
-  
-      
       catch{
         // If no records were found in the student table, then search the teacher table
         // verified must be true (indicating an admin has verified that the user is a teacher) in order for them to login

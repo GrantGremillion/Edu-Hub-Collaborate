@@ -1,9 +1,12 @@
 import * as React from 'react';
-import {Button, Grid, Container, TextField, Box} from '@mui/material';
+import {Button, Grid, Container, TextField, Box, Card, Typography, ButtonBase} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '.././Components/HeaderBox';
 import PlainNavBar from '../Components/PlainNavBar'; 
+import GenerateKey from '../Components/GenerateKey'; 
+
+import CardContent from '@mui/material/CardContent';
 
 // theme components
 import bg from '../Images/bg.jpg'; 
@@ -11,6 +14,11 @@ import dark_bg from '../Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
 function ClassesDisplay() {
+
+  const handleClickClass = (e) => {
+    e.preventDefault();
+    return
+  }
 
     // checks for the theme the page is in, and applys it to these variables
     if (themes.DARKMODE) {
@@ -48,11 +56,27 @@ function ClassesDisplay() {
         <Container style={{ background: containerColor, marginTop: '75px', height: '700px', width: '1000px', marginBottom:'75px'}}>
           <Grid container spacing={4}
             direction="column"
-            alignItems="center"
-            justifyContent="center">
-  
-            
-  
+            >
+
+            <Grid item xs={12} style={{}}>
+              <ButtonBase sx={{marginRight:'60%', marginLeft:'5%'}} onClick={handleClickClass}>
+                <Card >
+                  <CardContent>
+                    <Typography sx={{ fontSize: 14 }} gutterBottom>
+                    Math101
+                    </Typography>
+                    
+                    <Button size="large">Generate a key for students</Button>
+
+                    <Typography sx={{ fontSize: 14 }} gutterBottom>
+                    This is an intriductory math class for freshmen at Louisiana Tech
+                    </Typography>
+
+                  </CardContent>
+                </Card>
+              </ButtonBase>
+            </Grid>
+
           </Grid>
         </Container>
       </div>
