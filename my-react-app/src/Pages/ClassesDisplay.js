@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, Grid, Container, TextField, Box, Card, Typography, ButtonBase} from '@mui/material';
+import {Button, Grid, Container, TextField, Box, Card, Typography, ButtonBase, Divider} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '.././Components/HeaderBox';
@@ -17,7 +17,25 @@ function ClassesDisplay() {
 
   const handleClickClass = (e) => {
     e.preventDefault();
+    
+    console.log("Class Button");
     return
+  }
+
+  const handleClickGenerateKey = (e) => {
+    // Make sure the parent button is not clicked as well (class button)
+    e.stopPropagation();
+  
+    // Generates a random alphanumeric key that is ten characters long
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < 10) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    console.log(result);
   }
 
     // checks for the theme the page is in, and applys it to these variables
@@ -65,12 +83,16 @@ function ClassesDisplay() {
                     <Typography sx={{ fontSize: 14 }} gutterBottom>
                     Math101
                     </Typography>
-                    
-                    <Button size="large">Generate a key for students</Button>
+
+                    <Divider orientation="horizontal" flexItem style={{ margin: '5%', width: '50%', marginLeft: '28%', marginBottom: '0%', color: textColor}} ></Divider>
 
                     <Typography sx={{ fontSize: 14 }} gutterBottom>
-                    This is an intriductory math class for freshmen at Louisiana Tech
+                      This is an introductory math class for freshmen at Louisiana Tech
                     </Typography>
+                    
+                    <Button size="large" onClick={handleClickGenerateKey}>Generate a key for students</Button>
+
+                    
 
                   </CardContent>
                 </Card>

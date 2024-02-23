@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, TextField} from '@mui/material';
+import {Button, Grid, Container, Box, TextField, Divider} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
