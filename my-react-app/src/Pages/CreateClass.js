@@ -15,9 +15,12 @@ import * as themes from '.././Config';
 
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 
-function CreateClass({ cookies }) {
+function CreateClass() {
+
+  const [cookies] = useCookies(['userID', 'account']);
 
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
@@ -38,16 +41,16 @@ function CreateClass({ cookies }) {
   const [values, setValues] = React.useState({
     cname: '',
     cdes: '',
-    keyexp: ''
+    Tid: cookies.userID
   });
 
   const handleClickSubmit = (e) => {
 
-
+    console.log(cookies.account);
     e.preventDefault();
     
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/classes/create_class', values, cookies)
+    axios.post('http://localhost:8081/classes/create_class', values)
 
     // testing 
     .then(res => {

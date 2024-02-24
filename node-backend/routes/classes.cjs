@@ -4,9 +4,10 @@ const router = express.Router();
 
 const db = require('../database.cjs')
 
+
+// Generates a random alphanumeric key that is ten characters long
 const handleGenerateKey = (e) => {
 
-    // Generates a random alphanumeric key that is ten characters long
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -20,9 +21,10 @@ const handleGenerateKey = (e) => {
 
 
 router.post('/create_class', (req,res) =>{
-    const insertUserQuery = "INSERT INTO class (class_name, class_description, access_key) VALUES (?, ?, ?)";
+    const insertUserQuery = "INSERT INTO class (Tid, class_name, class_description, access_key) VALUES (?, ?, ?, ?)";
+
     key = handleGenerateKey();
-    db.query(insertUserQuery, [req.body.cname, req.body.cdes, key], (err) => {
+    db.query(insertUserQuery, [req.body.Tid, req.body.cname, req.body.cdes, key], (err) => {
 
         if (err) {
             console.log(err);
