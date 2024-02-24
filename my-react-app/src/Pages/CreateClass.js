@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-function CreateClass() {
+function CreateClass({ cookies }) {
 
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
@@ -47,13 +47,13 @@ function CreateClass() {
     e.preventDefault();
     
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/classes/create_class', values)
+    axios.post('http://localhost:8081/classes/create_class', values, cookies)
 
     // testing 
     .then(res => {
       if(res.data.Status === "Success") {
         console.log("Success")
-        navigate('/TClassOptions')
+        navigate('/ClassesDisplay')
       }
       else{
         alert(res.data.Status)

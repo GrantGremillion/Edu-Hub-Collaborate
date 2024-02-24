@@ -39,7 +39,7 @@ function HomeNavBar() {
 
   const handleViewClassesClick = () => {
     // Use navigate to go to the TClass page
-    navigate('/TClassOptions');
+    navigate('/ClassesDisplay');
   }
 
   const handleJoinAClassClick = () => {
