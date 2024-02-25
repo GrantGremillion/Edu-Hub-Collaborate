@@ -29,7 +29,7 @@ export const SidebarData = [
   },
   {
     title: "Settings",
-    path: "/idk",
+    path: "/UserAccountSettings",
     icon: <IoIcons.IoIosCog />,
     cName: "nav-text",
   },
