@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer';
 import emailService from './emailService.js';
 import { otpStore } from './emailService.js';
 import { createRequire } from 'module';
+import bcrypt from 'bcrypt';
 dotenv.config();
 
 
@@ -81,6 +82,28 @@ app.post('/verify-otp', async (req, res) => {
     res.status(400).json({ error: 'Invalid OTP.' });
   }
 });
+
+
+// Reset Password endpoint
+app.post('/api/reset-password', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+      // Hash the new password
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      // Placeholder: Update the user's password in your database
+      // Replace this with your actual database update logic
+      console.log(`Password reset for email: ${email} with hashed password: ${hashedPassword}`);
+      // Assuming the update is successful
+      res.json({ message: 'Password reset successfully.' });
+  } catch (error) {
+      console.error('Error resetting password:', error);
+      res.status(500).json({ error: 'Failed to reset password.' });
+  }
+});
+
 
 // Point to routes
 app.use('/upload', uploadFile);

@@ -19,30 +19,37 @@ function OTPVerificationPage() {
           return;
         }
       
+        // Debugging
+        console.log('API URL:', process.env.REACT_APP_API_URL);
+        console.log('Email:', email);
+        console.log('OTP:', otp);
+
+        const apiUrl = process.env.REACT_APP_API_URL;
+        const verifyOtpUrl = `${apiUrl}/api/verify-otp`;
+
         try {
-          console.log('Sending OTP for verification:', otp);
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/verify-otp`, {
+        const response = await fetch(verifyOtpUrl, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, otp }),
-          });
-      
-          if (response.ok) {
+        });
+
+        if (response.ok) {
             const data = await response.json();
             alert(data.message); // "OTP verified successfully."
             navigate('/password-reset', { state: { email } }); // Navigate to the next page or perform the next action
-          } else {
+        } else {
             const errorData = await response.json();
             console.error('Error verifying OTP:', errorData);
             alert(errorData.error || 'Failed to verify OTP.');
-          }
-        } catch (error) {
-          console.error('Network error when verifying OTP:', error);
-          alert('Network error when verifying OTP.');
         }
-      };
+        } catch (error) {
+        console.error('Network error when verifying OTP:', error);
+        alert('Network error when verifying OTP.');
+        }
+        };
 
         
 
