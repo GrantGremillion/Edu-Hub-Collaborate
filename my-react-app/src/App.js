@@ -90,9 +90,9 @@ function App() {
             {/*The user must be a teacher to access this page*/}
             <Route path="/CreateClass" element={isCookieSet && checkTeacher ? <CreateClass/> : (checkStudent ?  <Home /> : <Login onLogin={handleLogin}/>) }/>
             <Route path="/JoinClass" element={isCookieSet ? <JoinClass /> : <Login onLogin={handleLogin}/>} />
-            <Route path="/ClassesDisplay" element={<ClassesDisplay />} />
-            <Route path="/TClassOptions" element={<TClassOptions />} />
-            <Route path="/SClassOptions" element={<SClassOptions />} />
+            <Route path="/ClassesDisplay" element={isCookieSet ? <ClassesDisplay /> : <Login onLogin={handleLogin}/>} />
+            <Route path="/TClassOptions" element={isCookieSet ? <TClassOptions /> : <Login onLogin={handleLogin}/>} />
+            <Route path="/SClassOptions" element={isCookieSet ? <SClassOptions /> : <Login onLogin={handleLogin}/>} />
 
 
             {/* Misc. Routes */ }
