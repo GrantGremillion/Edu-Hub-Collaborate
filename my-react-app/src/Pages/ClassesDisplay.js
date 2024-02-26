@@ -1,14 +1,15 @@
 import * as React from 'react';
-import {Button, Grid, Container, TextField, Box, Card, Typography, ButtonBase, Divider} from '@mui/material';
+import {Grid, Container, Box, Card, Typography, ButtonBase, Divider} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '.././Components/HeaderBox';
-import PlainNavBar from '../Components/PlainNavBar'; 
+import Sidebar from '../Components/Sidebar';
 
 import CardContent from '@mui/material/CardContent';
 
 import { useState, useEffect } from 'react';
 import {useCookies } from "react-cookie";
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -21,7 +22,7 @@ function ClassesDisplay() {
 
   const [cookies] = useCookies(['userID','account']);
   const [classes, setClasses] = useState([]);
-
+  
   // useEffect dynamically displays information on the page
   useEffect(() => {
     // Fetch classes data from the backend
@@ -45,21 +46,24 @@ function ClassesDisplay() {
       var buttonColor = themes.darkButton;
       var textColor = themes.darkText;
       var background = dark_bg;
+      var clickColor = 'white';
     }
     else {
-      var containerColor = themes.normalContainer;
-      var buttonColor = themes.normalButton;
-      var textColor = themes.normalText;
-      var background = bg;
+      containerColor = themes.normalContainer;
+      buttonColor = themes.normalButton;
+      textColor = themes.normalText;
+      background = bg;
+      clickColor = 'black';
     }
 
+    const navigate = useNavigate();
     const handleClickClass = (classId) => {
-      return
+      navigate("/TClassOptions");
     };
   
     return (
       <div>
-        <PlainNavBar />
+        <Sidebar />
         <Box
             className="bg"
             style={{
@@ -75,23 +79,29 @@ function ClassesDisplay() {
                 height: '100%'
             }}
         ></Box>
-  
+        
+
         <Container style={{ background: containerColor, marginTop: '75px', height: '700px', width: '1000px', marginBottom:'75px'}}>
           <Grid container spacing={4} direction="column">
-            <Grid container spacing={3} justifyContent="center">
+
+            <Grid item xs={12} marginLeft="20%">
+              <HeaderBox text={'Your Classes'} />
+            </Grid>
+
+            <Grid container spacing={3} justifyContent="left">
               {classes.map((classItem, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
                   <ButtonBase onClick={() => handleClickClass(classItem.class_id)} style={{ width: '100%', paddingLeft:'10%', paddingTop:'10%' }}>
-                    <Card style={{ width: '100%' }}>
+                    <Card variant="outlined" style={{ backgroundColor: buttonColor, color: clickColor, width: '100%' }}>
                       <CardContent>
-                        <Typography variant="h5" component="div">
+                        <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">
                           {classItem.class_name}
                         </Typography>
                         <Divider sx={{ marginTop: '1rem', marginBottom: '1rem' }} />
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="body2" color="text.secondary">
                           {classItem.class_description}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="body2" color="text.secondary">
                           Access Key: {classItem.access_key}
                         </Typography>
                       </CardContent>
