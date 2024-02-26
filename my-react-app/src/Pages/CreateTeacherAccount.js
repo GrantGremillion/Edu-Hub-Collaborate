@@ -1,6 +1,6 @@
 import * as React from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, TextField} from '@mui/material';
+import {Button, Grid, Container, Box, TextField, Typography} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
@@ -138,14 +138,25 @@ function CreateTeacherAccount() {
             onChange={e => setValues({...values,cpassword:e.target.value})}/>
           </Grid>
 
+          <Grid>
+            <Typography sx={{paddingTop:'10%'}}>
+              Please designate a document as 
+              <br />
+              evidence of your status as an educator.
+            </Typography>
+          </Grid>
+
           {/*File submission form*/}
           <Grid item xs={1}>
+              
+
               <input
                 filename={file} 
                 onChange={e => setFile(e.target.files[0])} 
                 type="file" 
                 accept="image/*"
               ></input>
+
           </Grid>
   
           <Grid item xs={1}>
