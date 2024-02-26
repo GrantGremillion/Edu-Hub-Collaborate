@@ -7,6 +7,11 @@ import PlainNavBar from '../Components/PlainNavBar';
 
 import CardContent from '@mui/material/CardContent';
 
+import { useState, useEffect } from 'react';
+import {useCookies } from "react-cookie";
+
+import axios from 'axios';
+
 // theme components
 import bg from '../Images/bg.jpg'; 
 import dark_bg from '../Images/dark_bg.jpg';
@@ -14,12 +19,23 @@ import * as themes from '.././Config';
 
 function ClassesDisplay() {
 
-  const handleClickClass = (e) => {
-    e.preventDefault();
-    
-    console.log("Class Button");
-    return
-  }
+  const [cookies] = useCookies(['userID','account']);
+  const [classes, setClasses] = useState([]);
+
+  useEffect(() => {
+    // Fetch classes data from the backend
+    axios.post('http://localhost:8081/classes/get_classes', { Tid: cookies.userID })
+      .then(res => {
+        if (res.data.Status === "Success") {
+          setClasses(res.data.classes);
+        } else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching classes:', error);
+      });
+  }, []);
 
 
     // checks for the theme the page is in, and applys it to these variables
@@ -56,11 +72,23 @@ function ClassesDisplay() {
         ></Box>
   
         <Container style={{ background: containerColor, marginTop: '75px', height: '700px', width: '1000px', marginBottom:'75px'}}>
-          <Grid container spacing={4}
-            direction="column"
-            >
+          <Grid container spacing={4} direction="column">
 
-            <Grid item xs={12} style={{}}>
+
+          <div>
+            <h2>Classes</h2>
+              <ul>
+                {classes.map((classItem, index) => (
+                  <li key={index}>
+            <h3>{classItem.class_name}</h3>
+            <p>{classItem.class_description}</p>
+            <p>Access Key: {classItem.access_key}</p>
+                  </li>
+              ))}
+            </ul>
+          </div>
+
+            {/* <Grid item xs={12} style={{}}>
               <ButtonBase sx={{marginRight:'60%', marginLeft:'5%'}} onClick={handleClickClass}>
                 <Card >
                   <CardContent>
@@ -76,7 +104,7 @@ function ClassesDisplay() {
                   </CardContent>
                 </Card>
               </ButtonBase>
-            </Grid>
+            </Grid> */}
 
           </Grid>
         </Container>

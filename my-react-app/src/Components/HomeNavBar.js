@@ -13,8 +13,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { useNavigate } from 'react-router-dom';
 
-import { CookiesProvider, useCookies } from "react-cookie";
-
+import {useCookies } from "react-cookie";
 
 
 function HomeNavBar() {
@@ -23,6 +22,8 @@ function HomeNavBar() {
   // eslint-disable-next-line
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -38,7 +39,6 @@ function HomeNavBar() {
   }
 
   const handleViewClassesClick = () => {
-    // Use navigate to go to the TClass page
     navigate('/ClassesDisplay');
   }
 
@@ -55,10 +55,10 @@ function HomeNavBar() {
     navigate('/ReportPage');
   }
 
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const handleLogoutClick = () => {
     removeCookie('userID');
     removeCookie('account');  
+    console.log("hi");
     navigate('/Login');
   }
 

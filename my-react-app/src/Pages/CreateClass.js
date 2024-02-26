@@ -46,7 +46,6 @@ function CreateClass() {
 
   const handleClickSubmit = (e) => {
 
-    console.log(cookies.account);
     e.preventDefault();
     
     // sends an HTTP POST request to the URL login backend API
