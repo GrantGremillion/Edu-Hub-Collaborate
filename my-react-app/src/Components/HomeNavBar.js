@@ -47,6 +47,11 @@ function HomeNavBar() {
     navigate('/JoinClass');
   }
 
+  const handleCreateClassClick = () => {
+    // Use navigate to go to the Join Class page
+    navigate('/CreateClass');
+  }
+
   const handleAccountSettingsClick = () => {
     navigate('/UserAccountSettings');
   }
@@ -88,9 +93,13 @@ function HomeNavBar() {
             <Button onClick={handleJoinAClassClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Join a class
             </Button>
+            <Button onClick={handleCreateClassClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+              Create a class
+            </Button>
             <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Report Issues/Violations
             </Button>
+            
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
