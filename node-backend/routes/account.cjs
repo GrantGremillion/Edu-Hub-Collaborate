@@ -97,48 +97,53 @@ router.post('/create_Saccount', (req,res) => {
   });
   
 
+
+
+
   ////// Login API //////
 // Used for both students and teachers
 router.post('/login', (req,res) => {
-    const sql = "SELECT Sid,email,password FROM Slogin WHERE email = ? AND password = ?"
-  
-    // Send query to db to search for account with email=req.body.email and password=req.body.password
-    db.query(sql, [req.body.email, req.body.password], (err,data) => {
-      
-      try{
-        const Sid = data[0].Sid;
-        if(data.length > 0){
-          console.log("Data:", data)
-        }
-        // If a result was found with matching email and password in the db
-        if(data.length > 0){
-        // Student account was found
-        return res.json({Status: "Success", ID:Sid, Account: "Student"})
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Query to search for student account
+  const studentSql = "SELECT Sid, email, password FROM Slogin WHERE email = ? AND password = ?";
+    
+  db.query(studentSql, [email, password], (studentErr, studentData) => {
+    if (studentErr) {
+      return res.status(500).json({ error: studentErr.message });
+    }
+
+    if (studentData.length > 0) {
+      const studentSid = studentData[0].Sid;
+      return res.json({ Status: "Success", ID: studentSid, Account: "Student" });
+    }
+
+    // If no student account found, search for teacher account
+    const teacherSql = "SELECT Tid, email, password, verified FROM Tlogin WHERE email = ? AND password = ?";
+
+    db.query(teacherSql, [email, password], (teacherErr, teacherData) => {
+      if (teacherErr) {
+        return res.status(500).json({ error: teacherErr.message });
+      }
+
+      if (teacherData.length > 0) {
+        const teacher = teacherData[0];
+        const teacherTid = teacher.Tid;
+        const verified = teacher.verified;
+
+        if (verified === 1) {
+          return res.json({ Status: "Success", ID: teacherTid, Account: "Teacher" });
+        } 
+        else {
+          return res.json({ Message: "Your account has not been verified. Please try logging in later" });
         }
       }
-   
-      
-      catch{
-        // If no records were found in the student table, then search the teacher table
-        // verified must be true (indicating an admin has verified that the user is a teacher) in order for them to login
-        const sql = "SELECT Tid,email,password FROM Tlogin WHERE email = ? AND password = ? AND verified = 1"
-  
-        db.query(sql, [req.body.email, req.body.password], (err,data) => {
-      
-          const Tid = data[0].Tid;
-          console.log("Data:", data)
-  
-          // If a result was found with matching email and password in the db
-          if(data.length > 0){
-              // Teacher account was found
-              return res.json({Status: "Success", ID:Tid, Account: "Teacher"})
-          }
-          else{
-            return res.json({Message: "No account found"});
-          }
-        })
-      }
-    })
-  }) 
+
+      return res.json({ Message: "No account found" });
+
+      });
+  });
+}) 
   
 module.exports = router;
