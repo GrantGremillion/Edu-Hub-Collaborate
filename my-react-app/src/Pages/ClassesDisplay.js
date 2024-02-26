@@ -25,6 +25,11 @@ function ClassesDisplay() {
   
   // useEffect dynamically displays information on the page
   useEffect(() => {
+
+    if(cookies.account === 'student'){
+      return
+    };
+
     // Fetch classes data from the backend
     axios.post('http://localhost:8081/classes/get_classes', { Tid: cookies.userID })
       .then(res => {
