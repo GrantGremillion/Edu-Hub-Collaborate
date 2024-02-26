@@ -19,8 +19,6 @@ function OTPVerificationPage() {
           return;
         }
       
-        // Debugging
-        console.log('API URL:', process.env.REACT_APP_API_URL);
         console.log('Email:', email);
         console.log('OTP:', otp);
 

@@ -6,6 +6,7 @@ import emailService from './emailService.js';
 import { otpStore } from './emailService.js';
 import { createRequire } from 'module';
 import bcrypt from 'bcrypt';
+import mysql from 'mysql2';
 dotenv.config();
 
 
@@ -30,7 +31,23 @@ app.use(cors(
 
 app.use('/api',emailService);
 
+// Creating connection to mysql database
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "database"
+})
+
+db.connect(err => {
+  if (err) {
+      return console.error('error connecting: ' + err.stack);
+  }
+  console.log('Connected to database as id ' + db.threadId);
+});
+
 // Nodemailer transporter setup
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
