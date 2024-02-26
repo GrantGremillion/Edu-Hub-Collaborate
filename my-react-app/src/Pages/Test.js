@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 import '../Components/zoom.css';
@@ -8,10 +9,10 @@ function App() {
   const client = ZoomMtgEmbedded.createClient();
 
 /* These will need to be inputed */
-  var authEndpoint = ''
-  var sdkKey = ''
-  var meetingNumber = '123456789'
-  var passWord = ''
+  var authEndpoint = 'http://localhost:3000/Test'
+  var sdkKey = 'fphP6rW4QyO3hu5zD3Jnsw'
+  var meetingNumber = '3661471637'
+  var passWord = 'milo'
   var role = 0
   var userName = 'React'
   var userEmail = ''
@@ -41,30 +42,31 @@ function App() {
 
     let meetingSDKElement = document.getElementById('meetingSDKElement');
 
-    client.init({zoomAppRoot: meetingSDKElement, language: 'en-US', patchJsMedia: true}).then(() => {
-      client.join({
-        signature: signature,
-        sdkKey: sdkKey,
-        meetingNumber: meetingNumber,
-        password: passWord,
-        userName: userName,
-        userEmail: userEmail,
-        tk: registrantToken,
-        zak: zakToken
+      client.init({
+        zoomAppRoot: meetingSDKElement,
+        language: 'en-US',
+        patchJsMedia: true
       }).then(() => {
-        console.log('joined successfully')
+        client.join({
+          sdkKey: sdkKey,
+          signature: signature,
+          meetingNumber: meetingNumber,
+          password: passWord,
+          userName: userName
+        }).then(() => {
+          console.log('joined successfully')
+        }).catch((error) => {
+          console.log(error)
+        })
       }).catch((error) => {
         console.log(error)
       })
-    }).catch((error) => {
-      console.log(error)
-    })
   }
 
   return (
     <div className="App">
       <main>
-        <h1>Zoom Meeting SDK Sample React</h1>
+        <h1>Zoom Meeting</h1>
 
         {/* For Component View */}
         <div id="meetingSDKElement">
@@ -78,71 +80,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*import React, { useState } from "react";
-
-function Test() {
-  
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
-
-  const onClickHandler = () => {
-    setComments((comments) => [...comments, comment]);
-  };
-  const onChangeHandler = (e) => {
-    setComment(e.target.value);
-  };
-  return (
-    <div className="main-container">
-      {comments.map((text) => (
-        <div className="comment-container">{text}</div>
-      ))}
-      <div className="comment-flexbox">
-        <h3 className="comment-text">Comment</h3>
-        <textarea
-          value={comment}
-          onChange={onChangeHandler}
-          className="input-box"
-        />
-        <button onClick={onClickHandler} className="comment-button">
-          Submit
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default Test;*/

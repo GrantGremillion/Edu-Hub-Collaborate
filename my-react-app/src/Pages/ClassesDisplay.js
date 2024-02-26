@@ -58,8 +58,13 @@ function ClassesDisplay() {
 
     const navigate = useNavigate();
     const handleClickClass = (classId) => {
-      navigate("/TClassOptions");
-    };
+      if(cookies['account'] === "Student") {
+        navigate("/SClassOptions");
+      }
+      else{
+        navigate("/TClassOptions")
+      }
+  };
   
     return (
       <div>

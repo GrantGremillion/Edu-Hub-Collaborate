@@ -13,6 +13,7 @@ import CreateClass from './Pages/CreateClass';
 import JoinClass from './Pages/JoinClass';
 import CreateTeacherAccount from './Pages/CreateTeacherAccount';
 import TClassOptions from './Pages/TClassOptions';
+import SClassOptions from './Pages/SClassOptions';
 import ChatInterface from './Pages/ChatInterface';
 import ReportPage from './Pages/ReportPage';
 import OTPVerificationPage from './Pages/OTPVerificationPage';
@@ -90,11 +91,12 @@ function App() {
             <Route path="/CreateClass" element={isCookieSet && checkTeacher ? <CreateClass/> : (checkStudent ?  <Home /> : <Login onLogin={handleLogin}/>) }/>
             <Route path="/JoinClass" element={isCookieSet ? <JoinClass /> : <Login onLogin={handleLogin}/>} />
             <Route path="/ClassesDisplay" element={<ClassesDisplay />} />
+            <Route path="/TClassOptions" element={<TClassOptions />} />
+            <Route path="/SClassOptions" element={<SClassOptions />} />
 
 
             {/* Misc. Routes */ }
             <Route path="/ChatInterface" element={<ChatInterface />} />
-            <Route path="/TClassOptions" element={<TClassOptions />} />
             <Route path="/ReportPage" element={isCookieSet ? <ReportPage /> : <Login onLogin={handleLogin}/>} />
             <Route path="/Test" element={<Test />} />
             <Route path="/Home" element={isCookieSet ? <Home /> : <Login onLogin={handleLogin}/>} />
