@@ -23,6 +23,7 @@ function ClassesDisplay() {
   const [cookies] = useCookies(['userID','account']);
   const [classes, setClasses] = useState([]);
   
+  
   // useEffect dynamically displays information on the page
   useEffect(() => {
 
@@ -42,7 +43,7 @@ function ClassesDisplay() {
       .catch(error => {
         console.error('Error fetching classes:', error);
       });
-  }, []);
+  }, [cookies]);
 
 
     // checks for the theme the page is in, and applys it to these variables

@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
 // Material UI components
-import {Container, Box, Divider, Grid, Button, Chip, Typography, TextField} from '@mui/material';
+import {Container, Box, Divider, Grid, Button, Typography, TextField} from '@mui/material';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
 import HeaderBox from '../Components/HeaderBox';
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from "react-cookie";
-import axios from 'axios';
+
+
 
 // handles darkmode toggle on the page
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
-
 
 
 function TClassOptions() {
@@ -43,25 +42,11 @@ function TClassOptions() {
     background = bg;
   }
 
-  //cookies to be used
-  const [cookies] = useCookies(['userID','account']);
-  const [classes, setClasses] = useState([]);
-  
+
   // useEffect dynamically displays information on the page
   useEffect(() => {
-    // Fetch classes data from the backend
-    axios.post('http://localhost:8081/classes/get_classes', { Tid: cookies.userID })
-      .then(res => {
-        if (res.data.Status === "Success") {
-          setClasses(res.data.classes);
-        } else {
-          alert(res.data.Status);
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching classes:', error);
-      });
-  }, []);
+    return
+  });
 
 
 return (
@@ -69,7 +54,7 @@ return (
         <Box
             className="bg"
             style={{
-                backgroundImage: `url(${bg})`,
+                backgroundImage: `url(${background})`,
                 backgroundSize: "cover",
                 zIndex: '-1',
                 position: 'fixed',
@@ -84,7 +69,7 @@ return (
         </Box>
             <Sidebar/>
             {/*Container holding buttons and text*/}
-        <Container maxWidth="sm" style={{ background: '#e0f2f1', marginTop: '60px', height: '700px', marginBottom:'60px'}}>
+        <Container maxWidth="sm" style={{ background: containerColor, marginTop: '60px', height: '700px', marginBottom:'60px'}}>
             <Grid container spacing={4}
               direction="column"
               alignItems="center"

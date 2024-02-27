@@ -15,10 +15,10 @@ function App() {
   var passWord = 'milo'
   var role = 0
   var userName = 'React'
-  var userEmail = ''
-  var registrantToken = ''
-  var zakToken = ''
-  var leaveUrl = 'http://localhost:3000'
+  //var userEmail = ''
+  //var registrantToken = ''
+  //var zakToken = ''
+  //var leaveUrl = 'http://localhost:3000'
 
   function getSignature(e) {
     e.preventDefault();

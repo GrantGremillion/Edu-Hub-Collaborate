@@ -17,8 +17,8 @@ const GoBackButton = () => {
     var textColor = themes.darkText;
   }
   else {
-    var buttonColor = themes.normalButton;
-    var textColor = themes.normalText;
+    buttonColor = themes.normalButton;
+    textColor = themes.normalText;
   }
 
   return (

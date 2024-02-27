@@ -18,12 +18,10 @@ import {useCookies } from "react-cookie";
 
 function HomeNavBar() {
   const navigate = useNavigate();
-  // The below comment is here to prevent a warning from appearing in the terminal.
-  // eslint-disable-next-line
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
+  const [removeCookie] = useCookies(['userID','account']);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);

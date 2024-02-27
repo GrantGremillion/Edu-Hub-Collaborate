@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Box, Container, Typography, Divider, Button} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import {Box, Container, Typography, Divider} from '@mui/material';
+
 
 // Our own custom-built components 
 import HomeNavBar from '../Components/HomeNavBar';
@@ -14,18 +14,17 @@ import * as themes from '.././Config';
 
 function Home({onLogout}) {
 
-  const navigate = useNavigate();
 
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
     var containerColor = themes.darkContainer;
-    var buttonColor = themes.darkButton;
+    //var buttonColor = themes.darkButton;
     var textColor = themes.darkText;
     var background = dark_bg;
   }
   else {
     containerColor = themes.normalContainer;
-    buttonColor = themes.normalButton;
+    //buttonColor = themes.normalButton;
     textColor = themes.normalText;
     background = bg;
   }

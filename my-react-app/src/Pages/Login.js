@@ -19,11 +19,9 @@ import axios from 'axios'
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
-import {useCookies} from "react-cookie";
+
 
 function Login({onLogin}) {
-
-  const [cookies, setCookie] = useCookies(["user","account"]);
 
   const [values, setValues] = useState({
     email: '',

@@ -29,7 +29,7 @@ import * as themes from './Config';
 
 // Root Component for React App
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies(["userID","account"]);
+  const [cookies, setCookie] = useCookies(["userID","account"]);
   const [getTheme, setTheme] = useCookies(["theme"]);
 
   // declares a cookie for the theme and handles the case when the user has
