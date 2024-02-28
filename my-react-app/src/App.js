@@ -35,9 +35,9 @@ function App() {
   // declares a cookie for the theme and handles the case when the user has
   // not set their preference yet.
   var themeVal = getTheme.theme;
-  if (themeVal == null) {
-    setTheme("theme", false, {path: '/'});
-  }
+
+  //setTheme("theme", false, {path: '/'});
+  
 
 
   themes.DarkmodeToggle(getTheme.theme);
@@ -56,6 +56,10 @@ function App() {
       setCookie('account', 'teacher', { path: '/' });
     }
     setCookie('userID', Cookies['userID'], { path: '/' });
+
+    if (themeVal == null) {
+      setTheme("theme", false, {path: '/'});
+    }
 
     console.log(cookies);
   }
