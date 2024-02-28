@@ -19,6 +19,7 @@ function HomeNavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
+  const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -58,6 +59,7 @@ function HomeNavBar() {
   const handleLogoutClick = () => {
     removeCookie('userID');
     removeCookie('account');  
+    removeTheme('theme');  
     navigate('/Login');
   }
 

@@ -30,7 +30,7 @@ import * as themes from './Config';
 // Root Component for React App
 function App() {
   const [cookies, setCookie] = useCookies(["userID","account"]);
-  const [getTheme, setTheme] = useCookies(["theme"]);
+  const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
 
   // declares a cookie for the theme and handles the case when the user has
   // not set their preference yet.
@@ -38,8 +38,13 @@ function App() {
   if (themeVal == null) {
     setTheme("theme", false, {path: '/'});
   }
+
+
   themes.DarkmodeToggle(getTheme.theme);
+
+
   function handleTheme(dark) {
+    
     setTheme("theme", dark, {path: '/'});
   }
 

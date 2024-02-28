@@ -34,7 +34,6 @@ function UserAccountSettings({themeToggle}) {
     const [check, setCheck] = useState(getTheme.theme);
 
     // handle's the change of the switch
-    // need to edit ALL pages to use cookies and getTheme now...
     function handleChange() {
         setCheck((prevCheck) => !prevCheck);    // this actually toggles the switch's state
         themeToggle(!getTheme.theme);
