@@ -26,6 +26,11 @@ function PasswordReset() {
             return;
         }
 
+        if (password.length < 6){
+            alert("Password must be at least six characters");
+            return
+        }
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/reset-password`, {
                 method: 'POST',
@@ -37,7 +42,7 @@ function PasswordReset() {
 
             if (response.ok) {
                 const data = await response.json();
-                alert(data.message); // "Password reset successfully."
+                alert('Password reset successfully');
                 navigate('/login'); // Navigate to the login page
             } else {
                 const errorText = await response.text();

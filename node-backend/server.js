@@ -91,20 +91,36 @@ app.post('/verify-otp', async (req, res) => {
 app.post('/api/reset-password', async (req, res) => {
   const { email, password } = req.body;
 
-  try {
-      // Hash the new password
-      const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+  console.log(email,password);
 
-      // Placeholder: Update the user's password in your database
-      // Replace this with your actual database update logic
-      console.log(`Password reset for email: ${email} with hashed password: ${hashedPassword}`);
-      // Assuming the update is successful
-      res.json({ message: 'Password reset successfully.' });
-  } catch (error) {
-      console.error('Error resetting password:', error);
-      res.status(500).json({ error: 'Failed to reset password.' });
-  }
+  const resetPasswordStudentSql = "UPDATE slogin SET password = ? WHERE email = ?";
+
+  db.query(resetPasswordStudentSql, [password,email], (studentErr, studentData) => {
+    if (studentErr) {
+      return res.status(500).json({ error: studentErr.message });
+    }
+
+    if (studentData.length > 0) {
+      
+      return res.json({ Status: "Success"});
+    }
+
+    // If no student account found, search for teacher account
+    const resetPasswordTeacherSql = "UPDATE tlogin SET password = ? WHERE email = ?";
+
+    db.query(resetPasswordTeacherSql, [password,email], (teacherErr, teacherData) => {
+      if (teacherErr) {
+        return res.status(500).json({ error: teacherErr.message });
+      }
+
+      if (teacherData.length > 0) {
+          return res.json({ Status: "Success"});
+      }
+
+      return res.json({ Message: "No account found" });
+
+      });
+    });
 });
 
 
