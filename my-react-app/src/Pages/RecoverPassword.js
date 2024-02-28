@@ -43,8 +43,8 @@ function RecoverPassword() {
     };
 
     const backgroundImage = DARKMODE ? dark_bg : bg;
-    const containerStyle = DARKMODE ? { background: '#216E6B', marginTop: '75px', height: '400px', marginBottom: '75px' }
-                                    : { background: '#e0f2f1', marginTop: '75px', height: '400px', marginBottom: '75px' };
+    const containerStyle = DARKMODE ? { background: '#216E6B', marginTop: '75px', height: '450px', marginBottom: '75px' }
+                                    : { background: '#e0f2f1', marginTop: '75px', height: '450px', marginBottom: '75px' };
 
     return (
         <div>

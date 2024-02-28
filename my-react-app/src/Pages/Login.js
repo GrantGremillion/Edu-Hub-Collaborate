@@ -8,7 +8,7 @@ import PlainNavBar from '../Components/PlainNavBar';
 
 // Using the same navigation functionality
 import { useNavigate } from 'react-router-dom';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 // Assuming the use of the same background image
 import bg from '.././Images/bg.jpg';
@@ -23,10 +23,12 @@ import * as themes from '.././Config';
 
 function Login({onLogin}) {
 
-  const [values, setValues] = useState({
+  const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   })
+
+  const [LoginFailed, setLoginFailed] = useState(false);
 
   // Navigation handler
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ function Login({onLogin}) {
     // Prevent default event (e) from occuring
     e.preventDefault();
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/account/login', values)
+    axios.post('http://localhost:8081/account/login', credentials)
 
     // testing 
     .then(res => {
@@ -48,7 +50,7 @@ function Login({onLogin}) {
         navigate('/Home')
       }
       else{
-        alert(res.data.Message)
+        setLoginFailed(true);
       }
     })
     .catch(err => console.log(err));
@@ -77,6 +79,11 @@ function Login({onLogin}) {
     background = bg;
   }
 
+  useEffect(() => {
+
+   
+  }, []);
+
   return (
 
     <div>
@@ -97,7 +104,7 @@ function Login({onLogin}) {
         }}
       ></Box>
 
-      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}} >
+      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '725px', marginBottom:'75px'}} >
         <Grid container spacing={5}
             direction="column"
             alignItems="center"
@@ -109,12 +116,33 @@ function Login({onLogin}) {
 
           <Grid item xs={1}>
             <TextField id="filled-basic" label="College Email" variant="filled" 
-            onChange={e => setValues({...values,email:e.target.value})}/>
+            onChange={e => setCredentials({...credentials,email:e.target.value})}/>
           </Grid>
 
+
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Password" variant="filled" type="password"
-            onChange={e => setValues({...values,password:e.target.value})}/>
+            {LoginFailed ? ( // Check if the login attempt failed
+              <TextField
+                error
+                id="outlined-error-helper-text"
+                helperText="Incorrect password"
+                variant="filled"
+                type="password"
+                onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+              />
+            ) : (
+              <div>
+                <TextField
+                  id="filled-basic"
+                  label="Password"
+                  variant="filled"
+                  type="password"
+                  onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                />
+                {/* Empty placeholder to take into account error message pushing down components */}
+                <div style={{ height: '23px'}} />
+              </div>
+            )}
           </Grid>
 
           <Grid item xs={1}>
