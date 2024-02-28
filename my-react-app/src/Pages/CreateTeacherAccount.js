@@ -1,6 +1,6 @@
 import * as React from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, TextField, Typography} from '@mui/material';
+import {Button, Grid, Container, Box, TextField, Typography, Divider} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
@@ -138,27 +138,29 @@ function CreateTeacherAccount() {
             onChange={e => setValues({...values,cpassword:e.target.value})}/>
           </Grid>
 
-          <Grid>
-            <Typography sx={{paddingTop:'10%'}}>
-              Please designate a document as 
-              <br />
-              evidence of your status as an educator.
-            </Typography>
-          </Grid>
-
-          {/*File submission form*/}
           <Grid item xs={1}>
-              
+            <Box component="section" sx={{ p: 1, mt: '5%',border: '2px solid grey' }}>
+       
+              <Typography align='center'>
+                Please designate a document as 
+                <br />
+                evidence of your status 
+          
+                as an educator
+              </Typography>
 
-              <input
-                filename={file} 
-                onChange={e => setFile(e.target.files[0])} 
-                type="file" 
-                accept="image/*"
-              ></input>
-
+              <Divider orientation="horizontal" flexItem sx={{mb:'2%'}}></Divider>
+              {/*File submission form*/}
+                <input
+                  filename={file} 
+                  onChange={e => setFile(e.target.files[0])} 
+                  type="file" 
+                  accept="image/*"
+                ></input>
+            </Box>
           </Grid>
   
+
           <Grid item xs={1}>
             <Button variant="contained" size="large"  onClick={handleClickSubmit} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
               Submit

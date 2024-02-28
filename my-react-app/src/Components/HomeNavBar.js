@@ -1,15 +1,12 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {Container, Box, Typography, Divider, Button, Tooltip} from '@mui/material';
+
 
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +18,7 @@ function HomeNavBar() {
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [removeCookie] = useCookies(['userID','account']);
+  const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -61,7 +58,6 @@ function HomeNavBar() {
   const handleLogoutClick = () => {
     removeCookie('userID');
     removeCookie('account');  
-    console.log("hi");
     navigate('/Login');
   }
 
@@ -80,24 +76,32 @@ function HomeNavBar() {
               fontFamily: 'Corier New',
               fontSize: '225%',
               letterSpacing: '.2rem',
+              '@media (max-width: 1920px)': {
+                marginLeft: '-12%'
+              },
+              '@media (max-width: 1600px)': {
+                marginLeft: '0%'
+              },
             }}>
             Edu Hub Collaborate
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button onClick={handleViewClassesClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+            <Button onClick={handleViewClassesClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               View Classes
             </Button>
-            <Button onClick={handleJoinAClassClick} sx={{mr: 5, fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+            <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
+            <Button onClick={handleJoinAClassClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Join a class
             </Button>
+            <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
             <Button onClick={handleCreateClassClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Create a class
             </Button>
+            <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
             <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Report Issues/Violations
             </Button>
-            
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

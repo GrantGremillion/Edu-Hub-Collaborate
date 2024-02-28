@@ -82,7 +82,7 @@ function AccountSelection() {
             </Button>
           </Grid>
 
-          <Divider orientation="horizontal" flexItem style={{ margin: '5%', width: '50%', marginLeft: '28%', marginBottom: '0%', color: textColor}} >or</Divider>
+          <Divider orientation="horizontal" flexItem style={{ margin: '5%', width: '50%', marginLeft: '27%', marginBottom: '-2%', color: textColor}} >or</Divider>
           
           <Grid item xs={1}>
             <Button variant="contained" size="large"  onClick={handleTeacherClick} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
