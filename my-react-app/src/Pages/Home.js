@@ -10,6 +10,7 @@ import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 // handles darkmode toggle on the page
 import * as themes from '.././Config';
+import Sidebar from '../Components/Sidebar';
 
 
 function Home({onLogout}) {
@@ -44,7 +45,9 @@ function Home({onLogout}) {
         bottom: 0,
         }}>
       </Box>
-      <HomeNavBar></HomeNavBar>
+
+      
+      <HomeNavBar/>
 
       {/* Container that will hold all home page components */}
       <Container fixed>

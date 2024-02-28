@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 
 function PlainNavBar() {
 
+  const screenWidth = window.screen.width;
+  console.log(screenWidth);
 
   return (
     <AppBar position="static" sx={{background:'#009688'}}>
@@ -14,12 +16,12 @@ function PlainNavBar() {
           <Typography
             variant="h4"
             sx={{
-              mr: 8,
+       
               fontFamily: 'Corier New',
               fontSize: '200%',
               letterSpacing: '.2rem',
               '@media (max-width: 1920px)': {
-                marginLeft: '-12%'
+                marginLeft: '-8%'
               },
               '@media (max-width: 1600px)': {
                 marginLeft: '0%'

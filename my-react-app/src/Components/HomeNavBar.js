@@ -11,6 +11,7 @@ import {Container, Box, Typography, Divider, Button, Tooltip} from '@mui/materia
 import { useNavigate } from 'react-router-dom';
 
 import {useCookies } from "react-cookie";
+import Sidebar from './Sidebar';
 
 
 function HomeNavBar() {
@@ -63,23 +64,27 @@ function HomeNavBar() {
     navigate('/Login');
   }
 
+  const handleHomeClick = () => {
+    navigate('/Home');
+  }
 
   return (
-    <AppBar position="static" sx={{background:'#009688'}}>
-      <Container maxWidth="xl">
+    <AppBar position="static" sx={{background:'#009688', zIndex: 1 }}>
+      <Container maxWidth="xl" sx={{zIndex: 0}} >
         <Toolbar>
           <Typography
             variant="h4"
             marginLeft="-3%"
             marginBottom="2%"
             marginTop="2%"
+            onClick={handleHomeClick}
             sx={{
               mr: 8,
               fontFamily: 'Corier New',
               fontSize: '225%',
               letterSpacing: '.2rem',
               '@media (max-width: 1920px)': {
-                marginLeft: '-12%'
+                marginLeft: '-10%'
               },
               '@media (max-width: 1600px)': {
                 marginLeft: '0%'
@@ -87,6 +92,8 @@ function HomeNavBar() {
             }}>
             Edu Hub Collaborate
           </Typography>
+
+       
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Button onClick={handleViewClassesClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>

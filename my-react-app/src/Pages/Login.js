@@ -1,6 +1,9 @@
 import * as React from 'react';
 // Material UI components, similar to CreateAccount.js
-import {Button, Grid, Container, Box, TextField} from '@mui/material';
+import {Button, Grid, Container, Box, TextField, InputAdornment, IconButton} from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 
 // Importing custom components as used in CreateAccount.js
 import HeaderBox from '../Components/HeaderBox';
@@ -29,6 +32,14 @@ function Login({onLogin}) {
   })
 
   const [LoginFailed, setLoginFailed] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   // Navigation handler
   const navigate = useNavigate();
@@ -127,8 +138,23 @@ function Login({onLogin}) {
                 id="outlined-error-helper-text"
                 helperText="Incorrect password"
                 variant="filled"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ width: '87%', marginLeft: '6%' }}
               />
             ) : (
               <div>
@@ -136,8 +162,23 @@ function Login({onLogin}) {
                   id="filled-basic"
                   label="Password"
                   variant="filled"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{ width: '87%', marginLeft: '6%' }}
                 />
                 {/* Empty placeholder to take into account error message pushing down components */}
                 <div style={{ height: '23px'}} />
