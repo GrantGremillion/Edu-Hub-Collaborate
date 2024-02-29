@@ -21,7 +21,7 @@ const handleGenerateKey = (e) => {
 
 
 router.post('/create_class', (req,res) =>{
-    const createClassSql = "INSERT INTO class (Tid, class_name, class_description, access_key) VALUES (?, ?, ?, ?)";
+    const createClassSql = "INSERT INTO classes (Tid, class_name, class_description, access_key) VALUES (?, ?, ?, ?)";
 
     key = handleGenerateKey();
     db.query(createClassSql, [req.body.Tid, req.body.cname, req.body.cdes, key], (err) => {
@@ -35,11 +35,41 @@ router.post('/create_class', (req,res) =>{
 });
 
 
+router.post('/join_class', (req,res) =>{
+
+  const searchAccessKeySql = "SELECT Cid FROM Classes WHERE access_key = ?";
+  const joinClassSql = "INSERT INTO ClassStudents (Cid, Sid) VALUES (?, ?)";
+  
+  db.query(searchAccessKeySql, [req.body.key], (err,results) => {
+
+    if (err) {
+        console.log(err);
+        return res.json({ Status: "Server Side Error" });
+    }
+
+    if (results.length > 0) {
+      const Cid = results[0].Cid; 
+
+      // Execute the second query using the retrieved Cid
+      db.query(joinClassSql, [Cid, req.body.Sid], (err) => {
+          if (err) {
+              console.log(err);
+              return res.json({ Status: "Server Side Error" });
+          }
+          return res.json({ Status: "Success" });
+      });
+    
+    } 
+    else {
+      return res.json({ Status: "Class not found" });
+    }
+  });
+});
 
 
 router.post('/get_classes', (req,res) => {
   const Tid = req.body.Tid;
-  const getClassesSql = "SELECT class_id,class_name,class_description,access_key FROM class WHERE Tid = ?";
+  const getClassesSql = "SELECT Cid,class_name,class_description,access_key FROM classes WHERE Tid = ?";
 
 
   db.query(getClassesSql, [Tid], (err, data) => {

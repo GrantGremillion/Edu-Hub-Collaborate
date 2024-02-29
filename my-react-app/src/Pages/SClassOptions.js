@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from "react";
 // Material UI components
 import {Container, Box, Divider, Grid, Button, Typography} from '@mui/material';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
@@ -40,10 +39,6 @@ function SClassOptions() {
     background = bg;
   }
 
-  // useEffect dynamically displays information on the page
-  useEffect(() => {
-    
-  });
 
 
 return (

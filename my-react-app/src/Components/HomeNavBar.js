@@ -11,7 +11,7 @@ import {Container, Box, Typography, Divider, Button, Tooltip} from '@mui/materia
 import { useNavigate } from 'react-router-dom';
 
 import {useCookies } from "react-cookie";
-import Sidebar from './Sidebar';
+
 
 
 function HomeNavBar() {
@@ -84,7 +84,7 @@ function HomeNavBar() {
               fontSize: '225%',
               letterSpacing: '.2rem',
               '@media (max-width: 1920px)': {
-                marginLeft: '-10%'
+                marginLeft: '-5%'
               },
               '@media (max-width: 1600px)': {
                 marginLeft: '0%'
@@ -99,14 +99,24 @@ function HomeNavBar() {
             <Button onClick={handleViewClassesClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               View Classes
             </Button>
+
             <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
+
+            { cookies.account === 'student' ? (
+            
             <Button onClick={handleJoinAClassClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Join a class
             </Button>
-            <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
+
+            ) : (
+  
             <Button onClick={handleCreateClassClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Create a class
             </Button>
+
+            )
+
+            }
             <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
             <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
               Report Issues/Violations

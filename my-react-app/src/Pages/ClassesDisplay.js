@@ -22,6 +22,16 @@ function ClassesDisplay() {
 
   const [cookies] = useCookies(['userID','account']);
   const [classes, setClasses] = useState([]);
+
+  const navigate = useNavigate();
+  const handleClickClass = () => {
+    if(cookies['account'] === "Student") {
+      navigate("/SClassOptions");
+      }
+      else{
+        navigate("/TClassOptions")
+      }
+  };
   
   
   // useEffect dynamically displays information on the page
@@ -46,31 +56,22 @@ function ClassesDisplay() {
   }, [cookies]);
 
 
-    // checks for the theme the page is in, and applys it to these variables
-    if (themes.DARKMODE) {
-      var containerColor = themes.darkContainer;
-      var buttonColor = themes.darkButton;
-      var textColor = themes.darkText;
-      var background = dark_bg;
-      var clickColor = 'white';
-    }
-    else {
-      containerColor = themes.normalContainer;
-      buttonColor = themes.normalButton;
-      textColor = themes.normalText;
-      background = bg;
-      clickColor = 'black';
-    }
+  // checks for the theme the page is in, and applys it to these variables
+  if (themes.DARKMODE) {
+    var containerColor = themes.darkContainer;
+    var buttonColor = themes.darkButton;
+    var textColor = themes.darkText;
+    var background = dark_bg;
+    var clickColor = 'white';
+  }
+  else {
+    containerColor = themes.normalContainer;
+    buttonColor = themes.normalButton;
+    textColor = themes.normalText;
+    background = bg;
+    clickColor = 'black';
+  }
 
-    const navigate = useNavigate();
-    const handleClickClass = (classId) => {
-      if(cookies['account'] === "Student") {
-        navigate("/SClassOptions");
-      }
-      else{
-        navigate("/TClassOptions")
-      }
-  };
   
     return (
       <div>
@@ -95,7 +96,7 @@ function ClassesDisplay() {
         <Container style={{ background: containerColor, marginTop: '75px', height: '700px', width: '1000px', marginBottom:'75px'}}>
           <Grid container spacing={4} direction="column">
 
-            <Grid item xs={12} marginLeft="20%">
+            <Grid item xs={12} marginLeft="22%">
               <HeaderBox text={'Your Classes'} />
             </Grid>
 

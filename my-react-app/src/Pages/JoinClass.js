@@ -5,15 +5,56 @@ import {Button, Grid, Container, TextField, Box, Divider} from '@mui/material';
 // Our own pre-built components in the components folder
 import HeaderBox from '.././Components/HeaderBox';
 
-import bg from '../Images/bg.jpg'; // Assuming this is your background image
-import PlainNavBar from '../Components/PlainNavBar'; // Assuming this is your custom navigation component
+import bg from '../Images/bg.jpg'; 
 import GoBackButton from '../Components/GoBackButton';
 
 // handles darkmode toggle on the page
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Sidebar from '../Components/Sidebar';
+
+import axios from 'axios';
+
+import { useCookies } from 'react-cookie';
+
+
+
 function JoinClass() {
+
+  const [cookies] = useCookies(['userID']);
+
+  const [key, setKey] = useState({
+    key: '',
+    Sid: cookies.userID
+  });
+
+  const navigate = useNavigate();
+  const handleClickClasses = () => {
+      navigate("/ClassesDisplay")
+  };
+
+  const handleClickJoinClass = (e) => {
+
+    // Prevent default event (e) from occuring
+    e.preventDefault();
+    // sends an HTTP POST request to the URL login backend API
+    axios.post('http://localhost:8081/classes/join_class', key)
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/ClassesDisplay');
+      }
+      else{
+        console.log("Failed");
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
 
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
@@ -31,7 +72,7 @@ function JoinClass() {
 
   return (
     <div>
-      <PlainNavBar />
+      <Sidebar></Sidebar>
   
       <Box
           className="bg"
@@ -60,11 +101,12 @@ function JoinClass() {
           </Grid>
   
           <Grid item xs={2}>
-            <TextField variant="filled" label="Class ID" />
+            <TextField variant="filled" label="Access Key" 
+              onChange={e => setKey({...key,key:e.target.value})}/>
           </Grid>
   
           <Grid item xs={2}>
-            <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: textColor, background: buttonColor}} >
+            <Button variant="contained" size="large"  onClick={handleClickJoinClass} style={{ width: '220px', color: textColor, background: buttonColor}} >
               Join Class
             </Button>
           </Grid>
@@ -77,7 +119,7 @@ function JoinClass() {
           </Divider>
   
           <Grid item xs={2}>
-            <Button variant="contained" size="large"  onClick={() =>{alert('Would redirect');}} style={{ width: '220px', color: textColor, background: buttonColor}} >
+            <Button variant="contained" size="large"  onClick={handleClickClasses} style={{ width: '220px', color: textColor, background: buttonColor}} >
               View Classes
             </Button>
           </Grid> 

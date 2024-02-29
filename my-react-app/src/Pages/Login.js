@@ -11,7 +11,7 @@ import PlainNavBar from '../Components/PlainNavBar';
 
 // Using the same navigation functionality
 import { useNavigate } from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import { useState } from 'react'; 
 
 // Assuming the use of the same background image
 import bg from '.././Images/bg.jpg';
@@ -89,11 +89,6 @@ function Login({onLogin}) {
     textColor = themes.normalText;
     background = bg;
   }
-
-  useEffect(() => {
-
-   
-  }, []);
 
   return (
 

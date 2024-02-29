@@ -20,21 +20,7 @@ import { useCookies } from 'react-cookie';
 
 function CreateClass() {
 
-  const [cookies] = useCookies(['userID', 'account']);
-
-  // checks for the theme the page is in, and applys it to these variables
-  if (themes.DARKMODE) {
-    var containerColor = themes.darkContainer;
-    var buttonColor = themes.darkButton;
-    var textColor = themes.darkText;
-    var background = dark_bg;
-  }
-  else {
-    containerColor = themes.normalContainer;
-    buttonColor = themes.normalButton;
-    textColor = themes.normalText;
-    background = bg;
-  }
+  const [cookies] = useCookies(['userID']);
 
   const navigate = useNavigate();
 
@@ -62,6 +48,20 @@ function CreateClass() {
       }
       
     });
+  }
+
+  // checks for the theme the page is in, and applys it to these variables
+  if (themes.DARKMODE) {
+    var containerColor = themes.darkContainer;
+    var buttonColor = themes.darkButton;
+    var textColor = themes.darkText;
+    var background = dark_bg;
+  }
+  else {
+    containerColor = themes.normalContainer;
+    buttonColor = themes.normalButton;
+    textColor = themes.normalText;
+    background = bg;
   }
 
   return (

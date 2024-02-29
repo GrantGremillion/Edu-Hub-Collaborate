@@ -60,8 +60,6 @@ function App() {
     if (themeVal == null) {
       setTheme("theme", false, {path: '/'});
     }
-
-    console.log(cookies);
   }
 
   // Check if the user cookie exists to determin which page to redirect the user to

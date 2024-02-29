@@ -10,7 +10,7 @@ import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 // handles darkmode toggle on the page
 import * as themes from '.././Config';
-import Sidebar from '../Components/Sidebar';
+
 
 
 function Home({onLogout}) {
