@@ -6,7 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Container, Box, Typography, Divider, Button, Tooltip} from '@mui/material';
-
+import ehc from '.././Images/EHC.png';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -64,7 +64,7 @@ function HomeNavBar() {
     navigate('/Login');
   }
 
-  const handleHomeClick = () => {
+  const handleLogoClick = () => {
     navigate('/Home');
   }
 
@@ -72,23 +72,18 @@ function HomeNavBar() {
     <AppBar position="static" sx={{background:'#009688', zIndex: 1 }}>
       <Container maxWidth="xl" sx={{zIndex: 0}} >
         <Toolbar>
+          <img src={ehc} onClick={handleLogoClick} alt="logo" style={{width: '5%', marginLeft: '-5%', marginRight: '1%'}} />
           <Typography
             variant="h4"
-            marginLeft="-3%"
+            marginLeft="1%"
             marginBottom="2%"
             marginTop="2%"
-            onClick={handleHomeClick}
             sx={{
               mr: 8,
               fontFamily: 'Corier New',
               fontSize: '225%',
               letterSpacing: '.2rem',
-              '@media (max-width: 1920px)': {
-                marginLeft: '-5%'
-              },
-              '@media (max-width: 1600px)': {
-                marginLeft: '0%'
-              },
+              
             }}>
             Edu Hub Collaborate
           </Typography>

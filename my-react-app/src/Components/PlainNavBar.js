@@ -2,7 +2,9 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import ehc from '.././Images/EHC.png';
+
+import {Container} from '@mui/material';
 
 function PlainNavBar() {
 
@@ -10,19 +12,13 @@ function PlainNavBar() {
     <AppBar position="static" sx={{background:'#009688'}}>
       <Container maxWidth="xl">
         <Toolbar>
+          <img src={ehc} alt="logo" style={{width: '5%', marginLeft: '-5%', marginRight: '1%'}} />
           <Typography
             variant="h4"
             sx={{
-       
               fontFamily: 'Corier New',
               fontSize: '200%',
               letterSpacing: '.2rem',
-              '@media (max-width: 1920px)': {
-                marginLeft: '-5%'
-              },
-              '@media (max-width: 1600px)': {
-                marginLeft: '0%'
-              },
             }}
           >
             Edu Hub Collaborate

@@ -14,15 +14,14 @@ function Sidebar() {
 
   return (
     <>
-      <IconContext.Provider value={{ color: "undefined" }}>
-        <div className="navbar">
+      <IconContext.Provider value={{ color: "undefined" }} >
+        <div className="navbar" >
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <Typography
             variant="h4"
             marginLeft="2%"
-            marginTop="-.4%"
             sx={{
               mr: 8,
               color: 'white',

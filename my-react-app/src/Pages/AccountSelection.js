@@ -16,6 +16,7 @@ import dark_bg from '.././Images/dark_bg.jpg';
 import pencil from '.././Images/pencil.png';
 import paper from '.././Images/paper.png';
 
+
 // theme toggle components
 import * as themes from '.././Config';
 
@@ -66,13 +67,13 @@ function AccountSelection() {
       <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
 
       {/* Container and Grid organizes HeaderBox and Buttons */}
-      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}} >
+      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '5%', height: '700px', marginBottom:'75px'}} >
         <Grid container spacing={5}
             direction="column"
             alignItems="center"
             justifyContent="center">
 
-          <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
+          <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%'}}>
             <HeaderBox text={'Select your account type'}></HeaderBox>
           </Grid>
 
@@ -91,7 +92,7 @@ function AccountSelection() {
           </Grid>
 
           <Grid item xs={1}>
-              <img src={pencil} alt="pencil" style={{marginTop: '5%', marginLeft: '65%', width: '35%'}} />
+              <img src={pencil} alt="pencil" style={{marginTop: '5%', marginLeft: '65%', width: '30%'}} />
             
               <img src={paper} alt="paper" style={{ marginTop: '-40%', marginLeft: '-5%', width: '40%'}}/>     
           </Grid>
