@@ -67,24 +67,56 @@ router.post('/join_class', (req,res) =>{
 });
 
 
-router.post('/get_classes', (req,res) => {
+router.post('/get_teacher_classes', (req,res) => {
+
   const Tid = req.body.Tid;
-  const getClassesSql = "SELECT Cid,class_name,class_description,access_key FROM classes WHERE Tid = ?";
+  const getTeacherClassesSql = "SELECT Cid,class_name,class_description,access_key FROM classes WHERE Tid = ?";
 
-
-  db.query(getClassesSql, [Tid], (err, data) => {
-
-    console.log(data);
+  db.query(getTeacherClassesSql, [Tid], (err, data) => {
 
     if (err) {
       return res.status(500).json({ error: err.message });
     }
 
     return res.json({ Status: "Success", classes: data });
+  });
+  
 });
 
 
+
+router.post('/get_student_classes', (req,res) => {
+
+  const Sid = req.body.Sid;
+  const getStudentClassesSql = "SELECT Cid FROM ClassStudents WHERE Sid = ?";
+  const getClassesSql = "SELECT Cid,class_name,class_description,access_key FROM classes WHERE Cid IN (?)";
+
+  db.query(getStudentClassesSql, [Sid], (err, data) => {
+
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (data.length > 0){
+      //const Cids = data;
+      const Cids = data.map(classData => classData.Cid);
+      console.log(Cids);
+      db.query(getClassesSql, [Cids], (err, data) => {
+
+        console.log(data);
+
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+  
+        return res.json({ Status: "Success", classes: data });
+      });
+      
+    }
+  });
 });
+
+
 
 module.exports = router;
 
