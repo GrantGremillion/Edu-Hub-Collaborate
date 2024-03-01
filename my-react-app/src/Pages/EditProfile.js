@@ -66,11 +66,16 @@ function UserProfile() {
                     alignItems="center"
                     justifyContent="center">
                     <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-                        <HeaderBox text={'Your User Profile'}></HeaderBox>
+                        <HeaderBox text={'Edit Profile'}></HeaderBox>
+                    </Grid>
+
+                    <Grid item xs={3} >
+                        <Typography sx={{fontFamily: 'Courier New', fontSize: 20}}>Change Display Name:</Typography>
+                        <TextField size='large'></TextField>
                     </Grid>
 
 
-                    <Grid item xs={3} >
+                    {/* <Grid item xs={3} >
                         <Typography sx={{fontFamily: 'Courier New', fontSize: 20}}>Display Name:</Typography>
                         <Paper elevation={3} sx={{padding:3}}>
                             <Typography sx={{fontFamily: 'Courier New', fontSize: 15}}>ggrem</Typography>
@@ -93,14 +98,14 @@ function UserProfile() {
                         <Button size="small"  onClick={handleEditProfileClick} style={{ color: textColor, width: '200px', background: buttonColor }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
                             Edit Profile
                         </Button>
-                    </Grid>
+                    </Grid>*/}
 
                     
                     <Grid item xs={4}>
                         <Button size="small"  onClick={handleAccountSettingsClick} style={{ color: textColor, width: '200px', background: buttonColor }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
-                            Account Settings
+                            Apply Changes
                         </Button>
-                    </Grid>
+                    </Grid> 
 
                 </Grid>
             </Container>

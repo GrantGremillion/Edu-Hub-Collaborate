@@ -109,7 +109,7 @@ function ClassesDisplay() {
       <Container style={{ background: containerColor, marginTop: '75px', height: '700px', width: '1000px', marginBottom:'75px'}}>
         <Grid container spacing={4} direction="column">
 
-          <Grid item xs={12} marginLeft="22%">
+          <Grid item xs={12} marginLeft="23%">
             <HeaderBox text={'Your Classes'} />
           </Grid>
 
@@ -117,7 +117,7 @@ function ClassesDisplay() {
             {classes.map((classItem, index) => (
               <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
                 <ButtonBase onClick={() => handleClickClass(classItem.class_id)} style={{ width: '100%', paddingLeft:'10%', paddingTop:'10%' }}>
-                  <Card variant="outlined" style={{ backgroundColor: buttonColor, color: clickColor, width: '100%' }}>
+                  <Card variant="outlined" style={{ backgroundColor: buttonColor, color: clickColor, width: '100%', zIndex:0}}>
                     <CardContent>
                       <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">
                         {classItem.class_name}

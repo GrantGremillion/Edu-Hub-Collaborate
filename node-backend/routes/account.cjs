@@ -38,11 +38,15 @@ router.post('/create_Taccount', (req,res) => {
         if (rows.length > 0) {
             return res.json({ Status: "Email already exists" });
         }
+
+        // Store the users default username as the portion of their email before the @
+        const atIndex = req.body.email.indexOf('@'); 
+        const username = req.body.email.slice(0, atIndex); 
   
         // If the email doesn't exist, insert the new user into the database
         // by default verified = false because an admin will need to verify they are a teacher via their submitted document
-        const insertUserQuery = "INSERT INTO Tlogin (email, password, verified) VALUES (?, ?, false)";
-        db.query(insertUserQuery, [req.body.email, req.body.password], (err) => {
+        const insertUserQuery = "INSERT INTO Tlogin (name, email, password, verified) VALUES (?, ?, ?, false)";
+        db.query(insertUserQuery, [username, req.body.email, req.body.password], (err) => {
             if (err) {
                 return res.json({ Status: "Server Side Error" });
             }
@@ -51,7 +55,8 @@ router.post('/create_Taccount', (req,res) => {
     });
   });
 
-  ////// Create Student Account API //////
+
+////// Create Student Account API //////
 router.post('/create_Saccount', (req,res) => {
 
     // pattern that email must match to be valid
@@ -84,10 +89,14 @@ router.post('/create_Saccount', (req,res) => {
         if (rows.length > 0) {
             return res.json({ Status: "Email already exists" });
         }
-  
+
+        // Store the users default username as the portion of their email before the @
+        const atIndex = req.body.email.indexOf('@'); 
+        const username = req.body.email.slice(0, atIndex); 
+
         // If the email doesn't exist, insert the new user into the database
-        const insertUserQuery = "INSERT INTO Slogin (email, password) VALUES (?, ?)";
-        db.query(insertUserQuery, [req.body.email, req.body.password], (err) => {
+        const insertUserQuery = "INSERT INTO Slogin (name, email, password) VALUES (?, ?, ?)";
+        db.query(insertUserQuery, [username,req.body.email, req.body.password], (err) => {
             if (err) {
                 return res.json({ Status: "Server Side Error" });
             }
@@ -136,11 +145,11 @@ router.post('/login', (req,res) => {
           return res.json({ Status: "Success", ID: teacherTid, Account: "Teacher" });
         } 
         else {
-          return res.json({ Message: "Your account has not been verified. Please try logging in later" });
+          return res.json({ Status: "Not Verified", Message: "Your account has not been verified. Please try logging in later" });
         }
       }
 
-      return res.json({ Message: "No account found" });
+      return res.json({ Status: "No Account", Message: "No account found" });
 
       });
   });

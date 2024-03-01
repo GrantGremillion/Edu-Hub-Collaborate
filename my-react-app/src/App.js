@@ -21,6 +21,8 @@ import PasswordReset from './Pages/PasswordReset';
 import Home from './Pages/Home';
 import Test from './Pages/Test';
 import ClassesDisplay from './Pages/ClassesDisplay';
+import EditProfile from './Pages/EditProfile';
+
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
 import * as themes from './Config';
@@ -90,6 +92,7 @@ function App() {
             {/* All Routes for user info pages */}
             {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
             <Route path="/UserProfile" element={isCookieSet ? <UserProfile /> : <Login onLogin={handleLogin}/>} />
+            <Route path="/EditProfile" element={<EditProfile/>}/>
             <Route path="/UserAccountSettings" element={isCookieSet ? <UserAccountSettings themeToggle={handleTheme} /> : <Login onLogin={handleLogin}/>} />
       
 

@@ -61,7 +61,13 @@ function Login({onLogin}) {
         navigate('/Home')
       }
       else{
-        setLoginFailed(true);
+
+        if(res.data.Status === "No Account"){
+          setLoginFailed(true);
+        }
+        else{
+          alert(res.data.Message);
+        }
       }
     })
     .catch(err => console.log(err));
