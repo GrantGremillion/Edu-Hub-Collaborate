@@ -1,0 +1,5 @@
+Don't allow students to join the same class twice
+
+Allow the student to leave a class
+
+Allow a teacher to delete a class

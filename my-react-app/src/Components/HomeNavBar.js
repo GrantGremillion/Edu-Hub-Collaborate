@@ -72,7 +72,7 @@ function HomeNavBar() {
     <AppBar position="static" sx={{background:'#009688', zIndex: 1 }}>
       <Container maxWidth="xl" sx={{zIndex: 0}} >
         <Toolbar>
-          <img src={ehc} onClick={handleLogoClick} alt="logo" style={{width: '5%', marginLeft: '-5%', marginRight: '1%'}} />
+          <img src={ehc} onClick={handleLogoClick} alt="logo" style={{width: '5%', marginLeft: '-2%', marginRight: '1%'}} />
           <Typography
             variant="h4"
             marginLeft="1%"
@@ -81,7 +81,7 @@ function HomeNavBar() {
             sx={{
               mr: 8,
               fontFamily: 'Corier New',
-              fontSize: '225%',
+              fontSize: '125%',
               letterSpacing: '.2rem',
               
             }}>
@@ -91,7 +91,7 @@ function HomeNavBar() {
        
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button onClick={handleViewClassesClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+            <Button onClick={handleViewClassesClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
               View Classes
             </Button>
 
@@ -99,13 +99,13 @@ function HomeNavBar() {
 
             { cookies.account === 'student' ? (
             
-            <Button onClick={handleJoinAClassClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+            <Button onClick={handleJoinAClassClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
               Join a class
             </Button>
 
             ) : (
   
-            <Button onClick={handleCreateClassClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+            <Button onClick={handleCreateClassClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
               Create a class
             </Button>
 
@@ -113,7 +113,7 @@ function HomeNavBar() {
 
             }
             <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
-            <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'large', color: 'white'}}>
+            <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
               Report Issues/Violations
             </Button>
           </Box>

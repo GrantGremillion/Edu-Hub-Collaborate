@@ -1,26 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Box, TextField, Paper } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
 import GoBackButton from '../Components/GoBackButton';
 import bg from '.././Images/bg.jpg';
 
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+
 function ChatInterface() {
+
+  const [cookies] = useCookies(['account','userID']);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]); // Array to store messages
   const [selectedFile, setSelectedFile] = useState(null);
+
+  // Necessary to save and display all previous user messages
+  useEffect(() => {
+    axios.post('http://localhost:8081/message/get')
+    .then(res => {
+      if (res.data.Status === "Success") {
+ 
+        const data = res.data.messages;
+  
+        const contentValues = data.map(dict => dict.content);
+        setMessages(contentValues);
+      } 
+      else {
+        alert(res.data.Status);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching messages:', error);
+    });
+
+    return
+  }, []);
+
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (message.trim() === '' && !selectedFile) return; // Do not send empty messages or if no file is selected
 
     const newMessage = {
-      id: messages.length + 1, // Simple incrementing ID
+      Mid: messages.length + 1, // Simple incrementing ID
+      account: cookies.account,
+      id: cookies.userID,
       text: message,
       timestamp: new Date(),
     };
-    setMessages([...messages, newMessage]);
+
+    setMessages([...messages, newMessage.text]);
     setMessage('');
+
+    console.log(message);
+    // Send request to backend to send the message
+    axios.post('http://localhost:8081/message/send', newMessage)
+
+    .then(res => {
+      if(res.data.Status === "Success") {
+        console.log("Success")
+      }
+      else{
+        alert(res.data.Status)
+      }
+      
+    });
 
     // TODO: Send the message to the server here
     // If there's a file to be sent, call a function to handle the file upload.
@@ -66,14 +111,11 @@ function ChatInterface() {
       <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
         <HeaderBox text={'Chat with us'} />
         <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
-          {messages.map((msg) => (
-            <div key={msg.id} style={{ margin: '10px 0' }}>
-              <Box style={{ wordWrap: 'break-word' }}>{msg.text}</Box>
-              <Box textAlign="right" fontSize="0.75rem" color="gray">
-                {msg.timestamp.toLocaleTimeString()}
-              </Box>
-            </div>
-          ))}
+        {messages.map((msg, index) => (
+          <div key={index} style={{ margin: '10px 0' }}>
+            <Box style={{ wordWrap: 'break-word' }}>{msg}</Box>
+          </div>
+        ))}
         </Paper>
         <TextField
           fullWidth

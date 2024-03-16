@@ -12,12 +12,12 @@ function PlainNavBar() {
     <AppBar position="static" sx={{background:'#009688'}}>
       <Container maxWidth="xl">
         <Toolbar>
-          <img src={ehc} alt="logo" style={{width: '5%', marginLeft: '-5%', marginRight: '1%'}} />
+          <img src={ehc} alt="logo" style={{width: '5%', marginLeft: '-2%', marginRight: '1%'}} />
           <Typography
             variant="h4"
             sx={{
               fontFamily: 'Corier New',
-              fontSize: '200%',
+              fontSize: '125%',
               letterSpacing: '.2rem',
             }}
           >

@@ -34,6 +34,8 @@ function CreateStudentAccount() {
   // Handler for Submit button click
   const handleClickSubmit = (e) => {
 
+  
+
     // Prevent default event (e) from occuring
     e.preventDefault();
     // sends an HTTP POST request to the URL login backend API

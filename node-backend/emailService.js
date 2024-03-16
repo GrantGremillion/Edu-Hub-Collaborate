@@ -33,7 +33,8 @@ router.post('/send-otp', async (req, res) => {
       });
       console.log('OTP sent to ' + email);
       res.json({ message: 'OTP sent successfully.' });
-  } catch (error) {
+  } 
+  catch (error) {
       console.error('Error in /send-otp:', error);
       res.status(500).json({ error: 'Internal Server Error' });
   }

@@ -51,7 +51,7 @@ function Home({onLogout}) {
 
       {/* Container that will hold all home page components */}
       <Container fixed>
-        <Box sx={{height: '100vh', width: '120%', marginTop: '5%', marginLeft: '-10%', bgcolor: containerColor}} >
+        <Box sx={{height: '100vh', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
           <div style={{ textAlign: 'center'}}>
             <Typography variant='h3' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
               Notifications
@@ -63,7 +63,7 @@ function Home({onLogout}) {
             </Typography>
           </div> 
         </Box>
-        <Box sx={{height: '100vh', width: '120%', marginTop: '5%', marginLeft: '-10%', bgcolor: containerColor}} />
+        <Box sx={{height: '100vh', width: '100%', marginTop: '5%', bgcolor: containerColor}} />
       </Container>
     </div>
   );

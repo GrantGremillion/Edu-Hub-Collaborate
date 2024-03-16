@@ -26,7 +26,7 @@ function Sidebar() {
               mr: 8,
               color: 'white',
               fontFamily: 'Corier New',
-              fontSize: '200%',
+              fontSize: '125%',
               fontColor: "white",
               letterSpacing: '.2rem',
             }}
