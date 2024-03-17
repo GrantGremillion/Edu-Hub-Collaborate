@@ -1,20 +1,45 @@
 import * as React from 'react';
-import { useState} from "react";
 // Material UI components
-import {Container, Box, Divider, Grid, Button, Typography, TextField} from '@mui/material';
+import {Container, Box, Divider, Grid, Button, Typography} from '@mui/material';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
 import HeaderBox from '../Components/HeaderBox';
 import { useNavigate } from 'react-router-dom';
 
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 
 // handles darkmode toggle on the page
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
+import { useParams } from 'react-router-dom';
+
 
 function TClassOptions() {
+
+  const { class_id } = useParams();
+
+  const [Class, setClass] = useState();
+
+  useEffect(() => {
+    axios.post('http://localhost:8081/classes/get_current_class', { Cid: class_id })
+      .then(res => {
+        if (res.data.Status === "Success") {
+          const className = res.data.class[0].class_name;
+          setClass(className);
+        } else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching classes:', error);
+        // Handle error (e.g., set state to display an error message)
+      });
+  }, [class_id]);
+  
+
 
   //Navigation clicks for zoom and chat
   const zoomClick = (url) => {
@@ -22,13 +47,10 @@ function TClassOptions() {
 
   const navigate = useNavigate();
   const Chat = () => {
-    navigate("/ChatInterface");
-   }
+    navigate(`/ChatInterface/${class_id}`);
+  }
 
-  const [editing, setEdit] = useState(false);
-  const [text, textEdit] = useState("Insert Announcement Here (140 Char)");
-
-  //Darkmode theme
+  //Darkmode Theme
   if (themes.DARKMODE) {
     var containerColor = themes.darkContainer;
     var buttonColor = themes.darkButton;
@@ -41,6 +63,7 @@ function TClassOptions() {
     textColor = themes.normalText;
     background = bg;
   }
+
 
 
 return (
@@ -70,7 +93,7 @@ return (
               justifyContent="center">
 
           <Grid item>
-          <HeaderBox text={"CSC 123"} sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '5%', marginLeft: '5%', color: textColor}}/>
+          <HeaderBox text={Class} sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '5%', marginLeft: '5%', color: textColor}}/>
           </Grid>
 
           <Grid item>
@@ -83,35 +106,17 @@ return (
 
           <Grid item>
           <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
-           Teacher Announcements:
+           Announcements:
+           {TClassOptions.text}
           </Typography>
           </Grid>
 
           <Grid item>
-          <div>
-            {editing ? ( 
-                <>
-                <TextField value={text} onChange={(x) => textEdit(x.target.value)} maxLength={140}  />
-                <div align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '0%', marginLeft: '0%', color: textColor}}>
-                    <button variant="contained" size="large" onClick={() => setEdit(false)}style=
-                    {{ width: '40px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%'}}>
-                        Save
-                    </button>
-                </div>
-                </>
-                ) : (
-                <>
-                <Typography sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', marginLeft: '0%', color: textColor}}>{text}</Typography>
-                <div align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '0%', marginLeft: '5%', color: textColor}}>
-                    <button variant="contained" size="large" onClick={() => setEdit(true)}style=
-                    {{ width: '40px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '0%'}}>
-                        Edit
-                    </button>
-                </div>
-                </>
-                )}
-            </div>
-            </Grid>
+          <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
+           Teacher Announcements would go here
+           {TClassOptions.text}
+          </Typography>
+          </Grid>
 
           <Divider 
           flexItem 
@@ -121,7 +126,7 @@ return (
           <Grid item xs={2}>
             <Button variant="contained" size="large"  onClick={Chat} style=
             {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%'}}>
-              Student Chat
+              Ask Questions
             </Button>
           </Grid> 
 

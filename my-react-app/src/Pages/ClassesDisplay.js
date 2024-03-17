@@ -24,12 +24,13 @@ function ClassesDisplay() {
   const [classes, setClasses] = useState([]);
 
   const navigate = useNavigate();
-  const handleClickClass = () => {
-    if(cookies['account'] === "Student") {
-      navigate("/SClassOptions");
+
+  const handleClickClass = (class_id) => {
+    if(cookies.account === "student") {
+      navigate(`/SClassOptions/${class_id}`);
       }
       else{
-        navigate("/TClassOptions")
+        navigate(`/TClassOptions/${class_id}`);
       }
   };
   
@@ -37,7 +38,7 @@ function ClassesDisplay() {
   // useEffect dynamically displays information on the page
   useEffect(() => {
 
-    {/* If user is a teacher classes need to be fetched differently on the backend */}
+    // If user is a teacher classes need to be fetched differently on the backend 
     if(cookies.account === 'teacher'){
       axios.post('http://localhost:8081/classes/get_teacher_classes', { Tid: cookies.userID })
       .then(res => {
@@ -116,7 +117,7 @@ function ClassesDisplay() {
           <Grid container spacing={3} justifyContent="left">
             {classes.map((classItem, index) => (
               <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
-                <ButtonBase onClick={() => handleClickClass(classItem.class_id)} style={{ width: '100%', paddingLeft:'10%', paddingTop:'10%' }}>
+                <ButtonBase onClick={() => handleClickClass(classItem.Cid)} style={{ width: '100%', paddingLeft:'10%', paddingTop:'10%' }}>
                   <Card variant="outlined" style={{ backgroundColor: buttonColor, color: clickColor, width: '100%', zIndex:0}}>
                     <CardContent>
                       <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">

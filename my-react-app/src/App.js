@@ -101,12 +101,12 @@ function App() {
             <Route path="/CreateClass" element={isCookieSet && checkTeacher ? <CreateClass/> : (checkStudent ?  <Home /> : <Login onLogin={handleLogin}/>) }/>
             <Route path="/JoinClass" element={isCookieSet ? <JoinClass /> : <Login onLogin={handleLogin}/>} />
             <Route path="/ClassesDisplay" element={isCookieSet ? <ClassesDisplay /> : <Login onLogin={handleLogin}/>} />
-            <Route path="/TClassOptions" element={isCookieSet ? <TClassOptions /> : <Login onLogin={handleLogin}/>} />
-            <Route path="/SClassOptions" element={isCookieSet ? <SClassOptions /> : <Login onLogin={handleLogin}/>} />
+            <Route path="/TClassOptions/:class_id" element={isCookieSet ? <TClassOptions /> : <Login onLogin={handleLogin}/>} />
+            <Route path="/SClassOptions/:class_id" element={isCookieSet ? <SClassOptions /> : <Login onLogin={handleLogin}/>} />
 
 
             {/* Misc. Routes */ }
-            <Route path="/ChatInterface" element={<ChatInterface />} />
+            <Route path="/ChatInterface/:class_id" element={<ChatInterface />} />
             <Route path="/ReportPage" element={isCookieSet ? <ReportPage /> : <Login onLogin={handleLogin}/>} />
             <Route path="/Test" element={<Test />} />
             <Route path="/Home" element={isCookieSet ? <Home /> : <Login onLogin={handleLogin}/>} />

@@ -7,14 +7,40 @@ import HeaderBox from '../Components/HeaderBox';
 import TClassOptions from '../Pages/TClassOptions';
 import { useNavigate } from 'react-router-dom';
 
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+
 
 // handles darkmode toggle on the page
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
+import { useParams } from 'react-router-dom';
 
 
 function SClassOptions() {
+
+  const { class_id } = useParams();
+
+  const [Class, setClass] = useState();
+
+  useEffect(() => {
+    axios.post('http://localhost:8081/classes/get_current_class', { Cid: class_id })
+      .then(res => {
+        if (res.data.Status === "Success") {
+          const className = res.data.class[0].class_name;
+          setClass(className);
+        } else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching classes:', error);
+        // Handle error (e.g., set state to display an error message)
+      });
+  }, [class_id]);
+  
+
 
   //Navigation clicks for zoom and chat
   const zoomClick = (url) => {
@@ -22,8 +48,8 @@ function SClassOptions() {
 
   const navigate = useNavigate();
   const Chat = () => {
-    navigate("/ChatInterface");
-   }
+    navigate(`/ChatInterface/${class_id}`);
+  }
 
   //Darkmode Theme
   if (themes.DARKMODE) {
@@ -68,7 +94,7 @@ return (
               justifyContent="center">
 
           <Grid item>
-          <HeaderBox text={"CSC 123"} sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '5%', marginLeft: '5%', color: textColor}}/>
+          <HeaderBox text={Class} sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '5%', marginLeft: '5%', color: textColor}}/>
           </Grid>
 
           <Grid item>

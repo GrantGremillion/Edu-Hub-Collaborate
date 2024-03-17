@@ -8,7 +8,11 @@ import bg from '.././Images/bg.jpg';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
+import { useParams } from 'react-router-dom';
+
 function ChatInterface() {
+
+  const { class_id } = useParams();
 
   const [cookies] = useCookies(['account','userID']);
   const [message, setMessage] = useState('');
@@ -17,7 +21,7 @@ function ChatInterface() {
 
   // Necessary to save and display all previous user messages
   useEffect(() => {
-    axios.post('http://localhost:8081/message/get')
+    axios.post('http://localhost:8081/message/get', {Cid: class_id})
     .then(res => {
       if (res.data.Status === "Success") {
  
@@ -35,7 +39,7 @@ function ChatInterface() {
     });
 
     return
-  }, []);
+  }, [class_id]);
 
 
   const handleSendMessage = async (e) => {
@@ -48,12 +52,12 @@ function ChatInterface() {
       id: cookies.userID,
       text: message,
       timestamp: new Date(),
+      Cid: class_id
     };
 
     setMessages([...messages, newMessage.text]);
     setMessage('');
 
-    console.log(message);
     // Send request to backend to send the message
     axios.post('http://localhost:8081/message/send', newMessage)
 

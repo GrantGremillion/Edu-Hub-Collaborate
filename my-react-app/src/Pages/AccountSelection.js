@@ -67,7 +67,7 @@ function AccountSelection() {
       <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
 
       {/* Container and Grid organizes HeaderBox and Buttons */}
-      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '5%', height: '700px', marginBottom:'75px'}} >
+      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '5%', height: '650px', marginBottom:'75px'}} >
         <Grid container spacing={5}
             direction="column"
             alignItems="center"
@@ -92,9 +92,9 @@ function AccountSelection() {
           </Grid>
 
           <Grid item xs={1}>
-              <img src={pencil} alt="pencil" style={{marginTop: '5%', marginLeft: '65%', width: '30%'}} />
+              <img src={pencil} alt="pencil" style={{ marginLeft: '70%', width: '30%'}} />
             
-              <img src={paper} alt="paper" style={{ marginTop: '-40%', marginLeft: '-5%', width: '40%'}}/>     
+              <img src={paper} alt="paper" style={{ marginTop: '-80%', marginLeft: '-5%', width: '40%'}}/>     
           </Grid>
           
         </Grid>

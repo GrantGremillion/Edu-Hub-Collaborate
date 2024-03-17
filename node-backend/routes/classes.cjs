@@ -117,6 +117,25 @@ router.post('/get_student_classes', (req,res) => {
 });
 
 
+router.post('/get_current_class', (req,res) => {
+
+  const Cid = req.body.Cid;
+  const getClassSql = "SELECT * FROM classes WHERE Cid = ?";
+
+  db.query(getClassSql, [Cid], (err, data) => {
+
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (data.length > 0){
+      
+      return res.json({ Status: "Success", class: data });
+    }
+  });
+});
+
+
 
 module.exports = router;
 
