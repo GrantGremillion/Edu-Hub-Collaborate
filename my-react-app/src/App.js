@@ -22,6 +22,7 @@ import Home from './Pages/Home';
 import Test from './Pages/Test';
 import ClassesDisplay from './Pages/ClassesDisplay';
 import EditProfile from './Pages/EditProfile';
+import ChangePassword from './Pages/ChangePassword';
 
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
@@ -94,7 +95,7 @@ function App() {
             <Route path="/UserProfile" element={isCookieSet ? <UserProfile /> : <Login onLogin={handleLogin}/>} />
             <Route path="/EditProfile" element={<EditProfile/>}/>
             <Route path="/UserAccountSettings" element={isCookieSet ? <UserAccountSettings themeToggle={handleTheme} /> : <Login onLogin={handleLogin}/>} />
-      
+            <Route path="ChangePassword" element={<ChangePassword/>}/>
 
             {/* All Routes for Classes */ }
             {/*The user must be a teacher to access this page*/}

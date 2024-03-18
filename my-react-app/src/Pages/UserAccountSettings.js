@@ -30,6 +30,11 @@ function UserAccountSettings({themeToggle}) {
         navigate("/Home");
     }
 
+    const handleChangePasswordClick = () => {
+        navigate('/ChangePassword');
+
+    }
+
     // initialize darkmode switch's state with DARKMODE's value
     const [check, setCheck] = useState(getTheme.theme);
 
@@ -92,11 +97,12 @@ function UserAccountSettings({themeToggle}) {
                     </Grid>
 
                     <Grid item xs={2}>
-                        <Button size="small"  onClick={handleClick} style={{ color: textColor, width: '200px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
+                        <Button size="small"  onClick={handleChangePasswordClick} style={{ color: textColor, width: '200px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
                             Change Password
                         </Button>
                     </Grid>
-        
+
+                
                     <Grid item xs={3}>
                         <Box
                             sx={{
