@@ -17,6 +17,7 @@ const chatRoute = require('./routes/chat.cjs');
 const db = require('./database.cjs')
 
 
+
 const app = express();
 
 // built in middleware function express.json for parsing json data
@@ -30,9 +31,6 @@ app.use(cors(
   }
 ))
 
-app.use('/api',emailService);
-
-
 // Nodemailer transporter setup
 
 const transporter = nodemailer.createTransport({
@@ -42,6 +40,22 @@ const transporter = nodemailer.createTransport({
       pass: process.env.EMAIL_PASS,
   },
 });
+
+// Place the simulated functions here
+async function findUserByEmail(email) {
+  console.log(`Searching for user with email: ${email}`);
+  return email === "user@example.com" ? { email, passwordHash: "simulatedHash" } : null;
+}
+
+async function verifyPassword(user, currentPassword) {
+  console.log(`Verifying password for user: ${user.email}`);
+  return currentPassword === "correctPassword";
+}
+
+async function updateUserPassword(email, newPassword) {
+  console.log(`Updating password for user: ${email} to ${newPassword}`);
+  return true;
+}
 
 
 // Send OTP endpoint
@@ -122,6 +136,34 @@ app.post('/api/reset-password', async (req, res) => {
 
       });
     });
+});
+
+
+//Chnage password endpoint
+app.post('/api/change-password', async (req, res) => {
+  const { email, currentPassword, newPassword } = req.body;
+
+  console.log(req.body.email);
+
+  // Find user by email
+  const user = await findUserByEmail(email);
+  if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+  }
+
+  // Verify current password (Assuming verifyPassword does this correctly)
+  const passwordIsCorrect = await verifyPassword(user, currentPassword);
+  if (!passwordIsCorrect) {
+      return res.status(403).json({ error: 'Current password is incorrect.' });
+  }
+
+  // Update the password in the database
+  const updateSuccess = await updateUserPassword(email, newPassword);
+  if (updateSuccess) {
+      res.json({ message: 'Password updated successfully.' });
+  } else {
+      res.status(500).json({ error: 'Failed to update password.' });
+  }
 });
 
 

@@ -125,7 +125,8 @@ router.post('/login', (req,res) => {
 
     if (studentData.length > 0) {
       const studentSid = studentData[0].Sid;
-      return res.json({ Status: "Success", ID: studentSid, Account: "Student" });
+
+      return res.json({ Status: "Success", ID: studentSid, Account: "Student"});
     }
 
     // If no student account found, search for teacher account

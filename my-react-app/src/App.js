@@ -34,7 +34,7 @@ import { useEffect } from 'react';
 
 // Root Component for React App
 function App() {
-  const [cookies, setCookie] = useCookies(["userID","account"]);
+  const [cookies, setCookie] = useCookies(["userID","account","email"]);
   const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
 
   // declares a cookie for the theme and handles the case when the user has
@@ -59,6 +59,8 @@ function App() {
       setCookie('account', 'teacher', { path: '/' });
     }
     setCookie('userID', Cookies['userID'], { path: '/' });
+    
+
 
     if (themeVal == null) {
       setTheme("theme", false, {path: '/'});

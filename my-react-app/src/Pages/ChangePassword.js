@@ -7,18 +7,21 @@ import bg from '../Images/bg.jpg'; // Assuming the same background image
 import dark_bg from '../Images/dark_bg.jpg'; // Assuming dark theme background image
 import * as themes from '../Config'; // Assuming the same theme configuration
 import { useCookies } from "react-cookie";
+//import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function ChangePassword({themeToggle}) {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const navigate = useNavigate();
-
   // fetches the user set dark theme preference from cookie
   const [getTheme] = useCookies(["theme"]);
-
+  const [cookies, setCookie, removeCookie] = useCookies(['userEmail']);
   // initialize darkmode switch's state with DARKMODE's value
   const [check, setCheck] = useState(getTheme.theme);
+
+  
   
   // Theme dependent styling
   const themeStyles = themes.DARKMODE ? {
@@ -33,12 +36,39 @@ function ChangePassword({themeToggle}) {
     background: bg,
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Change password form submitted');
-    // Implement your logic for changing the password here
-  };
 
+    if (!cookies.email) {
+      alert("User email not found. Please log in again.");
+      return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      alert('New passwords do not match.');
+      return;
+    }
+
+    try {
+      // Using axios to make the HTTP POST request
+      const response = await axios.post('http://localhost:8081/api/change-password', {
+        email: cookies.email,
+        currentPassword,
+        newPassword
+      });
+
+      // Check the response data for success
+      if (response.data.message) {
+        alert('Password successfully changed.');
+        navigate('/home'); // Navigate after successful password change
+      }
+    } catch (error) {
+      // Handle errors, including response errors from the backend
+      const errorMessage = error.response?.data?.error || 'Password change failed.';
+      alert(errorMessage);
+    }
+  };
+  
   return (
     <div>
       <Box

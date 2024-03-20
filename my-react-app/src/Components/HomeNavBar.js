@@ -68,6 +68,7 @@ function HomeNavBar() {
   const handleLogoutClick = () => {
     removeCookie('userID', { path: '/' });
     removeCookie('account', { path: '/' });  
+    removeCookie('email', { path: '/' });
     removeTheme('theme', { path: '/' });
   }
 
