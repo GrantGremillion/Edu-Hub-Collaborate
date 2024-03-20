@@ -55,7 +55,6 @@ function Login({onLogin}) {
 
     // testing 
     .then(res => {
-      console.log(res.data);
       if(res.data.Status === "Success") {
         onLogin({ account: res.data.Account, userID: res.data.ID });
         navigate('/Home')

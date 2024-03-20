@@ -9,8 +9,9 @@ import {Container, Box, Typography, Divider, Button, Tooltip} from '@mui/materia
 import ehc from '.././Images/EHC.png';
 
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import {useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 
 
@@ -21,6 +22,15 @@ function HomeNavBar() {
 
   const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
   const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
+
+  useEffect(() => {
+    if (cookies.userID === undefined){
+      console.log("Cookies have been removed");
+      console.log(document.cookie); 
+      navigate('/Login');
+    }
+  }, [cookies.userID,navigate]);
+
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -58,10 +68,11 @@ function HomeNavBar() {
   }
 
   const handleLogoutClick = () => {
-    removeCookie('userID');
-    removeCookie('account');  
-    removeTheme('theme');  
-    navigate('/Login');
+    removeCookie('userID', { path: '/' });
+    removeCookie('account', { path: '/' });  
+    removeTheme('theme', { path: '/' });
+
+    console.log(document.cookie + "yo");
   }
 
   const handleLogoClick = () => {
@@ -144,8 +155,8 @@ function HomeNavBar() {
             >
 
               <MenuItem onClick={handleUserProfileClick}>User Profile</MenuItem>
-              <MenuItem onClick={ handleAccountSettingsClick}>Account Settings</MenuItem>
-              <MenuItem onClick={ handleLogoutClick}>Logout</MenuItem>
+              <MenuItem onClick={handleAccountSettingsClick}>Account Settings</MenuItem>
+              <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
 
             </Menu>
 
