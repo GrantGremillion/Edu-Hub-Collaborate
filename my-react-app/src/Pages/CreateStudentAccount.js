@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 // Material UI components
 import {Button, Grid, Container, Box, TextField} from '@mui/material';
@@ -45,6 +44,7 @@ function CreateStudentAccount() {
     .then(res => {
       if(res.data.Status === "Success") {
         navigate('/Login')
+        //navigate('/VerifyEmail')
       }
       else{
         alert(res.data.Status)

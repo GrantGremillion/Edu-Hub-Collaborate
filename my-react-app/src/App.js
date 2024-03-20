@@ -23,6 +23,7 @@ import Test from './Pages/Test';
 import ClassesDisplay from './Pages/ClassesDisplay';
 import EditProfile from './Pages/EditProfile';
 import ChangePassword from './Pages/ChangePassword';
+import VerifyEmail from './Pages/VerifyEmail';
 
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
@@ -83,6 +84,7 @@ function App() {
             <Route path="/" element={isCookieSet ? <Home /> : <AccountSelection />} />
             <Route path="/CreateStudentAccount" element={isCookieSet ? <Home /> : <CreateStudentAccount />} />
             <Route path="/CreateTeacherAccount" element={isCookieSet ? <Home /> : <CreateTeacherAccount />} />
+            <Route path="/VerifyEmail" element={isCookieSet ? <Home /> : <VerifyEmail />} />
             {/*If a cookie has been set and the user tries to access the login page, redirect them to the Home page*/}
             <Route path="/Login" element={isCookieSet ? <Home />: <Login onLogin={handleLogin}/>} />
             <Route path="/RecoverPassword" element={isCookieSet ? <Home /> : <RecoverPassword/>} />
