@@ -19,8 +19,8 @@ function ChatInterface() {
   const [cookies] = useCookies(['account','userID']);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]); // Array to store messages
-  const [timeStamp, setTimeStamp] = useState('');
   const [timeStamps, setTimeStamps] = useState([]);
+  const [users, setUsers] = useState([]); 
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -59,7 +59,20 @@ function ChatInterface() {
           // Setting all the time stamps from the database
           const timeStamps = data.map(dict => dict.sent_at);
           setTimeStamps(timeStamps);
-         
+
+          // Finds all users that have sent messages in the chat
+          axios.post('http://localhost:8081/message/get_users', {Cid: class_id})
+          .then(res => {
+            if (res.data.Status === "Success") {
+              const Users = res.data.users.map(dict => dict.sender_username);
+              setUsers(Users);
+            }
+          })
+
+          .catch(error => {
+            console.error('Error fetching users:', error);
+          });
+
         } 
         else {
           alert(res.data.Status);
@@ -69,12 +82,14 @@ function ChatInterface() {
         console.error('Error fetching messages:', error);
       });
 
+
+
+      // When user enters a message, this auto scrolls the chat to the bottom
       if (scrollRef.current) {
         scrollRef.current.scrollIntoView({ behaviour: "smooth" });
       }
 
   }, [class_id, messages]);
-
 
 
 
@@ -92,7 +107,6 @@ function ChatInterface() {
       Cid: class_id
     };
 
-    setTimeStamp(newMessage.timestamp);
     setMessages([...messages, newMessage.text]);
     setMessage('');
 
@@ -154,17 +168,13 @@ function ChatInterface() {
         <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
           {messages.map((msg, index) => (
             <div key={index} style={{ margin: '10px 0' }}>
-              <Box style={{ wordWrap: 'break-word' }}>{msg}</Box>
-              {timeStamps[index] === undefined ? (
-                  <Box ref={scrollRef} style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
-                    now
-                  </Box>
-                ) : (
-                  <Box style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
-                    {new Date(timeStamps[index]).toLocaleString()}
-                  </Box>
-                )
-              }
+              <Box style={{ wordWrap: 'break-word' }}>{users[index]}</Box> 
+              <Box style={{ wordWrap: 'break-word', fontSize: '120%'}}>{msg}</Box>
+
+              <Box sx={{marginLeft: '50%'}} style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
+                {new Date(timeStamps[index]).toLocaleString()}
+              </Box>
+        
               <Divider></Divider>
             </div>
           ))}
