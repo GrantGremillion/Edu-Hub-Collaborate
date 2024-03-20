@@ -15,12 +15,4 @@ export var darkText = 'white';
 export function DarkmodeToggle(state) {
 
   DARKMODE = state;
-  /*
-  if (!DARKMODE) {
-    DARKMODE = true;
-  }
-  else {
-    DARKMODE = false;
-  }
-  */
 }
