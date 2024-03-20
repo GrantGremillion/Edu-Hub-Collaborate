@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Container, Box, TextField, Paper, Divider } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
@@ -19,11 +19,15 @@ function ChatInterface() {
   const [cookies] = useCookies(['account','userID']);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]); // Array to store messages
+  const [timeStamp, setTimeStamp] = useState('');
   const [timeStamps, setTimeStamps] = useState([]);
 
   const [selectedFile, setSelectedFile] = useState(null);
 
- 
+  const scrollRef = useRef(null);
+
+
+
   useEffect(() => {
 
     // This is fetching the name of the class to be displayed in the header box  
@@ -65,10 +69,12 @@ function ChatInterface() {
         console.error('Error fetching messages:', error);
       });
 
+      if (scrollRef.current) {
+        scrollRef.current.scrollIntoView({ behaviour: "smooth" });
+      }
 
-   
-    return
-  }, [class_id]);
+  }, [class_id, messages]);
+
 
 
 
@@ -86,6 +92,7 @@ function ChatInterface() {
       Cid: class_id
     };
 
+    setTimeStamp(newMessage.timestamp);
     setMessages([...messages, newMessage.text]);
     setMessage('');
 
@@ -102,7 +109,6 @@ function ChatInterface() {
       
     });
 
-    // TODO: Send the message to the server here
     // If there's a file to be sent, call a function to handle the file upload.
     if (selectedFile) {
       await handleFileUpload(selectedFile);
@@ -146,13 +152,22 @@ function ChatInterface() {
       <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
         <HeaderBox text={'Chat for '+ Class} />
         <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
-        {messages.map((msg, index) => (
-          <div key={index} style={{ margin: '10px 0' }}>
-            <Box style={{ wordWrap: 'break-word' }}>{msg}</Box>
-            <Box style={{ wordWrap: 'break-word' }}>{timeStamps[index]}</Box>
-            <Divider></Divider>
-          </div>
-        ))}
+          {messages.map((msg, index) => (
+            <div key={index} style={{ margin: '10px 0' }}>
+              <Box style={{ wordWrap: 'break-word' }}>{msg}</Box>
+              {timeStamps[index] === undefined ? (
+                  <Box ref={scrollRef} style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
+                    now
+                  </Box>
+                ) : (
+                  <Box style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
+                    {new Date(timeStamps[index]).toLocaleString()}
+                  </Box>
+                )
+              }
+              <Divider></Divider>
+            </div>
+          ))}
         </Paper>
         <TextField
           fullWidth

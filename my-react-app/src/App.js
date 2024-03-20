@@ -37,10 +37,6 @@ function App() {
   const [cookies, setCookie] = useCookies(["userID","account"]);
   const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
 
-  useEffect(() => {
-    console.log(cookies.userID);
-  }, [cookies.userID]);
-
   // declares a cookie for the theme and handles the case when the user has
   // not set their preference yet.
   var themeVal = getTheme.theme;

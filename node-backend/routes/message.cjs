@@ -8,7 +8,6 @@ const db = require('../database.cjs')
 router.post('/send', (req,res) => {
 
     const account = req.body.account;
-    console.log(req.body.Cid);
 
 
     if (account === 'student'){

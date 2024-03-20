@@ -25,8 +25,6 @@ function HomeNavBar() {
 
   useEffect(() => {
     if (cookies.userID === undefined){
-      console.log("Cookies have been removed");
-      console.log(document.cookie); 
       navigate('/Login');
     }
   }, [cookies.userID,navigate]);
@@ -71,8 +69,6 @@ function HomeNavBar() {
     removeCookie('userID', { path: '/' });
     removeCookie('account', { path: '/' });  
     removeTheme('theme', { path: '/' });
-
-    console.log(document.cookie + "yo");
   }
 
   const handleLogoClick = () => {
