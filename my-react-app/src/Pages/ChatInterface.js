@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Box, TextField, Paper } from '@mui/material';
+import { Button, Container, Box, TextField, Paper, Divider } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
 import GoBackButton from '../Components/GoBackButton';
@@ -14,32 +14,63 @@ function ChatInterface() {
 
   const { class_id } = useParams();
 
+  const [Class, setClass] = useState();
+
   const [cookies] = useCookies(['account','userID']);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]); // Array to store messages
+  const [timeStamps, setTimeStamps] = useState([]);
+
   const [selectedFile, setSelectedFile] = useState(null);
 
-  // Necessary to save and display all previous user messages
-  useEffect(() => {
-    axios.post('http://localhost:8081/message/get', {Cid: class_id})
-    .then(res => {
-      if (res.data.Status === "Success") {
  
-        const data = res.data.messages;
-  
-        const contentValues = data.map(dict => dict.content);
-        setMessages(contentValues);
-      } 
-      else {
-        alert(res.data.Status);
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching messages:', error);
-    });
+  useEffect(() => {
 
+    // This is fetching the name of the class to be displayed in the header box  
+    axios.post('http://localhost:8081/classes/get_current_class', { Cid: class_id })
+      .then(res => {
+        if (res.data.Status === "Success") {
+          const className = res.data.class[0].class_name;
+          setClass(className);
+        } else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching classes:', error);
+      });
+
+
+    // Necessary to save and display all previous user messages, timestamps, and usernames
+    axios.post('http://localhost:8081/message/get', {Cid: class_id})
+      .then(res => {
+        if (res.data.Status === "Success") {
+  
+          const data = res.data.messages;
+          
+          // Setting all the messages from the database
+          const contentValues = data.map(dict => dict.content);
+          setMessages(contentValues);
+
+          // Setting all the time stamps from the database
+          const timeStamps = data.map(dict => dict.sent_at);
+          setTimeStamps(timeStamps);
+         
+        } 
+        else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching messages:', error);
+      });
+
+
+   
     return
   }, [class_id]);
+
+
 
 
   const handleSendMessage = async (e) => {
@@ -113,11 +144,13 @@ function ChatInterface() {
       ></Box>
 
       <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
-        <HeaderBox text={'Chat with us'} />
+        <HeaderBox text={'Chat for '+ Class} />
         <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
         {messages.map((msg, index) => (
           <div key={index} style={{ margin: '10px 0' }}>
             <Box style={{ wordWrap: 'break-word' }}>{msg}</Box>
+            <Box style={{ wordWrap: 'break-word' }}>{timeStamps[index]}</Box>
+            <Divider></Divider>
           </div>
         ))}
         </Paper>
