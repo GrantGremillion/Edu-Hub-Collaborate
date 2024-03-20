@@ -13,6 +13,7 @@ const accountRoute = require('./routes/account.cjs');
 const classesRoute = require('./routes/classes.cjs');
 const uploadFile = require('./routes/uploadFile.cjs');
 const messageRoute = require('./routes/message.cjs');
+const chatRoute = require('./routes/chat.cjs');
 const db = require('./database.cjs')
 
 
@@ -129,6 +130,7 @@ app.use('/upload', uploadFile);
 app.use('/account', accountRoute);
 app.use('/classes', classesRoute);
 app.use('/message', messageRoute);
+app.use('/chat', chatRoute);
 
 const PORT = 8081;
 app.listen(PORT, () => {

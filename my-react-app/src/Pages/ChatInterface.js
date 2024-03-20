@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Container, Box, TextField, Paper, Divider } from '@mui/material';
+import { Button, Container, Box, TextField, Paper, Divider, Grid } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
 import GoBackButton from '../Components/GoBackButton';
@@ -21,6 +21,9 @@ function ChatInterface() {
   const [messages, setMessages] = useState([]); // Array to store messages
   const [timeStamps, setTimeStamps] = useState([]);
   const [users, setUsers] = useState([]); 
+
+  const [students, setStudents] = useState([]);
+  const [teacher, setTeacher] = useState('');
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -46,7 +49,7 @@ function ChatInterface() {
 
 
     // Necessary to save and display all previous user messages, timestamps, and usernames
-    axios.post('http://localhost:8081/message/get', {Cid: class_id})
+    axios.post('http://localhost:8081/message/get_all', {Cid: class_id})
       .then(res => {
         if (res.data.Status === "Success") {
   
@@ -61,7 +64,7 @@ function ChatInterface() {
           setTimeStamps(timeStamps);
 
           // Finds all users that have sent messages in the chat
-          axios.post('http://localhost:8081/message/get_users', {Cid: class_id})
+          axios.post('http://localhost:8081/chat/get_message_usernames', {Cid: class_id})
           .then(res => {
             if (res.data.Status === "Success") {
               const Users = res.data.users.map(dict => dict.sender_username);
@@ -70,7 +73,7 @@ function ChatInterface() {
           })
 
           .catch(error => {
-            console.error('Error fetching users:', error);
+            console.error('Error fetching usernames for sent messages:', error);
           });
 
         } 
@@ -81,6 +84,38 @@ function ChatInterface() {
       .catch(error => {
         console.error('Error fetching messages:', error);
       });
+
+      // Fetch all students in the class
+      axios.post('http://localhost:8081/chat/get_all_students', { Cid: class_id })
+      .then(res => {
+        if (res.data.Status === "Success") {
+          const Students = res.data.students.map(dict => dict.sender_username);
+          setStudents(Students);
+        } else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching students in class:', error);
+      });
+
+
+      // Fetch the teacher of the class
+      axios.post('http://localhost:8081/chat/get_teacher', { Cid: class_id })
+      .then(res => {
+        if (res.data.Status === "Success") {
+          const Teacher = res.data.teacher.map(dict => dict.sender_username);
+          setTeacher(Teacher);
+        } else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching students in class:', error);
+      });
+
+
+
 
 
 
@@ -163,52 +198,75 @@ function ChatInterface() {
         }}
       ></Box>
 
-      <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
-        <HeaderBox text={'Chat for '+ Class} />
-        <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
-          {messages.map((msg, index) => (
-            <div key={index} style={{ margin: '10px 0' }}>
-              <Box style={{ wordWrap: 'break-word' }}>{users[index]}</Box> 
-              <Box style={{ wordWrap: 'break-word', fontSize: '120%'}}>{msg}</Box>
 
-              <Box sx={{marginLeft: '50%'}} style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
-                {new Date(timeStamps[index]).toLocaleString()}
-              </Box>
-        
-              <Divider></Divider>
-            </div>
-          ))}
-        </Paper>
-        <TextField
-          fullWidth
-          id="outlined-multiline-static"
-          label="Type your message here..."
-          multiline
-          rows={3}
-          variant="outlined"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          style={{ marginBottom: '10px' }}
-        />
-        <Button fullWidth variant="contained" style={{ background: '#b2dfdb', color: 'white' }} onClick={handleSendMessage}>
-          Send Message
-        </Button>
-        <input
-          accept="image/*"
-          style={{ display: 'none' }}
-          id="raised-button-file"
-          multiple
-          type="file"
-          onChange={handleFileSelect}
-        />
-        <label htmlFor="raised-button-file">
-          <Button variant="contained" component="span" sx={{ background: '#b2dfdb', marginY: 2 }}>
-            Upload File
-          </Button>
-        </label>
-        {selectedFile && <Box mt={2}>File: {selectedFile.name}</Box>}
-        <GoBackButton />
-      </Container>
+      <Grid container spacing={5}
+            direction="row"
+            alignItems="center"
+            justifyContent="center">
+        <Grid item>
+          <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
+            <Box style={{ wordWrap: 'break-word', fontSize: '150%' }}>Teacher:</Box>
+            <Box style={{ wordWrap: 'break-word' }}>{teacher}</Box>
+            <Box style={{ wordWrap: 'break-word', fontSize: '150%' }}>Students:</Box>
+            {students.map((name, index) => (
+              <div key={index} style={{ margin: '10px 0' }}>
+                <Box style={{ wordWrap: 'break-word' }}>{name}</Box> 
+              </div>
+            ))}
+          </Paper>
+        </Grid>
+
+        <Grid item>
+          <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
+            <HeaderBox text={'Chat for '+ Class} />
+            <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
+              {messages.map((msg, index) => (
+                <div key={index} style={{ margin: '10px 0' }}>
+                  <Box style={{ wordWrap: 'break-word' }}>{users[index]}</Box> 
+                  <Box style={{ wordWrap: 'break-word', fontSize: '120%'}}>{msg}</Box>
+
+                  <Box sx={{marginLeft: '50%'}} style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
+                    {new Date(timeStamps[index]).toLocaleString()}
+                  </Box>
+            
+                  <Divider></Divider>
+                </div>
+              ))}
+            </Paper>
+            <TextField
+              fullWidth
+              id="outlined-multiline-static"
+              label="Type your message here..."
+              multiline
+              rows={3}
+              variant="outlined"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              style={{ marginBottom: '10px' }}
+            />
+            <Button fullWidth variant="contained" style={{ background: '#b2dfdb', color: 'white' }} onClick={handleSendMessage}>
+              Send Message
+            </Button>
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="raised-button-file"
+              multiple
+              type="file"
+              onChange={handleFileSelect}
+            />
+            <label htmlFor="raised-button-file">
+              <Button variant="contained" component="span" sx={{ background: '#b2dfdb', marginY: 2 }}>
+                Upload File
+              </Button>
+            </label>
+            {selectedFile && <Box mt={2}>File: {selectedFile.name}</Box>}
+            <GoBackButton />
+          </Container>
+        </Grid>
+      </Grid>
+
+
     </div>
   );
 }
