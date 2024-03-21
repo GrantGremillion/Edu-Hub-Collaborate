@@ -199,26 +199,29 @@ function ChatInterface() {
       ></Box>
 
 
-      <Grid container spacing={5}
+      <Grid container 
             direction="row"
-            alignItems="center"
+            alignItems="flex-start"
             justifyContent="center">
-        <Grid item>
-          <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
+        <Grid item sx={{marginRight: '15%', paddingTop: '10%'}}>
+          <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px', background: '#b2dfdb' }}>
             <Box style={{ wordWrap: 'break-word', fontSize: '150%' }}>Teacher:</Box>
             <Box style={{ wordWrap: 'break-word' }}>{teacher}</Box>
+            <br></br>
+            <Divider></Divider>
+            <br></br>
             <Box style={{ wordWrap: 'break-word', fontSize: '150%' }}>Students:</Box>
             {students.map((name, index) => (
-              <div key={index} style={{ margin: '10px 0' }}>
+              <div key={index} >
                 <Box style={{ wordWrap: 'break-word' }}>{name}</Box> 
               </div>
             ))}
           </Paper>
         </Grid>
 
-        <Grid item>
+        <Grid item sx={{marginRight: '21%'}}>
           <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
-            <HeaderBox text={'Chat for '+ Class} />
+            <HeaderBox text={Class} />
             <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
               {messages.map((msg, index) => (
                 <div key={index} style={{ margin: '10px 0' }}>
@@ -257,11 +260,11 @@ function ChatInterface() {
             />
             <label htmlFor="raised-button-file">
               <Button variant="contained" component="span" sx={{ background: '#b2dfdb', marginY: 2 }}>
-                Upload File
+                Upload A File
               </Button>
             </label>
             {selectedFile && <Box mt={2}>File: {selectedFile.name}</Box>}
-            <GoBackButton />
+
           </Container>
         </Grid>
       </Grid>

@@ -44,7 +44,7 @@ const transporter = nodemailer.createTransport({
 // Place the simulated functions here
 async function findUserByEmail(email) {
   console.log(`Searching for user with email: ${email}`);
-  return email === "user@example.com" ? { email, passwordHash: "simulatedHash" } : null;
+  return email;
 }
 
 async function verifyPassword(user, currentPassword) {
