@@ -14,6 +14,8 @@ const classesRoute = require('./routes/classes.cjs');
 const uploadFile = require('./routes/uploadFile.cjs');
 const messageRoute = require('./routes/message.cjs');
 const chatRoute = require('./routes/chat.cjs');
+const passwordRoute = require('./routes/password.cjs');
+
 const db = require('./database.cjs')
 
 
@@ -139,32 +141,7 @@ app.post('/api/reset-password', async (req, res) => {
 });
 
 
-//Chnage password endpoint
-app.post('/api/change-password', async (req, res) => {
-  const { email, currentPassword, newPassword } = req.body;
 
-  console.log(req.body.email);
-
-  // Find user by email
-  const user = await findUserByEmail(email);
-  if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
-  }
-
-  // Verify current password (Assuming verifyPassword does this correctly)
-  const passwordIsCorrect = await verifyPassword(user, currentPassword);
-  if (!passwordIsCorrect) {
-      return res.status(403).json({ error: 'Current password is incorrect.' });
-  }
-
-  // Update the password in the database
-  const updateSuccess = await updateUserPassword(email, newPassword);
-  if (updateSuccess) {
-      res.json({ message: 'Password updated successfully.' });
-  } else {
-      res.status(500).json({ error: 'Failed to update password.' });
-  }
-});
 
 
 // Point to routes
@@ -173,6 +150,7 @@ app.use('/account', accountRoute);
 app.use('/classes', classesRoute);
 app.use('/message', messageRoute);
 app.use('/chat', chatRoute);
+app.use('/password', passwordRoute);
 
 const PORT = 8081;
 app.listen(PORT, () => {

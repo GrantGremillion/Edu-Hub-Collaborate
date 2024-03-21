@@ -17,7 +17,7 @@ function ChangePassword({themeToggle}) {
   const navigate = useNavigate();
   // fetches the user set dark theme preference from cookie
   const [getTheme] = useCookies(["theme"]);
-  const [cookies, setCookie, removeCookie] = useCookies(['userEmail']);
+  const [cookies, setCookie, removeCookie] = useCookies(['userEmail','userID','account']);
   // initialize darkmode switch's state with DARKMODE's value
   const [check, setCheck] = useState(getTheme.theme);
 
@@ -49,24 +49,24 @@ function ChangePassword({themeToggle}) {
       return;
     }
 
-    try {
-      // Using axios to make the HTTP POST request
-      const response = await axios.post('http://localhost:8081/api/change-password', {
-        email: cookies.email,
-        currentPassword,
-        newPassword
-      });
-
-      // Check the response data for success
-      if (response.data.message) {
-        alert('Password successfully changed.');
-        navigate('/home'); // Navigate after successful password change
-      }
-    } catch (error) {
-      // Handle errors, including response errors from the backend
-      const errorMessage = error.response?.data?.error || 'Password change failed.';
-      alert(errorMessage);
+    if (newPassword.length < 6){
+      alert('New password must be at least six characters');
+      return;
     }
+
+    axios.post('http://localhost:8081/password/change-password', {id:cookies.userID, account:cookies.account,oldPW:currentPassword, newPW:newPassword })
+
+    .then(res => {
+      if(res.data.Status === "Success") {
+        alert('Password was changed succesfully');
+        navigate('/Home')
+      }
+      else{
+        alert(res.data.Status);
+      }
+    })
+    .catch(err => console.log(err));
+   
   };
   
   return (
