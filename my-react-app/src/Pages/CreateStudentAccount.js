@@ -32,25 +32,8 @@ function CreateStudentAccount() {
 
   // Handler for Submit button click
   const handleClickSubmit = (e) => {
-
-  
-
     // Prevent default event (e) from occuring
     e.preventDefault();
-    // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/account/create_Saccount', values)
-
-    // testing 
-    .then(res => {
-      if(res.data.Status === "Success") {
-        navigate('/Login')
-        //navigate('/VerifyEmail')
-      }
-      else{
-        alert(res.data.Status)
-      }
-      
-    })
   }
 
   const handleClickBack = () => {
@@ -137,6 +120,13 @@ function CreateStudentAccount() {
         
         </Grid>
       </Container>
+
+    /*<Link
+      to={{
+        pathname: "/page",
+        state: data // your data array of objects
+      }}
+    >*/
     </div>
   );
 }
