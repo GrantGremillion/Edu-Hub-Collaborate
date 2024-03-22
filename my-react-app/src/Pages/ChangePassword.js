@@ -7,18 +7,21 @@ import bg from '../Images/bg.jpg'; // Assuming the same background image
 import dark_bg from '../Images/dark_bg.jpg'; // Assuming dark theme background image
 import * as themes from '../Config'; // Assuming the same theme configuration
 import { useCookies } from "react-cookie";
+//import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function ChangePassword({themeToggle}) {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const navigate = useNavigate();
-
   // fetches the user set dark theme preference from cookie
   const [getTheme] = useCookies(["theme"]);
-
+  const [cookies, setCookie, removeCookie] = useCookies(['userEmail','userID','account']);
   // initialize darkmode switch's state with DARKMODE's value
   const [check, setCheck] = useState(getTheme.theme);
+
+  
   
   // Theme dependent styling
   const themeStyles = themes.DARKMODE ? {
@@ -33,12 +36,39 @@ function ChangePassword({themeToggle}) {
     background: bg,
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Change password form submitted');
-    // Implement your logic for changing the password here
-  };
 
+    if (!cookies.email) {
+      alert("User email not found. Please log in again.");
+      return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      alert('New passwords do not match.');
+      return;
+    }
+
+    if (newPassword.length < 6){
+      alert('New password must be at least six characters');
+      return;
+    }
+
+    axios.post('http://localhost:8081/password/change-password', {id:cookies.userID, account:cookies.account,oldPW:currentPassword, newPW:newPassword })
+
+    .then(res => {
+      if(res.data.Status === "Success") {
+        alert('Password was changed succesfully');
+        navigate('/Home')
+      }
+      else{
+        alert(res.data.Status);
+      }
+    })
+    .catch(err => console.log(err));
+   
+  };
+  
   return (
     <div>
       <Box

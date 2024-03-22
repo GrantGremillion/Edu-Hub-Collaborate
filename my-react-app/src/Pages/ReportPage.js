@@ -6,21 +6,50 @@ import bg from '../Images/bg.jpg';
 import GoBackButton from '../Components/GoBackButton';
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
+import { useNavigate } from 'react-router-dom';
 
 function ReportPage() {
     const [issueReport, setIssueReport] = useState('');
     const [integrityReport, setIntegrityReport] = useState('');
+    const navigate = useNavigate();
+
+    // jeremy added this, this is attempt at email stuff
+    /*
+    const handleRequestVerification = async () => {
+        
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert(data.message); // "OTP sent successfully."
+            } else {
+                throw new Error(data.error || 'Failed to send email.');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+    */
 
     const handleIssueSubmit = () => {
         // Logic to send issue report to devs
         console.log(issueReport);
-        alert('Your issue has been reported to the developers.');
+        alert('Your issue has been reported to the developers. Redirecting to Home page...');
+        navigate("/");
     };
 
     const handleIntegritySubmit = () => {
         // Logic to send academic integrity violation report to the professor
         console.log(integrityReport);
-        alert('The violation of academic integrity has been reported.');
+        alert('The violation of academic integrity has been reported. Redirecting to Home page...');
+        navigate("/");
     };
 
     // checks for the theme the page is in, and applys it to these variables
@@ -99,7 +128,7 @@ function ReportPage() {
                             style={{ marginTop: '20px', background: buttonColor, color: textColor }}
                             onClick={handleIntegritySubmit}
                         >
-                            Report to Professor
+                            Report to Administrator
                         </Button>
                     </Grid>
 

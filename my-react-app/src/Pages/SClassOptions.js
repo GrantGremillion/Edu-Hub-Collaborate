@@ -127,7 +127,7 @@ return (
           <Grid item xs={2}>
             <Button variant="contained" size="large"  onClick={Chat} style=
             {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%'}}>
-              Ask Questions
+              Class Chat room
             </Button>
           </Grid> 
 

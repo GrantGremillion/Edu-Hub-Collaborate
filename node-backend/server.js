@@ -13,7 +13,11 @@ const accountRoute = require('./routes/account.cjs');
 const classesRoute = require('./routes/classes.cjs');
 const uploadFile = require('./routes/uploadFile.cjs');
 const messageRoute = require('./routes/message.cjs');
+const chatRoute = require('./routes/chat.cjs');
+const passwordRoute = require('./routes/password.cjs');
+
 const db = require('./database.cjs')
+
 
 
 const app = express();
@@ -29,9 +33,6 @@ app.use(cors(
   }
 ))
 
-app.use('/api',emailService);
-
-
 // Nodemailer transporter setup
 
 const transporter = nodemailer.createTransport({
@@ -41,6 +42,22 @@ const transporter = nodemailer.createTransport({
       pass: process.env.EMAIL_PASS,
   },
 });
+
+// Place the simulated functions here
+async function findUserByEmail(email) {
+  console.log(`Searching for user with email: ${email}`);
+  return email;
+}
+
+async function verifyPassword(user, currentPassword) {
+  console.log(`Verifying password for user: ${user.email}`);
+  return currentPassword === "correctPassword";
+}
+
+async function updateUserPassword(email, newPassword) {
+  console.log(`Updating password for user: ${email} to ${newPassword}`);
+  return true;
+}
 
 
 // Send OTP endpoint
@@ -124,11 +141,16 @@ app.post('/api/reset-password', async (req, res) => {
 });
 
 
+
+
+
 // Point to routes
 app.use('/upload', uploadFile);
 app.use('/account', accountRoute);
 app.use('/classes', classesRoute);
 app.use('/message', messageRoute);
+app.use('/chat', chatRoute);
+app.use('/password', passwordRoute);
 
 const PORT = 8081;
 app.listen(PORT, () => {

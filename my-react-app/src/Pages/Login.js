@@ -22,6 +22,8 @@ import axios from 'axios'
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
+import { useCookies } from "react-cookie";
+
 
 
 function Login({onLogin}) {
@@ -30,6 +32,8 @@ function Login({onLogin}) {
     email: '',
     password: ''
   })
+
+  const [cookies, setCookie] = useCookies(["userID","account","email"]);
 
   const [LoginFailed, setLoginFailed] = useState(false);
 
@@ -55,9 +59,9 @@ function Login({onLogin}) {
 
     // testing 
     .then(res => {
-      console.log(res.data);
       if(res.data.Status === "Success") {
-        onLogin({ account: res.data.Account, userID: res.data.ID });
+        setCookie('email', credentials.email, { path: '/' });
+        onLogin({ account: res.data.Account, userID: res.data.ID, email: res.data.email });
         navigate('/Home')
       }
       else{
