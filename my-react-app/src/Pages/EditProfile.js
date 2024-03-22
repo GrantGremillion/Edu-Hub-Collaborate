@@ -26,6 +26,12 @@ function UserProfile() {
         navigate("/UserAccountSettings");
     }
 
+    // Function to handle profile picture file selection
+    const handleProfilePictureChange = (event) => {
+        // Implement your method to handle the file
+        console.log(event.target.files[0]);
+    }
+
     // checks for the theme the page is in, and applys it to these variables
     if (themes.DARKMODE) {
         var containerColor = themes.darkContainer;
@@ -99,6 +105,39 @@ function UserProfile() {
                             Edit Profile
                         </Button>
                     </Grid>*/}
+
+                     {/* Bio TextField */}
+                     <Grid item xs={12}>
+                        <Typography sx={{ fontFamily: 'Courier New', fontSize: 20 }}> Change Bio:</Typography>
+                        <TextField
+                            multiline
+                            rows={4}
+                            placeholder="Enter your bio"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                        />
+                    </Grid>
+
+                    {/*Profile Picture Upload*/}
+                    <Grid item xs={12}>
+                        <Button
+                            variant="contained"
+                            component="label"
+                            style={{ color: textColor, background: buttonColor }} // Corrected to use the actual variables
+                            sx={{ fontFamily: 'Courier New', fontSize: 'large' }}
+                        >
+                            Upload Profile Picture
+                            <input
+                                type="file"
+                                hidden
+                                onChange={handleProfilePictureChange}
+                            />
+                        </Button>
+                    </Grid>
+
+
+                    
 
                     
                     <Grid item xs={4}>
