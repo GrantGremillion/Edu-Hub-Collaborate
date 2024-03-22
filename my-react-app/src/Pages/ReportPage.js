@@ -13,6 +13,31 @@ function ReportPage() {
     const [integrityReport, setIntegrityReport] = useState('');
     const navigate = useNavigate();
 
+    // jeremy added this, this is attempt at email stuff
+    /*
+    const handleRequestVerification = async () => {
+        
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert(data.message); // "OTP sent successfully."
+            } else {
+                throw new Error(data.error || 'Failed to send email.');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+    */
+
     const handleIssueSubmit = () => {
         // Logic to send issue report to devs
         console.log(issueReport);
