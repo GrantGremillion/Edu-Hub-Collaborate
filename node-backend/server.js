@@ -2,8 +2,6 @@ import express from "express";
 import cors from 'cors';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
-import emailService from './emailService.js';
-import { otpStore } from './emailService.js';
 import { createRequire } from 'module';
 dotenv.config();
 
@@ -43,27 +41,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Place the simulated functions here
-async function findUserByEmail(email) {
-  console.log(`Searching for user with email: ${email}`);
-  return email;
-}
-
-async function verifyPassword(user, currentPassword) {
-  console.log(`Verifying password for user: ${user.email}`);
-  return currentPassword === "correctPassword";
-}
-
-async function updateUserPassword(email, newPassword) {
-  console.log(`Updating password for user: ${email} to ${newPassword}`);
-  return true;
-}
-
+export const otpStore = new Map();
 
 // Send OTP endpoint
 app.post('/api/send-otp', async (req, res) => {
   const { email } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  otpStore.set(email, otp);
 
   try {
       await transporter.sendMail({
@@ -82,7 +66,7 @@ app.post('/api/send-otp', async (req, res) => {
 });
 
 // Verify OTP endpoint (placeholder for your logic)
-app.post('/verify-otp', async (req, res) => {
+app.post('/api/verify-otp', async (req, res) => {
   const { email, otp } = req.body;
   console.log(`Verification attempt for email: ${email} with OTP: ${otp}`);
   const storedOtp = otpStore.get(email);

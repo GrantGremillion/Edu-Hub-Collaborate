@@ -16,6 +16,7 @@ import { useCookies } from "react-cookie";
 
 
 function HomeNavBar() {
+
   const navigate = useNavigate();
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);

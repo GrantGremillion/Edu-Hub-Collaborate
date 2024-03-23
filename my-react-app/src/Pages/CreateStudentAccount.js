@@ -34,6 +34,20 @@ function CreateStudentAccount() {
   const handleClickSubmit = (e) => {
     // Prevent default event (e) from occuring
     e.preventDefault();
+    // sends an HTTP POST request to the URL login backend API
+    axios.post('http://localhost:8081/account/create_Saccount', values)
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/Login')
+        //navigate('/VerifyEmail')
+      }
+      else{
+        alert(res.data.Status)
+      }
+
+    })
   }
 
   const handleClickBack = () => {
@@ -89,17 +103,17 @@ function CreateStudentAccount() {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Email" variant="filled" 
+            <TextField label="Email" variant="filled" 
             onChange={e => setValues({...values,email:e.target.value})}/>
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Password" variant="filled" type="password"
+            <TextField label="Password" variant="filled" type="password"
             onChange={e => setValues({...values,password:e.target.value})}/>
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
+            <TextField label="Confirm password" variant="filled" type="password" 
             onChange={e => setValues({...values,cpassword:e.target.value})}/>
           </Grid>
   
@@ -120,13 +134,6 @@ function CreateStudentAccount() {
         
         </Grid>
       </Container>
-
-    /*<Link
-      to={{
-        pathname: "/page",
-        state: data // your data array of objects
-      }}
-    >*/
     </div>
   );
 }

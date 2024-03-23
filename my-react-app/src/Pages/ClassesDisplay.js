@@ -125,7 +125,7 @@ function ClassesDisplay() {
             
             { classes.length === 0 ? (
             
-            <Grid xs={12} marginLeft="22%" marginTop="7%" alignContent="center" justifyContent="center">
+            <Grid marginLeft="22%" marginTop="7%" alignContent="center" justifyContent="center">
               <Grid>
                 <Box fontFamily="Courier New" fontSize={30} >
                   You are not currently in any classes.

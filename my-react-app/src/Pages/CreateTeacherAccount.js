@@ -124,17 +124,17 @@ function CreateTeacherAccount() {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Email" variant="filled" 
+            <TextField label="Email" variant="filled" 
             onChange={e => setValues({...values,email:e.target.value})}/>
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Password" variant="filled" type="password"
+            <TextField label="Password" variant="filled" type="password"
             onChange={e => setValues({...values,password:e.target.value})}/>
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
+            <TextField label="Confirm password" variant="filled" type="password" 
             onChange={e => setValues({...values,cpassword:e.target.value})}/>
           </Grid>
 
