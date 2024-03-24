@@ -1,114 +1,103 @@
-// The react framework
-import * as React from 'react';
-// Material UI components
-import {Button, Grid, Container, Box, TextField, Typography, Paper} from '@mui/material';
-// Premade components we set up and put in the Components folder for reusability
-import HeaderBox from '.././Components/HeaderBox';
+import React, { useState } from 'react';
+import { Button, Grid, Container, Box, TextField, Typography } from '@mui/material';
+import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
-// Used to navigate between web pages
 import { useNavigate } from 'react-router-dom';
-// solid background images for website
-import bg from '.././Images/bg.jpg';
-import dark_bg from '.././Images/dark_bg.jpg';
-// handles darkmode toggle on the page
-import * as themes from '.././Config';
+import bg from '../Images/bg.jpg';
+import dark_bg from '../Images/dark_bg.jpg';
+import * as themes from '../Config';
 
-
-function UserProfile() {
-
-    // handles the button presses
+function EditProfile() {
     const navigate = useNavigate();
-    const handleEditProfileClick = () => {
-        // Use navigate to go to the UserProfile page
-        navigate("/EditProfile");
-    }
-    const handleAccountSettingsClick = () => {
-        navigate("/UserAccountSettings");
-    }
+    const [displayName, setDisplayName] = useState('');
+    const [bio, setBio] = useState('');
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [preview, setPreview] = useState(null);
 
-    // Function to handle profile picture file selection
+    // Theme handling
+    const isDarkMode = themes.DARKMODE;
+    const containerStyle = {
+        background: isDarkMode ? themes.darkContainer : themes.normalContainer,
+        marginTop: '75px',
+        height: '700px',
+        marginBottom: '75px'
+    };
+    const buttonStyle = {
+        color: isDarkMode ? themes.darkText : themes.normalText,
+        background: isDarkMode ? themes.darkButton : themes.normalButton,
+    };
+    const textStyle = { fontFamily: 'Courier New', fontSize: 20 };
+
+    const handleApplyChanges = async () => {
+        const formData = new FormData();
+        formData.append('displayName', displayName);
+        formData.append('bio', bio);
+        if (profilePicture) {
+            formData.append('profilePicture', profilePicture);
+        }
+
+        try {
+            const response = await fetch('http://localhost:8081/account/edit-profile', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Profile updated successfully!');
+                navigate('/UserAccountSettings');
+            } else {
+                alert(`Failed to update profile: ${result.message}`);
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('An error occurred while updating the profile.');
+        }
+    };
+
     const handleProfilePictureChange = (event) => {
-        // Implement your method to handle the file
-        console.log(event.target.files[0]);
-    }
+        if (event.target.files[0]) {
+            setProfilePicture(event.target.files[0]);
+            setPreview(URL.createObjectURL(event.target.files[0]));
+        }
+    };
 
-    // checks for the theme the page is in, and applys it to these variables
-    if (themes.DARKMODE) {
-        var containerColor = themes.darkContainer;
-        var buttonColor = themes.darkButton;
-        var textColor = themes.darkText;
-        var background = dark_bg;
-    }
-    else {
-        containerColor = themes.normalContainer;
-        buttonColor = themes.normalButton;
-        textColor = themes.normalText;
-        background = bg;
-    }
-    
     return (
         <div>
-            {/* Box used to display background image - bg.jpg */}
             <Box
                 className="bg"
                 style={{
-                backgroundImage: `url(${background})`,
-                backgroundSize: "cover",
-                zIndex: '-1',
-                position: 'fixed', // Make sure it covers the whole viewport
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                }}>
-            </Box>
-        
-            <Sidebar/>
+                    backgroundImage: `url(${isDarkMode ? dark_bg : bg})`,
+                    backgroundSize: "cover",
+                    zIndex: -1,
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                }}
+            ></Box>
 
-            {/* Container and Grid organizes HeaderBox and Buttons */}
-            <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}} >
-                <Grid container spacing={5}
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center">
-                    <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-                        <HeaderBox text={'Edit Profile'}></HeaderBox>
+            <Sidebar />
+
+            <Container maxWidth='sm' style={containerStyle}>
+                <Grid container spacing={5} direction="column" alignItems="center" justifyContent="center">
+                    <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px' }}>
+                        <HeaderBox text={'Edit Profile'} />
                     </Grid>
 
-                    <Grid item xs={3} >
-                        <Typography sx={{fontFamily: 'Courier New', fontSize: 20}}>Change Display Name:</Typography>
-                        <TextField size='large'></TextField>
+                    <Grid item xs={12}>
+                        <Typography sx={textStyle}>Change Display Name:</Typography>
+                        <TextField
+                            size='large'
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                            fullWidth
+                        />
                     </Grid>
 
-
-                    {/* <Grid item xs={3} >
-                        <Typography sx={{fontFamily: 'Courier New', fontSize: 20}}>Display Name:</Typography>
-                        <Paper elevation={3} sx={{padding:3}}>
-                            <Typography sx={{fontFamily: 'Courier New', fontSize: 15}}>ggrem</Typography>
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={2}>
-                        <Typography sx={{fontFamily: 'Courier New', fontSize: 20}}>Bio:</Typography>
-                        <Paper elevation={3} sx={{padding:3}}>
-                            <Typography sx={{fontFamily: 'Courier New', fontSize: 15}}>
-                            My name is Grant and I am a human
-                            <br/>
-                            being who likes to learn!
-                            </Typography>
-                        </Paper>
-                        
-                    </Grid>
-
-                    <Grid item xs={3}>
-                        <Button size="small"  onClick={handleEditProfileClick} style={{ color: textColor, width: '200px', background: buttonColor }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
-                            Edit Profile
-                        </Button>
-                    </Grid>*/}
-
-                     {/* Bio TextField */}
-                     <Grid item xs={12}>
-                        <Typography sx={{ fontFamily: 'Courier New', fontSize: 20 }}> Change Bio:</Typography>
+                    <Grid item xs={12}>
+                        <Typography sx={textStyle}>Change Bio:</Typography>
                         <TextField
                             multiline
                             rows={4}
@@ -116,39 +105,49 @@ function UserProfile() {
                             variant="outlined"
                             fullWidth
                             margin="normal"
+                            value={bio}
+                            onChange={(e) => setBio(e.target.value)}
+                            sx={{ background: 'white', fontFamily: 'Courier New' }}
                         />
                     </Grid>
 
-                    {/*Profile Picture Upload*/}
+                    {preview && (
+                        <Box
+                            sx={{
+                                mt: 2, // margin top
+                                mb: 2, // margin bottom
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <img src={preview} alt="Profile Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                        </Box>
+                    )}
+
                     <Grid item xs={12}>
                         <Button
                             variant="contained"
                             component="label"
-                            style={{ color: textColor, background: buttonColor }} // Corrected to use the actual variables
-                            sx={{ fontFamily: 'Courier New', fontSize: 'large' }}
+                            sx={buttonStyle}
                         >
                             Upload Profile Picture
-                            <input
-                                type="file"
-                                hidden
-                                onChange={handleProfilePictureChange}
-                            />
+                            <input type="file" hidden onChange={handleProfilePictureChange} />
                         </Button>
                     </Grid>
 
-
-                    
-
-                    
-                    <Grid item xs={4}>
-                        <Button size="small"  onClick={handleAccountSettingsClick} style={{ color: textColor, width: '200px', background: buttonColor }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
+                    <Grid item xs={12}>
+                        <Button
+                            size="small"
+                            onClick={handleApplyChanges}
+                            sx={{ ...buttonStyle, width: '200px', fontFamily: 'Courier New', fontSize: 'large', marginTop: '20px' }}
+                        >
                             Apply Changes
                         </Button>
-                    </Grid> 
-
+                    </Grid>
                 </Grid>
             </Container>
         </div>
     );
 }
-export default UserProfile;
+
+export default EditProfile;
