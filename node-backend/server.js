@@ -31,7 +31,8 @@ app.use('/uploads', express.static('uploads'));
 // cors is a built in middleware to allow users to request recources
 app.use(cors(
   {
-    origin: "*"
+    origin: 'http://localhost:3000',
+    credentials: true
   }
 ))
 
@@ -139,6 +140,33 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+
+
+// Inside server.js or a dedicated route file, after all imports and before the listen call
+app.get('/getUserProfile', async (req, res) => {
+  const { email } = req.query;
+  // Assuming you want to search in both slogin and tlogin tables.
+  // Adjust SQL queries according to your schema
+  const query = `
+    (SELECT displayName, bio FROM slogin WHERE email = ? LIMIT 1)
+    UNION
+    (SELECT displayName, bio FROM tlogin WHERE email = ? LIMIT 1);
+  `;
+
+  db.query(query, [email, email], (error, results) => {
+    if (error) {
+      console.error('Error fetching user profile:', error);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (results.length > 0) {
+      res.json(results[0]);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  });
+});
+
 
 
 
