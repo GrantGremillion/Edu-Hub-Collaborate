@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import { createRequire } from 'module';
+import multer from 'multer';
 dotenv.config();
 
 
@@ -13,6 +14,7 @@ const uploadFile = require('./routes/uploadFile.cjs');
 const messageRoute = require('./routes/message.cjs');
 const chatRoute = require('./routes/chat.cjs');
 const passwordRoute = require('./routes/password.cjs');
+const profileUpdatesRoute = require('./routes/profileUpdates.cjs');
 
 const db = require('./database.cjs')
 
@@ -22,6 +24,8 @@ const app = express();
 
 // built in middleware function express.json for parsing json data
 app.use(express.json());
+
+app.use('/uploads', express.static('uploads'));
 
 
 // cors is a built in middleware to allow users to request recources
@@ -124,6 +128,17 @@ app.post('/api/reset-password', async (req, res) => {
     });
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
 
 
 
@@ -135,9 +150,11 @@ app.use('/classes', classesRoute);
 app.use('/message', messageRoute);
 app.use('/chat', chatRoute);
 app.use('/password', passwordRoute);
+app.use('/account', profileUpdatesRoute);
+app.use('/uploads', express.static('uploads'));
 
-const PORT = 8081;
+
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
-  console.log('Server running');
+  console.log(`Server running on port ${PORT}`);
 });
-

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { Button, Grid, Container, Box, TextField, Typography } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
@@ -6,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import bg from '../Images/bg.jpg';
 import dark_bg from '../Images/dark_bg.jpg';
 import * as themes from '../Config';
+import { useCookies } from "react-cookie";
 
 function EditProfile() {
     const navigate = useNavigate();
@@ -13,6 +15,14 @@ function EditProfile() {
     const [bio, setBio] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [cookies] = useCookies(['email']);
+
+    
+    useEffect(() => {
+        // Ensure the email from cookies is available
+        console.log("User's email from cookies:", cookies.email);
+    }, [cookies.email]);
+    
 
     // Theme handling
     const isDarkMode = themes.DARKMODE;
@@ -32,20 +42,26 @@ function EditProfile() {
         const formData = new FormData();
         formData.append('displayName', displayName);
         formData.append('bio', bio);
+        // Assuming userEmail is the email address of the logged-in user.
+        formData.append('email', cookies.email);
         if (profilePicture) {
             formData.append('profilePicture', profilePicture);
         }
-
+    
         try {
             const response = await fetch('http://localhost:8081/account/edit-profile', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                    // Don't set Content-Type when FormData is used; it sets the boundary parameter automatically
+                },
             });
-
+    
             const result = await response.json();
             if (response.ok) {
                 alert('Profile updated successfully!');
-                navigate('/UserAccountSettings');
+                navigate('/UserAccountSettings'); // or whatever your success route is
             } else {
                 alert(`Failed to update profile: ${result.message}`);
             }
@@ -54,6 +70,9 @@ function EditProfile() {
             alert('An error occurred while updating the profile.');
         }
     };
+    
+    
+    
 
     const handleProfilePictureChange = (event) => {
         if (event.target.files[0]) {
