@@ -10,29 +10,33 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "All Classes",
+    title: "Classes",
     path: "/ClassesDisplay",
     icon: <AiIcons.AiFillDatabase />,
     cName: "nav-text",
   },
+  /*
   {
     title: "Current Class",
     path: "/TClassOptions",
     icon: <IoIcons.IoIosAperture />,
     cName: "nav-text",
   },
+  */
   {
     title: "Zoom",
     path: "https://app.zoom.us/wc/home",
     icon: <AiIcons.AiOutlineVideoCameraAdd />,
     cName: "nav-text",
   },
+  /*
   {
     title: "Questions",
-    path: "/ChatInterface",
+    path: "/ChatInterface/${class_id}",
     icon: <AiIcons.AiFillWechat />,
     cName: "nav-text",
   },
+  */
   {
     title: "Profile",
     path: "/UserProfile",

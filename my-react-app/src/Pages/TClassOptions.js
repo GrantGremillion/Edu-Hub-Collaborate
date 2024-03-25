@@ -1,6 +1,6 @@
 import * as React from 'react';
 // Material UI components
-import {Container, Box, Divider, Grid, Button, Typography} from '@mui/material';
+import {Container, Box, Divider, Grid, Button, Typography, TextField} from '@mui/material';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
 import HeaderBox from '../Components/HeaderBox';
@@ -19,9 +19,10 @@ import { useParams } from 'react-router-dom';
 
 function TClassOptions() {
 
-  const { class_id } = useParams();
+  const { class_id, announce } = useParams();
 
   const [Class, setClass] = useState();
+  const [ann, setAnn] = useState();
 
   useEffect(() => {
     axios.post('http://localhost:8081/classes/get_current_class', { Cid: class_id })
@@ -49,6 +50,11 @@ function TClassOptions() {
   const Chat = () => {
     navigate(`/ChatInterface/${class_id}`);
   }
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+      axios.post('http://localhost:8081/Announcements/send', ann)
+    }
 
   //Darkmode Theme
   if (themes.DARKMODE) {
@@ -113,7 +119,7 @@ return (
 
           <Grid item>
           <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
-           Teacher Announcements would go here
+           {ann}
            {TClassOptions.text}
           </Typography>
           </Grid>
@@ -134,6 +140,25 @@ return (
             <Button variant="contained" size="large"  onClick={() => zoomClick('https://app.zoom.us/wc/home')}  style=
             {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-61.5%', marginLeft: '65%'}}>
               Zoom Link
+            </Button>
+          </Grid> 
+
+          <Grid item xs={12}>
+              <TextField
+                  fullWidth
+                  id="otp-input"
+                  label="Text"
+                  variant="filled"
+                  value={ann}
+                  onChange={(e) => setAnn(e.target.value)}
+
+              />
+          </Grid>
+
+          <Grid item xs={2}>
+            <Button variant="contained" size="small"  onClick={handleEdit}  style=
+            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
+              Edit Announcements
             </Button>
           </Grid> 
 
