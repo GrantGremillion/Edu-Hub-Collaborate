@@ -1,6 +1,6 @@
 import * as React from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, TextField} from '@mui/material';
+import {Button, Grid, Container, Box, TextField, Link} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
@@ -24,16 +24,48 @@ function CreateStudentAccount() {
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
 
+  /*
   const [values, setValues] = React.useState({
-    email: '',
-    password: '',
     cpassword: ''
-  })
+  })*/
+          // <Grid item xs={1}>
+          // <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
+          //  onChange={e => setValues({...values,cpassword:e.target.value})}/>
+          //</Grid>
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   // Handler for Submit button click
-  const handleClickSubmit = (e) => {
+  const handleClickSubmit = async (e) => {
     // Prevent default event (e) from occuring
     e.preventDefault();
+    if ((email && password) != null && password.length > 5){
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message); // "OTP sent successfully."
+                navigate('/VerifyEmail', { state: { email, password } }); // Navigate to OTP verification page
+            } else {
+                throw new Error(data.error || 'Failed to send OTP.');
+                console.log(email);
+            }
+        } catch (error) {
+            alert("Invalid Email");
+        }
+      }
+     else {
+      alert("Please enter a valid email/a password of at least 6 characters.")
+    }
   }
 
   const handleClickBack = () => {
@@ -89,18 +121,13 @@ function CreateStudentAccount() {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Email" variant="filled" 
-            onChange={e => setValues({...values,email:e.target.value})}/>
+            <TextField id="filled-basic" label="Email" variant="filled" value={email}
+            onChange={e => setEmail(e.target.value)}/>            
           </Grid>
 
           <Grid item xs={1}>
             <TextField id="filled-basic" label="Password" variant="filled" type="password"
-            onChange={e => setValues({...values,password:e.target.value})}/>
-          </Grid>
-
-          <Grid item xs={1}>
-            <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
-            onChange={e => setValues({...values,cpassword:e.target.value})}/>
+            onChange={e => setPassword(e.target.value)}/>
           </Grid>
   
           <Grid item xs={1}>
@@ -120,13 +147,6 @@ function CreateStudentAccount() {
         
         </Grid>
       </Container>
-
-    /*<Link
-      to={{
-        pathname: "/page",
-        state: data // your data array of objects
-      }}
-    >*/
     </div>
   );
 }

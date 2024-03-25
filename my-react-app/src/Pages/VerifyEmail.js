@@ -7,7 +7,7 @@ import HeaderBox from '../Components/HeaderBox';
 import PlainNavBar from '../Components/PlainNavBar'
 
 // Allows us to navigate between web pages
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // background images
 import bg from '.././Images/bg.jpg';
@@ -23,17 +23,92 @@ function VerifyEmail() {
 
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
-
+  const [cotp, setOtp] = React.useState('');
+  const location = useLocation();
+  const email = location.state?.email;
+  const password = location.state?.password;
+  const [cpassword, setCHP] = React.useState('');
   const [values, setValues] = React.useState({
-    email: '',
-    password: '',
-    cpassword: ''
+    email: email,
+    password: password,
+    cpassword: cpassword
   })
 
   const handleClickBack = () => {
     // Use navigate to go to the UserProfile page
     navigate('/');
   }
+
+  const handleClickMake = async () => {
+    console.log(email);
+    console.log(password);
+    //Testing
+    /*
+      if (cpassword === password){
+        axios.post('http://localhost:8081/account/create_Saccount', values)
+        // testing 
+        .then(res => {
+          if(res.data.Status === "Success") {
+            navigate('/Login')
+            //navigate('/VerifyEmail')
+          }
+          else{
+            alert(res.data.Status)
+          } 
+        })
+      } else {
+        alert("Password Incorrect");
+      }
+      */
+
+    // Use navigate to go to the UserProfile page
+
+        if (!cotp) {
+          alert('Please enter the OTP.');
+          console.log(cotp)
+          return;
+        }
+
+        if (cpassword != password){
+          alert('Incorrect Password')
+          return;
+        }
+
+        try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/verify-otp`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, cotp }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && cpassword === password) {
+            alert(data.message); // "OTP verified successfully."
+            axios.post('http://localhost:8081/account/create_Saccount', values)
+            // testing 
+            .then(res => {
+              if(res.data.Status === "Success") {
+                navigate('/Login')
+                //navigate('/VerifyEmail')
+              }
+              else{
+                alert(res.data.Status)
+              }
+              
+            })
+        } else {
+            const errorData = await response.json();
+            console.error('Error verifying OTP:', errorData);
+            alert(errorData.error || 'Failed to verify OTP.');
+        }
+        } catch (error) {
+        console.error('Network error when verifying OTP:', error);
+        alert('Network error when verifying OTP.');
+        }
+        };
 
   //Darkmode Theme
   if (themes.DARKMODE) {
@@ -71,7 +146,7 @@ function VerifyEmail() {
       <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
 
       {/* Container and Grid organizes HeaderBox and Buttons */}
-      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '480px', marginBottom:'75px'}} >
+      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '560px', marginBottom:'75px'}} >
         <Grid container spacing={5}
             direction="column"
             alignItems="center"
@@ -81,12 +156,17 @@ function VerifyEmail() {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="OTP" variant="filled" 
+            <TextField id="filled-basic" label="Emailed OTP" variant="filled" value={cotp} onChange={(e) => setOtp(e.target.value)}
+            />
+          </Grid>
+
+          <Grid item xs={1}>
+            <TextField id="filled-basic" label="Confirm Password" variant="filled" value={cpassword} onChange={(e) => setCHP(e.target.value)}
             />
           </Grid>
   
           <Grid item xs={1}>
-            <Button variant="contained" size="large"  onClick={null} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
+            <Button variant="contained" size="large"  onClick={handleClickMake} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
               Verify
             </Button>
           </Grid>
