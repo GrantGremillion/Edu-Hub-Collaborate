@@ -2,9 +2,8 @@ import express from "express";
 import cors from 'cors';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
-import emailService from './emailService.js';
-import { otpStore } from './emailService.js';
 import { createRequire } from 'module';
+import multer from 'multer';
 dotenv.config();
 
 
@@ -15,6 +14,7 @@ const uploadFile = require('./routes/uploadFile.cjs');
 const messageRoute = require('./routes/message.cjs');
 const chatRoute = require('./routes/chat.cjs');
 const passwordRoute = require('./routes/password.cjs');
+const profileUpdatesRoute = require('./routes/profileUpdates.cjs');
 
 const db = require('./database.cjs')
 
@@ -25,11 +25,14 @@ const app = express();
 // built in middleware function express.json for parsing json data
 app.use(express.json());
 
+app.use('/uploads', express.static('uploads'));
+
 
 // cors is a built in middleware to allow users to request recources
 app.use(cors(
   {
-    origin: "*"
+    origin: 'http://localhost:3000',
+    credentials: true
   }
 ))
 
@@ -43,27 +46,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Place the simulated functions here
-async function findUserByEmail(email) {
-  console.log(`Searching for user with email: ${email}`);
-  return email;
-}
-
-async function verifyPassword(user, currentPassword) {
-  console.log(`Verifying password for user: ${user.email}`);
-  return currentPassword === "correctPassword";
-}
-
-async function updateUserPassword(email, newPassword) {
-  console.log(`Updating password for user: ${email} to ${newPassword}`);
-  return true;
-}
-
+export const otpStore = new Map();
 
 // Send OTP endpoint
 app.post('/api/send-otp', async (req, res) => {
   const { email } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  otpStore.set(email, otp);
 
   try {
       await transporter.sendMail({
@@ -82,7 +71,7 @@ app.post('/api/send-otp', async (req, res) => {
 });
 
 // Verify OTP endpoint (placeholder for your logic)
-app.post('/verify-otp', async (req, res) => {
+app.post('/api/verify-otp', async (req, res) => {
   const { email, otp } = req.body;
   console.log(`Verification attempt for email: ${email} with OTP: ${otp}`);
   const storedOtp = otpStore.get(email);
@@ -140,6 +129,44 @@ app.post('/api/reset-password', async (req, res) => {
     });
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
+
+
+
+// Inside server.js or a dedicated route file, after all imports and before the listen call
+app.get('/getUserProfile', async (req, res) => {
+  const { email } = req.query;
+  // Assuming you want to search in both slogin and tlogin tables.
+  // Adjust SQL queries according to your schema
+  const query = `
+    (SELECT displayName, bio FROM slogin WHERE email = ? LIMIT 1)
+    UNION
+    (SELECT displayName, bio FROM tlogin WHERE email = ? LIMIT 1);
+  `;
+
+  db.query(query, [email, email], (error, results) => {
+    if (error) {
+      console.error('Error fetching user profile:', error);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (results.length > 0) {
+      res.json(results[0]);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  });
+});
+
 
 
 
@@ -151,9 +178,11 @@ app.use('/classes', classesRoute);
 app.use('/message', messageRoute);
 app.use('/chat', chatRoute);
 app.use('/password', passwordRoute);
+app.use('/account', profileUpdatesRoute);
+app.use('/uploads', express.static('uploads'));
 
-const PORT = 8081;
+
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
-  console.log('Server running');
+  console.log(`Server running on port ${PORT}`);
 });
-

@@ -83,9 +83,8 @@ function VerifyEmail() {
             body: JSON.stringify({ email, cotp }),
         });
 
-        const data = await response.json();
-
         if (response.ok && cpassword === password) {
+            const data = await response.json();
             alert(data.message); // "OTP verified successfully."
             axios.post('http://localhost:8081/account/create_Saccount', values)
             // testing 

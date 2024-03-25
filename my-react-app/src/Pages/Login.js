@@ -31,7 +31,7 @@ function Login({onLogin}) {
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
-  })
+  });
 
   const [cookies, setCookie] = useCookies(["userID","account","email"]);
 
@@ -131,7 +131,7 @@ function Login({onLogin}) {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="College Email" variant="filled" 
+            <TextField  label="College Email" variant="filled" 
             onChange={e => setCredentials({...credentials,email:e.target.value})}/>
           </Grid>
 
@@ -164,7 +164,6 @@ function Login({onLogin}) {
             ) : (
               <div>
                 <TextField
-                  id="filled-basic"
                   label="Password"
                   variant="filled"
                   type={showPassword ? 'text' : 'password'}
