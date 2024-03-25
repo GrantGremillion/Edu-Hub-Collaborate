@@ -23,7 +23,7 @@ function VerifyEmail() {
 
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
-  const [cotp, setOtp] = React.useState('');
+  const [otp, setOtp] = React.useState('');
   const location = useLocation();
   const email = location.state?.email;
   const password = location.state?.password;
@@ -31,7 +31,7 @@ function VerifyEmail() {
   const [values, setValues] = React.useState({
     email: email,
     password: password,
-    cpassword: cpassword
+    cpassword: password
   })
 
   const handleClickBack = () => {
@@ -63,9 +63,9 @@ function VerifyEmail() {
 
     // Use navigate to go to the UserProfile page
 
-        if (!cotp) {
+        if (!otp) {
           alert('Please enter the OTP.');
-          console.log(cotp)
+          console.log(otp)
           return;
         }
 
@@ -74,14 +74,18 @@ function VerifyEmail() {
           return;
         }
 
+        const apiUrl = process.env.REACT_APP_API_URL;
+        const verifyOtpUrl = `${apiUrl}/api/verify-otp`;
+
         try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/verify-otp`, {
+        const response = await fetch(verifyOtpUrl, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, cotp }),
+            body: JSON.stringify({ email, otp }),
         });
+
 
         if (response.ok && cpassword === password) {
             const data = await response.json();
@@ -155,7 +159,7 @@ function VerifyEmail() {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Emailed OTP" variant="filled" value={cotp} onChange={(e) => setOtp(e.target.value)}
+            <TextField id="filled-basic" label="Emailed OTP" variant="filled" value={otp} onChange={(e) => setOtp(e.target.value)}
             />
           </Grid>
 

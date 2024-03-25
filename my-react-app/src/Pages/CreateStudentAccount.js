@@ -40,7 +40,6 @@ function CreateStudentAccount() {
   const handleClickSubmit = async (e) => {
     // Prevent default event (e) from occuring
     e.preventDefault();
-<<<<<<< HEAD
     if ((email && password) != null && password.length > 5){
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
@@ -67,22 +66,6 @@ function CreateStudentAccount() {
      else {
       alert("Please enter a valid email/a password of at least 6 characters.")
     }
-=======
-    // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/account/create_Saccount', values)
-
-    // testing 
-    .then(res => {
-      if(res.data.Status === "Success") {
-        navigate('/Login')
-        //navigate('/VerifyEmail')
-      }
-      else{
-        alert(res.data.Status)
-      }
-
-    })
->>>>>>> 9a7199b4b6346a7a70357aafb4b279cbbc28c7ac
   }
 
   const handleClickBack = () => {
@@ -138,7 +121,6 @@ function CreateStudentAccount() {
           </Grid>
 
           <Grid item xs={1}>
-<<<<<<< HEAD
             <TextField id="filled-basic" label="Email" variant="filled" value={email}
             onChange={e => setEmail(e.target.value)}/>            
           </Grid>
@@ -146,20 +128,7 @@ function CreateStudentAccount() {
           <Grid item xs={1}>
             <TextField id="filled-basic" label="Password" variant="filled" type="password"
             onChange={e => setPassword(e.target.value)}/>
-=======
-            <TextField label="Email" variant="filled" 
-            onChange={e => setValues({...values,email:e.target.value})}/>
-          </Grid>
 
-          <Grid item xs={1}>
-            <TextField label="Password" variant="filled" type="password"
-            onChange={e => setValues({...values,password:e.target.value})}/>
-          </Grid>
-
-          <Grid item xs={1}>
-            <TextField label="Confirm password" variant="filled" type="password" 
-            onChange={e => setValues({...values,cpassword:e.target.value})}/>
->>>>>>> 9a7199b4b6346a7a70357aafb4b279cbbc28c7ac
           </Grid>
   
           <Grid item xs={1}>
