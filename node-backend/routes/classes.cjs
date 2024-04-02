@@ -21,7 +21,7 @@ const handleGenerateKey = (e) => {
 
 
 router.post('/create_class', (req,res) =>{
-    const createClassSql = "INSERT INTO classes (Tid, class_name, class_description, access_key) VALUES (?, ?, ?, ?)";
+    const createClassSql = "INSERT INTO Classes (Tid, class_name, class_description, access_key) VALUES (?, ?, ?, ?)";
 
     key = handleGenerateKey();
     db.query(createClassSql, [req.body.Tid, req.body.cname, req.body.cdes, key], (err) => {
@@ -70,7 +70,7 @@ router.post('/join_class', (req,res) =>{
 router.post('/get_teacher_classes', (req,res) => {
 
   const Tid = req.body.Tid;
-  const getTeacherClassesSql = "SELECT Cid,class_name,class_description,access_key FROM classes WHERE Tid = ?";
+  const getTeacherClassesSql = "SELECT Cid,class_name,class_description,access_key FROM Classes WHERE Tid = ?";
 
   db.query(getTeacherClassesSql, [Tid], (err, data) => {
 
@@ -89,7 +89,7 @@ router.post('/get_student_classes', (req,res) => {
 
   const Sid = req.body.Sid;
   const getStudentClassesSql = "SELECT Cid FROM ClassStudents WHERE Sid = ?";
-  const getClassesSql = "SELECT Cid,class_name,class_description,access_key FROM classes WHERE Cid IN (?)";
+  const getClassesSql = "SELECT Cid,class_name,class_description,access_key FROM Classes WHERE Cid IN (?)";
 
   db.query(getStudentClassesSql, [Sid], (err, data) => {
 
@@ -120,7 +120,7 @@ router.post('/get_student_classes', (req,res) => {
 router.post('/get_current_class', (req,res) => {
 
   const Cid = req.body.Cid;
-  const getClassSql = "SELECT * FROM classes WHERE Cid = ?";
+  const getClassSql = "SELECT * FROM Classes WHERE Cid = ?";
 
   db.query(getClassSql, [Cid], (err, data) => {
 

@@ -100,7 +100,7 @@ app.post('/api/reset-password', async (req, res) => {
 
   console.log(email,password);
 
-  const resetPasswordStudentSql = "UPDATE slogin SET password = ? WHERE email = ?";
+  const resetPasswordStudentSql = "UPDATE Slogin SET password = ? WHERE email = ?";
 
   db.query(resetPasswordStudentSql, [password,email], (studentErr, studentData) => {
     if (studentErr) {
@@ -113,7 +113,7 @@ app.post('/api/reset-password', async (req, res) => {
     }
 
     // If no student account found, search for teacher account
-    const resetPasswordTeacherSql = "UPDATE tlogin SET password = ? WHERE email = ?";
+    const resetPasswordTeacherSql = "UPDATE Tlogin SET password = ? WHERE email = ?";
 
     db.query(resetPasswordTeacherSql, [password,email], (teacherErr, teacherData) => {
       if (teacherErr) {
@@ -150,9 +150,9 @@ app.get('/getUserProfile', async (req, res) => {
   // Assuming you want to search in both slogin and tlogin tables.
   // Adjust SQL queries according to your schema
   const query = `
-    (SELECT displayName, bio FROM slogin WHERE email = ? LIMIT 1)
+    (SELECT displayName, bio FROM Slogin WHERE email = ? LIMIT 1)
     UNION
-    (SELECT displayName, bio FROM tlogin WHERE email = ? LIMIT 1);
+    (SELECT displayName, bio FROM Tlogin WHERE email = ? LIMIT 1);
   `;
 
   db.query(query, [email, email], (error, results) => {

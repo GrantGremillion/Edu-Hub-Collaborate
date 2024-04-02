@@ -11,11 +11,11 @@ router.post('/get_message_usernames', (req,res) => {
         SELECT 
             COALESCE(s.name, t.name) AS sender_username
         FROM 
-            messages m
+            Messages m
         LEFT JOIN 
-            slogin s ON m.Sid = s.Sid
+            Slogin s ON m.Sid = s.Sid
         LEFT JOIN 
-            tlogin t ON m.Tid = t.Tid
+            Tlogin t ON m.Tid = t.Tid
         WHERE
             m.Cid = ?;
     `;
@@ -41,7 +41,7 @@ router.post('/get_all_students', (req,res) => {
         FROM 
         ClassStudents cs
         LEFT JOIN 
-        slogin s ON cs.Sid = s.Sid
+        Slogin s ON cs.Sid = s.Sid
         WHERE
         cs.Cid = ?;
     `;
@@ -67,7 +67,7 @@ router.post('/get_teacher', (req,res) => {
         FROM 
         Classes c
         LEFT JOIN 
-        tlogin t ON c.Tid = t.Tid
+        Tlogin t ON c.Tid = t.Tid
         WHERE
         c.Cid = 1;
     `;

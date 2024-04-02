@@ -13,7 +13,7 @@ router.post('/change-password', async (req, res) => {
     if (req.body.account === 'student'){
   
       // Ending AND checks if the password they entered was correct
-      const checkPasswordSQL = "UPDATE slogin SET password = ? WHERE Sid = ? AND password = ?";
+      const checkPasswordSQL = "UPDATE Slogin SET password = ? WHERE Sid = ? AND password = ?";
   
       db.query(checkPasswordSQL, [req.body.newPW,req.body.id,req.body.oldPW], (err,data) => {
   
@@ -36,7 +36,7 @@ router.post('/change-password', async (req, res) => {
     // teacher account
     else if (req.body.account === 'teacher'){
   
-      const checkPasswordSQL = "UPDATE tlogin SET password = ? WHERE Tid = ? AND password = ?";
+      const checkPasswordSQL = "UPDATE Tlogin SET password = ? WHERE Tid = ? AND password = ?";
   
       db.query(checkPasswordSQL, [req.body.newPW,req.body.id,req.body.oldPW], (err,data) => {
   
