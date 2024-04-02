@@ -69,7 +69,7 @@ router.post('/get_teacher', (req,res) => {
         LEFT JOIN 
         Tlogin t ON c.Tid = t.Tid
         WHERE
-        c.Cid = 1;
+        c.Cid = ?;
     `;
 
     db.query(getTeacherSQL, [req.body.Cid], (err,data) => {
