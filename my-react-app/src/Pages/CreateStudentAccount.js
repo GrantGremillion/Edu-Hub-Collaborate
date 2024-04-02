@@ -16,8 +16,6 @@ import dark_bg from '.././Images/dark_bg.jpg';
 // dark theme functionality
 import * as themes from '.././Config';
 
-// Used to call API's on the backend
-import axios from 'axios';
 
 function CreateStudentAccount() {
   

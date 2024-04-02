@@ -17,7 +17,7 @@ import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
 // Used to call API's on the backend
-import axios from 'axios';
+import axiosInstance from '../helpers/axios';
 
 function CreateTeacherAccount() {
   
@@ -44,7 +44,7 @@ function CreateTeacherAccount() {
     }
 
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/account/create_Taccount', values)
+    axiosInstance.post('/account/create_Taccount', values)
 
     // testing 
     .then(res => {
@@ -64,7 +64,7 @@ function CreateTeacherAccount() {
       // check that the user has selected a file
       if(file){
 
-        axios.post('http://localhost:8081/upload/uploadFile', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        axiosInstance.post('/upload/uploadFile', formData, { headers: {'Content-Type': 'multipart/form-data'}})
         return true
       }
 

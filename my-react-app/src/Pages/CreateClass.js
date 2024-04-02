@@ -14,7 +14,7 @@ import * as themes from '.././Config';
 
 
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../helpers/axios';
 import { useCookies } from 'react-cookie';
 
 
@@ -35,7 +35,7 @@ function CreateClass() {
     e.preventDefault();
     
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/classes/create_class', values)
+    axiosInstance.post('/classes/create_class', values)
 
     // testing 
     .then(res => {

@@ -16,7 +16,8 @@ import { useState } from 'react';
 // Assuming the use of the same background image
 import bg from '.././Images/bg.jpg';
 // Used to make http requests from the browser
-import axios from 'axios'
+
+import axiosInstance from '../helpers/axios';
 
 // used to handle user toggled dark mode
 import dark_bg from '.././Images/dark_bg.jpg';
@@ -54,8 +55,10 @@ function Login({onLogin}) {
 
     // Prevent default event (e) from occuring
     e.preventDefault();
+
+    const URL = process.env.REACT_APP_API_URL;
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://35.225.60.160:8081/account/login', credentials)
+    axiosInstance.post('/account/login', credentials)
 
     // testing 
     .then(res => {

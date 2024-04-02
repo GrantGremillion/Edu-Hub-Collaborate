@@ -7,7 +7,8 @@ import HeaderBox from '../Components/HeaderBox';
 import TClassOptions from '../Pages/TClassOptions';
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
+
+import axiosInstance from '../helpers/axios';
 import { useState, useEffect } from 'react';
 
 
@@ -25,7 +26,7 @@ function SClassOptions() {
   const [Class, setClass] = useState();
 
   useEffect(() => {
-    axios.post('http://localhost:8081/classes/get_current_class', { Cid: class_id })
+    axiosInstance.post('/classes/get_current_class', { Cid: class_id })
       .then(res => {
         if (res.data.Status === "Success") {
           const className = res.data.class[0].class_name;

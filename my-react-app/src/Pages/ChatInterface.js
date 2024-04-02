@@ -4,7 +4,8 @@ import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
 import bg from '.././Images/bg.jpg';
 
-import axios from 'axios';
+
+import axiosInstance from '../helpers/axios';
 import { useCookies } from 'react-cookie';
 
 import { useParams } from 'react-router-dom';
@@ -33,7 +34,7 @@ function ChatInterface() {
   useEffect(() => {
 
     // This is fetching the name of the class to be displayed in the header box  
-    axios.post('http://localhost:8081/classes/get_current_class', { Cid: class_id })
+    axiosInstance.post('/classes/get_current_class', { Cid: class_id })
       .then(res => {
         if (res.data.Status === "Success") {
           const className = res.data.class[0].class_name;
@@ -48,7 +49,7 @@ function ChatInterface() {
 
 
     // Necessary to save and display all previous user messages, timestamps, and usernames
-    axios.post('http://localhost:8081/message/get_all', {Cid: class_id})
+    axiosInstance.post('/message/get_all', {Cid: class_id})
       .then(res => {
         if (res.data.Status === "Success") {
   
@@ -63,7 +64,7 @@ function ChatInterface() {
           setTimeStamps(timeStamps);
 
           // Finds all users that have sent messages in the chat
-          axios.post('http://localhost:8081/chat/get_message_usernames', {Cid: class_id})
+          axiosInstance.post('/chat/get_message_usernames', {Cid: class_id})
           .then(res => {
             if (res.data.Status === "Success") {
               const Users = res.data.users.map(dict => dict.sender_username);
@@ -85,7 +86,7 @@ function ChatInterface() {
       });
 
       // Fetch all students in the class
-      axios.post('http://localhost:8081/chat/get_all_students', { Cid: class_id })
+      axiosInstance.post('/chat/get_all_students', { Cid: class_id })
       .then(res => {
         if (res.data.Status === "Success") {
           const Students = res.data.students.map(dict => dict.sender_username);
@@ -100,7 +101,7 @@ function ChatInterface() {
 
 
       // Fetch the teacher of the class
-      axios.post('http://localhost:8081/chat/get_teacher', { Cid: class_id })
+      axiosInstance.post('/chat/get_teacher', { Cid: class_id })
       .then(res => {
         if (res.data.Status === "Success") {
           const Teacher = res.data.teacher.map(dict => dict.sender_username);
@@ -145,7 +146,7 @@ function ChatInterface() {
     setMessage('');
 
     // Send request to backend to send the message
-    axios.post('http://localhost:8081/message/send', newMessage)
+    axiosInstance.post('/message/send', newMessage)
 
     .then(res => {
       if(res.data.Status === "Success") {

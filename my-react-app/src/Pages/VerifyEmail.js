@@ -17,7 +17,7 @@ import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 
 // Used to call API's on the backend
-import axios from 'axios';
+import axiosInstance from '../helpers/axios';
 
 function VerifyEmail() {
 
@@ -69,7 +69,7 @@ function VerifyEmail() {
           return;
         }
 
-        if (cpassword != password){
+        if (cpassword !== password){
           alert('Incorrect Password')
           return;
         }
@@ -90,7 +90,7 @@ function VerifyEmail() {
         if (response.ok && cpassword === password) {
             const data = await response.json();
             alert(data.message); // "OTP verified successfully."
-            axios.post('http://localhost:8081/account/create_Saccount', values)
+            axiosInstance.post('/account/create_Saccount', values)
             // testing 
             .then(res => {
               if(res.data.Status === "Success") {

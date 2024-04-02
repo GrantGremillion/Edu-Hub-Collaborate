@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 import {useCookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
+import axiosInstance from '../helpers/axios';
 
 // theme components
 import bg from '../Images/bg.jpg'; 
@@ -43,7 +43,7 @@ function ClassesDisplay() {
 
     // If user is a teacher classes need to be fetched differently on the backend 
     if(cookies.account === 'teacher'){
-      axios.post('http://localhost:8081/classes/get_teacher_classes', { Tid: cookies.userID })
+      axiosInstance.post('/classes/get_teacher_classes', { Tid: cookies.userID })
       .then(res => {
         if (res.data.Status === "Success") {
           setClasses(res.data.classes);
@@ -58,7 +58,7 @@ function ClassesDisplay() {
     }
 
     else{
-      axios.post('http://localhost:8081/classes/get_student_classes', { Sid: cookies.userID })
+      axiosInstance.post('/classes/get_student_classes', { Sid: cookies.userID })
         .then(res => {
           if (res.data.Status === "Success") {
             setClasses(res.data.classes);

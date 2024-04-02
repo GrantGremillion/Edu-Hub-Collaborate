@@ -8,7 +8,7 @@ import dark_bg from '../Images/dark_bg.jpg'; // Assuming dark theme background i
 import * as themes from '../Config'; // Assuming the same theme configuration
 import { useCookies } from "react-cookie";
 //import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../helpers/axios';
 
 function ChangePassword({themeToggle}) {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -54,7 +54,7 @@ function ChangePassword({themeToggle}) {
       return;
     }
 
-    axios.post('http://localhost:8081/password/change-password', {id:cookies.userID, account:cookies.account,oldPW:currentPassword, newPW:newPassword })
+    axiosInstance.post('/password/change-password', {id:cookies.userID, account:cookies.account,oldPW:currentPassword, newPW:newPassword })
 
     .then(res => {
       if(res.data.Status === "Success") {

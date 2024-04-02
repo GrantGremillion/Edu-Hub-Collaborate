@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from '../Components/Sidebar';
 
-import axios from 'axios';
+import axiosInstance from '../helpers/axios';
 
 import { useCookies } from 'react-cookie';
 
@@ -41,7 +41,7 @@ function JoinClass() {
     // Prevent default event (e) from occuring
     e.preventDefault();
     // sends an HTTP POST request to the URL login backend API
-    axios.post('http://localhost:8081/classes/join_class', key)
+    axiosInstance.post('/classes/join_class', key)
 
     // testing 
     .then(res => {

@@ -6,7 +6,7 @@ import Sidebar from '../Components/Sidebar';
 import HeaderBox from '../Components/HeaderBox';
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
+import axiosInstance from '../helpers/axios';
 import { useState, useEffect } from 'react';
 
 
@@ -25,7 +25,7 @@ function TClassOptions() {
   const [ann, setAnn] = useState();
 
   useEffect(() => {
-    axios.post('http://localhost:8081/classes/get_current_class', { Cid: class_id })
+    axiosInstance.post('/classes/get_current_class', { Cid: class_id })
       .then(res => {
         if (res.data.Status === "Success") {
           const className = res.data.class[0].class_name;
@@ -53,7 +53,7 @@ function TClassOptions() {
 
   const handleEdit = async (e) => {
     e.preventDefault();
-      axios.post('http://localhost:8081/Announcements/send', ann)
+      axiosInstance.post('/Announcements/send', ann)
     }
 
   //Darkmode Theme
