@@ -57,10 +57,9 @@ function CreateStudentAccount() {
                 navigate('/VerifyEmail', { state: { email, password } }); // Navigate to OTP verification page
             } else {
                 throw new Error(data.error || 'Failed to send OTP.');
-                console.log(email);
             }
         } catch (error) {
-            alert("Invalid Email");
+            console.log(error);
         }
       }
      else {

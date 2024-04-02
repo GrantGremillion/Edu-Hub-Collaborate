@@ -31,7 +31,7 @@ app.use('/uploads', express.static('uploads'));
 // cors is a built in middleware to allow users to request recources
 app.use(cors(
   {
-    origin: 'http://localhost:3000',
+    origin: '*',
     credentials: true
   }
 ))
@@ -53,6 +53,7 @@ app.post('/api/send-otp', async (req, res) => {
   const { email } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   otpStore.set(email, otp);
+
 
   try {
       await transporter.sendMail({
