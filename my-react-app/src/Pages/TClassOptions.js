@@ -55,6 +55,10 @@ function TClassOptions() {
     e.preventDefault();
       axiosInstance.post('/Announcements/send', ann)
     }
+  
+  const handleLeave = () => {
+    navigate("/");
+  }
 
   //Darkmode Theme
   if (themes.DARKMODE) {
@@ -162,6 +166,13 @@ return (
             </Button>
           </Grid> 
 
+          <Grid item xs={2}>
+            <Button variant="contained" size="small"  onClick={handleLeave}  style=
+            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
+              Leave Class
+            </Button>
+          </Grid>
+            
           </Grid> 
         </Container>
     </div>
