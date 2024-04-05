@@ -49,7 +49,7 @@ function EditProfile() {
         }
     
         try {
-            const response = await fetch('http://localhost:8081/account/edit-profile', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/account/edit-profile`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -61,7 +61,7 @@ function EditProfile() {
             const result = await response.json();
             if (response.ok) {
                 alert('Profile updated successfully!');
-                navigate('/UserAccountSettings'); // or whatever your success route is
+                navigate('/UserProfile'); 
             } else {
                 alert(`Failed to update profile: ${result.message}`);
             }

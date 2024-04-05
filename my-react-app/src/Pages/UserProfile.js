@@ -27,13 +27,11 @@ function UserProfile() {
                 return; // Exit if no email is found
             }
     
-            const fetchUrl = `http://localhost:8081/getUserProfile?email=${encodeURIComponent(userEmail)}`;
+            const fetchUrl = `${process.env.REACT_APP_API_URL}/getUserProfile?email=${encodeURIComponent(userEmail)}`;
             console.log('Fetch URL:', fetchUrl);
     
             try {
-                const response = await fetch(fetchUrl, {
-                    credentials: 'include', // Include credentials if necessary
-                });
+                const response = await fetch(fetchUrl);
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data');
                 }
