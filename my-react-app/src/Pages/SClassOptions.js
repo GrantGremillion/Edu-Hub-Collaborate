@@ -6,6 +6,7 @@ import Sidebar from '../Components/Sidebar';
 import HeaderBox from '../Components/HeaderBox';
 import TClassOptions from '../Pages/TClassOptions';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 
 import axiosInstance from '../helpers/axios';
@@ -25,7 +26,15 @@ function SClassOptions() {
 
   const [Class, setClass] = useState();
 
+  const [cookies] = useCookies(['userID']);
+
+  const [leave, setLeave] = useState({
+    Cid: class_id,
+    Sid: cookies.userID
+  });
+
   useEffect(() => {
+
     axiosInstance.post('/classes/get_current_class', { Cid: class_id })
       .then(res => {
         if (res.data.Status === "Success") {
@@ -41,6 +50,27 @@ function SClassOptions() {
       });
   }, [class_id]);
   
+
+  const handleLeaveClick = (e) => {
+
+    // Prevent default event (e) from occuring
+    e.preventDefault();
+    
+    // sends an HTTP POST request to the URL login backend API
+    axiosInstance.post('/classes/leave_class', leave)
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/ClassesDisplay')
+      }
+      else{
+        alert(res.data.Message + " error in SClassOptions");
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
 
 
   //Navigation clicks for zoom and chat
@@ -138,6 +168,13 @@ return (
               Zoom Link
             </Button>
           </Grid> 
+
+          <Grid item xs={2}>
+            <Button variant="contained" size="small"  onClick={handleLeaveClick}  style=
+            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
+              Leave Class
+            </Button>
+          </Grid>
 
           </Grid> 
         </Container>

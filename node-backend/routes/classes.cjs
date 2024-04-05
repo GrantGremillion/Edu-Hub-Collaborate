@@ -66,6 +66,21 @@ router.post('/join_class', (req,res) =>{
   });
 });
 
+// Lets a student leave a class.
+router.post('/leave_class', (req,res) =>{
+
+  const leaveClassSql = "DELETE FROM ClassStudents WHERE Cid = ? AND Sid = ?";
+  
+  db.query(leaveClassSql, [req.body.Cid, req.body.Sid], (err) => {
+
+    if (err) {
+        console.log(err);
+        return res.json({ Status: "Server Side Error" });
+    }
+    return res.json({ Status: "Success" });
+  });
+});
+
 
 router.post('/get_teacher_classes', (req,res) => {
 
