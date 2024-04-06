@@ -81,6 +81,67 @@ router.post('/leave_class', (req,res) =>{
   });
 });
 
+// Deletes a class from the server, removes all people from the class first.
+// NOTE: does not work yet.
+router.post('/remove_class', (req,res) =>{
+
+  // have to remove all students from the class first (or get sql foreign key constraint error.
+  // Make query to get all Sid's by the given Cid, and then remove each row with matching Sid & Cid
+  const getAllStudentsInClassSql = "SELECT Sid FROM ClassStudents WHERE Cid = ?";
+  db.query(getAllStudentsInClassSql, [req.body.Cid], (err, studentIDs) => {
+
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error selecting student ID's." });
+    }
+
+    const removeStudentsFromClassSql = "DELETE FROM ClassStudents WHERE Cid = ? AND Sid = ?";
+    for (x = 0; x < studentIDs.length; x++) {
+      db.query(removeStudentsFromClassSql, [req.body.Cid, studentIDs[x]], (err) => {
+        if (err) {
+            console.log(err);
+            return res.json({ Status: "Server Side Error: error removing students from a class." });
+        }
+      });
+    }
+    // all students removed from class, now delete all messages
+  });
+
+  // NOTE: must delete all messages in a class before removing that class or get foreign key error.
+  // Cannot delete by class ID (Cid), MUST use primary key (Mid).
+  // Make query to get all Mid's by their Cid and store the Mid's in an array.
+  // Use for loop on array to make sql delete all messages by their Mid.
+  const getAllMessageIDSql = "SELECT Mid FROM Messages WHERE Cid = ?";
+  db.query(getAllMessageIDSql, [req.body.Cid], (err, messageIDs) => {
+
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error getting message ID's from a class." });
+    }
+
+    const removeMessagesFromClassSql = "DELETE FROM Messages WHERE Cid = ? AND Mid = ?";
+    for (x = 0; x < messageIDs.length; x++) {
+      db.query(removeMessagesFromClassSql, [req.body.Cid, messageIDs[x]], (err) => {
+        if (err) {
+            console.log(err);
+            return res.json({ Status: "Server Side Error: error deleting a message." });
+        }
+      });
+      console.log("Should have deleted a message with Mid: " + messageIDs[x]);
+    }
+    // all messages removed from class, now delete the class itself.
+  });
+
+  const deleteClassSql = "DELETE FROM Classes WHERE Cid = ?";
+  db.query(deleteClassSql, [req.body.Cid], (err) => {
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error deleting a class." });
+    }
+    return res.json({ Status: "Success" });
+  });
+});
+
 
 router.post('/get_teacher_classes', (req,res) => {
 

@@ -23,6 +23,29 @@ function TClassOptions() {
 
   const [Class, setClass] = useState();
   const [ann, setAnn] = useState();
+  const navigate = useNavigate();
+
+
+  const handleDeleteClick = (e) => {
+
+    // Prevent default event (e) from occuring
+    e.preventDefault();
+    
+    // sends an HTTP POST request to the URL login backend API
+    axiosInstance.post('/classes/remove_class', { Cid: class_id })
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/ClassesDisplay')
+      }
+      else{
+        alert(res.data.Message + " error in TClassOptions");
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
 
   useEffect(() => {
     axiosInstance.post('/classes/get_current_class', { Cid: class_id })
@@ -41,12 +64,10 @@ function TClassOptions() {
   }, [class_id]);
   
 
-
   //Navigation clicks for zoom and chat
   const zoomClick = (url) => {
   window.open(url, '_blank');};
 
-  const navigate = useNavigate();
   const Chat = () => {
     navigate(`/ChatInterface/${class_id}`);
   }
@@ -55,10 +76,6 @@ function TClassOptions() {
     e.preventDefault();
       axiosInstance.post('/Announcements/send', ann)
     }
-  
-  const handleLeave = () => {
-    navigate("/");
-  }
 
   //Darkmode Theme
   if (themes.DARKMODE) {
@@ -167,7 +184,7 @@ return (
           </Grid> 
 
           <Grid item xs={2}>
-            <Button variant="contained" size="small"  onClick={handleLeave}  style=
+            <Button variant="contained" size="small"  onClick={handleDeleteClick}  style=
             {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
               Leave Class
             </Button>
