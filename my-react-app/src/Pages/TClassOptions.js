@@ -46,6 +46,27 @@ function TClassOptions() {
     .catch(err => console.log(err));
   }
 
+  // when the teacher updates the announcements in a class and presses submit.
+  const handleAnnouncementClick = (e) => {
+
+    // Prevent default event (e) from occuring
+    e.preventDefault();
+    
+    // sends an HTTP POST request to the URL login backend API
+    axiosInstance.post('/Announcements/set_announcement', { Cid: class_id })
+
+    // testing 
+    .then(res => {
+      if(res.data.Status === "Success") {
+        //navigate('/ClassesDisplay')
+      }
+      else{
+        alert(res.data.Message + " error in TClassOptions");
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
 
   useEffect(() => {
     axiosInstance.post('/classes/get_current_class', { Cid: class_id })

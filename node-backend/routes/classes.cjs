@@ -87,7 +87,8 @@ router.post('/remove_class', (req,res) =>{
 
   // have to remove all students from the class first (or get sql foreign key constraint error.
   // Make query to get all Sid's by the given Cid, and then remove each row with matching Sid & Cid
-  const getAllStudentsInClassSql = "SELECT Sid FROM ClassStudents WHERE Cid = ?";
+  
+  /*const getAllStudentsInClassSql = "SELECT Sid FROM ClassStudents WHERE Cid = ?";
   db.query(getAllStudentsInClassSql, [req.body.Cid], (err, studentIDs) => {
 
     if (err) {
@@ -97,6 +98,7 @@ router.post('/remove_class', (req,res) =>{
 
     const removeStudentsFromClassSql = "DELETE FROM ClassStudents WHERE Cid = ? AND Sid = ?";
     for (x = 0; x < studentIDs.length; x++) {
+      console.log("Should remove student with Sid: " + studentIDs[x]);
       db.query(removeStudentsFromClassSql, [req.body.Cid, studentIDs[x]], (err) => {
         if (err) {
             console.log(err);
@@ -106,32 +108,37 @@ router.post('/remove_class', (req,res) =>{
     }
     // all students removed from class, now delete all messages
   });
+  */
+  // above this works
 
   // NOTE: must delete all messages in a class before removing that class or get foreign key error.
   // Cannot delete by class ID (Cid), MUST use primary key (Mid).
   // Make query to get all Mid's by their Cid and store the Mid's in an array.
   // Use for loop on array to make sql delete all messages by their Mid.
   const getAllMessageIDSql = "SELECT Mid FROM Messages WHERE Cid = ?";
-  db.query(getAllMessageIDSql, [req.body.Cid], (err, messageIDs) => {
+  db.query(getAllMessageIDSql, [req.body.Cid], (err, messages) => {
 
     if (err) {
       console.log(err);
       return res.json({ Status: "Server Side Error: error getting message ID's from a class." });
     }
 
-    const removeMessagesFromClassSql = "DELETE FROM Messages WHERE Cid = ? AND Mid = ?";
-    for (x = 0; x < messageIDs.length; x++) {
-      db.query(removeMessagesFromClassSql, [req.body.Cid, messageIDs[x]], (err) => {
+    const removeMessagesFromClassSql = "DELETE FROM messages WHERE Mid = ? AND Cid = ?";
+    for (x = 0; x < messages.length; x++) {
+      console.log("Should delete message with Mid: " + messages[x]);
+      db.query(removeMessagesFromClassSql, [messages[x], req.body.Cid], (err) => {
         if (err) {
             console.log(err);
             return res.json({ Status: "Server Side Error: error deleting a message." });
         }
+        
       });
-      console.log("Should have deleted a message with Mid: " + messageIDs[x]);
     }
+    return res.json({ Status: "Success" });
     // all messages removed from class, now delete the class itself.
   });
-
+  // above this is the error section
+  /*
   const deleteClassSql = "DELETE FROM Classes WHERE Cid = ?";
   db.query(deleteClassSql, [req.body.Cid], (err) => {
     if (err) {
@@ -140,6 +147,8 @@ router.post('/remove_class', (req,res) =>{
     }
     return res.json({ Status: "Success" });
   });
+  */
+  // above this most likely works
 });
 
 

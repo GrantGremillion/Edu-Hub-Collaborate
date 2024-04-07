@@ -3,9 +3,9 @@ const router = express.Router();
 
 const db = require('../database.cjs')
 
-
-router.post('/send', (req,res) => {
-        const sendMessageSql = "INSERT INTO classes (announce) VALUES (?)";
+// need to get Cid from TClassOptions
+router.post('/set_announcement', (req,res) => {
+        const sendMessageSql = "UPDATE classes SET announce = ? WHERE Cid = ?";
     
         db.query(sendMessageSql, [req.announce.text], (err) => {
   
