@@ -15,6 +15,7 @@ const messageRoute = require('./routes/message.cjs');
 const chatRoute = require('./routes/chat.cjs');
 const passwordRoute = require('./routes/password.cjs');
 const profileUpdatesRoute = require('./routes/profileUpdates.cjs');
+const downloadRouter = require('./routes/download.cjs');
 
 const db = require('./database.cjs')
 
@@ -180,6 +181,7 @@ app.use('/message', messageRoute);
 app.use('/chat', chatRoute);
 app.use('/password', passwordRoute);
 app.use('/account', profileUpdatesRoute);
+app.use('/download', downloadRouter);
 app.use('/uploads', express.static('uploads'));
 
 

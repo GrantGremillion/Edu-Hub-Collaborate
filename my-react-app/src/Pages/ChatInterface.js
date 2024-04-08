@@ -20,6 +20,7 @@ function ChatInterface() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]); // Array to store messages
   const [timeStamps, setTimeStamps] = useState([]);
+  const [files, setFiles] = useState([]);
   const [users, setUsers] = useState([]); 
 
   const [students, setStudents] = useState([]);
@@ -62,6 +63,10 @@ function ChatInterface() {
           // Setting all the time stamps from the database
           const timeStamps = data.map(dict => dict.sent_at);
           setTimeStamps(timeStamps);
+
+          // Setting all the files from the database
+          const files = data.map(dict => dict.fileUrl);
+          setFiles(files);
 
           // Finds all users that have sent messages in the chat
           axiosInstance.post('/chat/get_message_usernames', {Cid: class_id})
@@ -147,6 +152,8 @@ function ChatInterface() {
       timestamp: new Date(),
       Cid: class_id
     };
+
+    // Adding all message info so it can be accessed on tha backend
     formData.append('Mid', newMessage.Mid);
     formData.append('account', newMessage.account);
     formData.append('id', newMessage.id);
@@ -163,7 +170,6 @@ function ChatInterface() {
 
     .then(res => {
       if(res.data.Status === "Success") {
-        console.log("Success")
         setSelectedFile(null); // Reset file input after sending
       }
       else{
@@ -174,11 +180,37 @@ function ChatInterface() {
 
   };
 
-
   const handleFileSelect = (e) => {
     setSelectedFile(e.target.files[0]);
     console.log('File selected:', e.target.files[0]);
   };
+
+  // Function to handle client file downloads
+  function downloadFile(fileUrl) {
+    axiosInstance.get(fileUrl, { responseType: 'blob' }) // Use responseType: 'blob' to handle binary data
+        .then(response => {
+
+          
+          console.log(response.data);
+          // Create a temporary URL object to download the file
+          const url = window.URL.createObjectURL(response.data);
+
+          console.log("URL: " + url);
+          // Create a temporary anchor element to initiate the download
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', ''); // Set the download attribute to force download
+          // Append the anchor element to the document body and click it programmatically
+          document.body.appendChild(link);
+          link.click();
+          // Cleanup: Remove the anchor element and revoke the URL object
+          link.parentNode.removeChild(link);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error downloading file:', error);
+        });
+    }
 
   return (
     <div>
@@ -228,7 +260,9 @@ function ChatInterface() {
                 <div key={index} style={{ margin: '10px 0' }}>
                   <Box style={{ wordWrap: 'break-word' }}>{users[index]}</Box> 
                   <Box style={{ wordWrap: 'break-word', fontSize: '120%'}}>{msg}</Box>
-
+                 
+                  <a href="#" onClick={() => downloadFile(files[index])}>{files[index]}</a>
+                
                   <Box sx={{marginLeft: '50%'}} style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
                     {new Date(timeStamps[index]).toLocaleString()}
                   </Box>

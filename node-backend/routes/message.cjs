@@ -1,10 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
-const multer = require('multer')
-const upload = multer({ dest: process.env.UPLOAD_FILE_PATH })
 
 const db = require('../database.cjs')
+
+const path = require('path');
+
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, process.env.UPLOAD_FILE_PATH) 
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname) // Preserve the original file name (including extension)
+    }
+});
+
+const upload = multer({ storage: storage, dest: process.env.UPLOAD_FILE_PATH })
 
 
 router.post('/send', upload.single("file"), (req,res) => {
@@ -63,8 +75,23 @@ router.post('/get_all', (req,res) => {
         return res.status(500).json({ error: err.message });
     }
 
-    return res.json({ Status: "Success", messages: data});
+
+    // Looking through all messages to find which ones contain file uploads
+    const messagesWithFiles = data.map(message => {
+        const messageWithFile = { ...message };
+        const filename = message.Imgid;
+        // If a the message has a file attatched
+        if (filename) {
+            const filePath = path.join(__dirname, process.env.UPLOAD_FILE_PATH , filename);
+            const fileUrl = `/download/downloadFile/${filename}`; 
+            messageWithFile.fileUrl = fileUrl; 
+        }
+        return messageWithFile;
     });
+
+    return res.json({ Status: "Success", messages: messagesWithFiles });
+    });
+
     
 });
 
