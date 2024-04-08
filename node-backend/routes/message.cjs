@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
         cb(null, process.env.UPLOAD_FILE_PATH_CHAT_FILES) 
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname) // Preserve the original file name (including extension)
+        cb(null, file.originalname) 
     }
 });
 

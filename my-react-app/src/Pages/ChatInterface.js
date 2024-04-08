@@ -190,16 +190,19 @@ function ChatInterface() {
     axiosInstance.get(fileUrl, { responseType: 'blob' }) // Use responseType: 'blob' to handle binary data
         .then(response => {
 
-          
-          console.log(response.data);
+          // Grabs the filename off of the file url to ensure the filename remains the same when downloaded
+          const urlParts = fileUrl.split('/');
+          const lastPart = urlParts[urlParts.length - 1];
+          const fileName = decodeURIComponent(lastPart);
+
           // Create a temporary URL object to download the file
           const url = window.URL.createObjectURL(response.data);
 
-          console.log("URL: " + url);
+          console.log(fileUrl);
           // Create a temporary anchor element to initiate the download
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', ''); // Set the download attribute to force download
+          link.setAttribute('download', fileName); // Set the download attribute to force download
           // Append the anchor element to the document body and click it programmatically
           document.body.appendChild(link);
           link.click();
@@ -286,7 +289,6 @@ function ChatInterface() {
               Send Message
             </Button>
             <input
-              accept="image/*"
               style={{ display: 'none' }}
               id="raised-button-file"
               multiple
@@ -303,8 +305,6 @@ function ChatInterface() {
           </Container>
         </Grid>
       </Grid>
-
-
     </div>
   );
 }
