@@ -9,14 +9,14 @@ const path = require('path');
 const multer = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, process.env.UPLOAD_FILE_PATH) 
+        cb(null, process.env.UPLOAD_FILE_PATH_CHAT_FILES) 
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname) // Preserve the original file name (including extension)
     }
 });
 
-const upload = multer({ storage: storage, dest: process.env.UPLOAD_FILE_PATH })
+const upload = multer({ storage: storage, dest: process.env.UPLOAD_FILE_PATH_CHAT_FILES })
 
 
 router.post('/send', upload.single("file"), (req,res) => {
@@ -82,7 +82,7 @@ router.post('/get_all', (req,res) => {
         const filename = message.Imgid;
         // If a the message has a file attatched
         if (filename) {
-            const filePath = path.join(__dirname, process.env.UPLOAD_FILE_PATH , filename);
+            const filePath = path.join(__dirname, process.env.UPLOAD_FILE_PATH_CHAT_FILES , filename);
             const fileUrl = `/download/downloadFile/${filename}`; 
             messageWithFile.fileUrl = fileUrl; 
         }

@@ -1,7 +1,7 @@
 
 // multer library allows us to store images on our local machine
 const multer = require('multer')
-const upload = multer({ dest: process.env.UPLOAD_FILE_PATH })
+const upload = multer({ dest: process.env.UPLOAD_FILE_PATH_TEACHER_IMAGES })
 
 const express = require('express');
 const router = express.Router();
