@@ -11,10 +11,10 @@ const db = require('../database.cjs')
 
 router.post('/uploadFile', upload.single('image'), (req, res) => {
   
-    const imageName = req.file.filename   
-    console.log(imageName)
-    //console.log(imageName)
-    res.send({imageName})
+    const imageName = req.file.filename;
+    console.log(imageName);
+   
+    res.send({imageName});
   })
 
   module.exports = router;

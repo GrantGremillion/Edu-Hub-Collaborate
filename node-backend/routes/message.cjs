@@ -1,18 +1,30 @@
 const express = require('express');
 const router = express.Router();
 
+const multer = require('multer')
+const upload = multer({ dest: process.env.UPLOAD_FILE_PATH })
+
 const db = require('../database.cjs')
 
 
-router.post('/send', (req,res) => {
+router.post('/send', upload.single("file"), (req,res) => {
 
     const account = req.body.account;
 
+    let file;
+
+    if (!req.file){
+       file = null;
+    }
+    else{
+        file = req.file.filename;
+    }
+    
 
     if (account === 'student'){
-        const sendStudentMessageSql = "INSERT INTO Messages (Cid,Sid,content) VALUES (?,?,?)";
+        const sendStudentMessageSql = "INSERT INTO Messages (Cid,Sid,content,Imgid) VALUES (?,?,?,?)";
     
-        db.query(sendStudentMessageSql, [req.body.Cid,req.body.id,req.body.text], (err) => {
+        db.query(sendStudentMessageSql, [req.body.Cid,req.body.id,req.body.text,file], (err) => {
   
         if (err) {
             console.log(err);
@@ -24,9 +36,9 @@ router.post('/send', (req,res) => {
     }
 
     else if (account === 'teacher'){
-        const sendTeacherMessageSql = "INSERT INTO Messages (Cid,Tid,content) VALUES (?,?,?)";
+        const sendTeacherMessageSql = "INSERT INTO Messages (Cid,Tid,content,Imgid) VALUES (?,?,?,?)";
     
-        db.query(sendTeacherMessageSql, [req.body.Cid,req.body.id,req.body.text], (err) => {
+        db.query(sendTeacherMessageSql, [req.body.Cid,req.body.id,req.body.text,file], (err) => {
    
         if (err) {
             console.log(err);
@@ -55,7 +67,6 @@ router.post('/get_all', (req,res) => {
     });
     
 });
-
 
 
 module.exports = router;

@@ -44,7 +44,7 @@ function ChatInterface() {
         }
       })
       .catch(error => {
-        console.error('Error fetching classes:', error);
+        console.error('Error fetching class:', error);
       });
 
 
@@ -111,11 +111,8 @@ function ChatInterface() {
         }
       })
       .catch(error => {
-        console.error('Error fetching students in class:', error);
+        console.error('Error fetching teacher of current class:', error);
       });
-
-
-
 
 
 
@@ -131,7 +128,16 @@ function ChatInterface() {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
+
     if (message.trim() === '' && !selectedFile) return; // Do not send empty messages or if no file is selected
+
+
+    const formData = new FormData();
+    // If there's a file to be sent, call a function to handle the file upload.
+    if (selectedFile) {
+      formData.append("file", selectedFile);
+      console.log('Uploading file:', selectedFile.name);
+    }
 
     const newMessage = {
       Mid: messages.length + 1, // Simple incrementing ID
@@ -141,16 +147,24 @@ function ChatInterface() {
       timestamp: new Date(),
       Cid: class_id
     };
+    formData.append('Mid', newMessage.Mid);
+    formData.append('account', newMessage.account);
+    formData.append('id', newMessage.id);
+    formData.append('text', newMessage.text);
+    formData.append('timestamp', newMessage.timestamp);
+    formData.append('Cid', newMessage.Cid);
+
 
     setMessages([...messages, newMessage.text]);
     setMessage('');
 
     // Send request to backend to send the message
-    axiosInstance.post('/message/send', newMessage)
+    axiosInstance.post('/message/send',  formData,  { headers: {'Content-Type': 'multipart/form-data'}})
 
     .then(res => {
       if(res.data.Status === "Success") {
         console.log("Success")
+        setSelectedFile(null); // Reset file input after sending
       }
       else{
         alert(res.data.Status)
@@ -158,21 +172,8 @@ function ChatInterface() {
       
     });
 
-    // If there's a file to be sent, call a function to handle the file upload.
-    if (selectedFile) {
-      await handleFileUpload(selectedFile);
-      setSelectedFile(null); // Reset file input after sending
-    }
   };
 
-  const handleFileUpload = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    // TODO: Implement file upload logic here
-    // You'll need to send the formData to the server using fetch or axios
-    console.log('Uploading file:', file.name);
-  };
 
   const handleFileSelect = (e) => {
     setSelectedFile(e.target.files[0]);
