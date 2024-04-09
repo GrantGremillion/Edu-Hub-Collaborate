@@ -68,6 +68,8 @@ function ChatInterface() {
           const files = data.map(dict => dict.fileUrl);
           setFiles(files);
 
+          
+
           // Finds all users that have sent messages in the chat
           axiosInstance.post('/chat/get_message_usernames', {Cid: class_id})
           .then(res => {
@@ -263,9 +265,14 @@ function ChatInterface() {
                 <div key={index} style={{ margin: '10px 0' }}>
                   <Box style={{ wordWrap: 'break-word' }}>{users[index]}</Box> 
                   <Box style={{ wordWrap: 'break-word', fontSize: '120%'}}>{msg}</Box>
-                 
+
+                  { files[index] !== undefined ? 
+                  (<Paper sx={{p: '5%'}}>
                   <a href="#" onClick={() => downloadFile(files[index])}>{files[index]}</a>
-                
+                  </Paper>) : (
+                    <></>
+                  ) }
+                  
                   <Box sx={{marginLeft: '50%'}} style={{ wordWrap: 'break-word', color: 'gray', fontSize: '0.8rem' }}>
                     {new Date(timeStamps[index]).toLocaleString()}
                   </Box>
