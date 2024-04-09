@@ -189,7 +189,8 @@ function ChatInterface() {
 
   // Function to handle client file downloads
   function downloadFile(fileUrl) {
-    axiosInstance.get(fileUrl, { responseType: 'blob' }) // Use responseType: 'blob' to handle binary data
+    // Response needs to contain binary data or "blob"
+    axiosInstance.get(fileUrl, { responseType: 'blob' }) 
         .then(response => {
 
           // Grabs the filename off of the file url to ensure the filename remains the same when downloaded
@@ -200,15 +201,15 @@ function ChatInterface() {
           // Create a temporary URL object to download the file
           const url = window.URL.createObjectURL(response.data);
 
-          console.log(fileUrl);
           // Create a temporary anchor element to initiate the download
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', fileName); // Set the download attribute to force download
+          link.setAttribute('download', fileName); 
           // Append the anchor element to the document body and click it programmatically
           document.body.appendChild(link);
           link.click();
-          // Cleanup: Remove the anchor element and revoke the URL object
+
+          // Cleanup
           link.parentNode.removeChild(link);
           window.URL.revokeObjectURL(url);
         })
