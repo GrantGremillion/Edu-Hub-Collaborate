@@ -24,6 +24,8 @@ import ClassesDisplay from './Pages/ClassesDisplay';
 import EditProfile from './Pages/EditProfile';
 import ChangePassword from './Pages/ChangePassword';
 import VerifyEmail from './Pages/VerifyEmail';
+import ClassNotecards from './Pages/ClassNotecards';
+import CreateNotecards from './Pages/CreateNotecards';
 
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
@@ -115,6 +117,9 @@ function App() {
             <Route path="/ReportPage" element={isCookieSet ? <ReportPage /> : <Login onLogin={handleLogin}/>} />
             <Route path="/Test" element={<Test />} />
             <Route path="/Home" element={isCookieSet ? <Home /> : <Login onLogin={handleLogin}/>} />
+
+            <Route path="ClassNotecards" element={<ClassNotecards />}/>
+            <Route path="CreateNotecards" element={<CreateNotecards />}/>
 
           </Routes>
             

@@ -98,6 +98,11 @@ function TClassOptions() {
       axiosInstance.post('/Announcements/send', ann)
     }
 
+  const handleCreateNotecardsClick = (e) => {
+    e.preventDefault();
+    navigate('/ClassNotecards');
+  }
+
   //Darkmode Theme
   if (themes.DARKMODE) {
     var containerColor = themes.darkContainer;
@@ -132,84 +137,92 @@ return (
             }}
         >
         </Box>
-            <Sidebar/>
-            {/*Container holding buttons and text*/}
-        <Container maxWidth="sm" style={{ background: containerColor, marginTop: '60px', height: '700px', marginBottom:'60px'}}>
-            <Grid container spacing={4}
-              direction="column"
-              alignItems="center"
-              justifyContent="center">
 
-          <Grid item>
-          <HeaderBox text={Class} sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '5%', marginLeft: '5%', color: textColor}}/>
-          </Grid>
+        <Sidebar/>
 
-          <Grid item>
-          <Divider
-          align="center"
-          flexItem 
-          style={{ marginTop: '0%', marginLeft: '0%'}}>
-          </Divider>
-          </Grid>
+        {/*Container holding buttons and text*/}
+        <Container maxWidth="sm" style={{ background: containerColor, marginTop: '60px', height: '900px', marginBottom:'60px'}}>
+          <Grid container spacing={4}
+            direction="column"
+            alignItems="center"
+            justifyContent="center">
 
-          <Grid item>
-          <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
-           Announcements:
-           {TClassOptions.text}
-          </Typography>
-          </Grid>
+            <Grid item>
+            <HeaderBox text={Class} sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '5%', marginLeft: '5%', color: textColor}}/>
+            </Grid>
 
-          <Grid item>
-          <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
-           {ann}
-           {TClassOptions.text}
-          </Typography>
-          </Grid>
+            <Grid item>
+            <Divider
+            align="center"
+            flexItem 
+            style={{ marginTop: '0%', marginLeft: '0%'}}>
+            </Divider>
+            </Grid>
 
-          <Divider 
-          flexItem 
-          style={{ marginTop: '5%', marginLeft: '3%', color: textColor}}>
-          </Divider>
+            <Grid item>
+            <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
+            Announcements:
+            {TClassOptions.text}
+            </Typography>
+            </Grid>
 
-          <Grid item xs={2}>
-            <Button variant="contained" size="large"  onClick={Chat} style=
-            {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%'}}>
-              Class Chat room
-            </Button>
-          </Grid> 
+            <Grid item>
+            <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
+            {ann}
+            {TClassOptions.text}
+            </Typography>
+            </Grid>
 
-          <Grid item xs={2}>
-            <Button variant="contained" size="large"  onClick={() => zoomClick('https://app.zoom.us/wc/home')}  style=
-            {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-61.5%', marginLeft: '65%'}}>
-              Zoom Link
-            </Button>
-          </Grid> 
+            <Divider 
+            flexItem 
+            style={{ marginTop: '5%', marginLeft: '3%', color: textColor}}>
+            </Divider>
 
-          <Grid item xs={12}>
-              <TextField
-                  fullWidth
-                  id="otp-input"
-                  label="Text"
-                  variant="filled"
-                  value={ann}
-                  onChange={(e) => setAnn(e.target.value)}
+            <Grid item xs={2}>
+              <Button variant="contained" size="large"  onClick={Chat} style=
+              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%'}}>
+                Class Chat room
+              </Button>
+            </Grid> 
 
-              />
-          </Grid>
+            <Grid item xs={2}>
+              <Button variant="contained" size="large"  onClick={() => zoomClick('https://app.zoom.us/wc/home')}  style=
+              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '-61.5%', marginLeft: '65%'}}>
+                Zoom Link
+              </Button>
+            </Grid> 
 
-          <Grid item xs={2}>
-            <Button variant="contained" size="small"  onClick={handleEdit}  style=
-            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
-              Edit Announcements
-            </Button>
-          </Grid> 
+            <Grid item xs={2}>
+              <Button variant="contained" size="large"  onClick={handleCreateNotecardsClick} style=
+              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%', marginBottom: '15%'}}>
+                Class Notecards
+              </Button>
+            </Grid>
 
-          <Grid item xs={2}>
-            <Button variant="contained" size="small"  onClick={handleDeleteClick}  style=
-            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
-              Leave Class
-            </Button>
-          </Grid>
+            <Grid item>
+                <TextField
+                    fullWidth
+                    id="otp-input"
+                    label="Text"
+                    variant="filled"
+                    value={ann}
+                    onChange={(e) => setAnn(e.target.value)}
+                />
+            </Grid>
+
+            <Grid item>
+              <Button variant="contained" size="small"  onClick={handleEdit}  style=
+              {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
+                Edit Announcements
+              </Button>
+            </Grid> 
+
+            <Grid item xs={2}>
+              <Button variant="contained" size="small"  onClick={handleDeleteClick}  style=
+              {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
+                Leave Class
+              </Button>
+            </Grid>
             
           </Grid> 
         </Container>
