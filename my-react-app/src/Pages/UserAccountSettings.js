@@ -13,6 +13,7 @@ import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 import {useCookies} from "react-cookie";
+import { useTheme } from '@mui/material/styles';
 
 function UserAccountSettings({themeToggle}) {
 
@@ -59,6 +60,31 @@ function UserAccountSettings({themeToggle}) {
         textColor = themes.normalText;
         background = bg;
     }
+    const theme = useTheme();
+    const isDarkMode = theme.palette.mode === 'dark'; 
+    const containerStyles = {
+        pt: 9, 
+        pb: 9, 
+        minHeight: 600, 
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center', 
+        justifyContent: 'center',
+        bgcolor: isDarkMode ? 'background.paper' : 'background.default', 
+        marginTop: '75px',
+        marginBottom: '75px',
+        '& .MuiButton-root': { 
+            color: 'text.primary',
+            bgcolor: isDarkMode ? 'secondary.main' : 'primary.main', // Adjust button colors based on the theme
+            width: '250px', // Adjust button width here if needed
+            my: 2, // Margin top and bottom for buttons
+            fontFamily: 'Courier New',
+            fontSize: 'large',
+        },
+        '& .MuiFormControlLabel-root': { // Targeting all FormControlLabel within the container
+            color: theme.palette.text.primary,
+        },
+    };
 
     return (
         <div>
@@ -85,9 +111,10 @@ function UserAccountSettings({themeToggle}) {
                     alignItems="center"
                     justifyContent="center">
 
-                    <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-                        <HeaderBox text={'Account Settings'}></HeaderBox>
+                    <Grid item xs={12} sx={{ width: '100%', padding: 0, display: 'flex', justifyContent: 'center' }}>
+                    <HeaderBox text={'Account Settings'} sx={{ maxWidth: '100%', padding: 0, margin: '0 auto' }} />
                     </Grid>
+
 
                     {/* Creates buttons and sliders. */}
                     <Grid item xs={1}>
