@@ -25,6 +25,7 @@ function SClassOptions() {
   const { class_id } = useParams();
 
   const [Class, setClass] = useState();
+  const [announcement, setAnnouncement] = useState();
 
   const [cookies] = useCookies(['userID']);
 
@@ -40,6 +41,7 @@ function SClassOptions() {
         if (res.data.Status === "Success") {
           const className = res.data.class[0].class_name;
           setClass(className);
+          setAnnouncement(res.data.class[0].announce);
         } else {
           alert(res.data.Status);
         }
@@ -139,14 +141,12 @@ return (
           <Grid item>
           <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
            Announcements:
-           {TClassOptions.text}
           </Typography>
           </Grid>
 
           <Grid item>
           <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
-           Teacher Announcements would go here
-           {TClassOptions.text}
+           {announcement}
           </Typography>
           </Grid>
 

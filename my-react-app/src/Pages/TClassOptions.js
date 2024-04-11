@@ -19,8 +19,6 @@ import { useParams } from 'react-router-dom';
 
 function TClassOptions() {
 
-  var annText = "";
-
   const { class_id, announce } = useParams();
 
   const [Class, setClass] = useState();
@@ -33,24 +31,41 @@ function TClassOptions() {
   });
 
   const updateAnn = (value) => {
-    annText = value
-    setAnn(annText);
+    setAnn(value);
   }
 
   useEffect(() => { setAnnounce({ Cid: class_id, announcement: ann }); }, [ann]);
  
   const handleDeleteClick = (e) => {
-
     // Prevent default event (e) from occuring
     e.preventDefault();
     
     // sends an HTTP POST request to the URL login backend API
-    axiosInstance.post('/classes/remove_class', { Cid: class_id })
-
-    // testing 
+    axiosInstance.post('/classes/remove_messages', { Cid: class_id })
     .then(res => {
       if(res.data.Status === "Success") {
-        navigate('/ClassesDisplay')
+        console.log("Deleted messages, going to students...");
+        axiosInstance.post('/classes/remove_students', { Cid: class_id })
+        .then(res => {
+          if(res.data.Status === "Success") {
+            console.log("Removed students, deleting class...");
+            axiosInstance.post('/classes/remove_class', { Cid: class_id })
+            .then(res => {
+              if(res.data.Status === "Success") {
+                alert("Class successfully deleted!");
+                navigate('/ClassesDisplay')
+              }
+              else{
+                alert(res.data.Message + " error in TClassOptions");
+              }
+            })
+            .catch(err => console.log(err));
+          }
+          else{
+            alert(res.data.Message + " error in TClassOptions");
+          }
+        })
+        .catch(err => console.log(err));
       }
       else{
         alert(res.data.Message + " error in TClassOptions");
@@ -61,7 +76,6 @@ function TClassOptions() {
 
   // when the teacher updates the announcements in a class and presses submit.
   const handleAnnouncementClick = (e) => {
-
     // Prevent default event (e) from occuring
     e.preventDefault();
 
@@ -90,6 +104,7 @@ function TClassOptions() {
         if (res.data.Status === "Success") {
           const className = res.data.class[0].class_name;
           setClass(className);
+          setAnn(res.data.class[0].announce);
         } else {
           alert(res.data.Status);
         }
