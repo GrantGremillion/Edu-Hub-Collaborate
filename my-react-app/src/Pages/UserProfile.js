@@ -15,6 +15,7 @@ function UserProfile() {
     const [cookies] = useCookies(['email']);
     const [displayName, setDisplayName] = useState('');
     const [bio, setBio] = useState('');
+    const isDarkMode = themes.DARKMODE;
     
 
     useEffect(() => {
@@ -55,64 +56,66 @@ function UserProfile() {
         navigate("/UserAccountSettings");
     }
 
-    // checks for the theme the page is in, and applys it to these variables
-    if (themes.DARKMODE) {
-        var containerColor = themes.darkContainer;
-        var buttonColor = themes.darkButton;
-        var textColor = themes.darkText;
-        var background = dark_bg;
-    }
-    else {
-        containerColor = themes.normalContainer;
-        buttonColor = themes.normalButton;
-        textColor = themes.normalText;
-        background = bg;
-    }
-    
+    const profileStyles = {
+        backgroundStyle: {
+            backgroundImage: `url(${isDarkMode ? dark_bg : bg})`,
+            backgroundSize: "cover",
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            minHeight: '100vh',
+            zIndex: -1
+        },
+        containerStyle: {
+            position: 'relative',
+            zIndex: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2em 1em', // Use em units for padding for scalability
+            // Responsive design adjustments
+            '@media (min-width:600px)': {
+            padding: '2em 3em', // Larger padding for larger screens
+        },
+            background: 'transparent',
+            boxShadow: 'none'
+        },
+        paperStyle: {
+            padding: '16px',
+            width: '100%', // Use full width to maintain consistent size
+            marginBottom: '16px',
+            backgroundColor: isDarkMode ? '#424242' : '#fff'
+        },
+        buttonStyle: {
+            margin: '8px 0', // Adds spacing between buttons
+            width: '100%' // Use full width for buttons
+        }
+    };
+
     return (
-        <div>
-            <Box className="bg" style={{ backgroundImage: `url(${themes.DARKMODE ? dark_bg : bg})`, backgroundSize: "cover", zIndex: '-1', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, }}></Box>
+        <Box sx={{ position: 'relative', minHeight: '100vh' }}>
+            <Box sx={profileStyles.backgroundStyle}></Box>
             <Sidebar/>
-            <Container maxWidth='sm' style={{ background: themes.DARKMODE ? themes.darkContainer : themes.normalContainer, marginTop: '75px', height: '700px', marginBottom:'75px'}} >
-                <Grid container spacing={5} direction="column" alignItems="center" justifyContent="center">
-                    <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-                        <HeaderBox text={'Your User Profile'} />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Typography sx={{fontFamily: 'Courier New', fontSize: 20}}>Display Name:</Typography>
-                        <Paper elevation={3} sx={{padding:3}}>
-                            <Typography sx={{fontFamily: 'Courier New', fontSize: 15}}>
-                                {displayName || "Not Available"}
-                            </Typography>
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Typography sx={{fontFamily: 'Courier New', fontSize: 20}}>Bio:</Typography>
-                        <Paper elevation={3} sx={{padding:3}}>
-                            <Typography sx={{fontFamily: 'Courier New', fontSize: 15}}>
-                                {bio || "Not Available"}
-                            </Typography>
-                        </Paper>
-                    </Grid>
-
-
-
-                    <Grid item xs={12}>
-                        <Button size="small" onClick={handleEditProfileClick} style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText, width: '200px', background: themes.DARKMODE ? themes.darkButton : themes.normalButton }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
-                            Edit Profile
-                        </Button>
-                    </Grid>
-                    
-                    <Grid item xs={12}>
-                        <Button size="small" onClick={handleAccountSettingsClick} style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText, width: '200px', background: themes.DARKMODE ? themes.darkButton : themes.normalButton }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
-                            Account Settings
-                        </Button>
-                    </Grid>
-                </Grid>
+            <Container maxWidth='sm' sx={profileStyles.containerStyle}>
+                <HeaderBox text={'Your User Profile'} />
+                <Paper elevation={3} sx={profileStyles.paperStyle}>
+                    <Typography variant="h6">Display Name:</Typography>
+                    <Typography>{displayName || "Not Available"}</Typography>
+                </Paper>
+                <Paper elevation={3} sx={profileStyles.paperStyle}>
+                    <Typography variant="h6">Bio:</Typography>
+                    <Typography>{bio || "Not Available"}</Typography>
+                </Paper>
+                <Button variant="contained" onClick={handleEditProfileClick} sx={profileStyles.buttonStyle}>
+                    Edit Profile
+                </Button>
+                <Button variant="contained" onClick={handleAccountSettingsClick} sx={profileStyles.buttonStyle}>
+                    Account Settings
+                </Button>
             </Container>
-        </div>
+        </Box>
     );
 }
 

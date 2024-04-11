@@ -5,24 +5,29 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {Container, Box, Typography, Divider, Button, Tooltip} from '@mui/material';
+import {Container, Box, Typography, Divider, Button, Tooltip, Drawer, List, ListItem} from '@mui/material';
 import ehc from '.././Images/EHC.png';
 
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useCookies } from "react-cookie";
+import MenuIcon from '@mui/icons-material/Menu';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 
 
 function HomeNavBar() {
 
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  
   const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
   const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     if (cookies.userID === undefined){
@@ -76,93 +81,106 @@ function HomeNavBar() {
   const handleLogoClick = () => {
     navigate('/Home');
   }
+  const handleNavigate = (path) => {
+    navigate(path);
+    setDrawerOpen(false); // Close the drawer when an item is clicked
+  };
+
+  const drawerList = (
+    <Box onClick={() => setDrawerOpen(false)} sx={{ width: 250 }}>
+      <List>
+        <ListItem button onClick={() => handleNavigate('/ClassesDisplay')}>
+          View Classes
+        </ListItem>
+        <ListItem button onClick={() => handleNavigate(cookies.account === 'student' ? '/JoinClass' : '/CreateClass')}>
+          {cookies.account === 'student' ? 'Join a Class' : 'Create a Class'}
+        </ListItem>
+        <ListItem button onClick={() => handleNavigate('/ReportPage')}>
+          Report Issues/Violations
+        </ListItem>
+      </List>
+    </Box>
+  );
 
   return (
-    <AppBar position="static" sx={{background:'#009688', zIndex: 1 }}>
-      <Container maxWidth="xl" sx={{zIndex: 0}} >
-        <Toolbar>
-          <img src={ehc} onClick={handleLogoClick} alt="logo" style={{width: '5%', marginLeft: '-2%', marginRight: '1%'}} />
-          <Typography
-            variant="h4"
-            marginLeft="1%"
-            marginBottom="2%"
-            marginTop="2%"
-            sx={{
-              mr: 8,
-              fontFamily: 'Corier New',
-              fontSize: '125%',
-              letterSpacing: '.2rem',
-              
-            }}>
-            Edu Hub Collaborate
-          </Typography>
-
-       
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button onClick={handleViewClassesClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
-              View Classes
-            </Button>
-
-            <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
-
-            { cookies.account === 'student' ? (
-            
-            <Button onClick={handleJoinAClassClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
-              Join a class
-            </Button>
-
-            ) : (
-  
-            <Button onClick={handleCreateClassClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
-              Create a class
-            </Button>
-
-            )
-
-            }
-            <Divider orientation="vertical" flexItem sx={{mr:'1%', ml: '1%'}}/>
-            <Button onClick={handleReportClick} sx={{fontFamily: 'Courier New', fontSize: 'small', color: 'white'}}>
-              Report Issues/Violations
-            </Button>
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }}></AccountCircleIcon>
+    <div>
+      <AppBar position="static" sx={{ background: '#009688' }}>
+        <Container maxWidth="xl">
+          <Toolbar>
+            {isMobile && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={() => setDrawerOpen(true)}
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
-            
+            )}
+            <img src={ehc} onClick={() => handleNavigate('/')} alt="logo" style={{ width: '5%', marginRight: '20px', cursor: 'pointer' }} />
+            <Typography variant="h6" sx={{ flexGrow: 1 }} onClick={() => handleNavigate('/')}>
+              Edu Hub Collaborate
+            </Typography>
+            {!isMobile && (
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Button onClick={() => handleNavigate('/ClassesDisplay')} sx={{ color: 'white' }}>
+                  View Classes
+                </Button>
+                <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
+                {cookies.account === 'student' ? (
+                  <Button onClick={() => handleNavigate('/JoinClass')} sx={{ color: 'white' }}>
+                    Join a Class
+                  </Button>
+                ) : (
+                  <Button onClick={() => handleNavigate('/CreateClass')} sx={{ color: 'white' }}>
+                    Create a Class
+                  </Button>
+                )}
+                <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
+                <Button onClick={() => handleNavigate('/ReportPage')} sx={{ color: 'white' }}>
+                  Report Issues/Violations
+                </Button>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }} />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
 
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        {drawerList}
+      </Drawer>
 
-              <MenuItem onClick={handleUserProfileClick}>User Profile</MenuItem>
-              <MenuItem onClick={handleAccountSettingsClick}>Account Settings</MenuItem>
-              <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-
-            </Menu>
-
-
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+      <Menu
+        sx={{ mt: '45px' }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+        <MenuItem onClick={() => handleNavigate('/UserProfile')}>Profile</MenuItem>
+        <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+      </Menu>
+    </div>
   );
 }
+
 export default HomeNavBar;
