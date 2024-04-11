@@ -26,17 +26,36 @@ function EditProfile() {
 
     // Theme handling
     const isDarkMode = themes.DARKMODE;
-    const containerStyle = {
+    const containerStyles = {
+        pt: '75px', // paddingTop
+        pb: '75px', // paddingBottom
+        minHeight: '700px', // minHeight to handle content size
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         background: isDarkMode ? themes.darkContainer : themes.normalContainer,
-        marginTop: '75px',
-        height: '700px',
-        marginBottom: '75px'
-    };
-    const buttonStyle = {
+        width: '100%', // Set the width to 100% by default
+        '@media (min-width:600px)': {
+          maxWidth: 'sm', // Apply 'sm' maxWidth for screens wider than 600px
+        },
+        // Add more media queries as needed for different breakpoints
+      };
+      
+
+    const buttonStyles = {
         color: isDarkMode ? themes.darkText : themes.normalText,
         background: isDarkMode ? themes.darkButton : themes.normalButton,
+        width: '100%', // Full width buttons
+        mt: 2, // marginTop
+        fontFamily: 'Courier New',
+        fontSize: 'large',
     };
-    const textStyle = { fontFamily: 'Courier New', fontSize: 20 };
+    const textStyle = {         fontFamily: 'Courier New', 
+    fontSize: '20px', 
+    textAlign: 'center', 
+    width: '100%',
+    mb: 2, };
 
     const handleApplyChanges = async () => {
         const formData = new FormData();
@@ -99,16 +118,16 @@ function EditProfile() {
 
             <Sidebar />
 
-            <Container maxWidth='sm' style={containerStyle}>
-                <Grid container spacing={5} direction="column" alignItems="center" justifyContent="center">
-                    <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px' }}>
-                        <HeaderBox text={'Edit Profile'} />
-                    </Grid>
+            <Container maxWidth='sm' sx={containerStyles}>
+                <Grid container spacing={2}>
+                <Grid item xs={12} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <HeaderBox text={'Edit Profile'} sx={{ maxWidth: '100%' }} />
+                </Grid>
 
                     <Grid item xs={12}>
                         <Typography sx={textStyle}>Change Display Name:</Typography>
                         <TextField
-                            size='large'
+                            size="large"
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
                             fullWidth
@@ -144,10 +163,10 @@ function EditProfile() {
                     )}
 
                     <Grid item xs={12}>
-                        <Button
-                            variant="contained"
-                            component="label"
-                            sx={buttonStyle}
+                        <Button 
+                            variant="contained" 
+                            component="label" 
+                            sx={buttonStyles} // Use buttonStyles
                         >
                             Upload Profile Picture
                             <input type="file" hidden onChange={handleProfilePictureChange} />
@@ -155,10 +174,9 @@ function EditProfile() {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Button
-                            size="small"
-                            onClick={handleApplyChanges}
-                            sx={{ ...buttonStyle, width: '200px', fontFamily: 'Courier New', fontSize: 'large', marginTop: '20px' }}
+                        <Button 
+                            onClick={handleApplyChanges} 
+                            sx={buttonStyles} // Use buttonStyles
                         >
                             Apply Changes
                         </Button>
