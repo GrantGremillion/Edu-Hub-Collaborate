@@ -8,6 +8,7 @@ import bg from '../Images/bg.jpg';
 import dark_bg from '../Images/dark_bg.jpg';
 import * as themes from '../Config';
 import { useCookies } from "react-cookie";
+import { useTheme } from '@mui/material/styles';
 
 
 function UserProfile() {
@@ -16,6 +17,7 @@ function UserProfile() {
     const [displayName, setDisplayName] = useState('');
     const [bio, setBio] = useState('');
     const isDarkMode = themes.DARKMODE;
+    const theme = useTheme();
     
 
     useEffect(() => {
@@ -69,6 +71,8 @@ function UserProfile() {
         },
         containerStyle: {
             position: 'relative',
+            marginTop: '75px',
+            height: '700px',
             zIndex: 2,
             display: 'flex',
             flexDirection: 'column',
@@ -79,7 +83,7 @@ function UserProfile() {
             '@media (min-width:600px)': {
             padding: '2em 3em', // Larger padding for larger screens
         },
-            background: 'transparent',
+            background: isDarkMode ? themes.darkContainer : themes.normalContainer,
             boxShadow: 'none'
         },
         paperStyle: {
@@ -89,8 +93,10 @@ function UserProfile() {
             backgroundColor: isDarkMode ? '#424242' : '#fff'
         },
         buttonStyle: {
-            margin: '8px 0', // Adds spacing between buttons
-            width: '100%' // Use full width for buttons
+            margin: '8px 0',
+            width: '100%',
+            color: isDarkMode ? themes.darkText : themes.normalText,
+            background: isDarkMode ? themes.darkButton : themes.normalButton,
         }
     };
 
@@ -108,10 +114,18 @@ function UserProfile() {
                     <Typography variant="h6">Bio:</Typography>
                     <Typography>{bio || "Not Available"}</Typography>
                 </Paper>
-                <Button variant="contained" onClick={handleEditProfileClick} sx={profileStyles.buttonStyle}>
+                <Button 
+                    variant="contained" 
+                    onClick={handleEditProfileClick} 
+                    sx={profileStyles.buttonStyle}
+                >
                     Edit Profile
                 </Button>
-                <Button variant="contained" onClick={handleAccountSettingsClick} sx={profileStyles.buttonStyle}>
+                <Button 
+                    variant="contained" 
+                    onClick={handleAccountSettingsClick} 
+                    sx={profileStyles.buttonStyle}
+                >
                     Account Settings
                 </Button>
             </Container>
