@@ -16,6 +16,7 @@ const chatRoute = require('./routes/chatUsers.cjs');
 const passwordRoute = require('./routes/password.cjs');
 const profileUpdatesRoute = require('./routes/profileUpdates.cjs');
 const downloadRouter = require('./routes/download.cjs');
+const announcementEdit = require('./routes/Announcements.cjs');
 
 const db = require('./database.cjs')
 
@@ -182,6 +183,7 @@ app.use('/chat', chatRoute);
 app.use('/password', passwordRoute);
 app.use('/account', profileUpdatesRoute);
 app.use('/download', downloadRouter);
+app.use('/Announcements', announcementEdit);
 app.use('/uploads', express.static('uploads'));
 
 

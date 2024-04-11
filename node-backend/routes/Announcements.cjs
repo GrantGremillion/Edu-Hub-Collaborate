@@ -4,10 +4,12 @@ const router = express.Router();
 const db = require('../database.cjs')
 
 // need to get Cid from TClassOptions
-router.post('/set_announcement', (req,res) => {
+router.post('/set', (req,res) => {
+        console.log("Made it to backend.");
+        console.log("Cid: " + req.body.Cid + "\ntext: " + req.body.announcement);
         const sendMessageSql = "UPDATE classes SET announce = ? WHERE Cid = ?";
     
-        db.query(sendMessageSql, [req.announce.text], (err) => {
+        db.query(sendMessageSql, [req.body.announcement, req.body.Cid], (err) => {
   
         if (err) {
             console.log(err);

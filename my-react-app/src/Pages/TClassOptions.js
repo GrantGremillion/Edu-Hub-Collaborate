@@ -19,13 +19,26 @@ import { useParams } from 'react-router-dom';
 
 function TClassOptions() {
 
+  var annText = "";
+
   const { class_id, announce } = useParams();
 
   const [Class, setClass] = useState();
   const [ann, setAnn] = useState();
   const navigate = useNavigate();
 
+  const [editAnnounce, setAnnounce] = useState({
+    Cid: class_id,
+    announcement: ann
+  });
 
+  const updateAnn = (value) => {
+    annText = value
+    setAnn(annText);
+  }
+
+  useEffect(() => { setAnnounce({ Cid: class_id, announcement: ann }); }, [ann]);
+ 
   const handleDeleteClick = (e) => {
 
     // Prevent default event (e) from occuring
@@ -51,13 +64,16 @@ function TClassOptions() {
 
     // Prevent default event (e) from occuring
     e.preventDefault();
-    
+
+    console.log("Edit announce val: " + editAnnounce);
+
     // sends an HTTP POST request to the URL login backend API
-    axiosInstance.post('/Announcements/set_announcement', { Cid: class_id })
+    axiosInstance.post('/Announcements/set', editAnnounce)
 
     // testing 
     .then(res => {
       if(res.data.Status === "Success") {
+        console.log("Successfully edited announcement.");
         //navigate('/ClassesDisplay')
       }
       else{
@@ -93,10 +109,6 @@ function TClassOptions() {
     navigate(`/ChatInterface/${class_id}`);
   }
 
-  const handleEdit = async (e) => {
-    e.preventDefault();
-      axiosInstance.post('/Announcements/send', ann)
-    }
 
   const handleCreateNotecardsClick = (e) => {
     e.preventDefault();
@@ -162,14 +174,14 @@ return (
             <Grid item>
             <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
             Announcements:
-            {TClassOptions.text}
+            
             </Typography>
             </Grid>
 
             <Grid item>
             <Typography align="center" sx={{fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor}}>
             {ann}
-            {TClassOptions.text}
+            
             </Typography>
             </Grid>
 
@@ -206,12 +218,12 @@ return (
                     label="Text"
                     variant="filled"
                     value={ann}
-                    onChange={(e) => setAnn(e.target.value)}
+                    onChange={(e) => updateAnn(e.target.value)}
                 />
             </Grid>
 
             <Grid item>
-              <Button variant="contained" size="small"  onClick={handleEdit}  style=
+              <Button variant="contained" size="small"  onClick={handleAnnouncementClick}  style=
               {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
                 Edit Announcements
               </Button>
