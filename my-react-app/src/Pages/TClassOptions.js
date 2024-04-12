@@ -49,11 +49,20 @@ function TClassOptions() {
         .then(res => {
           if(res.data.Status === "Success") {
             console.log("Removed students, deleting class...");
-            axiosInstance.post('/classes/remove_class', { Cid: class_id })
+            axiosInstance.post('/classes/remove_events', { Cid: class_id })
             .then(res => {
               if(res.data.Status === "Success") {
-                alert("Class successfully deleted!");
-                navigate('/ClassesDisplay')
+                axiosInstance.post('/classes/remove_class', { Cid: class_id })
+                .then(res => {
+                  if(res.data.Status === "Success") {
+                    alert("Class successfully deleted!");
+                    navigate('/ClassesDisplay')
+                  }
+                  else{
+                    alert(res.data.Message + " error in TClassOptions");
+                  }
+                })
+                .catch(err => console.log(err));
               }
               else{
                 alert(res.data.Message + " error in TClassOptions");
@@ -88,7 +97,6 @@ function TClassOptions() {
     .then(res => {
       if(res.data.Status === "Success") {
         console.log("Successfully edited announcement.");
-        //navigate('/ClassesDisplay')
       }
       else{
         alert(res.data.Message + " error in TClassOptions");
@@ -122,6 +130,10 @@ function TClassOptions() {
 
   const Chat = () => {
     navigate(`/ChatInterface/${class_id}`);
+  }
+
+  const GoToCalendar = () => {
+    navigate(`/CalendarSchedule/${class_id}`);
   }
 
 
@@ -221,8 +233,15 @@ return (
 
             <Grid item xs={2}>
               <Button variant="contained" size="large"  onClick={handleCreateNotecardsClick} style=
-              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%', marginBottom: '15%'}}>
+              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%', marginBottom: '0%'}}>
                 Class Notecards
+              </Button>
+            </Grid>
+
+            <Grid item xs={2}>
+              <Button variant="contained" size="large"  onClick={GoToCalendar} style=
+              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: "-61.5%", marginLeft: '65%', marginBottom: '0%'}}>
+                Class Calendar
               </Button>
             </Grid>
 

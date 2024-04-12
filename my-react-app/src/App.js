@@ -26,12 +26,14 @@ import ChangePassword from './Pages/ChangePassword';
 import VerifyEmail from './Pages/VerifyEmail';
 import ClassNotecards from './Pages/ClassNotecards';
 import CreateNotecards from './Pages/CreateNotecards';
+import CalendarSchedule from './Pages/CalendarSchedule';
 
 // Library to handle cookies
 import { CookiesProvider, useCookies } from "react-cookie";
 import * as themes from './Config';
 
 import { useEffect } from 'react';
+
 
 
 
@@ -120,6 +122,8 @@ function App() {
 
             <Route path="ClassNotecards" element={<ClassNotecards />}/>
             <Route path="CreateNotecards" element={<CreateNotecards />}/>
+
+            <Route path="/CalendarSchedule/:class_id" element={<CalendarSchedule/>}/>
 
           </Routes>
             

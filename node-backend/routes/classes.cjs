@@ -152,6 +152,32 @@ router.post('/remove_class', (req,res) =>{
 });
 
 
+router.post('/remove_events', (req,res) =>{
+
+  const deleteClassSql = "DELETE FROM Calendar WHERE Cid = ?";
+  db.query(deleteClassSql, [req.body.Cid], (err) => {
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error deleting class events." });
+    }
+    return res.json({ Status: "Success" });
+  });
+});
+
+
+router.post('/add_event', (req,res) =>{
+
+  const addCalendarEventSql = "INSERT INTO Calendar (Cid,content,day_of) VALUES (?,?,?)";
+  db.query(addCalendarEventSql, [req.body.Cid, req.body.content, req.body.date], (err) => {
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error adding a new event to calendar." });
+    }
+    return res.json({ Status: "Success" });
+  });
+});
+
+
 router.post('/get_teacher_classes', (req,res) => {
 
   const Tid = req.body.Tid;
