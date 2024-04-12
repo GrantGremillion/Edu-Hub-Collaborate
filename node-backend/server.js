@@ -31,12 +31,19 @@ app.use('/uploads', express.static('uploads'));
 
 
 // cors is a built in middleware to allow users to request recources
-app.use(cors(
-  {
-    origin: '*',
-    credentials: true
-  }
-))
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowedOrigins = ['http://localhost:3000'];  // Add other origins here if necessary
+    // Allow requests with no 'origin' (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true // reflect the request origin, as defined by 'origin' above
+}));
 
 // Nodemailer transporter setup
 
@@ -152,9 +159,9 @@ app.get('/getUserProfile', async (req, res) => {
   // Assuming you want to search in both slogin and tlogin tables.
   // Adjust SQL queries according to your schema
   const query = `
-    (SELECT displayName, bio FROM Slogin WHERE email = ? LIMIT 1)
+    (SELECT displayName, bio, profilePicture FROM Slogin WHERE email = ? LIMIT 1)
     UNION
-    (SELECT displayName, bio FROM Tlogin WHERE email = ? LIMIT 1);
+    (SELECT displayName, bio, profilePicture FROM Tlogin WHERE email = ? LIMIT 1);
   `;
 
   db.query(query, [email, email], (error, results) => {
@@ -163,12 +170,21 @@ app.get('/getUserProfile', async (req, res) => {
       return res.status(500).json({ error: 'Database error' });
     }
     if (results.length > 0) {
-      res.json(results[0]);
+      // Assuming the 'profilePicture' field contains the path to the image
+      const profileData = {
+        displayName: results[0].displayName,
+        bio: results[0].bio,
+        profilePicture: results[0].profilePicture ? `${process.env.REACT_APP_API_URL || ''}${results[0].profilePicture}` : null
+      };
+      res.json(profileData);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
   });
 });
+
+
+
 
 
 
