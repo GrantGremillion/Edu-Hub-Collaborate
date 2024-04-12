@@ -111,18 +111,6 @@ router.post('/remove_messages', (req,res) =>{
     return res.json({ Status: "Success" });
     // all messages removed from class, now delete the class itself.
   });
-  // above this is the error section
-  /*
-  const deleteClassSql = "DELETE FROM Classes WHERE Cid = ?";
-  db.query(deleteClassSql, [req.body.Cid], (err) => {
-    if (err) {
-      console.log(err);
-      return res.json({ Status: "Server Side Error: error deleting a class." });
-    }
-    return res.json({ Status: "Success" });
-  });
-  */
-  // above this most likely works
 });
 
 
@@ -147,8 +135,8 @@ router.post('/remove_students', (req,res) =>{
         }
       });
     }
+    return res.json({ Status: "Success" });
   });
-
 });
 
 router.post('/remove_class', (req,res) =>{
