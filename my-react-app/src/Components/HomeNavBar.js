@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {Container, Box, Typography, Divider, Button, Tooltip, Drawer, List, ListItem} from '@mui/material';
+import {Avatar, Container, Box, Typography, Divider, Button, Tooltip, Drawer, List, ListItem} from '@mui/material';
 import ehc from '.././Images/EHC.png';
 
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,12 @@ function HomeNavBar() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+
+  const [profileData, setProfileData] = useState({ displayName: '', bio: '', profilePicture: '' });
+
+  
+  const [coookies] = useCookies(['email']);
+
   useEffect(() => {
     if (cookies.userID === undefined){
       navigate('/Login');
@@ -36,9 +42,35 @@ function HomeNavBar() {
   }, [cookies.userID,navigate]);
 
 
+
+  useEffect(() => {
+    if (coookies.email) {
+      fetch(`http://localhost:8081/getUserProfile?email=${encodeURIComponent(coookies.email)}`, {
+        credentials: 'include',
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setProfileData(data);
+      })
+      .catch(error => {
+        console.error('Error fetching user profile:', error);
+      });
+    }
+  }, [coookies.email]);
+
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+
+
+
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -142,9 +174,13 @@ function HomeNavBar() {
                   Report Issues/Violations
                 </Button>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }} />
-                  </IconButton>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+    {profileData.profilePicture ? (
+      <Avatar src={profileData.profilePicture} sx={{ width: '3vw', height: '3vw' }} />
+    ) : (
+      <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }} />
+    )}
+  </IconButton>
                 </Tooltip>
               </Box>
             )}
