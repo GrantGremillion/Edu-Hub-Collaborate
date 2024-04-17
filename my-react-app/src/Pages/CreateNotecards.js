@@ -1,6 +1,8 @@
 import * as React from 'react';
 // Material UI components
-import {Container, Box, Divider, Grid, Button, Typography, TextField, ButtonBase, Card, CardContent} from '@mui/material';
+import {Container, Box, Divider, Grid, Button, Typography, TextField, Card, CardContent} from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +18,8 @@ import * as themes from '../Config';
 
 
 function CreateNotecards() {
+
+    const [notecardSetName, setNotecardSetName] = useState('');
 
     // Will save the term and defenition of each notecard
     // Initial term and defenition for each card is empty
@@ -131,7 +135,10 @@ function CreateNotecards() {
 
                     <Grid item xs={12} sm={6} md={4} style={{ display: 'flex' }} >
                         <Box fontFamily="Courier New" fontSize={20} sx={{ pt: '4%'}}>Notecard Set Name: </Box>
-                        <TextField></TextField>
+                        <TextField 
+                        autoComplete="off"
+                        onChange={(e) => setNotecardSetName(e.target.value)}>
+                        </TextField>
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={4} style={{ display: 'flex' }}>
@@ -146,6 +153,7 @@ function CreateNotecards() {
                                 <Typography variant="h5">
                                 <TextField 
                                 value={term}
+                                autoComplete="off"
                                 onChange={(e) => handleNoteCardChange('term', e.target.value)}>
                                 </TextField>
                                 </Typography>
@@ -160,22 +168,49 @@ function CreateNotecards() {
                                 multiline
                                 rows={4}
                                 value={definition}
-                                onChange={(e) => handleNoteCardChange('definition', e.target.value)}
-                                ></TextField>
+                                autoComplete="off"
+                                onChange={(e) => handleNoteCardChange('definition', e.target.value)}>
+                                </TextField>
                                 </Typography>
                             </CardContent>
                         </Card>
                     </Grid>
 
                 
-                    <Button variant="contained" onClick={goToPreviousCard} disabled={activeIndex === 0}>
-                        Previous Note Card
-                    </Button>
-                    <Button variant="contained" onClick={goToNextCard} disabled={activeIndex === noteCards.length - 1}>
-                        Next Note Card
-                    </Button>
-                    <Button variant="contained" onClick={addNoteCard}>Add Note Card</Button>
-                
+                    
+                        <Grid item>
+                            <Button 
+                            variant="contained" 
+                            onClick={goToPreviousCard} disabled={activeIndex === 0}
+                            endIcon={<ArrowBackIosIcon />}
+                            style={{ background: buttonColor}}>
+                            
+                            </Button>
+
+                            <Button 
+                            sx={{marginLeft: '100px'}}
+                            variant="contained" 
+                            onClick={addNoteCard}
+                            style={{ background: buttonColor}}>
+                                Add New Card
+                            </Button>
+                        
+                            <Button 
+                            sx={{marginLeft: '100px'}}
+                            variant="contained" 
+                            onClick={goToNextCard} disabled={activeIndex === noteCards.length - 1}
+                            endIcon={<ArrowForwardIosIcon />}
+                            style={{ background: buttonColor}}>
+                            </Button>
+                        </Grid>
+
+                        <Grid item>
+                            <Button
+                            variant="contained" 
+                            style={{ background: buttonColor}}>
+                                Submit Set
+                            </Button>
+                        </Grid>
 
                 </Grid> 
             </Container>
