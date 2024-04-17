@@ -17,6 +17,7 @@ const passwordRoute = require('./routes/password.cjs');
 const profileUpdatesRoute = require('./routes/profileUpdates.cjs');
 const downloadRouter = require('./routes/download.cjs');
 const announcementEdit = require('./routes/Announcements.cjs');
+const notecardsRoute = require('./routes/notecards.cjs');
 
 const db = require('./database.cjs')
 
@@ -184,12 +185,6 @@ app.get('/getUserProfile', async (req, res) => {
 });
 
 
-
-
-
-
-
-
 // Point to routes
 app.use('/upload', uploadFile);
 app.use('/account', accountRoute);
@@ -201,6 +196,7 @@ app.use('/account', profileUpdatesRoute);
 app.use('/download', downloadRouter);
 app.use('/Announcements', announcementEdit);
 app.use('/uploads', express.static('uploads'));
+app.use('/notecards', notecardsRoute);
 
 
 const PORT = process.env.PORT || 8081;

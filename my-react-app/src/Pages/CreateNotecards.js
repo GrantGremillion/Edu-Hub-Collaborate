@@ -19,6 +19,8 @@ import * as themes from '../Config';
 
 function CreateNotecards() {
 
+    const navigate = useNavigate();
+
     const [notecardSetName, setNotecardSetName] = useState('');
 
     // Will save the term and defenition of each notecard
@@ -85,23 +87,42 @@ function CreateNotecards() {
 
     const handleSubmitSetClick = () => {
 
-        axiosInstance.post('/notecards/create_set', noteCards)
+        // Make sure the notecard set has a name
+        if (!notecardSetName){
+            alert('Please give your notecard set a name');
+            return;
+        }
+
+        // Make sure the set contains at least one card
+        if (noteCards.length < 2 & !term || !definition){
+            alert('Your set must contain at least one card');
+            return;
+        }
+
+        // Formatting data to send to the backend
+        const notecardData = {
+            name: notecardSetName,
+            cards: noteCards
+        }
+
+        axiosInstance.post('/notecards/create_set', notecardData)
 
         // testing 
         .then(res => {
-        if(res.data.Status === "Success") {
-            console.log("Success")
-            
-        }
-        else{
-            alert(res.data.Status)
-        }  
+            if(res.data.Status === "Success") {
+                navigate('/ClassNotecards');
+                
+            }
+            else{
+                alert(res.data.Status)
+            }  
         })
     }
 
 
     useEffect(() => {
-        console.log(noteCards);
+        
+        // Updates the term and definitions TextFields depending on the current active index
         setTerm(noteCards[activeIndex]['term']);
         setDefinition(noteCards[activeIndex]['definition']);
         
