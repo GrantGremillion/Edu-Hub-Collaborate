@@ -13,60 +13,79 @@ import { useState, useEffect } from 'react';
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '../Config';
 
-import { useParams } from 'react-router-dom';
 
 
 function CreateNotecards() {
 
     // Will save the term and defenition of each notecard
     // Initial term and defenition for each card is empty
-    const [noteCards, setNoteCards] = useState([
+    const [noteCards, setNoteCards] = useState([{ term: '', definition: '' }]);
+
+    const [currentCard, setCurrentCard] = useState(
         { term: '', definition: '' } 
-    ]);
+    );
+
+    const [term, setTerm] = useState('');
+    const [definition, setDefinition] = useState('');
 
     // Allows for traversal between note cards
     // Initial index is 0
     const [activeIndex, setActiveIndex] = useState(0);
 
 
-    const navigate = useNavigate();
-
     const handleNoteCardChange = (key, value) => {
-        const updatedNoteCards = [...noteCards];
-        updatedNoteCards[activeIndex][key] = value;
-        setNoteCards(updatedNoteCards);
+
+        if (key == 'term'){
+            setTerm(value);
+        }
+        else{
+            setDefinition(value);
+        }
+        
+
+        const newCurrentCard = currentCard;
+
+        // Update term or definition that was changed
+        newCurrentCard[key] = value;
+    
+        setCurrentCard(newCurrentCard);
+
+        // Update the card set to hold the new current card in place of old version
+        noteCards[activeIndex] = currentCard;
       };
 
+
     const addNoteCard = () => {
+        // New card is blank
+        setCurrentCard({ term: '', definition: '' });
+        // Add new blank card to the end 
         setNoteCards([...noteCards, { term: '', definition: '' }]);
         setActiveIndex(noteCards.length);
-
-        console.log(noteCards);
+        setTerm('');
+        setDefinition('');
     }
 
     const goToPreviousCard = () => {
         if (activeIndex > 0) {
             setActiveIndex(activeIndex - 1);
+            
           }
     }
 
     const goToNextCard = () => {
         if (activeIndex < noteCards.length - 1) {
             setActiveIndex(activeIndex + 1);
+            
           }
     }
 
+ 
+
     useEffect(() => {
-        // Update the term and definition of each note card based on activeIndex
-        const updatedNoteCards = noteCards.map((noteCard, index) => {
-          if (index === activeIndex) {
-            return noteCard; // Leave the active note card as it is
-          } else {
-            // Otherwise, update term and definition to empty string
-            return { term: '', definition: '' };
-          }
-        });
-        setNoteCards(updatedNoteCards);
+        console.log(noteCards);
+        setTerm(noteCards[activeIndex]['term']);
+        setDefinition(noteCards[activeIndex]['definition']);
+        
       }, [activeIndex]);
 
 
@@ -119,13 +138,16 @@ function CreateNotecards() {
                         <Card sx={{height:450, width:600}}>
                             <CardContent>
                                 <Typography variant="h5" component="h2">
-                                    Note Card {activeIndex + 1}
+                                Note Card {activeIndex + 1}
                                 </Typography>
                                 <Typography sx={{ fontSize: 20 }} gutterBottom>
                                 Term:
                                 </Typography>
-                                <Typography variant="h5" component="div">
-                                <TextField sx={{ width: '100%' }} onChange={(e) => handleNoteCardChange('term', e.target.value)}></TextField>
+                                <Typography variant="h5">
+                                <TextField 
+                                value={term}
+                                onChange={(e) => handleNoteCardChange('term', e.target.value)}>
+                                </TextField>
                                 </Typography>
 
                                 <Divider sx={{p: '5%', marginBottom: '8%'}}></Divider>
@@ -137,7 +159,7 @@ function CreateNotecards() {
                                 <TextField id="filled-multiline-static"
                                 multiline
                                 rows={4}
-                                sx={{ width: '100%' }}
+                                value={definition}
                                 onChange={(e) => handleNoteCardChange('definition', e.target.value)}
                                 ></TextField>
                                 </Typography>
