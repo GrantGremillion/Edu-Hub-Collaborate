@@ -83,7 +83,22 @@ function CreateNotecards() {
           }
     }
 
- 
+    const handleSubmitSetClick = () => {
+
+        axiosInstance.post('/notecards/create_set', noteCards)
+
+        // testing 
+        .then(res => {
+        if(res.data.Status === "Success") {
+            console.log("Success")
+            
+        }
+        else{
+            alert(res.data.Status)
+        }  
+        })
+    }
+
 
     useEffect(() => {
         console.log(noteCards);
@@ -207,6 +222,7 @@ function CreateNotecards() {
                         <Grid item>
                             <Button
                             variant="contained" 
+                            onClick={handleSubmitSetClick}
                             style={{ background: buttonColor}}>
                                 Submit Set
                             </Button>
