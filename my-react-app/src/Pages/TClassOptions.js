@@ -137,9 +137,9 @@ function TClassOptions() {
   }
 
 
-  const handleCreateNotecardsClick = (e) => {
+  const handleClassNotecardsClick = (e) => {
     e.preventDefault();
-    navigate('/ClassNotecards');
+    navigate(`/ClassNotecards/${class_id}`);
   }
 
   //Darkmode Theme
@@ -232,7 +232,7 @@ return (
             </Grid> 
 
             <Grid item xs={2}>
-              <Button variant="contained" size="large"  onClick={handleCreateNotecardsClick} style=
+              <Button variant="contained" size="large"  onClick={handleClassNotecardsClick} style=
               {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%', marginBottom: '0%'}}>
                 Class Notecards
               </Button>

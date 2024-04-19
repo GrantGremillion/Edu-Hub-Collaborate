@@ -16,19 +16,16 @@ import * as themes from '../Config';
 import { useParams } from 'react-router-dom';
 
 
+
 function ClassNotecards() {
 
-  const { class_id, announce } = useParams();
+  const { class_id } = useParams();
 
-  const [Class, setClass] = useState();
-  const [ann, setAnn] = useState();
   const navigate = useNavigate();
-
-
 
   const handleAddNotecardSetClick = (e) => {
     e.preventDefault();
-    navigate('/CreateNotecards');
+    navigate(`/CreateNotecards/${class_id}`);
   }
 
   //Darkmode Theme
@@ -44,6 +41,23 @@ function ClassNotecards() {
     textColor = themes.normalText;
     background = bg;
   }
+
+  useEffect(() => {
+        
+    // Get all notecard sets
+    axiosInstance.post('/notecards/get_sets', {Cid: class_id})
+ 
+      .then(res => {
+          if(res.data.Status === "Success") {
+            console.log(res.data.Sets);
+              
+          }
+          else{
+              alert('Failed');
+          }  
+      })
+    
+  }, []);
 
 return (
   <div>

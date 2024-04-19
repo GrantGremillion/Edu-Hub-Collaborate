@@ -32,10 +32,6 @@ import CalendarSchedule from './Pages/CalendarSchedule';
 import { CookiesProvider, useCookies } from "react-cookie";
 import * as themes from './Config';
 
-import { useEffect } from 'react';
-
-
-
 
 // Root Component for React App
 function App() {
@@ -120,8 +116,8 @@ function App() {
             <Route path="/Test" element={<Test />} />
             <Route path="/Home" element={isCookieSet ? <Home /> : <Login onLogin={handleLogin}/>} />
 
-            <Route path="ClassNotecards" element={<ClassNotecards />}/>
-            <Route path="CreateNotecards" element={<CreateNotecards />}/>
+            <Route path="/ClassNotecards/:class_id" element={<ClassNotecards />}/>
+            <Route path="/CreateNotecards/:class_id" element={<CreateNotecards />}/>
 
             <Route path="/CalendarSchedule/:class_id" element={<CalendarSchedule/>}/>
 

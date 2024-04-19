@@ -5,7 +5,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import axiosInstance from '../helpers/axios';
 import { useState, useEffect } from 'react';
@@ -20,6 +20,8 @@ import * as themes from '../Config';
 function CreateNotecards() {
 
     const navigate = useNavigate();
+
+    const { class_id } = useParams();
 
     const [notecardSetName, setNotecardSetName] = useState('');
 
@@ -94,15 +96,22 @@ function CreateNotecards() {
         }
 
         // Make sure the set contains at least one card
-        if (noteCards.length < 2 & !term || !definition){
+        if (noteCards.length < 1){
             alert('Your set must contain at least one card');
+            return;
+        }
+
+        if (!term & !definition)
+        {
+            alert('Please give your current card a term and/or definition');
             return;
         }
 
         // Formatting data to send to the backend
         const notecardData = {
             name: notecardSetName,
-            cards: noteCards
+            cards: noteCards,
+            Cid: class_id
         }
 
         axiosInstance.post('/notecards/create_set', notecardData)
@@ -110,7 +119,7 @@ function CreateNotecards() {
         // testing 
         .then(res => {
             if(res.data.Status === "Success") {
-                navigate('/ClassNotecards');
+                navigate(`/ClassNotecards/${class_id}`);
                 
             }
             else{
