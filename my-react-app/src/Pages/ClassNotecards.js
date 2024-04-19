@@ -23,6 +23,8 @@ function ClassNotecards() {
 
   const navigate = useNavigate();
 
+  const [notecardSets, setNotecardSets] = useState([]);
+
   const handleAddNotecardSetClick = (e) => {
     e.preventDefault();
     navigate(`/CreateNotecards/${class_id}`);
@@ -49,8 +51,7 @@ function ClassNotecards() {
  
       .then(res => {
           if(res.data.Status === "Success") {
-            console.log(res.data.Sets);
-              
+            setNotecardSets(res.data.Sets);
           }
           else{
               alert('Failed');
@@ -84,6 +85,24 @@ return (
         <Container style={{ background: containerColor, marginTop: '5%', height: '900px', width: '1100px', marginBottom:'60px'}}>
             <Grid container spacing={4} direction="column" alignItems="center" justifyContent="center">
 
+              <Grid container spacing={3} justifyContent="left" style={{marginBottom: "35px"}}>
+
+                {/*Mapping each of the notecard sets retrieved from the backend to be displayed on cards*/}
+                {notecardSets.map((cardItem, index) => (
+                  <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
+                    <ButtonBase style={{ width: '100%', paddingLeft:'10%', paddingTop:'10%' }}>
+                      <Card variant="outlined" style={{ backgroundColor: buttonColor, width: '100%', zIndex:0}}>
+                        <CardContent>
+                          <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">
+                            {cardItem.set_name}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </ButtonBase>
+                  </Grid>
+                ))}
+              </Grid>
+
                 <Grid item xs={12} sm={6} md={4} style={{ display: 'flex' }}>
                     <ButtonBase onClick={handleAddNotecardSetClick} style={{marginTop: '20%'}}>
                         <Card variant="outlined" style={{ backgroundColor: buttonColor, width: 'fit-content', zIndex:0}}>
@@ -95,6 +114,7 @@ return (
                         </Card>
                     </ButtonBase>
                 </Grid>
+              
 
         
             </Grid> 
