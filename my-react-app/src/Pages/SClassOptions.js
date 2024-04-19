@@ -84,6 +84,11 @@ function SClassOptions() {
     navigate(`/ChatInterface/${class_id}`);
   }
 
+  const handleClassNotecardsClick = (e) => {
+    e.preventDefault();
+    navigate(`/ClassNotecards/${class_id}`);
+  }
+
   //Darkmode Theme
   if (themes.DARKMODE) {
     var containerColor = themes.darkContainer;
@@ -170,8 +175,15 @@ return (
           </Grid> 
 
           <Grid item xs={2}>
+              <Button variant="contained" size="large"  onClick={handleClassNotecardsClick} style=
+              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%', marginBottom: '0%'}}>
+                Class Notecards
+              </Button>
+            </Grid>
+
+          <Grid item xs={2}>
             <Button variant="contained" size="small"  onClick={handleLeaveClick}  style=
-            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '%', marginLeft: '0%'}}>
+            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%', marginLeft: '0%'}}>
               Leave Class
             </Button>
           </Grid>

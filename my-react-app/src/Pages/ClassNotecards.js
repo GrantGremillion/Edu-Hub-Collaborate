@@ -13,6 +13,8 @@ import { useState, useEffect } from 'react';
 import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '../Config';
 
+import { useCookies } from "react-cookie";
+
 import { useParams } from 'react-router-dom';
 
 
@@ -20,6 +22,8 @@ import { useParams } from 'react-router-dom';
 function ClassNotecards() {
 
   const { class_id } = useParams();
+
+  const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
 
   const navigate = useNavigate();
 
@@ -102,21 +106,24 @@ return (
                   </Grid>
                 ))}
               </Grid>
-
-                <Grid item xs={12} sm={6} md={4} style={{ display: 'flex' }}>
-                    <ButtonBase onClick={handleAddNotecardSetClick} style={{marginTop: '20%'}}>
-                        <Card variant="outlined" style={{ backgroundColor: buttonColor, width: 'fit-content', zIndex:0}}>
-                            <CardContent >
-                                <Typography fontFamily="Courier New" fontSize={25} >
-                                Add A Notecard Set +
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </ButtonBase>
-                </Grid>
               
+              {cookies.account === 'teacher' ? (
+                <Grid item xs={12} sm={6} md={4} style={{ display: 'flex' }}>
+                <ButtonBase onClick={handleAddNotecardSetClick} style={{marginTop: '20%'}}>
+                    <Card variant="outlined" style={{ backgroundColor: buttonColor, width: 'fit-content', zIndex:0}}>
+                        <CardContent >
+                            <Typography fontFamily="Courier New" fontSize={25} >
+                            Add A Notecard Set +
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </ButtonBase>
+                </Grid>
+                  
+                ) : (
+                  <></>
+              )}
 
-        
             </Grid> 
         </Container>
     </div>
