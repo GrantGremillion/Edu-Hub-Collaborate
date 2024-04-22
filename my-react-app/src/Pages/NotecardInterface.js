@@ -133,17 +133,27 @@ function NotecardInterface() {
             </Box>
 
             <Sidebar/>
+            
 
             {/*Container holding buttons and text*/}
-            <Container style={{ background: containerColor, marginTop: '5%', height: '900px', width: '1100px', marginBottom:'60px'}}>
-                <Grid container spacing={4} direction="column" alignItems="center" justifyContent="center">
+            <Container style={{ background: containerColor, marginTop: '5%', height: '570px', width: '1100px', marginBottom:'60px'}}>
+            <Box fontFamily="Courier New" fontSize={28} sx={{ pt: '4%', marginLeft: '33%', marginBottom: '2%'}}>Notecard Set Name Here </Box>
+                <Grid container spacing={4} direction="row" alignItems="center" justifyContent="center">
 
-                    <Grid item xs={12} sm={6} md={4} style={{ display: 'flex' }} >
-                        <Box fontFamily="Courier New" fontSize={20} sx={{ pt: '4%'}}>Notecard Set Name Here </Box>
+                    <Grid item>
+                            <Button 
+                            variant="contained" 
+                            onClick={goToPreviousCard} disabled={activeIndex === 0}
+                            endIcon={<ArrowBackIosIcon />}
+                            style={{ background: buttonColor}}>
+                            
+                            </Button>
                     </Grid>
 
+            
                     
-                    <Grid item xs={12} sm={6} md={4} style={{ display: 'flex' }}>
+                    <Grid item xs={12} sm={6} md={4} style={{ display: 'flex', marginRight: '15%' }}>
+                        
                         <ButtonBase onClick={flipNotecard}>
                             <Card sx={{height:450, width:600}}>
                                 <CardContent>
@@ -151,7 +161,7 @@ function NotecardInterface() {
                                     Card {activeIndex + 1}
                                     </Typography>
 
-                                    { currentSide == 'term' ? (<Typography sx={{ fontSize: 20 }} gutterBottom>
+                                    { currentSide === 'term' ? (<Typography sx={{fontSize: 20 }} gutterBottom>
                                     Term Here
                                     </Typography>) : (<Typography sx={{ fontSize: 20 }} gutterBottom>
                                     Defenition Here
@@ -162,26 +172,16 @@ function NotecardInterface() {
                         </ButtonBase>
                     </Grid>
 
-                
-                    
-                        <Grid item>
-                            <Button 
-                            variant="contained" 
-                            onClick={goToPreviousCard} disabled={activeIndex === 0}
-                            endIcon={<ArrowBackIosIcon />}
-                            style={{ background: buttonColor}}>
-                            
-                            </Button>
-
-        
-                            <Button 
+                    <Grid item>
+                        <Button 
                             sx={{marginLeft: '100px'}}
                             variant="contained" 
                             onClick={goToNextCard} disabled={activeIndex === noteCards.length - 1}
                             endIcon={<ArrowForwardIosIcon />}
                             style={{ background: buttonColor}}>
-                            </Button>
-                        </Grid>
+                        </Button>
+                    </Grid>
+                    
 
                 </Grid> 
             </Container>
