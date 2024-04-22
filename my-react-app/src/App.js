@@ -26,6 +26,7 @@ import ChangePassword from './Pages/ChangePassword';
 import VerifyEmail from './Pages/VerifyEmail';
 import ClassNotecards from './Pages/ClassNotecards';
 import CreateNotecards from './Pages/CreateNotecards';
+import NotecardInterface from './Pages/NotecardInterface';
 import CalendarSchedule from './Pages/CalendarSchedule';
 
 // Library to handle cookies
@@ -118,6 +119,7 @@ function App() {
 
             <Route path="/ClassNotecards/:class_id" element={<ClassNotecards />}/>
             <Route path="/CreateNotecards/:class_id" element={<CreateNotecards />}/>
+            <Route path="/NotecardInterface/:set_id" element={<NotecardInterface />}/>
 
             <Route path="/CalendarSchedule/:class_id" element={<CalendarSchedule/>}/>
 

@@ -34,6 +34,10 @@ function ClassNotecards() {
     navigate(`/CreateNotecards/${class_id}`);
   }
 
+  const handleClickSet = (set_id) => {
+    navigate(`/NotecardInterface/${set_id}`);
+  };
+
   //Darkmode Theme
   if (themes.DARKMODE) {
     var containerColor = themes.darkContainer;
@@ -56,6 +60,7 @@ function ClassNotecards() {
       .then(res => {
           if(res.data.Status === "Success") {
             setNotecardSets(res.data.Sets);
+            console.log(notecardSets);
           }
           else{
               alert('Failed');
@@ -94,7 +99,7 @@ return (
                 {/*Mapping each of the notecard sets retrieved from the backend to be displayed on cards*/}
                 {notecardSets.map((cardItem, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
-                    <ButtonBase style={{ width: '100%', paddingLeft:'10%', paddingTop:'10%' }}>
+                    <ButtonBase onClick={() => handleClickSet(cardItem.Setid)} style={{ width: '100%', paddingLeft:'10%', paddingTop:'10%' }}>
                       <Card variant="outlined" style={{ backgroundColor: buttonColor, width: '100%', zIndex:0}}>
                         <CardContent>
                           <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">
