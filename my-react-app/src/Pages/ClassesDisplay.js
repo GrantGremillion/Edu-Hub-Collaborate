@@ -37,6 +37,10 @@ function ClassesDisplay() {
   const handleJoinClass = () => {
     navigate("/JoinClass")
   }
+
+  const handleCreateClass = () => {
+    navigate("/CreateClass")
+  }
   
   // useEffect dynamically displays information on the page
   useEffect(() => {
@@ -131,10 +135,22 @@ function ClassesDisplay() {
                   You are not currently in any classes.
                 </Box>
               </Grid>
-              <Grid>
-                <Button onClick={handleJoinClass} style={{ background: buttonColor, color: textColor }} sx={{ marginLeft: "35%", marginTop: "5%"}}>
-                  Join Class
-                </Button>
+
+              <Grid justifyContent="center" >
+                { cookies.account === "student" ? (
+              
+                  <Button onClick={handleJoinClass} style={{ background: buttonColor, color: textColor }} sx={{ marginLeft: "40%", marginTop: "5%"}}>
+                    Join a Class
+                  </Button>
+
+                ) : (
+    
+                  <Button onClick={handleCreateClass} style={{ background: buttonColor, color: textColor }} sx={{ marginLeft: "38%", marginTop: "5%"}}>
+                    Create a Class
+                  </Button>
+
+                )
+                }
               </Grid>
             </Grid>
 

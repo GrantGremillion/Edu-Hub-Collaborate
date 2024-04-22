@@ -48,7 +48,7 @@ function TClassOptions() {
         axiosInstance.post('/classes/remove_students', { Cid: class_id })
         .then(res => {
           if(res.data.Status === "Success") {
-            console.log("Removed students, deleting class...");
+            console.log("Removed students, deleting events...");
             axiosInstance.post('/classes/remove_events', { Cid: class_id })
             .then(res => {
               if(res.data.Status === "Success") {
@@ -59,25 +59,25 @@ function TClassOptions() {
                     navigate('/ClassesDisplay')
                   }
                   else{
-                    alert(res.data.Message + " error in TClassOptions");
+                    alert(res.data.Message + " error in TClassOptions: error deleting class.");
                   }
                 })
                 .catch(err => console.log(err));
               }
               else{
-                alert(res.data.Message + " error in TClassOptions");
+                alert(res.data.Message + " error in TClassOptions: error deleting events.");
               }
             })
             .catch(err => console.log(err));
           }
           else{
-            alert(res.data.Message + " error in TClassOptions");
+            alert(res.data.Message + " error in TClassOptions: error removing students.");
           }
         })
         .catch(err => console.log(err));
       }
       else{
-        alert(res.data.Message + " error in TClassOptions");
+        alert(res.data.Message + " error in TClassOptions: error deleting messages.");
       }
     })
     .catch(err => console.log(err));
