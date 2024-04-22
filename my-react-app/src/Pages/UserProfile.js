@@ -62,17 +62,21 @@ function UserProfile() {
         backgroundStyle: {
             backgroundImage: `url(${isDarkMode ? dark_bg : bg})`,
             backgroundSize: "cover",
-            position: 'absolute',
+            position: 'fixed',
             top: 0,
             left: 0,
+            right: 0,
+            bottom: 0,
             width: '100%',
-            minHeight: '100vh',
-            zIndex: -1
+            minHeight: '100%',
+            zIndex: -1,
+            marginBottom: "50px"
         },
         containerStyle: {
             position: 'relative',
-            marginTop: '75px',
-            height: '700px',
+            marginTop: '50px',
+            marginBottom: '50px',
+            height: 'fit-content',
             zIndex: 2,
             display: 'flex',
             flexDirection: 'column',
@@ -104,8 +108,10 @@ function UserProfile() {
         <Box sx={{ position: 'relative', minHeight: '100vh' }}>
             <Box sx={profileStyles.backgroundStyle}></Box>
             <Sidebar/>
-            <Container maxWidth='sm' sx={profileStyles.containerStyle}>
-                <HeaderBox text={'Your User Profile'} />
+            <Container maxWidth='sm' sx={profileStyles.containerStyle} >
+                <Grid item xs={12} paddingBottom = "5%" >
+                    <HeaderBox text={'Your User Profile'} />
+                </Grid>
                 <Paper elevation={3} sx={profileStyles.paperStyle}>
                     <Typography variant="h6">Display Name:</Typography>
                     <Typography>{displayName || "Not Available"}</Typography>

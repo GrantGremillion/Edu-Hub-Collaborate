@@ -27,9 +27,11 @@ function EditProfile() {
     // Theme handling
     const isDarkMode = themes.DARKMODE;
     const containerStyles = {
-        pt: '75px', // paddingTop
-        pb: '75px', // paddingBottom
-        minHeight: '700px', // minHeight to handle content size
+        pt: '35px', // paddingTop
+        pb: '35px', // paddingBottom
+        height: 'fit-content', // minHeight to handle content size
+        marginTop: "50px",
+        marginBottom: "50px",
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -46,7 +48,7 @@ function EditProfile() {
     const buttonStyles = {
         color: isDarkMode ? themes.darkText : themes.normalText,
         background: isDarkMode ? themes.darkButton : themes.normalButton,
-        width: '100%', // Full width buttons
+        //width: '100%', // Full width buttons
         mt: 2, // marginTop
         fontFamily: 'Courier New',
         fontSize: 'large',
@@ -119,10 +121,10 @@ function EditProfile() {
             <Sidebar />
 
             <Container maxWidth='sm' sx={containerStyles}>
-                <Grid container spacing={2}>
-                <Grid item xs={12} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                <HeaderBox text={'Edit Profile'} sx={{ maxWidth: '100%' }} />
-                </Grid>
+                <Grid container spacing={2} justifyContent="center" alignContent="center">
+                    <Grid item xs={12} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <HeaderBox text={'Edit Profile'} sx={{ maxWidth: '100%' }} />
+                    </Grid>
 
                     <Grid item xs={12}>
                         <Typography sx={textStyle}>Change Display Name:</Typography>
@@ -162,7 +164,7 @@ function EditProfile() {
                         </Box>
                     )}
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} justifyContent="center" alignContent="center" display='flex'>
                         <Button 
                             variant="contained" 
                             component="label" 
@@ -173,7 +175,7 @@ function EditProfile() {
                         </Button>
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} display='flex' justifyContent="center">
                         <Button 
                             onClick={handleApplyChanges} 
                             sx={buttonStyles} // Use buttonStyles

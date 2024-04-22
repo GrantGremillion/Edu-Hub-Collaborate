@@ -52,6 +52,7 @@ function TClassOptions() {
             axiosInstance.post('/classes/remove_events', { Cid: class_id })
             .then(res => {
               if(res.data.Status === "Success") {
+                console.log("Deleted events, deleting class now...");
                 axiosInstance.post('/classes/remove_class', { Cid: class_id })
                 .then(res => {
                   if(res.data.Status === "Success") {
