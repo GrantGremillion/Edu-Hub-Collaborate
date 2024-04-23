@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, TextField, Link} from '@mui/material';
+import {Button, Grid, Container, Box, TextField, Typography, useTheme} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
@@ -15,12 +15,16 @@ import dark_bg from '.././Images/dark_bg.jpg';
 
 // dark theme functionality
 import * as themes from '.././Config';
+import { Paper } from '@mui/material';
 
 
 function CreateStudentAccount() {
   
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
+  const theme = useTheme();
+
+  const customGreenColor = '#009688';
 
   /*
   const [values, setValues] = React.useState({
@@ -33,6 +37,18 @@ function CreateStudentAccount() {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+ 
+  const fullScreenCenterStyle = {
+    display: 'flex', 
+    flexDirection: 'column', 
+    justifyContent: 'center', // This centers vertically
+    alignItems: 'center', // This centers horizontally
+    height: '100vh', // Full viewport height
+    width: '100vw', // Full viewport width
+    position: 'absolute',
+    top: 0,
+    left: 0
+  };
 
   // Handler for Submit button click
   const handleClickSubmit = async (e) => {
@@ -74,75 +90,140 @@ function CreateStudentAccount() {
     navigate('/Login');
   }
 
-  // checks for the theme the page is in, and applys it to these variables
-  if (themes.DARKMODE) {
-    var containerColor = themes.darkContainer;
-    var buttonColor = themes.darkButton;
-    var textColor = themes.darkText;
-    var background = dark_bg;
-  }
-  else {
-    containerColor = themes.normalContainer;
-    buttonColor = themes.normalButton;
-    textColor = themes.normalText;
-    background = bg;
-  }
+  
+  const styleProps = {
+    containerColor: themes.DARKMODE ? themes.darkContainer : themes.normalContainer,
+    buttonColor: themes.DARKMODE ? themes.darkButton : themes.normalButton,
+    textColor: themes.DARKMODE ? themes.darkText : themes.normalText,
+    background: themes.DARKMODE ? dark_bg : bg,
+    navbarColor: customGreenColor,
+    paperStyle: {
+      padding: theme.spacing(3),
+      textAlign: 'center',
+      color: 'white',
+      backgroundColor: customGreenColor,
+      width: '100%', 
+    },
+  };
+  const handleTextFieldFocus = (event) => {
+    event.target.style.background = '#fff'; 
+  };
+
+  
+  const handleTextFieldBlur = (event) => {
+    event.target.style.background = ''; 
+  };
 
   return (
     <div>
-      {/* Box used to display background image - bg.jpg */}
       <Box
-        className="bg"
-        style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        zIndex: '-1',
-        position: 'fixed', // Make sure it covers the whole viewport
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        }}>
-      </Box>
-
-      <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
-      
-      {/* Container and Grid organizes HeaderBox and Buttons */}
-      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}} >
-        <Grid container spacing={5}
-            direction="column"
-            alignItems="center"
-            justifyContent="center">
-          <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-            <HeaderBox text={'Create your student account'}></HeaderBox>
+        sx={{
+          backgroundImage: `url(${styleProps.background})`,
+          backgroundSize: 'cover',
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+      />
+      <PlainNavBar text='Edu Hub Collaborate' />
+      <Container maxWidth="sm" sx={{
+        background: styleProps.containerColor,
+        boxShadow: theme.shadows[5],
+        borderRadius: theme.shape.borderRadius,
+        p: 3, 
+        minHeight: '100vh', 
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center', 
+      }}>
+      <Grid container spacing={6} justifyContent="center" alignItems="center" style={{ width: '100%' }}>
+        <Grid item xs={12}>
+          <Paper sx={styleProps.paperStyle} >
+          <Typography variant="h5" component="h2" fontSize={37} fontFamily={'Courier New'}>
+                Create your student account
+              </Typography>
+          </Paper>
+        </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              variant="filled"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={handleTextFieldFocus}
+              onBlur={handleTextFieldBlur}
+              sx={{
+                backgroundColor: '#fff', 
+              }}
+            />
           </Grid>
-
-          <Grid item xs={1}>
-            <TextField id="filled-basic" label="Email" variant="filled" value={email}
-            onChange={e => setEmail(e.target.value)}/>            
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              variant="filled"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              sx={{
+                backgroundColor: '#fff', 
+              }}
+            />
           </Grid>
-
-          <Grid item xs={1}>
-            <TextField id="filled-basic" label="Password" variant="filled" type="password"
-            onChange={e => setPassword(e.target.value)}/>
-
-          </Grid>
-  
-          <Grid item xs={1}>
-            <Button variant="contained" size="large"  onClick={handleClickSubmit} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%'}} >
+          <Grid item xs={12}>
+            <Button
+              fullWidth
+              variant="contained"
+              size="large"
+              onClick={handleClickSubmit}
+              sx={{
+                background: styleProps.buttonColor,
+                color: styleProps.textColor,
+                '&:hover': {
+                  backgroundColor: '#5e92f3',
+                },
+              }}
+            >
               Submit
             </Button>
           </Grid>
-
-          <Grid item xs={1}>
-            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '20%', marginLeft: '-30%'}} >
+          <Grid item xs={12}>
+            <Button
+              fullWidth
+              variant="contained"
+              size="small"
+              onClick={handleClickBack}
+              sx={{
+                background: styleProps.buttonColor,
+                color: styleProps.textColor,
+                '&:hover': {
+                  backgroundColor: '#5e92f3', 
+                },
+              }}
+            >
               Back
             </Button>
-            <Button fullWidth color="secondary" size="small" onClick={handleLoginClick} sx={{ width: '235px', marginTop: '-20%', marginLeft: '65%'}}>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              fullWidth
+              variant="text"
+              size="small"
+              onClick={handleLoginClick}
+              sx={{
+                color: styleProps.textColor,
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                },
+              }}
+            >
               Already have an account?
             </Button>
           </Grid>
-        
         </Grid>
       </Container>
     </div>
@@ -150,4 +231,3 @@ function CreateStudentAccount() {
 }
 
 export default CreateStudentAccount;
-  
