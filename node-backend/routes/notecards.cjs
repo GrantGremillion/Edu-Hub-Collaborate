@@ -79,6 +79,23 @@ router.post('/get_sets', (req,res) => {
     });
 });
 
+router.post('/get_set_name', (req,res) => {
+
+    set_id = req.body.Sid;
+
+    const getSetNameSQL = "SELECT set_name FROM NotecardSets WHERE Setid = ?";
+
+    db.query(getSetNameSQL, [set_id], (err,data) => {
+
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        
+        return res.json({ Status: "Success", Name:data});
+
+    });
+});
+
 
 module.exports = router;
 

@@ -5,7 +5,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../helpers/axios';
 import { useState, useEffect } from 'react';
@@ -90,12 +90,23 @@ function NotecardInterface() {
 
 
     useEffect(() => {
-        
+
+        axiosInstance.post('/notecards/get_set_name', {Sid:set_id})
+        .then(res => {
+            if (res.data.Status === "Success") {
+                const setName = res.data.Name[0].set_name;
+                setNotecardSetName(setName);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching set name:', error);
+          });
+          
         // Updates the term and definitions TextFields depending on the current active index
         setTerm(noteCards[activeIndex]['term']);
         setDefinition(noteCards[activeIndex]['definition']);
 
-      }, [activeIndex,currentSide]);
+      }, []);
 
 
 
@@ -137,7 +148,7 @@ function NotecardInterface() {
 
             {/*Container holding buttons and text*/}
             <Container style={{ background: containerColor, marginTop: '5%', height: '570px', width: '1100px', marginBottom:'60px'}}>
-            <Box fontFamily="Courier New" fontSize={28} sx={{ pt: '4%', marginLeft: '33%', marginBottom: '2%'}}>Notecard Set Name Here </Box>
+            <Box fontFamily="Courier New" fontSize={28} sx={{ pt: '4%', marginLeft: '44%', marginBottom: '2%'}}>{notecardSetName} </Box>
                 <Grid container spacing={4} direction="row" alignItems="center" justifyContent="center">
 
                     <Grid item>
