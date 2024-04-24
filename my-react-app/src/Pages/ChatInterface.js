@@ -3,7 +3,8 @@ import { Button, Container, Box, TextField, Paper, Divider, Grid } from '@mui/ma
 import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
 import bg from '.././Images/bg.jpg';
-
+import dark_bg from '.././Images/dark_bg.jpg';
+import * as themes from '../Config';
 
 import axiosInstance from '../helpers/axios';
 import { useCookies } from 'react-cookie';
@@ -30,7 +31,9 @@ function ChatInterface() {
 
   const scrollRef = useRef(null);
 
+  const borderColor = "1px solid grey";
 
+  //const isDarkMode = themes.DARKMODE;
 
   useEffect(() => {
 
@@ -224,7 +227,7 @@ function ChatInterface() {
       <Box
         className="bg"
         style={{
-          backgroundImage: `url(${bg})`,
+          backgroundImage: themes.DARKMODE ? `url(${dark_bg})` : `url(${bg})`,
           backgroundSize: 'cover',
           zIndex: '-1',
           position: 'fixed',
@@ -243,16 +246,16 @@ function ChatInterface() {
             alignItems="flex-start"
             justifyContent="center">
         <Grid item sx={{marginRight: '15%', paddingTop: '10%'}}>
-          <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px', background: '#b2dfdb' }}>
-            <Box style={{ wordWrap: 'break-word', fontSize: '150%' }}>Teacher:</Box>
-            <Box style={{ wordWrap: 'break-word' }}>{teacher}</Box>
+          <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px', background: themes.DARKMODE ? themes.darkButton : themes.normalButton }}>
+            <Box style={{ wordWrap: 'break-word', fontSize: '150%', color: themes.DARKMODE ? themes.darkText : themes.normalText }}>Teacher:</Box>
+            <Box style={{ wordWrap: 'break-word', color: themes.DARKMODE ? themes.darkText : themes.normalText }}>{teacher}</Box>
             <br></br>
             <Divider></Divider>
             <br></br>
-            <Box style={{ wordWrap: 'break-word', fontSize: '150%' }}>Students:</Box>
+            <Box style={{ wordWrap: 'break-word', fontSize: '150%', color: themes.DARKMODE ? themes.darkText : themes.normalText }}>Students:</Box>
             {students.map((name, index) => (
               <div key={index} >
-                <Box style={{ wordWrap: 'break-word' }}>{name}</Box> 
+                <Box style={{ wordWrap: 'break-word', color: themes.DARKMODE ? themes.darkText : themes.normalText }}>{name}</Box> 
               </div>
             ))}
           </Paper>
@@ -261,7 +264,11 @@ function ChatInterface() {
         <Grid item sx={{marginRight: '21%'}}>
           <Container maxWidth="sm" style={{ marginTop: '75px', paddingBottom: '75px', position: 'relative', zIndex: 10 }}>
             <HeaderBox text={Class} />
-            <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px' }}>
+            <Paper style={{ maxHeight: '400px', overflow: 'auto', marginBottom: '10px', padding: '10px', background: themes.normalButton, 
+              borderBottom: borderColor,
+              borderTop: borderColor,
+              borderLeft: borderColor,
+              borderRight: borderColor }}>
               {messages.map((msg, index) => (
                 <div key={index} style={{ margin: '10px 0' }}>
                   <Box style={{ wordWrap: 'break-word' }}>{users[index]}</Box> 
@@ -292,8 +299,13 @@ function ChatInterface() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               style={{ marginBottom: '10px' }}
+              inputProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+              InputLabelProps={{style : { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
             />
-            <Button fullWidth variant="contained" style={{ background: '#b2dfdb', color: 'white' }} onClick={handleSendMessage}>
+            <Button fullWidth variant="contained" style={{ 
+              color: themes.DARKMODE ? themes.darkText : themes.normalText,
+              background: themes.DARKMODE ? themes.darkButton : themes.normalButton }} 
+              onClick={handleSendMessage}>
               Send Message
             </Button>
             <input
@@ -304,7 +316,10 @@ function ChatInterface() {
               onChange={handleFileSelect}
             />
             <label htmlFor="raised-button-file">
-              <Button variant="contained" component="span" sx={{ background: '#b2dfdb', marginY: 2 }}>
+              <Button variant="contained" component="span" sx={{ 
+                color: themes.DARKMODE ? themes.darkText : themes.normalText,
+                background: themes.DARKMODE ? themes.darkButton : themes.normalButton,
+                marginY: 2 }}>
                 Upload A File
               </Button>
             </label>
