@@ -97,16 +97,29 @@ function NotecardInterface() {
                 const setName = res.data.Name[0].set_name;
                 setNotecardSetName(setName);
             }
-          })
-          .catch(error => {
+        })
+        .catch(error => {
             console.error('Error fetching set name:', error);
-          });
-          
+        });
+
+        axiosInstance.post('/notecards/get_notecards', {Sid:set_id})
+        .then(res => {
+            if (res.data.Status === "Success") {
+                const Cards = res.data.Cards;
+                //console.log(Cards);
+                setNoteCards(Cards);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching cards:', error);
+        });
+
+
         // Updates the term and definitions TextFields depending on the current active index
         setTerm(noteCards[activeIndex]['term']);
-        setDefinition(noteCards[activeIndex]['definition']);
+        setDefinition(noteCards[activeIndex]['def']);
 
-      }, []);
+      }, [activeIndex,noteCards,term,definition]);
 
 
 
@@ -173,9 +186,9 @@ function NotecardInterface() {
                                     </Typography>
 
                                     { currentSide === 'term' ? (<Typography sx={{fontSize: 20 }} gutterBottom>
-                                    Term Here
+                                    {term}
                                     </Typography>) : (<Typography sx={{ fontSize: 20 }} gutterBottom>
-                                    Defenition Here
+                                    {definition}
                                     </Typography>)}
                                     
                                 </CardContent>
