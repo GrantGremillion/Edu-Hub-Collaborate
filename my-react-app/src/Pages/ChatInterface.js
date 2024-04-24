@@ -292,15 +292,26 @@ function ChatInterface() {
             <TextField
               fullWidth
               id="outlined-multiline-static"
-              label="Type your message here..."
+              label="  Type your message here..."
               multiline
               rows={3}
               variant="outlined"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              style={{ marginBottom: '10px' }}
+              sx={{ 
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": { borderColor: "grey", borderWidth: "2px", borderRadius: 0 },
+                },
+                "& .MuiOutlinedInput-root.Mui-focused": {
+                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                } }}
+              style={{ marginBottom: '10px', background: themes.normalButton, color: themes.darkButton }}
               inputProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
               InputLabelProps={{style : { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+              
             />
             <Button fullWidth variant="contained" style={{ 
               color: themes.DARKMODE ? themes.darkText : themes.normalText,
