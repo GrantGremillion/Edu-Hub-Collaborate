@@ -106,7 +106,6 @@ function NotecardInterface() {
         .then(res => {
             if (res.data.Status === "Success") {
                 const Cards = res.data.Cards;
-                //console.log(Cards);
                 setNoteCards(Cards);
             }
         })
