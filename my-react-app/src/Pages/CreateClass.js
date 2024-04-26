@@ -83,7 +83,7 @@ function CreateClass() {
           }}
       ></Box>
 
-      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}}>
+      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: 'fit-content', marginBottom:'75px', paddingBottom: "3%"}}>
         <Grid container spacing={4}
           direction="column"
           alignItems="center"

@@ -123,13 +123,15 @@ function Login({onLogin}) {
         }}
       ></Box>
 
-      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '725px', marginBottom:'75px'}} >
+      <Container maxWidth="sm" p="5%" direction="column" style={{ background: containerColor, marginTop: '75px', height: 'fit-content', marginBottom:'75px', }} >
         <Grid container spacing={5}
             direction="column"
             alignItems="center"
-            justifyContent="center">
+            justifyContent="center"
+            p="5%"
+            style={{ marginLeft: "-10%" }}>
 
-          <Grid item xs={1} style={{ marginTop: '20px', marginBottom: '20px'}}>
+          <Grid item xs={1} style={{ marginTop: "-3%" }}>
             <HeaderBox text={'Login to your account'}></HeaderBox>
           </Grid>
 
@@ -137,7 +139,6 @@ function Login({onLogin}) {
             <TextField  label="College Email" variant="filled" 
             onChange={e => setCredentials({...credentials,email:e.target.value})}/>
           </Grid>
-
 
           <Grid item xs={1}>
             {LoginFailed ? ( // Check if the login attempt failed
@@ -194,21 +195,28 @@ function Login({onLogin}) {
           </Grid>
 
           <Grid item xs={1}>
-            <Button fullWidth variant="contained" color="primary" onClick={handleLoginClick} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%'}} >
+            <Button variant="contained" color="primary" onClick={handleLoginClick} 
+            style={{ width: '200px', background: buttonColor, color: textColor}} 
+            sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
               Login
             </Button>
           </Grid>
 
-          <Grid item xs={1}>
-            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '25%', marginLeft: '-30%'}} >
+          <Grid item xs={1} alignContent="center" alignItems="center" justifyContent="center" display="flex">
+            <Button variant="contained" size="small"  onClick={handleClickBack} 
+              style={{ width: '100px', background: buttonColor, color: textColor}} 
+              sx={{fontFamily: 'Courier New', fontSize: 'large', }} >
               Back
             </Button>
-            <Button fullWidth color="secondary" size="small" onClick={handleForgotPasswordClick} sx={{ width: '235px', marginTop: '-15%', marginLeft: '70%'}}>
+          </Grid>
+
+          <Grid item xs={1} alignContent="center" alignItems="center" justifyContent="center" display="flex">
+            <Button fullWidth color="secondary" size="small" onClick={handleForgotPasswordClick} sx={{ width: '235px', }}>
               Forgot password?
             </Button>
           </Grid>
-          
         </Grid>
+          
       </Container>
     </div>
 

@@ -99,11 +99,16 @@ function CreateStudentAccount() {
     background: themes.DARKMODE ? dark_bg : bg,
     navbarColor: customGreenColor,
     paperStyle: {
-      padding: theme.spacing(3),
+      p: theme.spacing(2),
       textAlign: 'center',
       color: 'white',
       backgroundColor: customGreenColor,
-      width: '100%', 
+      width: 'fit-content', 
+      alignItems: "center",
+      justifyContent: "center",
+      display: "flex",
+      flexDirection: "column",
+      
     },
   };
   const handleTextFieldFocus = (event) => {
@@ -130,27 +135,30 @@ function CreateStudentAccount() {
         }}
       />
       <PlainNavBar text='Edu Hub Collaborate' />
-      <Container maxWidth="sm" sx={{
+      <Container maxWidth="sm"  sx={{
         background: styleProps.containerColor,
         boxShadow: theme.shadows[5],
-        borderRadius: theme.shape.borderRadius,
-        p: 3, 
+        borderRadius: theme.shape.borderRadius, 
         minHeight: '100vh', 
-        display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center', 
+        marginTop: "3%",
+        position: "relative",
+        width: "fit-content",
+        alignItems: "center",
+        alignContent: "center",
+        display: "flex",
+        height: "fit-content"
       }}>
-      <Grid container spacing={6} justifyContent="center" alignItems="center" style={{ width: '100%' }}>
-        <Grid item xs={12}>
-          <Paper sx={styleProps.paperStyle} >
-          <Typography variant="h5" component="h2" fontSize={37} fontFamily={'Courier New'}>
-                Create your student account
+          <Grid item xs={12} p="3%" >
+            <Paper sx={styleProps.paperStyle} >
+              <Typography variant="h5" component="h2" fontSize={37} fontFamily={'Courier New'}>
+                  Create your student account
               </Typography>
-          </Paper>
-        </Grid>
-          <Grid item xs={12}>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} p="3%">
             <TextField
-              fullWidth
               variant="filled"
               label="Email"
               value={email}
@@ -162,9 +170,8 @@ function CreateStudentAccount() {
               }}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} p="3%">
             <TextField
-              fullWidth
               variant="filled"
               label="Password"
               type="password"
@@ -172,12 +179,10 @@ function CreateStudentAccount() {
               onChange={(e) => setPassword(e.target.value)}
               sx={{
                 backgroundColor: '#fff', 
-              }}
-            />
+              }}/>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} p="3%">
             <Button
-              fullWidth
               variant="contained"
               size="large"
               onClick={handleClickSubmit}
@@ -187,14 +192,12 @@ function CreateStudentAccount() {
                 '&:hover': {
                   backgroundColor: '#5e92f3',
                 },
-              }}
-            >
+              }}>
               Submit
             </Button>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} p="3%">
             <Button
-              fullWidth
               variant="contained"
               size="small"
               onClick={handleClickBack}
@@ -204,14 +207,13 @@ function CreateStudentAccount() {
                 '&:hover': {
                   backgroundColor: '#5e92f3', 
                 },
-              }}
-            >
+              }}>
               Back
             </Button>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} p="3%">
             <Button
-              fullWidth
+              
               variant="text"
               size="small"
               onClick={handleLoginClick}
@@ -220,12 +222,10 @@ function CreateStudentAccount() {
                 '&:hover': {
                   backgroundColor: 'transparent',
                 },
-              }}
-            >
+              }}>
               Already have an account?
             </Button>
           </Grid>
-        </Grid>
       </Container>
     </div>
   );
