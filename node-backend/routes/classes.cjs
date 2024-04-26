@@ -181,7 +181,7 @@ router.post('/add_event', (req,res) =>{
 router.post('/get_teacher_classes', (req,res) => {
 
   const Tid = req.body.Tid;
-  const getTeacherClassesSql = "SELECT Cid,class_name,class_description,access_key FROM Classes WHERE Tid = ?";
+  const getTeacherClassesSql = "SELECT Cid,class_name,class_description,access_key,announce FROM Classes WHERE Tid = ?";
 
   db.query(getTeacherClassesSql, [Tid], (err, data) => {
 
@@ -200,7 +200,7 @@ router.post('/get_student_classes', (req,res) => {
 
   const Sid = req.body.Sid;
   const getStudentClassesSql = "SELECT Cid FROM ClassStudents WHERE Sid = ?";
-  const getClassesSql = "SELECT Cid,class_name,class_description,access_key FROM Classes WHERE Cid IN (?)";
+  const getClassesSql = "SELECT Cid,class_name,class_description,access_key,announce FROM Classes WHERE Cid IN (?)";
 
   db.query(getStudentClassesSql, [Sid], (err, data) => {
 

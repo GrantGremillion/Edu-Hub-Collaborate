@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Box, Container, Typography, Divider} from '@mui/material';
-
+import {useCookies } from "react-cookie";
+import { useState, useEffect } from 'react';
 
 // Our own custom-built components 
 import HomeNavBar from '../Components/HomeNavBar';
@@ -11,10 +12,15 @@ import dark_bg from '.././Images/dark_bg.jpg';
 // handles darkmode toggle on the page
 import * as themes from '.././Config';
 
+import axiosInstance from '../helpers/axios';
+
 
 
 function Home({onLogout}) {
 
+  const [cookies] = useCookies(['userID','account']);
+  const [classes, setClasses] = useState([]);
+  const [announcement, setAnnouncements] = useState([]);
 
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
@@ -29,6 +35,51 @@ function Home({onLogout}) {
     textColor = themes.normalText;
     background = bg;
   }
+
+
+
+  useEffect(() => {
+
+    // If user is a teacher classes need to be fetched differently on the backend 
+    if(cookies.account === 'teacher'){
+      axiosInstance.post('/classes/get_teacher_classes', { Tid: cookies.userID })
+      .then(res => {
+        if (res.data.Status === "Success") {
+
+          // Store all class names in the classes state variable
+          const announcementsArray = [];
+          res.data.classes.forEach(obj => {
+            const keys = Object.keys(obj);
+            if (keys.length > 3) {
+              announcementsArray.push(obj[keys[2]]);
+            }
+          });
+
+          setAnnouncements(announcementsArray);
+        } else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching classes:', error);
+      });
+      return
+    }
+
+    else{
+      axiosInstance.post('/classes/get_student_classes', { Sid: cookies.userID })
+        .then(res => {
+          if (res.data.Status === "Success") {
+            setClasses(res.data.classes);
+          } else {
+            alert(res.data.Status);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching classes:', error);
+        });
+    }
+  }, [cookies]);
 
   return (
     <div>
@@ -59,7 +110,7 @@ function Home({onLogout}) {
             
             <Divider></Divider>
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
-              This area will be used to display any direct messages from friends or announcements from teachers in a class you have joined
+              
             </Typography>
           </div> 
         </Box>

@@ -33,17 +33,7 @@ app.use('/uploads', express.static('uploads'));
 
 // cors is a built in middleware to allow users to request recources
 app.use(cors({
-  origin: (origin, callback) => {
-    const allowedOrigins = ['*'];  // Add other origins here if necessary
-    // Allow requests with no 'origin' (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true // reflect the request origin, as defined by 'origin' above
+  origin: '*'
 }));
 
 // Nodemailer transporter setup
@@ -61,6 +51,10 @@ export const otpStore = new Map();
 // Send OTP endpoint
 app.post('/api/send-otp', async (req, res) => {
   const { email } = req.body;
+
+
+
+
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   otpStore.set(email, otp);
 
