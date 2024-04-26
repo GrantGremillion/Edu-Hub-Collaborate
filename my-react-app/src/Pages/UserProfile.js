@@ -73,45 +73,62 @@ function UserProfile() {
             marginBottom: "50px"
         },
         containerStyle: {
-            position: 'relative',
-            marginTop: '50px',
-            marginBottom: '50px',
-            height: 'fit-content',
-            zIndex: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '2em 1em', // Use em units for padding for scalability
-            // Responsive design adjustments
-            '@media (min-width:600px)': {
-            padding: '2em 3em', // Larger padding for larger screens
-        },
-            background: isDarkMode ? themes.darkContainer : themes.normalContainer,
-            boxShadow: 'none'
-        },
+    
+                pt: '35px', // paddingTop
+                pb: '35px', // paddingBottom
+                height: 'fit-content', // minHeight to handle content size
+                marginTop: "50px",
+                marginBottom: "50px",
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: isDarkMode ? themes.darkContainer : themes.normalContainer,
+                width: '100%', // Set the width to 100% by default
+                '@media (min-width:600px)': {
+                  maxWidth: 'sm', // Apply 'sm' maxWidth for screens wider than 600px
+                },
+                // Add more media queries as needed for different breakpoints
+              },
         paperStyle: {
             padding: '16px',
             width: '100%', // Use full width to maintain consistent size
-            marginBottom: '16px',
+            marginBottom: theme.spacing(5),
             backgroundColor: isDarkMode ? '#424242' : '#fff'
         },
         buttonStyle: {
-            margin: '8px 0',
+            margin: '12px 0',
             width: '100%',
             color: isDarkMode ? themes.darkText : themes.normalText,
             background: isDarkMode ? themes.darkButton : themes.normalButton,
+        },
+        headerBoxWrapperStyle: {
+            width: 'auto', // The HeaderBox should take up the full width of its parent
+            padding: theme.spacing(2), // Use theme's spacing for responsive padding
+            boxSizing: 'border-box', // Include padding in the element's total width
         }
     };
 
     return (
         <Box sx={{ position: 'relative', minHeight: '100vh' }}>
-            <Box sx={profileStyles.backgroundStyle}></Box>
+        <Box
+            className="bg"
+            style={{
+            backgroundImage: `url(${isDarkMode ? dark_bg : bg})`,
+            backgroundSize: "cover",
+            zIndex: -1,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            }}
+        />
             <Sidebar/>
-            <Container maxWidth='sm' sx={profileStyles.containerStyle} >
-                <Grid item xs={12} paddingBottom = "5%" >
+            <Container sx={profileStyles.containerStyle} >
+            <Box sx={profileStyles.headerBoxWrapperStyle}>
                     <HeaderBox text={'Your User Profile'} />
-                </Grid>
+                </Box>
                 <Paper elevation={3} sx={profileStyles.paperStyle}>
                     <Typography variant="h6">Display Name:</Typography>
                     <Typography>{displayName || "Not Available"}</Typography>
