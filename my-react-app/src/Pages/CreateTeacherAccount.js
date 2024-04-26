@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 // Material UI components
 import {Button, Grid, Container, Box, TextField, Typography, Divider} from '@mui/material';
 
@@ -94,94 +94,132 @@ function CreateTeacherAccount() {
     background = bg;
   }
 
-  return (
-    <div>
-      {/* Box used to display background image - bg.jpg */}
-      <Box
-        className="bg"
-        style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        zIndex: '-1',
-        position: 'fixed', // Make sure it covers the whole viewport
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        }}>
-      </Box>
-    
-      <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
-      
-      {/* Container and Grid organizes HeaderBox and Buttons */}
-      <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '790', marginBottom:'75px'}} >
-        <Grid container spacing={5}
-            direction="column"
-            alignItems="center"
-            justifyContent="center">
-          <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
-            <HeaderBox text={'Create your teacher account'}></HeaderBox>
-          </Grid>
+  const styleProps = {
+    containerColor: themes.DARKMODE ? themes.darkContainer : themes.normalContainer,
+    buttonColor: themes.DARKMODE ? themes.darkButton : themes.normalButton,
+    textColor: themes.DARKMODE ? themes.darkText : themes.normalText,
+    background: themes.DARKMODE ? dark_bg : bg,
+    navbarColor: '#009688',
+    paperStyle: {
+      p: 2,
+      textAlign: 'center',
+      color: 'white',
+      backgroundColor: '#009688',
+      width: '100%', // Adjusted for full width
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    buttonSx: { 
+      bgcolor: buttonColor,
+      '&:hover': {
+        bgcolor: '#5e92f3',
+      },
+      color: textColor,
+    },
+    textButtonSx: {
+      color: textColor,
+      '&:hover': {
+        bgcolor: 'transparent',
+      },
+    }
+  };
 
-          <Grid item xs={1}>
-            <TextField label="Email" variant="filled" 
-            onChange={e => setValues({...values,email:e.target.value})}/>
-          </Grid>
-
-          <Grid item xs={1}>
-            <TextField label="Password" variant="filled" type="password"
-            onChange={e => setValues({...values,password:e.target.value})}/>
-          </Grid>
-
-          <Grid item xs={1}>
-            <TextField label="Confirm password" variant="filled" type="password" 
-            onChange={e => setValues({...values,cpassword:e.target.value})}/>
-          </Grid>
-
-          <Grid item xs={1}>
-            <Box component="section" sx={{ p: 1, mt: '5%',border: '2px solid grey' }}>
-       
-              <Typography align='center'>
-                Please designate a document as 
-                <br />
-                evidence of your status 
-          
-                as an educator
-              </Typography>
-
-              <Divider orientation="horizontal" flexItem sx={{mb:'2%'}}></Divider>
-              {/*File submission form*/}
-                <input
-                  filename={file} 
-                  onChange={e => setFile(e.target.files[0])} 
-                  type="file" 
-                  accept="image/*"
-                ></input>
-            </Box>
-          </Grid>
   
+  return (
+    <Box sx={{
+      backgroundImage: `url(${styleProps.background})`,
+      backgroundSize: 'cover',
+      position: 'fixed',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      zIndex: -1,
+    }}>
+      <PlainNavBar text='Edu Hub Collaborate' />
+      <Container maxWidth="sm" sx={{
+        background: styleProps.containerColor,
+        boxShadow: 3,
+        borderRadius: 2,
+        minHeight: '100vh',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        position: 'relative',
+        display: 'flex',
+        p: 3, // padding for smaller screens
+      }}>
+        <Typography variant="h5" component="h2" sx={styleProps.paperStyle}>
+          Create your teacher account
+        </Typography>
+        <TextField
+          fullWidth
+          variant="filled"
+          label="Email"
+          value={values.email}
+          onChange={(e) => setValues({ ...values, email: e.target.value })}
+          sx={{
+            backgroundColor: '#fff',
+            mb: 2,
+          }}
+        />
+        <TextField
+          fullWidth
+          variant="filled"
+          label="Password"
+          type="password"
+          value={values.password}
+          onChange={(e) => setValues({ ...values, password: e.target.value })}
+          sx={{
+            backgroundColor: '#fff',
+            mb: 2,
+          }}
+        />
 
-          <Grid item xs={1}>
-            <Button variant="contained" size="large"  onClick={handleClickSubmit} style={{ width: '200px', background: buttonColor, color: textColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
+        {/* Incorporate the upload option */}
+        <Grid item xs={12} md={6}>
+          <Box component="section" sx={{ p: 1, mt: 3, border: '2px solid grey', textAlign: 'center' }}>
+            <Typography align='center'>
+              Please designate a document as evidence of your status as an educator
+            </Typography>
+            <Divider sx={{ my: 2 }} />
+            <input
+              filename={file}
+              onChange={e => setFile(e.target.files[0])}
+              type="file"
+              accept="image/*"
+              style={{ display: 'block', margin: 'auto' }}
+            />
+          </Box>
+        </Grid>
+        
+
+
+        <Box sx={{ width: '100%', mt: 3 }}>
+          {/* TextField and Button components remain the same */}
+        </Box>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12}>
+            <Button fullWidth variant="contained" onClick={handleClickSubmit} sx={styleProps.buttonSx}>
               Submit
             </Button>
           </Grid>
-
-          <Grid item xs={1}>
-            <Button variant="contained" size="small"  onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor }} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '3%', marginLeft: '-30%'}} >
+          <Grid item xs={12}>
+            <Button fullWidth variant="contained" onClick={handleClickBack} sx={styleProps.buttonSx}>
               Back
             </Button>
-
-            <Button fullWidth color="secondary" size="small" onClick={handleLoginClick} sx={{ width: '235px', marginTop: '-20%', marginLeft: '65%'}}>
-              Already have an account?
-            </Button>
           </Grid>
-            
+          <Grid container spacing={2} justifyContent="center"></Grid>
+          <Grid item xs={12}>
+            <Typography variant="body2" onClick={handleLoginClick} sx={{ ...styleProps.textButtonSx, textAlign: 'center', width: '100%', mt: 2 }}>
+              Already have an account?
+            </Typography>
+          </Grid>
         </Grid>
       </Container>
-    </div>
+    </Box>
   );
-    
 }
 
 export default CreateTeacherAccount;
