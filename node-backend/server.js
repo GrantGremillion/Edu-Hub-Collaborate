@@ -34,7 +34,7 @@ app.use('/uploads', express.static('uploads'));
 // cors is a built in middleware to allow users to request recources
 app.use(cors({
   origin: (origin, callback) => {
-    const allowedOrigins = ['http://localhost:3000'];  // Add other origins here if necessary
+    const allowedOrigins = ['*'];  // Add other origins here if necessary
     // Allow requests with no 'origin' (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
