@@ -119,40 +119,81 @@ function Home({onLogout}) {
 
       {/* Container that will hold all home page components */}
       <Container fixed>
-        <Box sx={{height: '100vh', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
+        <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
           <div style={{ textAlign: 'center'}}>
             <Typography variant='h3' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
-              Notifications
+              Announcments
             </Typography>
             
             <Divider></Divider>
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
             
-
-              
-
                 {/*Mapping each of the notecard sets retrieved from the backend to be displayed on cards*/}
                 {announcements.map((ann, index) => (
 
-               
-
+                  ann ? (
+                  
                   <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
                       <Card variant="outlined" style={{ width: '100%', zIndex:0}}>
                         <CardContent>
                           <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">
-                            Announcments for {classes[index]}: {ann}
+                            {classes[index]}: {ann}
                           </Typography>
                         </CardContent>
                       </Card>
 
                   </Grid>
+                  ) : (<></>)
                  
                 ))}
               
             </Typography>
           </div> 
         </Box>
-        <Box sx={{height: '100vh', width: '100%', marginTop: '5%', bgcolor: containerColor}} />
+
+        <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
+          <div style={{ textAlign: 'center'}}>
+            <Typography variant='h4' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
+              Upcomming Meetings
+            </Typography>
+            
+            <Divider></Divider>
+            <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
+              
+            </Typography>
+          </div> 
+        </Box>
+
+        <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
+          <div style={{ textAlign: 'center'}}>
+            <Typography variant='h4' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
+              New Notecard Sets
+            </Typography>
+            
+            <Divider></Divider>
+            <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
+              
+            </Typography>
+          </div> 
+        </Box>
+
+        <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
+          <div style={{ textAlign: 'center'}}>
+            <Typography variant='h4' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
+              About Us
+            </Typography>
+              
+            <Divider></Divider>
+            <Typography sx={{fontSize: 'medium', fontFamily: 'Courier New', padding: '4%', color: textColor}}>
+            Welcome to Edu Hub Collaborate, where learning meets collaboration! Our platform is designed to empower both teachers and students in the pursuit of knowledge. With Edu Hub Collaborate, teachers can easily create classes and provide a dynamic learning environment for their students. Students, in turn, have the opportunity to join these classes, fostering a vibrant community of learning.
+            One of the key features of Edu Hub Collaborate is the seamless communication between teachers and students. Teachers can effortlessly share announcements directly to students' homepages, keeping them informed and engaged. Additionally, our platform allows teachers to create notecard sets, enabling students to enhance their understanding through effective study tools.
+            But the collaboration doesn't stop there. Each class has its own dedicated chat room, where students and teachers can engage in discussions, ask questions, and even share files, facilitating interactive learning experiences. Furthermore, our calendar page empowers teachers to schedule events such as study sessions, ensuring efficient time management and coordination.
+            Join Edu Hub Collaborate today and embark on a journey towards collaborative learning excellence!
+               
+            </Typography>
+          </div> 
+        </Box>
+        
       </Container>
     </div>
   );
