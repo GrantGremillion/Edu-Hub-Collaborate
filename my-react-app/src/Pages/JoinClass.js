@@ -36,13 +36,25 @@ function JoinClass() {
 
   // Theme conditional style
   const containerStyles = {
-    background: themes.DARKMODE ? themes.darkContainer : themes.normalContainer, 
-    marginTop: '75px', 
-    padding: isSmallScreen ? theme.spacing(2) : theme.spacing(4),
-    boxShadow: theme.shadows[5], // use theme's shadow
-    borderRadius: theme.shape.borderRadius, // use theme's border radius
-    maxWidth: '100%', // avoid overflow on small screens
-    mx: 'auto' // center Container on the screen
+    position: 'relative',
+    marginTop: '3%',
+    marginBottom: '3%',
+    height: 'fit-content',
+    zIndex: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '2em 1em', // Use em units for padding for scalability
+    // Responsive design adjustments
+    '@media (min-width:600px)': {
+    padding: '2em 3em', // Larger padding for larger screens
+},
+    background: themes.DARKMODE ? themes.darkContainer : themes.normalContainer,
+    boxShadow: 'none',
+    borderRadius: theme.shape.borderRadius,
+    width: "fit-content"
+
   };
 
   const headerBoxStyles = {
@@ -50,18 +62,19 @@ function JoinClass() {
     textAlign: 'center', // center the text
     backgroundColor: themes.darkButton, // Use the green color from your themes
     color: '#ffffff', // Assuming white text
-    padding: theme.spacing(1), // Adjust the padding
+    padding: theme.spacing(2), // Adjust the padding
     fontWeight: 'bold', // Make the font bold
     fontSize: isSmallScreen ? '1.5rem' : '2rem', // Adjust font size larger, responsive to screen size
     borderRadius: theme.shape.borderRadius, // optional: if you want rounded corners
     boxShadow: theme.shadows[1], // optional: if you want some shadow effect
-    margin: theme.spacing(1), // Add some space around the green box
+    marginBottom: "5%"
   };
   
 
   const textFieldStyles = {
     width: '100%', // full width
     // add more styling as per your TextField component's requirements
+    marginBottom: "10%"
   };
 
   const buttonColor = themes.DARKMODE ? themes.darkButton : themes.normalButton;
@@ -87,8 +100,8 @@ function JoinClass() {
         }}> 
       </Box>
     
-      <Container sx={containerStyles}>
-        <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center">
+      <Container container sx={containerStyles}>
+        
           <Grid item xs={12}>
             <Typography sx={headerBoxStyles}>Student Classes</Typography>
           </Grid>
@@ -109,19 +122,19 @@ function JoinClass() {
                 '&:hover': {
                   background: theme.palette.action.hover
                 },
+                fontFamily: "Courier New"
               }}
             >
               Join Class
             </Button>
           </Grid>
   
-          <Grid item xs={12}>
-            <Divider sx={{ my: 2 }}>or</Divider>
+          <Grid item xs={12} marginRight="3%" p="3%">
+            <Divider orientation="horizontal" flexItem style={{  width: '50%', color: textColor, }} >or</Divider>
           </Grid>
   
-          <Grid item xs={12}>
+          <Grid item xs={12} marginLeft="0%" >
             <Button 
-              fullWidth
               variant="contained" 
               size="large"
               onClick={handleClickClasses} 
@@ -131,17 +144,17 @@ function JoinClass() {
                 '&:hover': {
                   background: theme.palette.action.hover
                 },
+                fontFamily: "Courier New"
               }}
             >
               View Classes
             </Button>
           </Grid> 
   
-          <Grid item xs={12}>
+          <Grid item xs={12} marginLeft="1%" >
             <GoBackButton />
           </Grid>
-  
-        </Grid>
+        
       </Container>   
     </div>
   );

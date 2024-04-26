@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, useTheme } from '@mui/material';
 import * as themes from '.././Config';
 
 const GoBackButton = () => {
@@ -11,15 +11,11 @@ const GoBackButton = () => {
   // Navigate back to the previous page
   const handleGoBack = () => navigate(-1);
 
+  const theme = useTheme();
+
   // checks for the theme the page is in, and applys it to these variables
-  if (themes.DARKMODE) {
-    var buttonColor = themes.darkButton;
-    var textColor = themes.darkText;
-  }
-  else {
-    buttonColor = themes.normalButton;
-    textColor = themes.normalText;
-  }
+  const buttonColor = themes.DARKMODE ? themes.darkButton : themes.normalButton;
+  const textColor = themes.DARKMODE ? themes.darkText : themes.normalText;
 
   return (
     <Button
@@ -32,7 +28,7 @@ const GoBackButton = () => {
         fontSize: 'large',
         marginTop: '25%', // Adjust spacing as needed
         '&:hover': {
-          background: '#a1cbc8', // Slightly darker for the hover effect
+          background: theme.palette.action.hover
         },
       }}
     >
