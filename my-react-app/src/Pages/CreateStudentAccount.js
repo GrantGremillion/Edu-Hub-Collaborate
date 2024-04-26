@@ -56,7 +56,7 @@ function CreateStudentAccount() {
     e.preventDefault();
     if ((email && password) != null && password.length > 5){
         try {
-            console.log(process.env.REACT_APP_API_URL);
+            console.log("Server Backend IP" + process.env.REACT_APP_API_URL);
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
                 method: 'POST',
                 headers: {
