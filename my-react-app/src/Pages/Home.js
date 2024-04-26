@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Container, Typography, Divider} from '@mui/material';
+import {Container, Box, Divider, Grid, Button, Typography, TextField, ButtonBase, Card, CardContent} from '@mui/material';
 import {useCookies } from "react-cookie";
 import { useState, useEffect } from 'react';
 
@@ -20,7 +20,7 @@ function Home({onLogout}) {
 
   const [cookies] = useCookies(['userID','account']);
   const [classes, setClasses] = useState([]);
-  const [announcement, setAnnouncements] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
 
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
@@ -46,16 +46,20 @@ function Home({onLogout}) {
       .then(res => {
         if (res.data.Status === "Success") {
 
-          // Store all class names in the classes state variable
+          // Store all class names an announcments in state variables
+          const classesArray = [];
           const announcementsArray = [];
           res.data.classes.forEach(obj => {
+            console.log(obj);
             const keys = Object.keys(obj);
-            if (keys.length > 3) {
-              announcementsArray.push(obj[keys[2]]);
-            }
-          });
+            
+              classesArray.push(obj[keys[1]]);
+              announcementsArray.push(obj[keys[4]]);
+            
+          })
 
           setAnnouncements(announcementsArray);
+          setClasses(classesArray);
         } else {
           alert(res.data.Status);
         }
@@ -70,7 +74,20 @@ function Home({onLogout}) {
       axiosInstance.post('/classes/get_student_classes', { Sid: cookies.userID })
         .then(res => {
           if (res.data.Status === "Success") {
-            setClasses(res.data.classes);
+            // Store all class names an announcments in state variables
+          const classesArray = [];
+          const announcementsArray = [];
+          res.data.classes.forEach(obj => {
+            console.log(obj);
+            const keys = Object.keys(obj);
+            
+              classesArray.push(obj[keys[1]]);
+              announcementsArray.push(obj[keys[4]]);
+            
+          })
+
+          setAnnouncements(announcementsArray);
+          setClasses(classesArray);
           } else {
             alert(res.data.Status);
           }
@@ -110,6 +127,27 @@ function Home({onLogout}) {
             
             <Divider></Divider>
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
+            
+
+              
+
+                {/*Mapping each of the notecard sets retrieved from the backend to be displayed on cards*/}
+                {announcements.map((ann, index) => (
+
+               
+
+                  <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
+                      <Card variant="outlined" style={{ width: '100%', zIndex:0}}>
+                        <CardContent>
+                          <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">
+                            Announcments for {classes[index]}: {ann}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+
+                  </Grid>
+                 
+                ))}
               
             </Typography>
           </div> 
