@@ -103,6 +103,21 @@ function Login({onLogin}) {
     background = bg;
   }
 
+  const containerStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: containerColor,
+    paddingTop: '35px',
+    paddingBottom: '35px',
+    marginTop: '10vh', // This will ensure the box is a bit centered vertically. Adjust as needed.
+    boxShadow: 3, // Optional shadow for a "lifted" look
+    borderRadius: 3, // Optional border radius for rounded corners
+    position: 'relative', // Ensure it's above the background
+    zIndex: 2, // Higher than the background image's zIndex
+  };
+  
   return (
 
     <div>
@@ -123,24 +138,23 @@ function Login({onLogin}) {
         }}
       ></Box>
 
-      <Container maxWidth="sm" p="5%" direction="column" style={{ background: containerColor, marginTop: '75px', height: 'fit-content', marginBottom:'75px', }} >
-        <Grid container spacing={5}
+      <Container maxWidth="sm" sx={containerStyles}>
+        <Grid container spacing={2}
             direction="column"
             alignItems="center"
             justifyContent="center"
             p="5%"
             style={{ marginLeft: "-10%" }}>
 
-          <Grid item xs={1} style={{ marginTop: "-3%" }}>
-            <HeaderBox text={'Login to your account'}></HeaderBox>
-          </Grid>
-
-          <Grid item xs={1}>
-            <TextField  label="College Email" variant="filled" 
+        <Grid item xs={12} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <HeaderBox text={'Login to your account'} sx={{ width: '100%' }} />
+        </Grid>
+          <Grid item xs={12}>
+            <TextField  label="College Email" variant="filled" fullWidth 
             onChange={e => setCredentials({...credentials,email:e.target.value})}/>
           </Grid>
 
-          <Grid item xs={1}>
+          <Grid item xs={12}>
             {LoginFailed ? ( // Check if the login attempt failed
               <TextField
                 error
