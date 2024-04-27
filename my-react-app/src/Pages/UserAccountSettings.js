@@ -14,6 +14,8 @@ import dark_bg from '.././Images/dark_bg.jpg';
 import * as themes from '.././Config';
 import {useCookies} from "react-cookie";
 import { useTheme } from '@mui/material/styles';
+import darkModeImg from './dark.png';
+import lightModeImg from './light.png';
 
 function UserAccountSettings({themeToggle}) {
 
@@ -61,7 +63,7 @@ function UserAccountSettings({themeToggle}) {
         background = bg;
     }
     const theme = useTheme();
-    const isDarkMode = theme.palette.mode === 'dark'; 
+    const [isDarkMode, setIsDarkMode] = useState(getTheme.theme === 'dark');
     const containerStyles = {
         pt: 9, 
         pb: 9, 
@@ -85,6 +87,14 @@ function UserAccountSettings({themeToggle}) {
             color: theme.palette.text.primary,
         },
     };
+
+    const handleThemeToggle = () => {
+        setIsDarkMode(!isDarkMode);
+        themeToggle(!isDarkMode);
+        themes.DarkmodeToggle(!isDarkMode);
+        setCheck(!isDarkMode);
+        // Here you would also include any logic to actually change the theme.
+      };
 
     return (
         <div>
@@ -130,27 +140,36 @@ function UserAccountSettings({themeToggle}) {
                     </Grid>
 
                 
-                    <Grid item xs={3}>
-                        <Box
-                            sx={{
-                            width: 200,
-                            height: 40,
-                            borderRadius: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            display: 'default',
-                            fontSize: '2rem', 
-                            bgcolor: buttonColor,
-                            color: 'primary.white',
-                            zIndex: '0',
-                            fontFamily: 'Courier New'
-                            }}>
-
-                            <FormGroup sx={{marginLeft: '3%'}}>
-                                <FormControlLabel control={<Switch onChange={handleChange} checked={check} color='default' sx={{marginTop: '-1%'}} />} label={<Typography sx={{marginLeft: '5%', marginTop: '-2%'}}>Dark Theme</Typography> } sx={{color: textColor}} />
-                            </FormGroup>
-
-                        </Box>
+                    <Grid item xs={12}>
+                    <Box
+                        sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        bgcolor: buttonColor,
+                        color: 'primary.white',
+                        p: 1,
+                        borderRadius: 1,
+                        cursor: 'pointer', // To show it's clickable
+                        }}
+                        onClick={handleThemeToggle}
+                    >
+                        <img
+                        src={isDarkMode ? darkModeImg : lightModeImg}
+                        alt="Toggle Theme"
+                        style={{ maxWidth: '30px', maxHeight: '30px' }} // adjust size as needed
+                        />
+                        <Typography 
+                        variant="subtitle1" 
+                        sx={{
+                            ml: 1, // margin left
+                            color: textColor,
+                            fontFamily: 'Courier New',
+                        }}
+                        >
+                        CHANGE THEME
+                        </Typography>
+                    </Box>
                     </Grid>
 
                     <Grid item xs={4}>
