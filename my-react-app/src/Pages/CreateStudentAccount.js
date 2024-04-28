@@ -160,14 +160,11 @@ function CreateStudentAccount() {
           <Grid item xs={12} p="3%">
             <TextField
               variant="filled"
-              label="Email"
+              label="College Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onFocus={handleTextFieldFocus}
               onBlur={handleTextFieldBlur}
-              sx={{
-                backgroundColor: '#fff', 
-              }}
             />
           </Grid>
           <Grid item xs={12} p="3%">
@@ -176,23 +173,15 @@ function CreateStudentAccount() {
               label="Password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              sx={{
-                backgroundColor: '#fff', 
-              }}/>
+              onChange={(e) => setPassword(e.target.value)}/>
           </Grid>
           <Grid item xs={12} p="3%">
             <Button
               variant="contained"
               size="large"
               onClick={handleClickSubmit}
-              sx={{
-                background: styleProps.buttonColor,
-                color: styleProps.textColor,
-                '&:hover': {
-                  backgroundColor: '#5e92f3',
-                },
-              }}>
+              style={{ width: '200px', background: styleProps.buttonColor, color: styleProps.textColor}} 
+              sx={{fontFamily: 'Courier New', fontSize: 'large', }}>
               Submit
             </Button>
           </Grid>
@@ -201,24 +190,18 @@ function CreateStudentAccount() {
               variant="contained"
               size="small"
               onClick={handleClickBack}
-              sx={{
-                background: styleProps.buttonColor,
-                color: styleProps.textColor,
-                '&:hover': {
-                  backgroundColor: '#5e92f3', 
-                },
-              }}>
+              style={{ width: '100px', background: styleProps.buttonColor, color: styleProps.textColor}} 
+              sx={{fontFamily: 'Courier New', fontSize: 'large', }}>
               Back
             </Button>
           </Grid>
           <Grid item xs={12} p="3%">
             <Button
-              
               variant="text"
               size="small"
               onClick={handleLoginClick}
+              color='secondary'
               sx={{
-                color: styleProps.textColor,
                 '&:hover': {
                   backgroundColor: 'transparent',
                 },
