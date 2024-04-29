@@ -136,7 +136,7 @@ function Home({onLogout}) {
                   <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
                       <Card variant="outlined" style={{ width: '100%', zIndex:0}}>
                         <CardContent>
-                          <Typography style={{ color: textColor, fontFamily: 'Courier New' }} variant="h5" component="div">
+                          <Typography style={{  fontFamily: 'Courier New' }} variant="h5" component="div">
                             {classes[index]}: {ann}
                           </Typography>
                         </CardContent>
