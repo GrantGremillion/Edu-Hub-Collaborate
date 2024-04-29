@@ -10,7 +10,7 @@ router.post('/set', (req,res) => {
         const sendMessageSql = "UPDATE classes SET announce = ? WHERE Cid = ?";
     
         db.query(sendMessageSql, [req.body.announcement, req.body.Cid], (err) => {
-  
+            
         if (err) {
             console.log(err);
             return res.status(500).json({ error: err.message });

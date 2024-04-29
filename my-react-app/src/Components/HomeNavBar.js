@@ -156,7 +156,7 @@ function HomeNavBar() {
             </Typography>
             {!isMobile && (
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button onClick={() => handleNavigate('/ClassesDisplay')} sx={{ color: 'white' }}>
+                <Button onClick={() => handleNavigate('/ClassesDisplay')} sx={{ color: 'white'}}>
                   View Classes
                 </Button>
                 <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
@@ -170,7 +170,7 @@ function HomeNavBar() {
                   </Button>
                 )}
                 <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
-                <Button onClick={() => handleNavigate('/ReportPage')} sx={{ color: 'white' }}>
+                <Button onClick={() => handleNavigate('/ReportPage')} sx={{ color: 'white'}}>
                   Report Issues/Violations
                 </Button>
                 <Tooltip title="Open settings">

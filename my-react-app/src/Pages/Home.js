@@ -21,6 +21,7 @@ function Home({onLogout}) {
   const [cookies] = useCookies(['userID','account']);
   const [classes, setClasses] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  const [events, setEvents] = useState([]);
 
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
@@ -50,7 +51,6 @@ function Home({onLogout}) {
           const classesArray = [];
           const announcementsArray = [];
           res.data.classes.forEach(obj => {
-            console.log(obj);
             const keys = Object.keys(obj);
             
               classesArray.push(obj[keys[1]]);
@@ -60,6 +60,34 @@ function Home({onLogout}) {
 
           setAnnouncements(announcementsArray);
           setClasses(classesArray);
+
+          // Fetch the upcoming calendar events for current user
+          axiosInstance.post('/classes/get_events_all_classes', {classes: res.data.classes})
+            .then(res => {
+              if (res.data.Status === "Success") {
+
+                const allEvents = [];
+
+                // Gets the content and event time from the fetched data
+                for (const dictionary of res.data.allClassEvents) {
+                  const keys = Object.keys(dictionary);
+                  
+                  const Content = dictionary[keys[keys.length - 3]];
+                  const Date = dictionary[keys[keys.length - 2]];
+                  const Class = dictionary[keys[keys.length - 1]];
+                  
+                  const concatenatedString = `${Class}: ${Content} - ${Date}`;
+                  
+                  allEvents.push(concatenatedString);
+              }
+
+              setEvents(allEvents);         
+              } 
+            })
+            .catch(error => {
+              console.error('Error fetching events:', error);
+          });
+
         } else {
           alert(res.data.Status);
         }
@@ -67,10 +95,10 @@ function Home({onLogout}) {
       .catch(error => {
         console.error('Error fetching classes:', error);
       });
-      return
     }
 
-    else{
+    else
+    {
       axiosInstance.post('/classes/get_student_classes', { Sid: cookies.userID })
         .then(res => {
           if (res.data.Status === "Success") {
@@ -88,6 +116,36 @@ function Home({onLogout}) {
 
           setAnnouncements(announcementsArray);
           setClasses(classesArray);
+
+          axiosInstance.post('/classes/get_events_all_classes', {classes: res.data.classes})
+            .then(res => {
+              if (res.data.Status === "Success") {
+
+                const allEvents = [];
+
+                // Gets the content and event time from the fetched data
+                for (const dictionary of res.data.allClassEvents) {
+                  const keys = Object.keys(dictionary);
+                  
+                  const Content = dictionary[keys[keys.length - 3]];
+                  const Date = dictionary[keys[keys.length - 2]];
+                  const Class = dictionary[keys[keys.length - 1]];
+                  
+                  const concatenatedString = `${Class}: ${Content} - ${Date}`;
+                  
+                  allEvents.push(concatenatedString);
+              }
+
+              setEvents(allEvents);         
+              } 
+            })
+            .catch(error => {
+              console.error('Error fetching events:', error);
+          });
+
+
+
+
           } else {
             alert(res.data.Status);
           }
@@ -96,6 +154,8 @@ function Home({onLogout}) {
           console.error('Error fetching classes:', error);
         });
     }
+
+    
   }, [cookies]);
 
   return (
@@ -122,31 +182,24 @@ function Home({onLogout}) {
         <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
           <div style={{ textAlign: 'center'}}>
             <Typography variant='h3' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
-              Announcments
+              Announcements
             </Typography>
             
             <Divider></Divider>
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
-            
-                {/*Mapping each of the notecard sets retrieved from the backend to be displayed on cards*/}
-                {announcements.map((ann, index) => (
-
-                  ann ? (
-                  
-                  <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
-                      <Card variant="outlined" style={{ width: '100%', zIndex:0}}>
-                        <CardContent>
-                          <Typography style={{  fontFamily: 'Courier New' }} variant="h5" component="div">
-                            {classes[index]}: {ann}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-
+              {announcements.map((ann, index) => (
+                ann ? (
+                  <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Card variant="outlined" style={{ width: '80%', zIndex: 0 }}>
+                      <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Typography style={{ fontFamily: 'Courier New' }} variant="h5" component="div">
+                          {classes[index]}: {ann}
+                        </Typography>
+                      </CardContent>
+                    </Card>
                   </Grid>
-                  ) : (<></>)
-                 
-                ))}
-              
+                ) : (<></>)
+              ))}
             </Typography>
           </div> 
         </Box>
@@ -154,12 +207,27 @@ function Home({onLogout}) {
         <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
           <div style={{ textAlign: 'center'}}>
             <Typography variant='h4' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
-              Upcomming Meetings
+              Upcomming Events
             </Typography>
             
             <Divider></Divider>
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
-              
+                {events.map((event, index) => (
+
+                  event ? (
+
+                  <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex', justifyContent: 'center'  }}>
+                      <Card variant="outlined" style={{ width: '80%', zIndex:0}}>
+                        <CardContent>
+                          <Typography style={{  fontFamily: 'Courier New' }} variant="h5" component="div">
+                            {event}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                  </Grid>
+                  ) : (<></>)
+
+                  ))}
             </Typography>
           </div> 
         </Box>

@@ -178,6 +178,30 @@ router.post('/add_event', (req,res) =>{
 });
 
 
+router.post('/get_events_all_classes', (req,res) =>{
+
+  const Classes = req.body.classes;
+  const classIDs = []
+
+  Classes.forEach(obj => {
+    const keys = Object.keys(obj);
+    
+      classIDs.push(obj[keys[0]]);
+  })
+
+  const getAllClassEventsSQL = "SELECT Calendar.*, Classes.class_name FROM Calendar JOIN Classes ON Calendar.Cid = Classes.Cid WHERE Calendar.Cid IN (?);";
+
+  db.query(getAllClassEventsSQL, [classIDs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error getting events from sever." });
+    }
+    return res.json({ Status: "Success", allClassEvents: data });
+  });
+ 
+});
+
+
 router.post('/get_events', (req,res) =>{
 
   const getCalendarEventsSql = "Select CalID, content, day_of FROM Calendar WHERE Cid = ?";
