@@ -6,10 +6,10 @@ import HeaderBox from '../Components/HeaderBox';
 import Calendar from 'react-calendar';
 
 // technical stuff
-import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../helpers/axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 // handles theme toggle on the page
 import bg from '../Images/bg.jpg';
@@ -23,6 +23,9 @@ import '.././Components/CustomCalendarDark.css';
 
 
 function CalendarSchedule() {
+
+  const [cookies] = useCookies(['account']);
+
   const { class_id  } = useParams();
 
   const [Class, setClass] = useState();
@@ -243,6 +246,8 @@ function CalendarSchedule() {
                               </Typography>
                             </Grid>
 
+                            {cookies.account === "student" ? (<></>) : (
+
                             <Grid container paddingX="0%" justifyContent="center" display="flex" marginLeft="6%">
                               <Grid item xs={6} >
                                 <TextField 
@@ -270,6 +275,7 @@ function CalendarSchedule() {
                                 </Button>
                               </Grid>
                             </Grid>
+                            )}
 
                         </Grid>
                     )}
