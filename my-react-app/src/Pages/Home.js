@@ -232,18 +232,6 @@ function Home({onLogout}) {
           </div> 
         </Box>
 
-        <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
-          <div style={{ textAlign: 'center'}}>
-            <Typography variant='h4' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
-              New Notecard Sets
-            </Typography>
-            
-            <Divider></Divider>
-            <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
-              
-            </Typography>
-          </div> 
-        </Box>
 
         <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
           <div style={{ textAlign: 'center'}}>

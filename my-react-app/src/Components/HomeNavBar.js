@@ -151,11 +151,11 @@ function HomeNavBar() {
               </IconButton>
             )}
             <img src={ehc} onClick={() => handleNavigate('/')} alt="logo" style={{ width: '5%', marginRight: '20px', cursor: 'pointer' }} />
-            <Typography variant="h6" sx={{ flexGrow: 1 }} onClick={() => handleNavigate('/')}>
+            <Typography variant="h6" sx={{ marginRight: '5%' }} onClick={() => handleNavigate('/')}>
               Edu Hub Collaborate
             </Typography>
             {!isMobile && (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center'}}>
                 <Button onClick={() => handleNavigate('/ClassesDisplay')} sx={{ color: 'white'}}>
                   View Classes
                 </Button>
@@ -173,17 +173,19 @@ function HomeNavBar() {
                 <Button onClick={() => handleNavigate('/ReportPage')} sx={{ color: 'white'}}>
                   Report Issues/Violations
                 </Button>
-                <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-    {profileData.profilePicture ? (
-      <Avatar src={profileData.profilePicture} sx={{ width: '3vw', height: '3vw' }} />
-    ) : (
-      <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }} />
-    )}
-  </IconButton>
-                </Tooltip>
+
+            
               </Box>
             )}
+            <Tooltip title="Open settings" sx={{marginLeft: "20%"}}>
+                <IconButton onClick={handleOpenUserMenu}>
+                  {profileData.profilePicture ? (
+                    <Avatar src={profileData.profilePicture} sx={{ width: '3vw', height: '3vw'}} />
+                  ) : (
+                    <AccountCircleIcon sx={{ width: '3vw', height: '3vw'}} />
+                  )}
+                </IconButton>
+                </Tooltip>
           </Toolbar>
         </Container>
       </AppBar>
