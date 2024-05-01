@@ -24,7 +24,7 @@ function HomeNavBar() {
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   
-  const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
+  const [cokies, setCookie, removeCookie] = useCookies(['userID','account']);
   const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -33,7 +33,7 @@ function HomeNavBar() {
   const [profileData, setProfileData] = useState({ displayName: '', bio: '', profilePicture: '' });
 
   
-  const [coookies] = useCookies(['email']);
+  const [cookies] = useCookies(['email']);
 
   useEffect(() => {
     if (cookies.userID === undefined){
@@ -44,9 +44,10 @@ function HomeNavBar() {
 
 
   useEffect(() => {
-    if (coookies.email) {
-      fetch(`http://localhost:8081/getUserProfile?email=${encodeURIComponent(coookies.email)}`, {
-        credentials: 'include',
+
+    if (cookies.email) {
+      fetch(`http://localhost:8081/getUserProfile?email=${encodeURIComponent(cookies.email)}`, {
+        credentials: 'include'
       })
       .then(response => {
         if (!response.ok) {
@@ -62,7 +63,7 @@ function HomeNavBar() {
         console.error('Error fetching user profile:', error);
       });
     }
-  }, [coookies.email]);
+  }, [cookies.email]);
 
 
   const handleOpenUserMenu = (event) => {

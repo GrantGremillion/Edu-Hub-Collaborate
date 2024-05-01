@@ -33,7 +33,7 @@ app.use('/uploads', express.static('uploads'));
 
 // cors is a built in middleware to allow users to request recources
 app.use(cors({
-  origin: '*'
+  origin: '*'  
 }));
 
 // Nodemailer transporter setup
@@ -166,6 +166,8 @@ app.get('/getUserProfile', async (req, res) => {
     }
     if (results.length > 0) {
       // Assuming the 'profilePicture' field contains the path to the image
+      console.log(results[0].profilePicture);
+
       const profileData = {
         displayName: results[0].name,
         bio: results[0].bio,
