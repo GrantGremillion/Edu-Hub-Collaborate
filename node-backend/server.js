@@ -154,9 +154,9 @@ app.get('/getUserProfile', async (req, res) => {
   // Assuming you want to search in both slogin and tlogin tables.
   // Adjust SQL queries according to your schema
   const query = `
-    (SELECT displayName, bio, profilePicture FROM Slogin WHERE email = ? LIMIT 1)
+    (SELECT name, bio, profilePicture FROM Slogin WHERE email = ? LIMIT 1)
     UNION
-    (SELECT displayName, bio, profilePicture FROM Tlogin WHERE email = ? LIMIT 1);
+    (SELECT name, bio, profilePicture FROM Tlogin WHERE email = ? LIMIT 1);
   `;
 
   db.query(query, [email, email], (error, results) => {
@@ -167,7 +167,7 @@ app.get('/getUserProfile', async (req, res) => {
     if (results.length > 0) {
       // Assuming the 'profilePicture' field contains the path to the image
       const profileData = {
-        displayName: results[0].displayName,
+        displayName: results[0].name,
         bio: results[0].bio,
         profilePicture: results[0].profilePicture ? `${process.env.REACT_APP_API_URL || ''}${results[0].profilePicture}` : null
       };

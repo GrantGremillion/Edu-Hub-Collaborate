@@ -60,6 +60,15 @@ function EditProfile() {
     mb: 2, };
 
     const handleApplyChanges = async () => {
+
+        console.log(displayName);
+
+        if (displayName.length < 1 || bio.length < 1)
+        {
+            alert('Please enter a display name and or bio');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('displayName', displayName);
         formData.append('bio', bio);
