@@ -127,7 +127,7 @@ function UserProfile() {
             <Sidebar/>
             <Container sx={profileStyles.containerStyle} >
             <Box sx={profileStyles.headerBoxWrapperStyle}>
-                    <HeaderBox text={'Your User Profile'} />
+                    <HeaderBox text={'User Profile'} />
                 </Box>
                 <Paper elevation={3} sx={profileStyles.paperStyle}>
                     <Typography variant="h6">Display Name:</Typography>

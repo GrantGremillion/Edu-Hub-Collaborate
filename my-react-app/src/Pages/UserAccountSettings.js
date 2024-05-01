@@ -115,7 +115,7 @@ function UserAccountSettings({themeToggle}) {
         
             <Sidebar/>
             {/* Container and Grid organizes HeaderBox and Buttons */}
-            <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '600px', marginBottom:'75px'}} >
+            <Container maxWidth='sm' style={{ background: containerColor, marginTop: '75px', height: '500px', marginBottom:'75px'}} >
                 <Grid container spacing={5}
                     direction="column"
                     alignItems="center"
@@ -125,13 +125,6 @@ function UserAccountSettings({themeToggle}) {
                     <HeaderBox text={'Account Settings'} sx={{ maxWidth: '100%', padding: 0, margin: '0 auto' }} />
                     </Grid>
 
-
-                    {/* Creates buttons and sliders. */}
-                    <Grid item xs={1}>
-                        <Button size="small"  onClick={handleClick} style={{ color: textColor, width: '250px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
-                            Change Display Name
-                        </Button>
-                    </Grid>
 
                     <Grid item xs={2}>
                         <Button size="small"  onClick={handleChangePasswordClick} style={{ color: textColor, width: '200px', background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '0%'}} >
