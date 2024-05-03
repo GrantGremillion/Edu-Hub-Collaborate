@@ -93,7 +93,7 @@ router.post('/remove_messages', (req,res) =>{
       return res.json({ Status: "Server Side Error: error getting message ID's from a class." });
     }
 
-    const removeMessagesFromClassSql = "DELETE FROM messages WHERE Mid IN (?)";
+    const removeMessagesFromClassSql = "DELETE FROM Messages WHERE Mid IN (?)";
     if (messages.length > 0) {
       
       const Mids = messages.map(classData => classData.Mid);
