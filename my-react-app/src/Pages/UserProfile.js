@@ -148,13 +148,27 @@ function UserProfile({themeToggle}) {
                     <HeaderBox text={'User Profile'} />
                 </Box>
 
-                <Paper elevation={3} sx={profileStyles.paperStyle}>
-                    <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}} 
-                        variant="h6" 
-                        sx={{fontFamily: "Courier New", fontWeight: "bold"}}>Display Name:</Typography>
-                    <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}}
-                        sx={{fontFamily: "Courier New", fontWeight: "bold"}}>{displayName || "No display name set yet!"}</Typography>
-                </Paper>
+
+                <Grid container  direction="row" sx={{marginTop: '5%'}}>
+                    
+                    <Paper elevation={3} sx={profileStyles.paperStyle} >
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}} 
+                            variant="h6" 
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}>Display Name:</Typography>
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}}
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}>{displayName || "No display name set yet!"}</Typography>
+                    </Paper>
+
+                    <Paper elevation={3} sx={profileStyles.paperStyle}>
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}} 
+                            variant="h6" 
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}> Email:</Typography>
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}}
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}>{cookies.email}</Typography>
+                    </Paper>
+                </Grid>
+
+                
 
                 <Paper elevation={3} sx={profileStyles.paperStyle}>
                     <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}} 
