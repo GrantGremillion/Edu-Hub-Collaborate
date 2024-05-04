@@ -153,7 +153,7 @@ function CreateStudentAccount() {
           <Grid item xs={12} p="3%" >
             <Paper sx={styleProps.paperStyle} >
               <Typography variant="h5" component="h2" fontSize={37} fontFamily={'Courier New'}>
-                  Create your student account
+                  Create Your Student Account
               </Typography>
             </Paper>
           </Grid>

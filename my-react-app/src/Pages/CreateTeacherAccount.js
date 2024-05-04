@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, TextField, Typography, Divider} from '@mui/material';
+import {Button, Grid, Container, Paper, Box, TextField, Typography, Divider, useTheme} from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
@@ -22,6 +22,8 @@ import axiosInstance from '../helpers/axios';
 function CreateTeacherAccount() {
   
   const navigate = useNavigate();
+
+  const theme = useTheme();
 
   const [values, setValues] = React.useState({
     email: '',
@@ -128,60 +130,66 @@ function CreateTeacherAccount() {
 
   
   return (
-    <Box sx={{
-      backgroundImage: `url(${styleProps.background})`,
-      backgroundSize: 'cover',
-      position: 'fixed',
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      zIndex: -1,
-    }}>
+    <div>
+      <Box
+        sx={{
+          backgroundImage: `url(${styleProps.background})`,
+          backgroundSize: 'cover',
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+      />
       <PlainNavBar text='Edu Hub Collaborate' />
       <Container maxWidth="sm" sx={{
         background: styleProps.containerColor,
-        boxShadow: 3,
-        borderRadius: 2,
+        boxShadow: theme.shadows[5],
+        borderRadius: theme.shape.borderRadius, 
         minHeight: '100vh',
         flexDirection: 'column',
         justifyContent: 'center',
-        position: 'relative',
-        display: 'flex',
-        p: 3, // padding for smaller screens
+        marginTop: "3%",
+        position: "relative",
+        width: "fit-content",
+        alignItems: "center",
+        alignContent: "center",
+        display: "flex",
+        height: "fit-content"
       }}>
-        <Typography variant="h5" component="h2" sx={styleProps.paperStyle}>
-          Create your teacher account
-        </Typography>
+        <Grid item xs={12} p="3%" marginTop="5%" >
+          <Paper sx={styleProps.paperStyle} >
+            <Typography variant="h5" component="h2" fontSize={37} fontFamily={'Courier New'}>
+                Create Your Teacher Account
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} p="3%">
         <TextField
-          fullWidth
           variant="filled"
-          label="Email"
+          label="College Email"
           value={values.email}
           onChange={(e) => setValues({ ...values, email: e.target.value })}
-          sx={{
-            backgroundColor: '#fff',
-            mb: 2,
-          }}
         />
+        </Grid>
+
+        <Grid item xs={12} p="3%">
         <TextField
-          fullWidth
           variant="filled"
           label="Password"
           type="password"
           value={values.password}
           onChange={(e) => setValues({ ...values, password: e.target.value })}
-          sx={{
-            backgroundColor: '#fff',
-            mb: 2,
-          }}
         />
+        </Grid>
 
         {/* Incorporate the upload option */}
         <Grid item xs={12} md={6}>
           <Box component="section" sx={{ p: 1, mt: 3, border: '2px solid grey', textAlign: 'center' }}>
             <Typography align='center'>
-              Please designate a document as evidence of your status as an educator
+              Please designate a document as evidence of your status as an educator.
             </Typography>
             <Divider sx={{ my: 2 }} />
             <input
@@ -193,32 +201,41 @@ function CreateTeacherAccount() {
             />
           </Box>
         </Grid>
-        
-
+      
 
         <Box sx={{ width: '100%', mt: 3 }}>
           {/* TextField and Button components remain the same */}
         </Box>
         <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12}>
-            <Button fullWidth variant="contained" onClick={handleClickSubmit} sx={styleProps.buttonSx}>
+          <Grid item xs={12} p="3%" alignContent="center" alignItems="center" justifyContent="center" display="flex">
+            <Button variant="contained" onClick={handleClickSubmit} style={{ width: '200px', background: buttonColor, color: textColor}} 
+            sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
               Submit
             </Button>
           </Grid>
-          <Grid item xs={12}>
-            <Button fullWidth variant="contained" onClick={handleClickBack} sx={styleProps.buttonSx}>
+          <Grid item xs={12} p="3%" alignContent="center" alignItems="center" justifyContent="center" display="flex">
+            <Button variant="contained" onClick={handleClickSubmit} style={{ width: '100px', background: buttonColor, color: textColor}} 
+            sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
               Back
             </Button>
           </Grid>
-          <Grid container spacing={2} justifyContent="center"></Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2" onClick={handleLoginClick} sx={{ ...styleProps.textButtonSx, textAlign: 'center', width: '100%', mt: 2 }}>
+          <Grid item xs={12} p="3%" alignContent="center" alignItems="center" justifyContent="center" display="flex">
+            <Button
+              variant="text"
+              size="small"
+              onClick={handleLoginClick}
+              color='secondary'
+              sx={{
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                },
+              }}>
               Already have an account?
-            </Typography>
+            </Button>
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </div>
   );
 }
 
