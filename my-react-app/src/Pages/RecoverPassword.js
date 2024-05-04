@@ -73,7 +73,7 @@ function RecoverPassword() {
                         <TextField
                             fullWidth
                             id="email-input"
-                            label="Username / Email"
+                            label="Email"
                             variant="filled"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
