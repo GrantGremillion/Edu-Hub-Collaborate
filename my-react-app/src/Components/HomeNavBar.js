@@ -176,8 +176,8 @@ function HomeNavBar() {
             
               </Box>
             )}
-            <Tooltip title="Open settings" sx={{marginLeft: "20%"}}>
-                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+            <Tooltip title="Open settings" sx={{}}>
+                <IconButton onClick={handleOpenUserMenu} sx={{p: 0, marginLeft: '20%'}}>
                   {profileData.profilePicture ? (
                     <Avatar src={profileData.profilePicture} sx={{ width: '3vw', height: '3vw'}} />
                   ) : (
