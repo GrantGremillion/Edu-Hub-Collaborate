@@ -33,8 +33,10 @@ app.use('/uploads', express.static('uploads'));
 
 // cors is a built in middleware to allow users to request recources
 app.use(cors({
-  origin: '*'  
+  origin: 'http://localhost:3000',
+  credentials: true  // Ensures that cookies/token headers are accepted from the client
 }));
+
 
 // Nodemailer transporter setup
 
@@ -171,7 +173,7 @@ app.get('/getUserProfile', async (req, res) => {
       const profileData = {
         displayName: results[0].name,
         bio: results[0].bio,
-        profilePicture: results[0].profilePicture ? `${process.env.REACT_APP_API_URL || ''}${results[0].profilePicture}` : null
+        profilePicture: results[0].profilePicture ? `${process.env.REACT_APP_API_URL || 'http://localhost:8081'}${results[0].profilePicture}` : null
       };
       res.json(profileData);
     } else {

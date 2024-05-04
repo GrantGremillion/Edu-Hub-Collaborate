@@ -44,19 +44,16 @@ function HomeNavBar() {
 
 
   useEffect(() => {
-
     if (cookies.email) {
       fetch(`http://localhost:8081/getUserProfile?email=${encodeURIComponent(cookies.email)}`, {
         credentials: 'include'
       })
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        console.log("Received data:", data);
         setProfileData(data);
       })
       .catch(error => {
@@ -64,6 +61,7 @@ function HomeNavBar() {
       });
     }
   }, [cookies.email]);
+  
 
 
   const handleOpenUserMenu = (event) => {
@@ -179,7 +177,7 @@ function HomeNavBar() {
               </Box>
             )}
             <Tooltip title="Open settings" sx={{marginLeft: "20%"}}>
-                <IconButton onClick={handleOpenUserMenu}>
+                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                   {profileData.profilePicture ? (
                     <Avatar src={profileData.profilePicture} sx={{ width: '3vw', height: '3vw'}} />
                   ) : (
