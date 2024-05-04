@@ -53,11 +53,12 @@ function EditProfile() {
         fontFamily: 'Courier New',
         fontSize: 'large',
     };
-    const textStyle = {         fontFamily: 'Courier New', 
-    fontSize: '20px', 
-    textAlign: 'center', 
-    width: '100%',
-    mb: 2, };
+    const textStyle = {         
+        fontFamily: 'Courier New', 
+        fontSize: '20px', 
+        textAlign: 'center', 
+        width: '100%',
+        mb: 2, };
 
     const handleApplyChanges = async () => {
 
@@ -135,28 +136,56 @@ function EditProfile() {
                         <HeaderBox text={'Edit Profile'} sx={{ maxWidth: '100%' }} />
                     </Grid>
 
-                    <Grid item xs={12}>
-                        <Typography sx={textStyle}>Change Display Name:</Typography>
+                    <Grid item xs={12} >
+                        <Typography style={textStyle} sx={{ paddingBottom: "3%" }}>Change Display Name:</Typography>
                         <TextField
-                            size="large"
+                            style={{ marginLeft: "25%", width: "50%" }}
+                            sx={{ 
+                                "& .MuiOutlinedInput-root": {
+                                  "& > fieldset": { borderColor: "grey", borderWidth: "2px", borderRadius: 0 },
+                                },
+                                "& .MuiOutlinedInput-root.Mui-focused": {
+                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                },
+                                "& .MuiOutlinedInput-root:hover": {
+                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                },
+                                fontFamily: "Courier New",
+                                backgroundColor: themes.DARKMODE ? themes.darkButton : themes.normalButton, }}
+                            inputProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+                            InputLabelProps={{style : { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+                            placeholder="Enter your display name"
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
-                            fullWidth
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
-                        <Typography sx={textStyle}>Change Bio:</Typography>
+                    <Grid item xs={12} >
+                        <Typography style={textStyle} sx={{ paddingBottom: "1%" }}>Change Bio:</Typography>
                         <TextField
                             multiline
                             rows={4}
                             placeholder="Enter your bio"
                             variant="outlined"
-                            fullWidth
+                            
                             margin="normal"
                             value={bio}
                             onChange={(e) => setBio(e.target.value)}
-                            sx={{ background: 'white', fontFamily: 'Courier New' }}
+                            style={{ marginLeft: "12.5%", width: "75%" }}
+                            sx={{ 
+                                "& .MuiOutlinedInput-root": {
+                                  "& > fieldset": { borderColor: "grey", borderWidth: "2px", borderRadius: 0 },
+                                },
+                                "& .MuiOutlinedInput-root.Mui-focused": {
+                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                },
+                                "& .MuiOutlinedInput-root:hover": {
+                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                },
+                                fontFamily: "Courier New",
+                                backgroundColor: themes.DARKMODE ? themes.darkButton : themes.normalButton,}}
+                            inputProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+                            InputLabelProps={{style : { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
                         />
                     </Grid>
 

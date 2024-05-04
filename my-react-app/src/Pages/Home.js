@@ -26,13 +26,13 @@ function Home({onLogout}) {
   // checks for the theme the page is in, and applys it to these variables
   if (themes.DARKMODE) {
     var containerColor = themes.darkContainer;
-    //var buttonColor = themes.darkButton;
+    var buttonColor = themes.darkButton;
     var textColor = themes.darkText;
     var background = dark_bg;
   }
   else {
     containerColor = themes.normalContainer;
-    //buttonColor = themes.normalButton;
+    buttonColor = themes.normalButton;
     textColor = themes.normalText;
     background = bg;
   }
@@ -201,9 +201,9 @@ function Home({onLogout}) {
               {announcements.map((ann, index) => (
                 ann ? (
                   <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Card variant="outlined" style={{ width: '80%', zIndex: 0 }}>
+                    <Card variant="outlined" style={{ width: '80%', zIndex: 0, backgroundColor: buttonColor }}>
                       <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Typography style={{ fontFamily: 'Courier New' }} variant="h5" component="div">
+                        <Typography style={{ fontFamily: 'Courier New', color: textColor }} variant="h5" component="div">
                           {classes[index]}: {ann}
                         </Typography>
                       </CardContent>
@@ -229,9 +229,9 @@ function Home({onLogout}) {
                   event ? (
 
                   <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex', justifyContent: 'center'  }}>
-                      <Card variant="outlined" style={{ width: '80%', zIndex:0}}>
+                      <Card variant="outlined" style={{ width: '80%', zIndex:0, backgroundColor: buttonColor}}>
                         <CardContent>
-                          <Typography style={{  fontFamily: 'Courier New' }} variant="h5" component="div">
+                          <Typography style={{ fontFamily: 'Courier New', color: textColor }} variant="h5" component="div">
                             {event}
                           </Typography>
                         </CardContent>
