@@ -33,7 +33,7 @@ app.use('/uploads', express.static('uploads'));
 
 // cors is a built in middleware to allow users to request recources
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:80',
   credentials: true  // Ensures that cookies/token headers are accepted from the client
 }));
 
