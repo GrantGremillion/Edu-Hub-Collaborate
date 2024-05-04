@@ -16,24 +16,18 @@ function ChatInterface() {
   const { class_id } = useParams();
 
   const [Class, setClass] = useState();
-
   const [cookies] = useCookies(['account','userID']);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]); // Array to store messages
   const [timeStamps, setTimeStamps] = useState([]);
   const [files, setFiles] = useState([]);
   const [users, setUsers] = useState([]); 
-
   const [students, setStudents] = useState([]);
   const [teacher, setTeacher] = useState('');
-
   const [selectedFile, setSelectedFile] = useState(null);
 
   const scrollRef = useRef(null);
-
   const borderColor = "1px solid grey";
-
-  //const isDarkMode = themes.DARKMODE;
 
   useEffect(() => {
 
@@ -72,7 +66,6 @@ function ChatInterface() {
           setFiles(files);
 
           
-
           // Finds all users that have sent messages in the chat
           axiosInstance.post('/chat/get_message_usernames', {Cid: class_id})
           .then(res => {
@@ -125,7 +118,6 @@ function ChatInterface() {
       });
 
 
-
       // When user enters a message, this auto scrolls the chat to the bottom
       if (scrollRef.current) {
         scrollRef.current.scrollIntoView({ behaviour: "smooth" });
@@ -134,13 +126,10 @@ function ChatInterface() {
   }, [class_id, messages]);
 
 
-
-
   const handleSendMessage = async (e) => {
     e.preventDefault();
 
     if (message.trim() === '' && !selectedFile) return; // Do not send empty messages or if no file is selected
-
 
     const formData = new FormData();
     // If there's a file to be sent, call a function to handle the file upload.
@@ -275,7 +264,7 @@ function ChatInterface() {
                   <Box style={{ wordWrap: 'break-word', fontSize: '120%'}}>{msg}</Box>
 
                   { files[index] !== undefined ? 
-                  (<Paper sx={{p: '5%'}}>
+                  (<Paper variant="outlined" sx={{p: '2%'}} style={{ backgroundColor: themes.normalButton, borderColor: "grey" }}>
                   <a href="#" onClick={() => downloadFile(files[index])}>{files[index]}</a>
                   </Paper>) : (
                     <></>

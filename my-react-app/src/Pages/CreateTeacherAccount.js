@@ -185,6 +185,19 @@ function CreateTeacherAccount() {
         />
         </Grid>
 
+        <TextField
+          fullWidth
+          variant="filled"
+          label="Confirm Password"
+          type="password"
+          value={values.cpassword}
+          onChange={(e) => setValues({ ...values, cpassword: e.target.value })}
+          sx={{
+            backgroundColor: '#fff',
+            mb: 2,
+          }}
+        />
+
         {/* Incorporate the upload option */}
         <Grid item xs={12} md={6}>
           <Box component="section" sx={{ p: 1, mt: 3, border: '2px solid grey', textAlign: 'center' }}>

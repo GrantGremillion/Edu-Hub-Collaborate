@@ -7,10 +7,10 @@ const db = require('../database.cjs')
 router.post('/set', (req,res) => {
         console.log("Made it to backend.");
         console.log("Cid: " + req.body.Cid + "\ntext: " + req.body.announcement);
-        const sendMessageSql = "UPDATE classes SET announce = ? WHERE Cid = ?";
+        const sendMessageSql = "UPDATE Classes SET announce = ? WHERE Cid = ?";
     
         db.query(sendMessageSql, [req.body.announcement, req.body.Cid], (err) => {
-  
+            
         if (err) {
             console.log(err);
             return res.status(500).json({ error: err.message });

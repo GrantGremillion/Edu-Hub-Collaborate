@@ -93,7 +93,7 @@ router.post('/remove_messages', (req,res) =>{
       return res.json({ Status: "Server Side Error: error getting message ID's from a class." });
     }
 
-    const removeMessagesFromClassSql = "DELETE FROM messages WHERE Mid IN (?)";
+    const removeMessagesFromClassSql = "DELETE FROM Messages WHERE Mid IN (?)";
     if (messages.length > 0) {
       
       const Mids = messages.map(classData => classData.Mid);
@@ -174,6 +174,43 @@ router.post('/add_event', (req,res) =>{
       return res.json({ Status: "Server Side Error: error adding a new event to calendar." });
     }
     return res.json({ Status: "Success" });
+  });
+});
+
+
+router.post('/get_events_all_classes', (req,res) =>{
+
+  const Classes = req.body.classes;
+  const classIDs = []
+
+  Classes.forEach(obj => {
+    const keys = Object.keys(obj);
+    
+      classIDs.push(obj[keys[0]]);
+  })
+
+  const getAllClassEventsSQL = "SELECT Calendar.*, Classes.class_name FROM Calendar JOIN Classes ON Calendar.Cid = Classes.Cid WHERE Calendar.Cid IN (?);";
+
+  db.query(getAllClassEventsSQL, [classIDs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error getting events from sever." });
+    }
+    return res.json({ Status: "Success", allClassEvents: data });
+  });
+ 
+});
+
+
+router.post('/get_events', (req,res) =>{
+
+  const getCalendarEventsSql = "Select CalID, content, day_of FROM Calendar WHERE Cid = ?";
+  db.query(getCalendarEventsSql, [req.body.Cid, req.body.content, req.body.date], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json({ Status: "Server Side Error: error getting events from sever." });
+    }
+    return res.json({ Status: "Success", classEvents: data });
   });
 });
 

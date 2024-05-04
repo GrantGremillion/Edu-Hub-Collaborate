@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // importing all web pages
 import AccountSelection from './Pages/AccountSelection';
 import UserProfile from './Pages/UserProfile';
-import UserAccountSettings from './Pages/UserAccountSettings';
 import CreateStudentAccount from './Pages/CreateStudentAccount';
 import Login from './Pages/Login';
 import RecoverPassword from './Pages/RecoverPassword'; 
@@ -37,7 +36,7 @@ import * as themes from './Config';
 // Root Component for React App
 function App() {
   const [cookies, setCookie] = useCookies(["userID","account","email"]);
-  const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
+  const [getTheme, setTheme] = useCookies(["theme"]);
 
   // declares a cookie for the theme and handles the case when the user has
   // not set their preference yet.
@@ -63,7 +62,7 @@ function App() {
     setCookie('userID', Cookies['userID'], { path: '/' });
     
 
-
+    // handles if the user hasn't set a preference yet
     if (themeVal == null) {
       setTheme("theme", false, {path: '/'});
     }
@@ -97,9 +96,8 @@ function App() {
 
             {/* All Routes for user info pages */}
             {/* If someone were to add the path below to their url, they would be redirected to the UserProfile page */}
-            <Route path="/UserProfile" element={isCookieSet ? <UserProfile /> : <Login onLogin={handleLogin}/>} />
+            <Route path="/UserProfile" element={isCookieSet ? <UserProfile themeToggle={handleTheme}/> : <Login onLogin={handleLogin}/>} />
             <Route path="/EditProfile" element={<EditProfile/>}/>
-            <Route path="/UserAccountSettings" element={isCookieSet ? <UserAccountSettings themeToggle={handleTheme} /> : <Login onLogin={handleLogin}/>} />
             <Route path="ChangePassword" element={<ChangePassword/>}/>
 
             {/* All Routes for Classes */ }

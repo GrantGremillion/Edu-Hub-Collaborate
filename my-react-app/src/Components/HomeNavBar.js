@@ -24,7 +24,7 @@ function HomeNavBar() {
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   
-  const [cookies, setCookie, removeCookie] = useCookies(['userID','account']);
+  const [cokies, setCookie, removeCookie] = useCookies(['userID','account']);
   const [getTheme, setTheme, removeTheme] = useCookies(["theme"]);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -33,7 +33,7 @@ function HomeNavBar() {
   const [profileData, setProfileData] = useState({ displayName: '', bio: '', profilePicture: '' });
 
   
-  const [coookies] = useCookies(['email']);
+  const [cookies] = useCookies(['email']);
 
   useEffect(() => {
     if (cookies.userID === undefined){
@@ -44,25 +44,24 @@ function HomeNavBar() {
 
 
   useEffect(() => {
-    if (coookies.email) {
-      fetch(`http://localhost:8081/getUserProfile?email=${encodeURIComponent(coookies.email)}`, {
-        credentials: 'include',
+    if (cookies.email) {
+      fetch(`http://localhost:8081/getUserProfile?email=${encodeURIComponent(cookies.email)}`, {
+        credentials: 'include'
       })
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        console.log("Received data:", data);
         setProfileData(data);
       })
       .catch(error => {
         console.error('Error fetching user profile:', error);
       });
     }
-  }, [coookies.email]);
+  }, [cookies.email]);
+  
 
 
   const handleOpenUserMenu = (event) => {
@@ -151,12 +150,12 @@ function HomeNavBar() {
               </IconButton>
             )}
             <img src={ehc} onClick={() => handleNavigate('/')} alt="logo" style={{ width: '5%', marginRight: '20px', cursor: 'pointer' }} />
-            <Typography variant="h6" sx={{ flexGrow: 1 }} onClick={() => handleNavigate('/')}>
+            <Typography variant="h6" sx={{ marginRight: '5%' }} onClick={() => handleNavigate('/')}>
               Edu Hub Collaborate
             </Typography>
             {!isMobile && (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button onClick={() => handleNavigate('/ClassesDisplay')} sx={{ color: 'white' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                <Button onClick={() => handleNavigate('/ClassesDisplay')} sx={{ color: 'white'}}>
                   View Classes
                 </Button>
                 <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
@@ -170,20 +169,22 @@ function HomeNavBar() {
                   </Button>
                 )}
                 <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
-                <Button onClick={() => handleNavigate('/ReportPage')} sx={{ color: 'white' }}>
+                <Button onClick={() => handleNavigate('/ReportPage')} sx={{ color: 'white'}}>
                   Report Issues/Violations
                 </Button>
-                <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-    {profileData.profilePicture ? (
-      <Avatar src={profileData.profilePicture} sx={{ width: '3vw', height: '3vw' }} />
-    ) : (
-      <AccountCircleIcon sx={{ width: '3vw', height: '3vw' }} />
-    )}
-  </IconButton>
-                </Tooltip>
+
+            
               </Box>
             )}
+            <Tooltip title="Open settings" sx={{}}>
+                <IconButton onClick={handleOpenUserMenu} sx={{p: 0, marginLeft: '20%'}}>
+                  {profileData.profilePicture ? (
+                    <Avatar src={profileData.profilePicture} sx={{ width: '3vw', height: '3vw'}} />
+                  ) : (
+                    <AccountCircleIcon sx={{ width: '3vw', height: '3vw'}} />
+                  )}
+                </IconButton>
+                </Tooltip>
           </Toolbar>
         </Container>
       </AppBar>

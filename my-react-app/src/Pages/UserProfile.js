@@ -6,19 +6,35 @@ import Sidebar from '../Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
 import bg from '../Images/bg.jpg';
 import dark_bg from '../Images/dark_bg.jpg';
-import * as themes from '../Config';
 import { useCookies } from "react-cookie";
 import { useTheme } from '@mui/material/styles';
 
+import * as themes from '.././Config';
+import darkModeImg from './dark.png';
+import lightModeImg from './light.png';
 
-function UserProfile() {
+function UserProfile({themeToggle}) {
     const navigate = useNavigate();
-    const [cookies] = useCookies(['email']);
+    // fetches the user set dark theme preference and email
+    const [cookies] = useCookies(['email', 'theme']);
     const [displayName, setDisplayName] = useState('');
     const [bio, setBio] = useState('');
-    const isDarkMode = themes.DARKMODE;
+    //const isDarkMode = themes.DARKMODE;
     const theme = useTheme();
+
+    const [isDarkMode, setIsDarkMode] = useState(cookies.theme);
     
+    const handleThemeToggle = () => {
+        setIsDarkMode(!isDarkMode);
+        themeToggle(!isDarkMode);
+        themes.DarkmodeToggle(!isDarkMode);
+        //setCheck(!isDarkMode);
+        // Here you would also include any logic to actually change the theme.
+    };
+
+    const handleChangePasswordClick = () => {
+        navigate('/ChangePassword');
+    }
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -60,7 +76,7 @@ function UserProfile() {
 
     const profileStyles = {
         backgroundStyle: {
-            backgroundImage: `url(${isDarkMode ? dark_bg : bg})`,
+            backgroundImage: `url(${themes.DARKMODE ? dark_bg : bg})`,
             backgroundSize: "cover",
             position: 'fixed',
             top: 0,
@@ -92,15 +108,17 @@ function UserProfile() {
               },
         paperStyle: {
             padding: '16px',
-            width: '100%', // Use full width to maintain consistent size
+            width: '50%', // Use full width to maintain consistent size
             marginBottom: theme.spacing(5),
-            backgroundColor: isDarkMode ? '#424242' : '#fff'
+            backgroundColor: isDarkMode ? themes.darkButton : themes.normalButton,
         },
         buttonStyle: {
             margin: '12px 0',
-            width: '100%',
+            width: 'fit-content',
             color: isDarkMode ? themes.darkText : themes.normalText,
             background: isDarkMode ? themes.darkButton : themes.normalButton,
+            fontFamily: "Courier New",
+            fontSize: "large",
         },
         headerBoxWrapperStyle: {
             width: 'auto', // The HeaderBox should take up the full width of its parent
@@ -126,17 +144,40 @@ function UserProfile() {
         />
             <Sidebar/>
             <Container sx={profileStyles.containerStyle} >
-            <Box sx={profileStyles.headerBoxWrapperStyle}>
-                    <HeaderBox text={'Your User Profile'} />
+                <Box sx={profileStyles.headerBoxWrapperStyle}>
+                    <HeaderBox text={'User Profile'} />
                 </Box>
+
+
+                <Grid container  direction="row" sx={{marginTop: '5%'}}>
+                    
+                    <Paper elevation={3} sx={profileStyles.paperStyle} >
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}} 
+                            variant="h6" 
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}>Display Name:</Typography>
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}}
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}>{displayName || "No display name set yet!"}</Typography>
+                    </Paper>
+
+                    <Paper elevation={3} sx={profileStyles.paperStyle}>
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}} 
+                            variant="h6" 
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}> Email:</Typography>
+                        <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}}
+                            sx={{fontFamily: "Courier New", fontWeight: "bold"}}>{cookies.email}</Typography>
+                    </Paper>
+                </Grid>
+
+                
+
                 <Paper elevation={3} sx={profileStyles.paperStyle}>
-                    <Typography variant="h6">Display Name:</Typography>
-                    <Typography>{displayName || "Not Available"}</Typography>
+                    <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}} 
+                        variant="h6"
+                        sx={{fontFamily: "Courier New", fontWeight: "bold"}}>Bio:</Typography>
+                    <Typography style={{color: themes.DARKMODE ? themes.darkText : themes.normalText}}
+                        sx={{fontFamily: "Courier New", fontWeight: "bold"}} >{bio || "No bio set yet!"}</Typography>
                 </Paper>
-                <Paper elevation={3} sx={profileStyles.paperStyle}>
-                    <Typography variant="h6">Bio:</Typography>
-                    <Typography>{bio || "Not Available"}</Typography>
-                </Paper>
+
                 <Button 
                     variant="contained" 
                     onClick={handleEditProfileClick} 
@@ -144,13 +185,53 @@ function UserProfile() {
                 >
                     Edit Profile
                 </Button>
-                <Button 
-                    variant="contained" 
-                    onClick={handleAccountSettingsClick} 
-                    sx={profileStyles.buttonStyle}
-                >
-                    Account Settings
-                </Button>
+
+                <Grid item xs={2}>
+                    <Button size="small"  onClick={handleChangePasswordClick} 
+                    style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText, 
+                        width: '200px', 
+                        background: themes.DARKMODE ? themes.darkButton : themes.normalButton}} 
+                    sx={{fontFamily: 'Courier New', 
+                        fontSize: 'large', 
+                        marginTop: '5%'}} >
+                        Change Password
+                    </Button>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Box
+                        sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: "12.5%",
+                        bgcolor: isDarkMode ? themes.darkButton : themes.normalButton,
+                        color: 'primary.white',
+                        p: 1,
+                        borderRadius: 1,
+                        cursor: 'pointer', // To show it's clickable
+                        }}
+                        onClick={handleThemeToggle}
+                    >
+                        <img
+                        src={isDarkMode ? darkModeImg : lightModeImg}
+                        alt="Toggle Theme"
+                        style={{ maxWidth: '30px', maxHeight: '30px' }} // adjust size as needed
+                        />
+                        <Typography 
+                        variant="subtitle1" 
+                        sx={{
+                            ml: 1, // margin left
+                            color: isDarkMode ? themes.darkText : themes.normalText,
+                            fontFamily: 'Courier New',
+                            fontSize: "large"
+                        }}
+                        >
+                        CHANGE THEME
+                        </Typography>
+                    </Box>
+                </Grid>
+
             </Container>
         </Box>
     );

@@ -23,8 +23,8 @@ router.post('/edit-profile', upload.single('profilePicture'), async (req, res) =
 
   // Try updating both student and teacher tables
   const queries = [
-    `UPDATE Slogin SET displayName = ?, bio = ?, profilePicture = ? WHERE email = ?`,
-    `UPDATE Tlogin SET displayName = ?, bio = ?, profilePicture = ? WHERE email = ?`
+    `UPDATE Slogin SET name = ?, bio = ?, profilePicture = ? WHERE email = ?`,
+    `UPDATE Tlogin SET name = ?, bio = ?, profilePicture = ? WHERE email = ?`
   ];
 
   try {

@@ -4,7 +4,6 @@ import {Container, Box, Divider, Grid, Button, Typography} from '@mui/material';
 import bg from '../Images/bg.jpg'; // Assuming this is your background image
 import Sidebar from '../Components/Sidebar';
 import HeaderBox from '../Components/HeaderBox';
-import TClassOptions from '../Pages/TClassOptions';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
@@ -87,6 +86,10 @@ function SClassOptions() {
   const handleClassNotecardsClick = (e) => {
     e.preventDefault();
     navigate(`/ClassNotecards/${class_id}`);
+  }
+
+  const GoToCalendar = () => {
+    navigate(`/CalendarSchedule/${class_id}`);
   }
 
   //Darkmode Theme
@@ -175,15 +178,22 @@ return (
           </Grid> 
 
           <Grid item xs={2}>
-              <Button variant="contained" size="large"  onClick={handleClassNotecardsClick} style=
-              {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%', marginBottom: '0%'}}>
-                Class Notecards
-              </Button>
-            </Grid>
+            <Button variant="contained" size="large"  onClick={handleClassNotecardsClick} style=
+            {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '-65%', marginBottom: '0%'}}>
+              Class Notecards
+            </Button>
+          </Grid>
+
+          <Grid item xs={2}>
+            <Button variant="contained" size="large"  onClick={GoToCalendar} style=
+            {{ width: '220px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: "-61.5%", marginLeft: '65%', marginBottom: '0%'}}>
+              Class Calendar
+            </Button>
+          </Grid>
 
           <Grid item xs={2}>
             <Button variant="contained" size="small"  onClick={handleLeaveClick}  style=
-            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginTop: '15%', marginLeft: '0%'}}>
+            {{ width: '200px', color: textColor, background: buttonColor}} sx={{fontFamily: 'Courier New', fontSize: 'large', marginLeft: '0%'}}>
               Leave Class
             </Button>
           </Grid>
