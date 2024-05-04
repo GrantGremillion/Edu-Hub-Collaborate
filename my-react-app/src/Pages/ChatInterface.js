@@ -302,27 +302,35 @@ function ChatInterface() {
               InputLabelProps={{style : { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
               
             />
-            <Button fullWidth variant="contained" style={{ 
-              color: themes.DARKMODE ? themes.darkText : themes.normalText,
-              background: themes.DARKMODE ? themes.darkButton : themes.normalButton }} 
-              onClick={handleSendMessage}>
-              Send Message
-            </Button>
-            <input
-              style={{ display: 'none' }}
-              id="raised-button-file"
-              multiple
-              type="file"
-              onChange={handleFileSelect}
-            />
-            <label htmlFor="raised-button-file">
-              <Button variant="contained" component="span" sx={{ 
-                color: themes.DARKMODE ? themes.darkText : themes.normalText,
-                background: themes.DARKMODE ? themes.darkButton : themes.normalButton,
-                marginY: 2 }}>
-                Upload A File
-              </Button>
-            </label>
+
+            <Grid container direction='row'>
+              <Grid item>
+                <Button variant="contained" style={{ 
+                  color: themes.DARKMODE ? themes.darkText : themes.normalText, width: '200%',
+                  background: themes.DARKMODE ? themes.darkButton : themes.normalButton }} 
+                  onClick={handleSendMessage}>
+                  Send Message
+                </Button>
+              </Grid>
+              <Grid item>
+              <input
+                style={{ display: 'none' }}
+                id="raised-button-file"
+                multiple
+                type="file"
+                onChange={handleFileSelect}
+              />
+              
+              <label htmlFor="raised-button-file">
+                <Button variant="contained" component="span" sx={{ 
+                  color: themes.DARKMODE ? themes.darkText : themes.normalText, marginLeft: '125%', width: '125%',
+                  background: themes.DARKMODE ? themes.darkButton : themes.normalButton
+                  }}>
+                  Upload A File
+                </Button>
+              </label>
+              </Grid>
+            </Grid>
             {selectedFile && <Box mt={2}>File: {selectedFile.name}</Box>}
 
           </Container>
