@@ -179,6 +179,15 @@ function Home({onLogout}) {
 
       {/* Container that will hold all home page components */}
       <Container fixed>
+
+        {classes.length < 1 ? (
+        <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
+          <div style={{ textAlign: 'center'}}>
+            <Typography variant='h5' style={{ fontFamily: 'Courier New', paddingTop: '5%', paddingBottom:'5%' }}>Welcome to Edu Hub Collaborate! <br></br> Ask your teacher for the class access key to get started.
+            </Typography>
+          </div>
+        </Box>):(<></>)}
+
         <Box sx={{height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor}} >
           <div style={{ textAlign: 'center'}}>
             <Typography variant='h3' gutterBottom sx={{fontFamily: 'Courier New', paddingTop: '3%', color: textColor}}>
@@ -186,6 +195,8 @@ function Home({onLogout}) {
             </Typography>
             
             <Divider></Divider>
+            { announcements.length > 0 ? (<></>) : (<Typography style={{ fontFamily: 'Courier New', paddingTop: '5%' }}>Your teachers have not posted any announcements</Typography>)}
+
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
               {announcements.map((ann, index) => (
                 ann ? (
@@ -211,6 +222,7 @@ function Home({onLogout}) {
             </Typography>
             
             <Divider></Divider>
+            { events.length > 0 ? (<></>) : (<Typography style={{ fontFamily: 'Courier New', paddingTop: '5%' }}>No events have been scheduled</Typography>)}
             <Typography sx={{fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor}}>
                 {events.map((event, index) => (
 
