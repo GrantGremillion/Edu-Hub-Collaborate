@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Grid, Container, Box, Typography, Divider, useTheme } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import PlainNavBar from '../Components/PlainNavBar';
+import SideBar from '../Components/Sidebar';
 import bg from '../Images/bg.jpg';
 import dark_bg from '../Images/dark_bg.jpg';
 import { useNavigate } from 'react-router-dom';
@@ -75,7 +76,8 @@ function ReportPage() {
 
     return (
         <div>
-            <PlainNavBar text='Edu Hub Collaborate' />
+            
+            <SideBar/>
             <Box sx={backgroundStyles} />
             <Container maxWidth="sm" sx={containerStyles}>
                 <Grid container spacing={3} style={{ alignItems: "center", alignContent: "center", justifyContent: "center", display: "flex", }}>
