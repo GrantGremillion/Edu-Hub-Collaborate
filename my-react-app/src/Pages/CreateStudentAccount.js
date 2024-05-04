@@ -135,7 +135,7 @@ function CreateStudentAccount() {
         }}
       />
       <PlainNavBar text='Edu Hub Collaborate' />
-      <Container maxWidth="sm"  sx={{
+      <Container maxWidth="sm" sx={{
         background: styleProps.containerColor,
         boxShadow: theme.shadows[5],
         borderRadius: theme.shape.borderRadius, 

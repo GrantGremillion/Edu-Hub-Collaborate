@@ -184,19 +184,15 @@ function CreateTeacherAccount() {
           onChange={(e) => setValues({ ...values, password: e.target.value })}
         />
         </Grid>
-
-        <TextField
-          fullWidth
-          variant="filled"
-          label="Confirm Password"
-          type="password"
-          value={values.cpassword}
-          onChange={(e) => setValues({ ...values, cpassword: e.target.value })}
-          sx={{
-            backgroundColor: '#fff',
-            mb: 2,
-          }}
-        />
+        <Grid item xs={12} p="3%">
+          <TextField
+            variant="filled"
+            label="Confirm Password"
+            type="password"
+            value={values.cpassword}
+            onChange={(e) => setValues({ ...values, cpassword: e.target.value })}
+          />
+        </Grid>
 
         {/* Incorporate the upload option */}
         <Grid item xs={12} md={6}>
@@ -227,7 +223,7 @@ function CreateTeacherAccount() {
             </Button>
           </Grid>
           <Grid item xs={12} p="3%" alignContent="center" alignItems="center" justifyContent="center" display="flex">
-            <Button variant="contained" onClick={handleClickSubmit} style={{ width: '100px', background: buttonColor, color: textColor}} 
+            <Button variant="contained" onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor}} 
             sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
               Back
             </Button>
