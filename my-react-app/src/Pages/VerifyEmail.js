@@ -164,7 +164,7 @@ function VerifyEmail() {
           </Grid>
 
           <Grid item xs={1}>
-            <TextField id="filled-basic" label="Confirm Password" variant="filled" value={cpassword} onChange={(e) => setCHP(e.target.value)}
+            <TextField id="filled-basic" label="Confirm Password" type="password" variant="filled" value={cpassword} onChange={(e) => setCHP(e.target.value)}
             />
           </Grid>
   
