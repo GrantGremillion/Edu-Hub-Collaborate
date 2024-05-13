@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 // background images
 import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
+import bg_img_left from '.././Images/bg_img_left.jpg'
 
 // dark theme functionality
 import * as themes from '.././Config';
@@ -25,15 +26,6 @@ function CreateStudentAccount() {
   const theme = useTheme();
 
   const customGreenColor = '#009688';
-
-  /*
-  const [values, setValues] = React.useState({
-    cpassword: ''
-  })*/
-          // <Grid item xs={1}>
-          // <TextField id="filled-basic" label="Confirm password" variant="filled" type="password" 
-          //  onChange={e => setValues({...values,cpassword:e.target.value})}/>
-          //</Grid>
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -135,7 +127,14 @@ function CreateStudentAccount() {
         }}
       />
       <PlainNavBar text='Edu Hub Collaborate' />
-      <Container maxWidth='sm' style={{ background: styleProps.containerColor, marginTop: '5%', height: '650px', marginBottom:'75px'}} >
+      
+      <Grid container direction="row" alignItems="center"
+            justifyContent="center">
+        <Grid item >
+          <img src={bg_img_left} alt="bubbles"/>
+        </Grid>
+        <Grid item sx={{marginTop: '5%', width: '50%'}}>
+        <Container maxWidth='sm' style={{ background: styleProps.containerColor, height: '650px', marginBottom:'75px'}} >
         <Grid container spacing={5}
             direction="column"
             alignItems="center"
@@ -198,6 +197,13 @@ function CreateStudentAccount() {
           </Grid>
         </Grid>
       </Container>
+        </Grid>
+
+        <Grid item>
+          <img src={bg_img_left} alt="bubbles"/>
+        </Grid>
+        
+      </Grid>
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 // background image
 import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
+import bg_img_left from '.././Images/bg_img_left.jpg'
 
 // dark theme functionality
 import * as themes from '.././Config';
@@ -144,92 +145,103 @@ function CreateTeacherAccount() {
         }}
       />
       <PlainNavBar text='Edu Hub Collaborate' />
-      <Container maxWidth='sm' style={{ background: styleProps.containerColor, marginTop: '5%', height: '950px', marginBottom:'75px'}} >
-        <Grid container spacing={5}
-            direction="column"
-            alignItems="center"
-            justifyContent="center">
-        <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%'}}>
-            <HeaderBox text={'Create Teacher Account'}></HeaderBox>
-        </Grid>
-        <Grid item xs={12}>
-        <TextField
-          variant="filled"
-          label="College Email"
-          value={values.email}
-          onChange={(e) => setValues({ ...values, email: e.target.value })}
-        />
-        </Grid>
-
-        <Grid item xs={12}>
-        <TextField
-          variant="filled"
-          label="Password"
-          type="password"
-          value={values.password}
-          onChange={(e) => setValues({ ...values, password: e.target.value })}
-        />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="filled"
-            label="Confirm Password"
-            type="password"
-            value={values.cpassword}
-            onChange={(e) => setValues({ ...values, cpassword: e.target.value })}
-          />
-        </Grid>
-
-        {/* Incorporate the upload option */}
-        <Grid item xs={12} md={6}>
-          <Box component="section" sx={{ p: 1, mt: 3, border: '2px solid grey', textAlign: 'center' }}>
-            <Typography align='center'>
-              Please designate a document as evidence of your status as an educator.
-            </Typography>
-            <Divider sx={{ my: 2 }} />
-            <input
-              filename={file}
-              onChange={e => setFile(e.target.files[0])}
-              type="file"
-              accept="image/*"
-              style={{ display: 'block', margin: 'auto' }}
-            />
-          </Box>
-        </Grid>
       
 
-        <Box sx={{ width: '100%', mt: 3 }}>
-          {/* TextField and Button components remain the same */}
-        </Box>
-        
-          <Grid item xs={12} alignContent="center" alignItems="center" justifyContent="center" display="flex">
-            <Button variant="contained" onClick={handleClickSubmit} style={{ width: '200px', background: buttonColor, color: textColor}} 
-            sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
-              Submit
-            </Button>
-          </Grid>
-          <Grid item xs={12} alignContent="center" alignItems="center" justifyContent="center" display="flex">
-            <Button variant="contained" onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor}} 
-            sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
-              Back
-            </Button>
-          </Grid>
-          <Grid item xs={12} alignContent="center" alignItems="center" justifyContent="center" display="flex">
-            <Button
-              variant="text"
-              size="small"
-              onClick={handleLoginClick}
-              color='secondary'
-              sx={{
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                },
-              }}>
-              Already have an account?
-            </Button>
-          </Grid>
+    
+      <Grid container direction="row" alignItems="center"
+            justifyContent="center">
+        <Grid item >
+          <img src={bg_img_left} alt="bubbles"/>
         </Grid>
-      </Container>
+        <Grid item sx={{marginTop: '5%', width: '50%'}}>
+          <Container maxWidth='sm' style={{ background: styleProps.containerColor, height: '950px', marginBottom:'75px'}} >
+          <Grid container spacing={5}
+              direction="column"
+              alignItems="center"
+              justifyContent="center">
+          <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%'}}>
+              <HeaderBox text={'Create Teacher Account'}></HeaderBox>
+          </Grid>
+          <Grid item xs={12}>
+          <TextField
+            variant="filled"
+            label="College Email"
+            value={values.email}
+            onChange={(e) => setValues({ ...values, email: e.target.value })}
+          />
+          </Grid>
+
+          <Grid item xs={12}>
+          <TextField
+            variant="filled"
+            label="Password"
+            type="password"
+            value={values.password}
+            onChange={(e) => setValues({ ...values, password: e.target.value })}
+          />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="filled"
+              label="Confirm Password"
+              type="password"
+              value={values.cpassword}
+              onChange={(e) => setValues({ ...values, cpassword: e.target.value })}
+            />
+          </Grid>
+
+          {/* Incorporate the upload option */}
+          <Grid item xs={12} md={6}>
+            <Box component="section" sx={{ p: 1, mt: 3, border: '2px solid grey', textAlign: 'center' }}>
+              <Typography align='center'>
+                Please designate a document as evidence of your status as an educator.
+              </Typography>
+              <Divider sx={{ my: 2 }} />
+              <input
+                filename={file}
+                onChange={e => setFile(e.target.files[0])}
+                type="file"
+                accept="image/*"
+                style={{ display: 'block', margin: 'auto' }}
+              />
+            </Box>
+          </Grid>
+         
+            <Grid item xs={12} alignContent="center" alignItems="center" justifyContent="center" display="flex">
+              <Button variant="contained" onClick={handleClickSubmit} style={{ width: '200px', background: buttonColor, color: textColor}} 
+              sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
+                Submit
+              </Button>
+            </Grid>
+            <Grid item xs={12} alignContent="center" alignItems="center" justifyContent="center" display="flex">
+              <Button variant="contained" onClick={handleClickBack} style={{ width: '100px', background: buttonColor, color: textColor}} 
+              sx={{fontFamily: 'Courier New', fontSize: 'large'}}>
+                Back
+              </Button>
+            </Grid>
+            <Grid item xs={12} alignContent="center" alignItems="center" justifyContent="center" display="flex">
+              <Button
+                variant="text"
+                size="small"
+                onClick={handleLoginClick}
+                color='secondary'
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                  },
+                }}>
+                Already have an account?
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+        </Grid>
+
+        <Grid item>
+          <img src={bg_img_left} alt="bubbles"/>
+        </Grid>
+        
+      </Grid>
     </div>
   );
 }

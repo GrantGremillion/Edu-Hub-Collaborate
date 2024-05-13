@@ -206,7 +206,7 @@ function CreateNotecards() {
                                 <Divider sx={{p: '5%', marginBottom: '8%'}}></Divider>
                                 
                                 <Typography sx={{ fontSize: 20 }} gutterBottom>
-                                Defenition:
+                                Definition:
                                 </Typography>
                                 <Typography variant="body2">
                                 <TextField id="filled-multiline-static"

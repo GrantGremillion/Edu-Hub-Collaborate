@@ -15,8 +15,9 @@ import { useState } from 'react';
 
 // Assuming the use of the same background image
 import bg from '.././Images/bg.jpg';
-// Used to make http requests from the browser
+import bg_img_left from '.././Images/bg_img_left.jpg'
 
+// Used to make http requests from the browser
 import axiosInstance from '../helpers/axios';
 
 // used to handle user toggled dark mode
@@ -139,7 +140,13 @@ function Login({onLogin}) {
         }}
       ></Box>
 
-        <Container maxWidth='sm' style={{ background: containerColor, marginTop: '5%', height: '650px', marginBottom:'75px'}} >
+        <Grid container direction="row" alignItems="center"
+            justifyContent="center">
+        <Grid item >
+          <img src={bg_img_left} alt="bubbles"/>
+        </Grid>
+        <Grid item sx={{marginTop: '5%', width: '50%'}}>
+        <Container maxWidth='sm' style={{ background: containerColor, height: '650px', marginBottom:'75px'}} >
           <Grid container spacing={5}
               direction="column"
               alignItems="center"
@@ -213,6 +220,13 @@ function Login({onLogin}) {
             </Grid>
           
         </Container>
+        </Grid>
+
+        <Grid item>
+          <img src={bg_img_left} alt="bubbles"/>
+        </Grid>
+        
+      </Grid>
     </div>
 
   );
