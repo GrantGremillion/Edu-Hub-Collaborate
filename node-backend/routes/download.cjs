@@ -7,7 +7,7 @@ const fs = require('fs');
 // API to handle client file download from class chat
 router.get('/downloadFile/:filename', (req, res) => {
     const filename = req.params.filename;
-    const filePath = path.join(process.env.UPLOAD_FILE_PATH_CHAT_FILES , filename); 
+    const filePath = path.join(process.env.UPLOAD_FILE_PATH_CHAT_FILES, filename);
 
     // Downloads the file for given filePath and filename
     res.download(filePath, filename, (err) => {

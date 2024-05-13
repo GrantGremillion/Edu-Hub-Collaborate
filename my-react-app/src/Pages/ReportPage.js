@@ -8,13 +8,13 @@ import dark_bg from '../Images/dark_bg.jpg';
 import { useNavigate } from 'react-router-dom';
 
 // Ensure you have a Config.js file that exports DARKMODE, darkContainer, etc.
-import * as themes from '../Config'; 
+import * as themes from '../Config';
 
 function ReportPage() {
     const theme = useTheme();
     const navigate = useNavigate();
     const isDarkMode = themes.DARKMODE; // Assuming this is a boolean you set elsewhere
-    
+
     // Function to handle navigation
     const handleClick = () => {
         navigate("/Home");
@@ -31,17 +31,17 @@ function ReportPage() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        '& .MuiTypography-root': { 
-            fontFamily: 'Courier New', 
-            fontSize: 'large', 
-            textAlign: 'center', 
+        '& .MuiTypography-root': {
+            fontFamily: 'Courier New',
+            fontSize: 'large',
+            textAlign: 'center',
             marginBottom: theme.spacing(2),
         },
-        '& .MuiButton-root': { 
-            color: isDarkMode ? themes.darkText : themes.normalText, 
+        '& .MuiButton-root': {
+            color: isDarkMode ? themes.darkText : themes.normalText,
             background: isDarkMode ? themes.darkButton : themes.normalButton,
-            fontFamily: 'Courier New', 
-            fontSize: 'large', 
+            fontFamily: 'Courier New',
+            fontSize: 'large',
             marginTop: theme.spacing(2),
         },
         [theme.breakpoints.down('sm')]: {
@@ -67,7 +67,7 @@ function ReportPage() {
         wordBreak: 'break-word',
         textAlign: 'center',
         fontSize: '2rem', // base size for larger screens
-        
+
         backgroundColor: themes.darkButton,
         color: theme.palette.getContrastText(themes.darkButton),
         padding: theme.spacing(2),
@@ -76,14 +76,14 @@ function ReportPage() {
 
     return (
         <div>
-            
-            <SideBar/>
+
+            <SideBar />
             <Box sx={backgroundStyles} />
             <Container maxWidth="sm" sx={containerStyles}>
                 <Grid container spacing={3} style={{ alignItems: "center", alignContent: "center", justifyContent: "center", display: "flex", }}>
                     <Grid item xs={12}>
                         {/* Use Typography directly for responsive text */}
-                        <Typography style={ headerStyles }>
+                        <Typography style={headerStyles}>
                             Report an Issue or Violation
                         </Typography>
                     </Grid>
@@ -97,7 +97,7 @@ function ReportPage() {
                             Since different schools have different Academic Honesty statements and requirements of their students, it is not realistically within our power to police potential cheating or Academic Dishonesty. Please contact your teacher if you suspect cheating is taking place.
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} style={{ alignItems: "center", alignContent: "center", justifyContent: "center", display: "flex", marginTop: "-5%"}}>
+                    <Grid item xs={12} style={{ alignItems: "center", alignContent: "center", justifyContent: "center", display: "flex", marginTop: "-5%" }}>
                         {/* Button to navigate back to home */}
                         <Button onClick={handleClick} sx={{ fontFamily: 'Courier New', fontSize: 'large', width: 'fit-content', paddingX: "3%" }}>
                             Return to Home

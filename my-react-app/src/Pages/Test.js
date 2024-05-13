@@ -8,7 +8,7 @@ function App() {
 
   const client = ZoomMtgEmbedded.createClient();
 
-/* These will need to be inputed */
+  /* These will need to be inputed */
   var authEndpoint = 'http://localhost:3000/Test'
   var sdkKey = 'fphP6rW4QyO3hu5zD3Jnsw'
   var meetingNumber = '3661471637'
@@ -31,36 +31,36 @@ function App() {
         role: role
       })
     }).then(res => res.json())
-    .then(response => {
-      startMeeting(response.signature)
-    }).catch(error => {
-      console.error(error)
-    })
+      .then(response => {
+        startMeeting(response.signature)
+      }).catch(error => {
+        console.error(error)
+      })
   }
 
   function startMeeting(signature) {
 
     let meetingSDKElement = document.getElementById('meetingSDKElement');
 
-      client.init({
-        zoomAppRoot: meetingSDKElement,
-        language: 'en-US',
-        patchJsMedia: true
+    client.init({
+      zoomAppRoot: meetingSDKElement,
+      language: 'en-US',
+      patchJsMedia: true
+    }).then(() => {
+      client.join({
+        sdkKey: sdkKey,
+        signature: signature,
+        meetingNumber: meetingNumber,
+        password: passWord,
+        userName: userName
       }).then(() => {
-        client.join({
-          sdkKey: sdkKey,
-          signature: signature,
-          meetingNumber: meetingNumber,
-          password: passWord,
-          userName: userName
-        }).then(() => {
-          console.log('joined successfully')
-        }).catch((error) => {
-          console.log(error)
-        })
+        console.log('joined successfully')
       }).catch((error) => {
         console.log(error)
       })
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 
   return (

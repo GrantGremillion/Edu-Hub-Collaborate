@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // Material UI components
-import {Button, Grid, Container, Box, TextField, Typography, useTheme} from '@mui/material';
+import { Button, Grid, Container, Box, TextField, Typography, useTheme } from '@mui/material';
 
 // Our own pre-built components in the components folder
 import HeaderBox from '../Components/HeaderBox';
@@ -20,7 +20,7 @@ import { Paper } from '@mui/material';
 
 
 function CreateStudentAccount() {
-  
+
   // Temporary values to handle the button click redirection
   const navigate = useNavigate();
   const theme = useTheme();
@@ -29,10 +29,10 @@ function CreateStudentAccount() {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
- 
+
   const fullScreenCenterStyle = {
-    display: 'flex', 
-    flexDirection: 'column', 
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center', // This centers vertically
     alignItems: 'center', // This centers horizontally
     height: '100vh', // Full viewport height
@@ -46,30 +46,30 @@ function CreateStudentAccount() {
   const handleClickSubmit = async (e) => {
     // Prevent default event (e) from occuring
     e.preventDefault();
-    if ((email && password) != null && password.length > 5){
-        try {
-            console.log("Server Backend IP" + process.env.REACT_APP_API_URL);
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
+    if ((email && password) != null && password.length > 5) {
+      try {
+        console.log("Server Backend IP" + process.env.REACT_APP_API_URL);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-otp`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
 
-            const data = await response.json();
+        const data = await response.json();
 
-            if (response.ok) {
-                alert(data.message); // "OTP sent successfully."
-                navigate('/VerifyEmail', { state: { email, password } }); // Navigate to OTP verification page
-            } else {
-                alert("Please ensure that your email is a valid .edu email");
-            }
-        } catch (error) {
-            console.log(error);
+        if (response.ok) {
+          alert(data.message); // "OTP sent successfully."
+          navigate('/VerifyEmail', { state: { email, password } }); // Navigate to OTP verification page
+        } else {
+          alert("Please ensure that your email is a valid .edu email");
         }
+      } catch (error) {
+        console.log(error);
       }
-     else {
+    }
+    else {
       alert("Please enter a valid email/a password of at least 6 characters.")
     }
   }
@@ -83,7 +83,7 @@ function CreateStudentAccount() {
     navigate('/Login');
   }
 
-  
+
   const styleProps = {
     containerColor: themes.DARKMODE ? themes.darkContainer : themes.normalContainer,
     buttonColor: themes.DARKMODE ? themes.darkButton : themes.normalButton,
@@ -95,21 +95,21 @@ function CreateStudentAccount() {
       textAlign: 'center',
       color: 'white',
       backgroundColor: customGreenColor,
-      width: 'fit-content', 
+      width: 'fit-content',
       alignItems: "center",
       justifyContent: "center",
       display: "flex",
       flexDirection: "column",
-      
+
     },
   };
   const handleTextFieldFocus = (event) => {
-    event.target.style.background = '#fff'; 
+    event.target.style.background = '#fff';
   };
 
-  
+
   const handleTextFieldBlur = (event) => {
-    event.target.style.background = ''; 
+    event.target.style.background = '';
   };
 
   return (
@@ -127,82 +127,82 @@ function CreateStudentAccount() {
         }}
       />
       <PlainNavBar text='Edu Hub Collaborate' />
-      
-      <Grid container direction="row" alignItems="center"
-            justifyContent="center">
-        <Grid item >
-          <img src={bg_img_left} alt="bubbles"/>
-        </Grid>
-        <Grid item sx={{marginTop: '5%', width: '50%'}}>
-        <Container maxWidth='sm' style={{ background: styleProps.containerColor, height: '650px', marginBottom:'75px'}} >
-        <Grid container spacing={5}
-            direction="column"
-            alignItems="center"
-            justifyContent="center">
 
-          <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%'}}>
-            <HeaderBox text={'Create Student Account'}></HeaderBox>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="filled"
-              label="College Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onFocus={handleTextFieldFocus}
-              onBlur={handleTextFieldBlur}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="filled"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}/>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={handleClickSubmit}
-              style={{ width: '200px', background: styleProps.buttonColor, color: styleProps.textColor}} 
-              sx={{fontFamily: 'Courier New', fontSize: 'large', }}>
-              Submit
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              size="small"
-              onClick={handleClickBack}
-              style={{ width: '100px', background: styleProps.buttonColor, color: styleProps.textColor}} 
-              sx={{fontFamily: 'Courier New', fontSize: 'large', }}>
-              Back
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="text"
-              size="small"
-              onClick={handleLoginClick}
-              color='secondary'
-              sx={{
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                },
-              }}>
-              Already have an account?
-            </Button>
-          </Grid>
+      <Grid container direction="row" alignItems="center"
+        justifyContent="center">
+        <Grid item >
+          <img src={bg_img_left} alt="bubbles" />
         </Grid>
-      </Container>
+        <Grid item sx={{ marginTop: '5%', width: '50%' }}>
+          <Container maxWidth='sm' style={{ background: styleProps.containerColor, height: '650px', marginBottom: '75px' }} >
+            <Grid container spacing={5}
+              direction="column"
+              alignItems="center"
+              justifyContent="center">
+
+              <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%' }}>
+                <HeaderBox text={'Create Student Account'}></HeaderBox>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="filled"
+                  label="College Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onFocus={handleTextFieldFocus}
+                  onBlur={handleTextFieldBlur}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="filled"
+                  label="Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)} />
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={handleClickSubmit}
+                  style={{ width: '200px', background: styleProps.buttonColor, color: styleProps.textColor }}
+                  sx={{ fontFamily: 'Courier New', fontSize: 'large', }}>
+                  Submit
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={handleClickBack}
+                  style={{ width: '100px', background: styleProps.buttonColor, color: styleProps.textColor }}
+                  sx={{ fontFamily: 'Courier New', fontSize: 'large', }}>
+                  Back
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={handleLoginClick}
+                  color='secondary'
+                  sx={{
+                    '&:hover': {
+                      backgroundColor: 'transparent',
+                    },
+                  }}>
+                  Already have an account?
+                </Button>
+              </Grid>
+            </Grid>
+          </Container>
         </Grid>
 
         <Grid item>
-          <img src={bg_img_left} alt="bubbles"/>
+          <img src={bg_img_left} alt="bubbles" />
         </Grid>
-        
+
       </Grid>
     </div>
   );

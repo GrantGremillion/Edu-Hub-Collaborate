@@ -17,12 +17,12 @@ function EditProfile() {
     const [preview, setPreview] = useState(null);
     const [cookies] = useCookies(['email']);
 
-    
+
     useEffect(() => {
         // Ensure the email from cookies is available
         console.log("User's email from cookies:", cookies.email);
     }, [cookies.email]);
-    
+
 
     // Theme handling
     const isDarkMode = themes.DARKMODE;
@@ -39,11 +39,11 @@ function EditProfile() {
         background: isDarkMode ? themes.darkContainer : themes.normalContainer,
         width: '100%', // Set the width to 100% by default
         '@media (min-width:600px)': {
-          maxWidth: 'sm', // Apply 'sm' maxWidth for screens wider than 600px
+            maxWidth: 'sm', // Apply 'sm' maxWidth for screens wider than 600px
         },
         // Add more media queries as needed for different breakpoints
-      };
-      
+    };
+
 
     const buttonStyles = {
         color: isDarkMode ? themes.darkText : themes.normalText,
@@ -53,19 +53,19 @@ function EditProfile() {
         fontFamily: 'Courier New',
         fontSize: 'large',
     };
-    const textStyle = {         
-        fontFamily: 'Courier New', 
-        fontSize: '20px', 
-        textAlign: 'center', 
+    const textStyle = {
+        fontFamily: 'Courier New',
+        fontSize: '20px',
+        textAlign: 'center',
         width: '100%',
-        mb: 2, };
+        mb: 2,
+    };
 
     const handleApplyChanges = async () => {
 
         console.log(displayName);
 
-        if (displayName.length < 1 || bio.length < 1)
-        {
+        if (displayName.length < 1 || bio.length < 1) {
             alert('Please enter a display name and or bio');
             return;
         }
@@ -78,7 +78,7 @@ function EditProfile() {
         if (profilePicture) {
             formData.append('profilePicture', profilePicture);
         }
-    
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/account/edit-profile`, {
                 method: 'POST',
@@ -88,11 +88,11 @@ function EditProfile() {
                     // Don't set Content-Type when FormData is used; it sets the boundary parameter automatically
                 },
             });
-    
+
             const result = await response.json();
             if (response.ok) {
                 alert('Profile updated successfully!');
-                navigate('/UserProfile'); 
+                navigate('/UserProfile');
             } else {
                 alert(`Failed to update profile: ${result.message}`);
             }
@@ -101,9 +101,9 @@ function EditProfile() {
             alert('An error occurred while updating the profile.');
         }
     };
-    
-    
-    
+
+
+
 
     const handleProfilePictureChange = (event) => {
         if (event.target.files[0]) {
@@ -140,20 +140,21 @@ function EditProfile() {
                         <Typography style={textStyle} sx={{ paddingBottom: "3%" }}>Change Display Name:</Typography>
                         <TextField
                             style={{ marginLeft: "25%", width: "50%" }}
-                            sx={{ 
+                            sx={{
                                 "& .MuiOutlinedInput-root": {
-                                  "& > fieldset": { borderColor: "grey", borderWidth: "2px", borderRadius: 0 },
+                                    "& > fieldset": { borderColor: "grey", borderWidth: "2px", borderRadius: 0 },
                                 },
                                 "& .MuiOutlinedInput-root.Mui-focused": {
-                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                    "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
                                 },
                                 "& .MuiOutlinedInput-root:hover": {
-                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                    "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
                                 },
                                 fontFamily: "Courier New",
-                                backgroundColor: themes.DARKMODE ? themes.darkButton : themes.normalButton, }}
+                                backgroundColor: themes.DARKMODE ? themes.darkButton : themes.normalButton,
+                            }}
                             inputProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
-                            InputLabelProps={{style : { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+                            InputLabelProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
                             placeholder="Enter your display name"
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
@@ -167,25 +168,26 @@ function EditProfile() {
                             rows={4}
                             placeholder="Enter your bio"
                             variant="outlined"
-                            
+
                             margin="normal"
                             value={bio}
                             onChange={(e) => setBio(e.target.value)}
                             style={{ marginLeft: "12.5%", width: "75%" }}
-                            sx={{ 
+                            sx={{
                                 "& .MuiOutlinedInput-root": {
-                                  "& > fieldset": { borderColor: "grey", borderWidth: "2px", borderRadius: 0 },
+                                    "& > fieldset": { borderColor: "grey", borderWidth: "2px", borderRadius: 0 },
                                 },
                                 "& .MuiOutlinedInput-root.Mui-focused": {
-                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                    "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
                                 },
                                 "& .MuiOutlinedInput-root:hover": {
-                                  "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
+                                    "& > fieldset": { borderColor: themes.darkButton, borderWidth: "2px", borderRadius: 0 },
                                 },
                                 fontFamily: "Courier New",
-                                backgroundColor: themes.DARKMODE ? themes.darkButton : themes.normalButton,}}
+                                backgroundColor: themes.DARKMODE ? themes.darkButton : themes.normalButton,
+                            }}
                             inputProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
-                            InputLabelProps={{style : { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+                            InputLabelProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
                         />
                     </Grid>
 
@@ -203,9 +205,9 @@ function EditProfile() {
                     )}
 
                     <Grid item xs={12} justifyContent="center" alignContent="center" display='flex'>
-                        <Button 
-                            variant="contained" 
-                            component="label" 
+                        <Button
+                            variant="contained"
+                            component="label"
                             sx={buttonStyles} // Use buttonStyles
                         >
                             Upload Profile Picture
@@ -214,8 +216,8 @@ function EditProfile() {
                     </Grid>
 
                     <Grid item xs={12} display='flex' justifyContent="center">
-                        <Button 
-                            onClick={handleApplyChanges} 
+                        <Button
+                            onClick={handleApplyChanges}
                             sx={buttonStyles} // Use buttonStyles
                         >
                             Apply Changes

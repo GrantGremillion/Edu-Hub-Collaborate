@@ -4,10 +4,10 @@ const router = express.Router();
 const db = require('../database.cjs')
 
 
-router.post('/get_message_usernames', (req,res) => {
-    
-    const getUsersSQL = 
-    `
+router.post('/get_message_usernames', (req, res) => {
+
+    const getUsersSQL =
+        `
         SELECT 
             COALESCE(s.name, t.name) AS sender_username
         FROM 
@@ -20,22 +20,22 @@ router.post('/get_message_usernames', (req,res) => {
             m.Cid = ?;
     `;
 
-    db.query(getUsersSQL, [req.body.Cid], (err,data) => {
+    db.query(getUsersSQL, [req.body.Cid], (err, data) => {
 
         if (err) {
             console.log(err);
             return res.status(500).json({ error: err.message });
         }
-        return res.json({ Status: "Success", users: data});
-        });
-    
+        return res.json({ Status: "Success", users: data });
+    });
+
 });
 
 
-router.post('/get_all_students', (req,res) => {
-    
-    const getStudentsSQL = 
-    `
+router.post('/get_all_students', (req, res) => {
+
+    const getStudentsSQL =
+        `
         SELECT 
         COALESCE(s.name) AS sender_username
         FROM 
@@ -46,22 +46,22 @@ router.post('/get_all_students', (req,res) => {
         cs.Cid = ?;
     `;
 
-    db.query(getStudentsSQL, [req.body.Cid], (err,data) => {
+    db.query(getStudentsSQL, [req.body.Cid], (err, data) => {
 
         if (err) {
             console.log(err);
             return res.status(500).json({ error: err.message });
         }
-        return res.json({ Status: "Success", students: data});
-        });
-    
+        return res.json({ Status: "Success", students: data });
+    });
+
 });
 
 
-router.post('/get_teacher', (req,res) => {
-    
-    const getTeacherSQL = 
-    `
+router.post('/get_teacher', (req, res) => {
+
+    const getTeacherSQL =
+        `
         SELECT 
         COALESCE(t.name) AS sender_username
         FROM 
@@ -72,15 +72,15 @@ router.post('/get_teacher', (req,res) => {
         c.Cid = ?;
     `;
 
-    db.query(getTeacherSQL, [req.body.Cid], (err,data) => {
+    db.query(getTeacherSQL, [req.body.Cid], (err, data) => {
 
         if (err) {
             console.log(err);
             return res.status(500).json({ error: err.message });
         }
-        return res.json({ Status: "Success", teacher: data});
-        });
-    
+        return res.json({ Status: "Success", teacher: data });
+    });
+
 });
 
 

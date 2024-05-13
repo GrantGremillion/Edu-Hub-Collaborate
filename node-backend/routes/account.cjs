@@ -6,118 +6,118 @@ const db = require('../database.cjs')
 
 
 ////// Create Teacher Account API //////
-router.post('/create_Taccount', (req,res) => {
+router.post('/create_Taccount', (req, res) => {
 
-    // pattern that email must match to be valid
-    // "example@example.edu"
-    var pattern = /^[^@]+@[^@]+\.(edu)$/i;
-  
-    // check if email is valid before querying to database
-    if (!pattern.test(req.body.email)) {
-      return res.json({Status: "Please enter a valid edu email"});
-    } 
-  
-    // Check if password is long enough
-    if (req.body.password.length < 6){
-      return res.json({Status: "Password is too short. Must be at least six characters"})
-    }
-  
-    // Check that passwords match from user
-    if (req.body.password != req.body.cpassword){
-      return res.json({Status: "Password mismatch"})
-    }
-  
-    // Check if email already exists in the database
-    const checkEmailQuery = "SELECT * FROM Tlogin WHERE email = ?";
-    db.query(checkEmailQuery, [req.body.email], (err, rows) => {
-        if (err) {
-            return res.json({ Status: "Server Side Error" });
-        }
-  
-        // If the email already exists in the database
-        if (rows.length > 0) {
-            return res.json({ Status: "Email already exists" });
-        }
+  // pattern that email must match to be valid
+  // "example@example.edu"
+  var pattern = /^[^@]+@[^@]+\.(edu)$/i;
 
-        // Store the users default username as the portion of their email before the @
-        const atIndex = req.body.email.indexOf('@'); 
-        const username = req.body.email.slice(0, atIndex); 
-  
-        // If the email doesn't exist, insert the new user into the database
-        // by default verified = false because an admin will need to verify they are a teacher via their submitted document
-        const insertUserQuery = "INSERT INTO Tlogin (name, email, password, verified) VALUES (?, ?, ?, false)";
-        db.query(insertUserQuery, [username, req.body.email, req.body.password], (err) => {
-            if (err) {
-                return res.json({ Status: "Server Side Error" });
-            }
-            return res.json({ Status: "Success" });
-        });
+  // check if email is valid before querying to database
+  if (!pattern.test(req.body.email)) {
+    return res.json({ Status: "Please enter a valid edu email" });
+  }
+
+  // Check if password is long enough
+  if (req.body.password.length < 6) {
+    return res.json({ Status: "Password is too short. Must be at least six characters" })
+  }
+
+  // Check that passwords match from user
+  if (req.body.password != req.body.cpassword) {
+    return res.json({ Status: "Password mismatch" })
+  }
+
+  // Check if email already exists in the database
+  const checkEmailQuery = "SELECT * FROM Tlogin WHERE email = ?";
+  db.query(checkEmailQuery, [req.body.email], (err, rows) => {
+    if (err) {
+      return res.json({ Status: "Server Side Error" });
+    }
+
+    // If the email already exists in the database
+    if (rows.length > 0) {
+      return res.json({ Status: "Email already exists" });
+    }
+
+    // Store the users default username as the portion of their email before the @
+    const atIndex = req.body.email.indexOf('@');
+    const username = req.body.email.slice(0, atIndex);
+
+    // If the email doesn't exist, insert the new user into the database
+    // by default verified = false because an admin will need to verify they are a teacher via their submitted document
+    const insertUserQuery = "INSERT INTO Tlogin (name, email, password, verified) VALUES (?, ?, ?, false)";
+    db.query(insertUserQuery, [username, req.body.email, req.body.password], (err) => {
+      if (err) {
+        return res.json({ Status: "Server Side Error" });
+      }
+      return res.json({ Status: "Success" });
     });
   });
+});
 
 
 ////// Create Student Account API //////
-router.post('/create_Saccount', (req,res) => {
+router.post('/create_Saccount', (req, res) => {
 
-    // pattern that email must match to be valid
-    // "example@example.edu"
-    var pattern = /^[^@]+@[^@]+\.(edu)$/i;
-  
-    // check if email is valid before querying to database
-    if (!pattern.test(req.body.email)) {
-      return res.json({Status: "Please enter a valid edu email"});
-    } 
-  
-    // Check if password is long enough
-    if (req.body.password.length < 6){
-      return res.json({Status: "Password is too short. Must be at least six characters"})
+  // pattern that email must match to be valid
+  // "example@example.edu"
+  var pattern = /^[^@]+@[^@]+\.(edu)$/i;
+
+  // check if email is valid before querying to database
+  if (!pattern.test(req.body.email)) {
+    return res.json({ Status: "Please enter a valid edu email" });
+  }
+
+  // Check if password is long enough
+  if (req.body.password.length < 6) {
+    return res.json({ Status: "Password is too short. Must be at least six characters" })
+  }
+
+  // Check that passwords match from user
+  if (req.body.password != req.body.cpassword) {
+    return res.json({ Status: "Password mismatch" })
+  }
+
+  // Check if email already exists in the database
+  const checkEmailQuery = "SELECT * FROM Slogin WHERE email = ?";
+  db.query(checkEmailQuery, [req.body.email], (err, rows) => {
+    if (err) {
+      return res.json({ Status: "Server Side Error" });
     }
-  
-    // Check that passwords match from user
-    if (req.body.password != req.body.cpassword){
-      return res.json({Status: "Password mismatch"})
+
+    // If the email already exists in the database
+    if (rows.length > 0) {
+      return res.json({ Status: "Email already exists" });
     }
-  
-    // Check if email already exists in the database
-    const checkEmailQuery = "SELECT * FROM Slogin WHERE email = ?";
-    db.query(checkEmailQuery, [req.body.email], (err, rows) => {
-        if (err) {
-            return res.json({ Status: "Server Side Error" });
-        }
-  
-        // If the email already exists in the database
-        if (rows.length > 0) {
-            return res.json({ Status: "Email already exists" });
-        }
 
-        // Store the users default username as the portion of their email before the @
-        const atIndex = req.body.email.indexOf('@'); 
-        const username = req.body.email.slice(0, atIndex); 
+    // Store the users default username as the portion of their email before the @
+    const atIndex = req.body.email.indexOf('@');
+    const username = req.body.email.slice(0, atIndex);
 
-        // If the email doesn't exist, insert the new user into the database
-        const insertUserQuery = "INSERT INTO Slogin (name, email, password) VALUES (?, ?, ?)";
-        db.query(insertUserQuery, [username,req.body.email, req.body.password], (err) => {
-            if (err) {
-                return res.json({ Status: "Server Side Error" });
-            }
-            return res.json({ Status: "Success" });
-        });
+    // If the email doesn't exist, insert the new user into the database
+    const insertUserQuery = "INSERT INTO Slogin (name, email, password) VALUES (?, ?, ?)";
+    db.query(insertUserQuery, [username, req.body.email, req.body.password], (err) => {
+      if (err) {
+        return res.json({ Status: "Server Side Error" });
+      }
+      return res.json({ Status: "Success" });
     });
   });
-  
+});
 
 
 
 
-  ////// Login API //////
+
+////// Login API //////
 // Used for both students and teachers
-router.post('/login', (req,res) => {
+router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
   // Query to search for student account
   const studentSql = "SELECT Sid, email, password FROM Slogin WHERE email = ? AND password = ?";
-    
+
   db.query(studentSql, [email, password], (studentErr, studentData) => {
     if (studentErr) {
       return res.status(500).json({ error: studentErr.message });
@@ -126,7 +126,7 @@ router.post('/login', (req,res) => {
     if (studentData.length > 0) {
       const studentSid = studentData[0].Sid;
 
-      return res.json({ Status: "Success", ID: studentSid, Account: "Student"});
+      return res.json({ Status: "Success", ID: studentSid, Account: "Student" });
     }
 
     // If no student account found, search for teacher account
@@ -144,7 +144,7 @@ router.post('/login', (req,res) => {
 
         if (verified === 1) {
           return res.json({ Status: "Success", ID: teacherTid, Account: "Teacher" });
-        } 
+        }
         else {
           return res.json({ Status: "Not Verified", Message: "Your account has not been verified. Please try logging in later" });
         }
@@ -152,8 +152,8 @@ router.post('/login', (req,res) => {
 
       return res.json({ Status: "No Account", Message: "No account found" });
 
-      });
+    });
   });
-}) 
-  
+})
+
 module.exports = router;

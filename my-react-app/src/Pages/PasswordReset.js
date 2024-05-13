@@ -26,7 +26,7 @@ function PasswordReset() {
             return;
         }
 
-        if (password.length < 6){
+        if (password.length < 6) {
             alert("Password must be at least six characters");
             return
         }
@@ -79,7 +79,7 @@ function PasswordReset() {
                     height: '100%',
                 }}
             ></Box>
-            <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom:'75px'}}>
+            <Container maxWidth="sm" style={{ background: containerColor, marginTop: '75px', height: '700px', marginBottom: '75px' }}>
                 <Grid container spacing={5} direction="column" alignItems="center" justifyContent="center">
                     <Grid item xs={12}>
                         <HeaderBox text={'Reset Your Password'} />

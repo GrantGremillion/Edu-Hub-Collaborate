@@ -10,19 +10,19 @@ import { useCookies } from "react-cookie";
 //import { useLocation } from 'react-router-dom';
 import axiosInstance from '../helpers/axios';
 
-function ChangePassword({themeToggle}) {
+function ChangePassword({ themeToggle }) {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const navigate = useNavigate();
   // fetches the user set dark theme preference from cookie
   const [getTheme] = useCookies(["theme"]);
-  const [cookies, setCookie, removeCookie] = useCookies(['userEmail','userID','account']);
+  const [cookies, setCookie, removeCookie] = useCookies(['userEmail', 'userID', 'account']);
   // initialize darkmode switch's state with DARKMODE's value
   const [check, setCheck] = useState(getTheme.theme);
 
-  
-  
+
+
   // Theme dependent styling
   const themeStyles = themes.DARKMODE ? {
     containerColor: themes.darkContainer,
@@ -49,26 +49,26 @@ function ChangePassword({themeToggle}) {
       return;
     }
 
-    if (newPassword.length < 6){
+    if (newPassword.length < 6) {
       alert('New password must be at least six characters');
       return;
     }
 
-    axiosInstance.post('/password/change-password', {id:cookies.userID, account:cookies.account,oldPW:currentPassword, newPW:newPassword })
+    axiosInstance.post('/password/change-password', { id: cookies.userID, account: cookies.account, oldPW: currentPassword, newPW: newPassword })
 
-    .then(res => {
-      if(res.data.Status === "Success") {
-        alert('Password was changed succesfully');
-        navigate('/Home')
-      }
-      else{
-        alert(res.data.Status);
-      }
-    })
-    .catch(err => console.log(err));
-   
+      .then(res => {
+        if (res.data.Status === "Success") {
+          alert('Password was changed succesfully');
+          navigate('/Home')
+        }
+        else {
+          alert(res.data.Status);
+        }
+      })
+      .catch(err => console.log(err));
+
   };
-  
+
   return (
     <div>
       <Box
@@ -86,15 +86,15 @@ function ChangePassword({themeToggle}) {
       >
       </Box>
 
-      <Sidebar/>
+      <Sidebar />
 
-      <Container maxWidth='sm' style={{ background: themeStyles.containerColor, marginTop: '75px', height: '600px', marginBottom:'75px'}} >
+      <Container maxWidth='sm' style={{ background: themeStyles.containerColor, marginTop: '75px', height: '600px', marginBottom: '75px' }} >
         <Grid container spacing={5}
           direction="column"
           alignItems="center"
           justifyContent="center">
 
-          <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px'}}>
+          <Grid item xs={12} style={{ marginTop: '20px', marginBottom: '20px' }}>
             <HeaderBox text={'Change Password'}></HeaderBox>
           </Grid>
 

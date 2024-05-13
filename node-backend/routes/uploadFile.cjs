@@ -4,10 +4,10 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      cb(null, process.env.UPLOAD_FILE_PATH_TEACHER_IMAGES) 
+    cb(null, process.env.UPLOAD_FILE_PATH_TEACHER_IMAGES)
   },
   filename: function (req, file, cb) {
-      cb(null, file.originalname) 
+    cb(null, file.originalname)
   }
 });
 
@@ -20,11 +20,11 @@ const db = require('../database.cjs')
 ////// Upload File API //////
 
 router.post('/uploadFile', upload.single("image"), (req, res) => {
-  
-    const imageName = req.file.filename;
-    console.log(imageName);
-   
-    res.send({imageName});
-  })
 
-  module.exports = router;
+  const imageName = req.file.filename;
+  console.log(imageName);
+
+  res.send({ imageName });
+})
+
+module.exports = router;

@@ -1,17 +1,17 @@
 import * as React from 'react';
 // Material UI components, similar to CreateAccount.js
-import {Button, Grid, Container, Box, TextField, InputAdornment, IconButton} from '@mui/material';
+import { Button, Grid, Container, Box, TextField, InputAdornment, IconButton } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 // Importing custom components as used in CreateAccount.js
 import HeaderBox from '../Components/HeaderBox';
-import PlainNavBar from '../Components/PlainNavBar'; 
+import PlainNavBar from '../Components/PlainNavBar';
 
 // Using the same navigation functionality
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'; 
+import { useState } from 'react';
 
 // Assuming the use of the same background image
 import bg from '.././Images/bg.jpg';
@@ -28,14 +28,14 @@ import { useCookies } from "react-cookie";
 
 
 
-function Login({onLogin}) {
+function Login({ onLogin }) {
 
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   });
 
-  const [cookies, setCookie] = useCookies(["userID","account","email"]);
+  const [cookies, setCookie] = useCookies(["userID", "account", "email"]);
 
   const [LoginFailed, setLoginFailed] = useState(false);
 
@@ -61,24 +61,24 @@ function Login({onLogin}) {
     // sends an HTTP POST request to the URL login backend API
     axiosInstance.post('/account/login', credentials)
 
-    // testing 
-    .then(res => {
-      if(res.data.Status === "Success") {
-        setCookie('email', credentials.email, { path: '/' });
-        onLogin({ account: res.data.Account, userID: res.data.ID, email: res.data.email });
-        navigate('/Home')
-      }
-      else{
+      // testing 
+      .then(res => {
+        if (res.data.Status === "Success") {
+          setCookie('email', credentials.email, { path: '/' });
+          onLogin({ account: res.data.Account, userID: res.data.ID, email: res.data.email });
+          navigate('/Home')
+        }
+        else {
 
-        if(res.data.Status === "No Account"){
-          setLoginFailed(true);
+          if (res.data.Status === "No Account") {
+            setLoginFailed(true);
+          }
+          else {
+            alert(res.data.Message);
+          }
         }
-        else{
-          alert(res.data.Message);
-        }
-      }
-    })
-    .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   }
 
   const handleClickBack = () => {
@@ -119,7 +119,7 @@ function Login({onLogin}) {
     zIndex: 2, // Higher than the background image's zIndex
     marginTop: '3%'
   };
-  
+
   return (
 
     <div>
@@ -127,37 +127,37 @@ function Login({onLogin}) {
       <Box
         className="bg"
         style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        zIndex: '-1',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        rigth: 0,
-        buttom: 0,
-        width: '100%',
-        height: '100%'
+          backgroundImage: `url(${background})`,
+          backgroundSize: "cover",
+          zIndex: '-1',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          rigth: 0,
+          buttom: 0,
+          width: '100%',
+          height: '100%'
         }}
       ></Box>
 
-        <Grid container direction="row" alignItems="center"
-            justifyContent="center">
+      <Grid container direction="row" alignItems="center"
+        justifyContent="center">
         <Grid item >
-          <img src={bg_img_left} alt="bubbles"/>
+          <img src={bg_img_left} alt="bubbles" />
         </Grid>
-        <Grid item sx={{marginTop: '5%', width: '50%'}}>
-        <Container maxWidth='sm' style={{ background: containerColor, height: '650px', marginBottom:'75px'}} >
-          <Grid container spacing={5}
+        <Grid item sx={{ marginTop: '5%', width: '50%' }}>
+          <Container maxWidth='sm' style={{ background: containerColor, height: '650px', marginBottom: '75px' }} >
+            <Grid container spacing={5}
               direction="column"
               alignItems="center"
               justifyContent="center">
 
-            <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%'}}>
-              <HeaderBox text={'Login to your account'} sx={{ width: '100%' }} />
-            </Grid>
+              <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%' }}>
+                <HeaderBox text={'Login to your account'} sx={{ width: '100%' }} />
+              </Grid>
               <Grid item xs={12} >
-                <TextField  label="College Email" variant="filled" fullWidth 
-                onChange={e => setCredentials({...credentials,email:e.target.value})}/>
+                <TextField label="College Email" variant="filled" fullWidth
+                  onChange={e => setCredentials({ ...credentials, email: e.target.value })} />
               </Grid>
 
               <Grid item xs={12} >
@@ -197,17 +197,17 @@ function Login({onLogin}) {
               </Grid>
 
               <Grid item xs={1} >
-                <Button variant="contained" color="primary" onClick={handleLoginClick} 
-                style={{ width: '200px', background: buttonColor, color: textColor}} 
-                sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
+                <Button variant="contained" color="primary" onClick={handleLoginClick}
+                  style={{ width: '200px', background: buttonColor, color: textColor }}
+                  sx={{ fontFamily: 'Courier New', fontSize: 'large' }} >
                   Login
                 </Button>
               </Grid>
 
               <Grid item xs={1} alignContent="center" alignItems="center" justifyContent="center" display="flex">
-                <Button variant="contained" size="small"  onClick={handleClickBack} 
-                  style={{ width: '100px', background: buttonColor, color: textColor}} 
-                  sx={{fontFamily: 'Courier New', fontSize: 'large', }} >
+                <Button variant="contained" size="small" onClick={handleClickBack}
+                  style={{ width: '100px', background: buttonColor, color: textColor }}
+                  sx={{ fontFamily: 'Courier New', fontSize: 'large', }} >
                   Back
                 </Button>
               </Grid>
@@ -218,14 +218,14 @@ function Login({onLogin}) {
                 </Button>
               </Grid>
             </Grid>
-          
-        </Container>
+
+          </Container>
         </Grid>
 
         <Grid item>
-          <img src={bg_img_left} alt="bubbles"/>
+          <img src={bg_img_left} alt="bubbles" />
         </Grid>
-        
+
       </Grid>
     </div>
 
