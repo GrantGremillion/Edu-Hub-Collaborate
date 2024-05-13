@@ -15,6 +15,7 @@ import bg from '.././Images/bg.jpg';
 import dark_bg from '.././Images/dark_bg.jpg';
 import pencil from '.././Images/pencil.png';
 import paper from '.././Images/paper.png';
+import bg_img_left from '.././Images/bg_img_left.jpg'
 
 
 // theme toggle components
@@ -65,6 +66,8 @@ function AccountSelection() {
       </Box>
   
       <PlainNavBar text='Edu Hub Collaborate'></PlainNavBar >
+
+      
 
       {/* Container and Grid organizes HeaderBox and Buttons */}
       <Container maxWidth='sm' style={{ background: containerColor, marginTop: '5%', height: '650px', marginBottom:'75px'}} >

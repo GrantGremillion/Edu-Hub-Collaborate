@@ -135,29 +135,16 @@ function CreateStudentAccount() {
         }}
       />
       <PlainNavBar text='Edu Hub Collaborate' />
-      <Container maxWidth="sm" sx={{
-        background: styleProps.containerColor,
-        boxShadow: theme.shadows[5],
-        borderRadius: theme.shape.borderRadius, 
-        minHeight: '100vh', 
-        flexDirection: 'column',
-        justifyContent: 'center', 
-        marginTop: "3%",
-        position: "relative",
-        width: "fit-content",
-        alignItems: "center",
-        alignContent: "center",
-        display: "flex",
-        height: "fit-content"
-      }}>
-          <Grid item xs={12} p="3%" >
-            <Paper sx={styleProps.paperStyle} >
-              <Typography variant="h5" component="h2" fontSize={37} fontFamily={'Courier New'}>
-                  Create Your Student Account
-              </Typography>
-            </Paper>
+      <Container maxWidth='sm' style={{ background: styleProps.containerColor, marginTop: '5%', height: '650px', marginBottom:'75px'}} >
+        <Grid container spacing={5}
+            direction="column"
+            alignItems="center"
+            justifyContent="center">
+
+          <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%'}}>
+            <HeaderBox text={'Create Student Account'}></HeaderBox>
           </Grid>
-          <Grid item xs={12} p="3%">
+          <Grid item xs={12}>
             <TextField
               variant="filled"
               label="College Email"
@@ -167,7 +154,7 @@ function CreateStudentAccount() {
               onBlur={handleTextFieldBlur}
             />
           </Grid>
-          <Grid item xs={12} p="3%">
+          <Grid item xs={12}>
             <TextField
               variant="filled"
               label="Password"
@@ -175,7 +162,7 @@ function CreateStudentAccount() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}/>
           </Grid>
-          <Grid item xs={12} p="3%">
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="large"
@@ -185,7 +172,7 @@ function CreateStudentAccount() {
               Submit
             </Button>
           </Grid>
-          <Grid item xs={12} p="3%">
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="small"
@@ -195,7 +182,7 @@ function CreateStudentAccount() {
               Back
             </Button>
           </Grid>
-          <Grid item xs={12} p="3%">
+          <Grid item xs={12}>
             <Button
               variant="text"
               size="small"
@@ -209,6 +196,7 @@ function CreateStudentAccount() {
               Already have an account?
             </Button>
           </Grid>
+        </Grid>
       </Container>
     </div>
   );

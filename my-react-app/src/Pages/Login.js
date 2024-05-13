@@ -139,80 +139,80 @@ function Login({onLogin}) {
         }}
       ></Box>
 
-      <Container maxWidth="sm" sx={containerStyles}
-            spacing={2}
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-            p="3%">
+        <Container maxWidth='sm' style={{ background: containerColor, marginTop: '5%', height: '650px', marginBottom:'75px'}} >
+          <Grid container spacing={5}
+              direction="column"
+              alignItems="center"
+              justifyContent="center">
 
-        <Grid item xs={12} p="3%" sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <HeaderBox text={'Login to your account'} sx={{ width: '100%' }} />
-        </Grid>
-          <Grid item xs={12} p="3%">
-            <TextField  label="College Email" variant="filled" fullWidth 
-            onChange={e => setCredentials({...credentials,email:e.target.value})}/>
-          </Grid>
+            <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%'}}>
+              <HeaderBox text={'Login to your account'} sx={{ width: '100%' }} />
+            </Grid>
+              <Grid item xs={12} >
+                <TextField  label="College Email" variant="filled" fullWidth 
+                onChange={e => setCredentials({...credentials,email:e.target.value})}/>
+              </Grid>
 
-          <Grid item xs={12} p="3%">
-            {LoginFailed ? ( // Check if the login attempt failed
-              <TextField
-                error
-                id="outlined-error-helper-text"
-                helperText="Incorrect password"
-                variant="filled"
-                type={showPassword ? 'text' : 'password'}
-                onChange={e => setCredentials({ ...credentials, password: e.target.value })}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            ) : (
-              <div>
-                <TextField
-                  label="Password"
-                  variant="filled"
-                  type={showPassword ? 'text' : 'password'}
-                  onChange={e => setCredentials({ ...credentials, password: e.target.value })}
-                />
-              </div>
-            )}
-          </Grid>
+              <Grid item xs={12} >
+                {LoginFailed ? ( // Check if the login attempt failed
+                  <TextField
+                    error
+                    id="outlined-error-helper-text"
+                    helperText="Incorrect password"
+                    variant="filled"
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                ) : (
+                  <div>
+                    <TextField
+                      label="Password"
+                      variant="filled"
+                      type={showPassword ? 'text' : 'password'}
+                      onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                    />
+                  </div>
+                )}
+              </Grid>
 
-          <Grid item xs={1} p="3%">
-            <Button variant="contained" color="primary" onClick={handleLoginClick} 
-            style={{ width: '200px', background: buttonColor, color: textColor}} 
-            sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
-              Login
-            </Button>
-          </Grid>
+              <Grid item xs={1} >
+                <Button variant="contained" color="primary" onClick={handleLoginClick} 
+                style={{ width: '200px', background: buttonColor, color: textColor}} 
+                sx={{fontFamily: 'Courier New', fontSize: 'large'}} >
+                  Login
+                </Button>
+              </Grid>
 
-          <Grid item xs={1} p="3%" alignContent="center" alignItems="center" justifyContent="center" display="flex">
-            <Button variant="contained" size="small"  onClick={handleClickBack} 
-              style={{ width: '100px', background: buttonColor, color: textColor}} 
-              sx={{fontFamily: 'Courier New', fontSize: 'large', }} >
-              Back
-            </Button>
-          </Grid>
+              <Grid item xs={1} alignContent="center" alignItems="center" justifyContent="center" display="flex">
+                <Button variant="contained" size="small"  onClick={handleClickBack} 
+                  style={{ width: '100px', background: buttonColor, color: textColor}} 
+                  sx={{fontFamily: 'Courier New', fontSize: 'large', }} >
+                  Back
+                </Button>
+              </Grid>
 
-          <Grid item xs={1} p="3%" alignContent="center" alignItems="center" justifyContent="center" display="flex">
-            <Button fullWidth color="secondary" size="small" onClick={handleForgotPasswordClick} sx={{ width: '235px', }}>
-              Forgot password?
-            </Button>
-          </Grid>
+              <Grid item xs={1} alignContent="center" alignItems="center" justifyContent="center" display="flex">
+                <Button fullWidth color="secondary" size="small" onClick={handleForgotPasswordClick} sx={{ width: '235px', }}>
+                  Forgot password?
+                </Button>
+              </Grid>
+            </Grid>
           
-      </Container>
+        </Container>
     </div>
 
   );
