@@ -41,6 +41,8 @@ function Home({ onLogout }) {
 
   useEffect(() => {
 
+    console.log(announcements);
+
     // If user is a teacher classes need to be fetched differently on the backend 
     if (cookies.account === 'teacher') {
       axiosInstance.post('/classes/get_teacher_classes', { Tid: cookies.userID })
@@ -194,7 +196,7 @@ function Home({ onLogout }) {
             </Typography>
 
             <Divider></Divider>
-            {announcements.length > 0 ? (<></>) : (<Typography style={{ fontFamily: 'Courier New', paddingTop: '5%' }}>Your teachers have not posted any announcements</Typography>)}
+            {announcements.length != 0 ? (<></>) : (<Typography style={{ fontFamily: 'Courier New', paddingTop: '5%' }}>Your teachers have not posted any announcements</Typography>)}
 
             <Typography sx={{ fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor }}>
               {announcements.map((ann, index) => (

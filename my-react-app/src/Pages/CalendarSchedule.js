@@ -263,6 +263,7 @@ function CalendarSchedule() {
                                 "& > fieldset": { borderColor: buttonColor, borderWidth: "2px", borderRadius: 0 },
                               }
                             }}
+                            autoComplete="off"
                             inputProps={{ style: { color: textColor } }}
                             size="small"
                             placeholder="Event Name"

@@ -53,7 +53,6 @@ function HomeNavBar() {
         return response.json();
       })
       .then(data => {
-        console.log("Received data:", data);
         setProfileData(data);
       })
       .catch(error => {

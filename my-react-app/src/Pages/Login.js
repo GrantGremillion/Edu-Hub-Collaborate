@@ -156,7 +156,7 @@ function Login({ onLogin }) {
                 <HeaderBox text={'Login to your account'} sx={{ width: '100%' }} />
               </Grid>
               <Grid item xs={12} >
-                <TextField label="College Email" variant="filled" fullWidth
+                <TextField label="College Email" variant="filled" fullWidth autoComplete="email"
                   onChange={e => setCredentials({ ...credentials, email: e.target.value })} />
               </Grid>
 

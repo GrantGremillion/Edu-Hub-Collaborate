@@ -249,6 +249,7 @@ function TClassOptions() {
 
           <Grid item>
             <TextField
+              autoComplete="off"
               fullWidth
               id="otp-input"
               label="Text"

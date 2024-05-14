@@ -155,6 +155,7 @@ function EditProfile() {
                             }}
                             inputProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
                             InputLabelProps={{ style: { color: themes.DARKMODE ? themes.darkText : themes.normalText } }}
+                            autoComplete="off"
                             placeholder="Enter your display name"
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
@@ -166,6 +167,7 @@ function EditProfile() {
                         <TextField
                             multiline
                             rows={4}
+                            autoComplete="off"
                             placeholder="Enter your bio"
                             variant="outlined"
 

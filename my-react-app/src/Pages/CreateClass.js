@@ -94,11 +94,11 @@ function CreateClass() {
           </Grid>
 
           <Grid item xs={2}>
-            <TextField variant="filled" label="Class Name" onChange={e => setValues({ ...values, cname: e.target.value })} />
+            <TextField autoComplete="off" variant="filled" label="Class Name" onChange={e => setValues({ ...values, cname: e.target.value })} />
           </Grid>
 
           <Grid item xs={2}>
-            <TextField variant="filled" label="Class Description" onChange={e => setValues({ ...values, cdes: e.target.value })} />
+            <TextField autoComplete="off" variant="filled" label="Class Description" onChange={e => setValues({ ...values, cdes: e.target.value })} />
           </Grid>
 
           <Grid item xs={3}>

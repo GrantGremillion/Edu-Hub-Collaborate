@@ -145,6 +145,7 @@ function CreateStudentAccount() {
                 <TextField
                   variant="filled"
                   label="College Email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onFocus={handleTextFieldFocus}

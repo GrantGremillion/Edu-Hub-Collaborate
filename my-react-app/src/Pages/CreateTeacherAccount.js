@@ -166,6 +166,7 @@ function CreateTeacherAccount() {
                 <TextField
                   variant="filled"
                   label="College Email"
+                  autoComplete="email"
                   value={values.email}
                   onChange={(e) => setValues({ ...values, email: e.target.value })}
                 />
