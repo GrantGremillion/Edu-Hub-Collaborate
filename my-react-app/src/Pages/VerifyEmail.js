@@ -40,29 +40,7 @@ function VerifyEmail() {
   }
 
   const handleClickMake = async () => {
-    console.log(email);
-    console.log(password);
-    //Testing
-    /*
-      if (cpassword === password){
-        axios.post('http://localhost:8081/account/create_Saccount', values)
-        // testing 
-        .then(res => {
-          if(res.data.Status === "Success") {
-            navigate('/Login')
-            //navigate('/VerifyEmail')
-          }
-          else{
-            alert(res.data.Status)
-          } 
-        })
-      } else {
-        alert("Password Incorrect");
-      }
-      */
-
-    // Use navigate to go to the UserProfile page
-
+    
     if (!otp) {
       alert('Please enter the OTP.');
       console.log(otp)
@@ -95,10 +73,9 @@ function VerifyEmail() {
           .then(res => {
             if (res.data.Status === "Success") {
               navigate('/Login')
-              //navigate('/VerifyEmail')
             }
             else {
-              alert(res.data.Status)
+              console.log(res.data.Status);
             }
 
           })

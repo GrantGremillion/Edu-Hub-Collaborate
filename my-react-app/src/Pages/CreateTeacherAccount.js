@@ -150,7 +150,7 @@ function CreateTeacherAccount() {
 
       <Grid container direction="row" alignItems="center"
         justifyContent="center">
-        <Grid item >
+        <Grid item sx={{mt: '2%'}}>
           <img src={bg_img_left} alt="bubbles" />
         </Grid>
         <Grid item sx={{ marginTop: '5%', width: '50%' }}>
@@ -237,7 +237,7 @@ function CreateTeacherAccount() {
           </Container>
         </Grid>
 
-        <Grid item>
+        <Grid item sx={{mt: '2%'}}>
           <img src={bg_img_left} alt="bubbles" />
         </Grid>
 

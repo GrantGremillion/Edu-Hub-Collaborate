@@ -16,8 +16,6 @@ import bg_img_left from '.././Images/bg_img_left.jpg'
 
 // dark theme functionality
 import * as themes from '.././Config';
-import { Paper } from '@mui/material';
-
 
 function CreateStudentAccount() {
 
@@ -130,7 +128,7 @@ function CreateStudentAccount() {
 
       <Grid container direction="row" alignItems="center"
         justifyContent="center">
-        <Grid item >
+        <Grid item sx={{mt: '5%'}}>
           <img src={bg_img_left} alt="bubbles" />
         </Grid>
         <Grid item sx={{ marginTop: '5%', width: '50%' }}>
@@ -199,7 +197,7 @@ function CreateStudentAccount() {
           </Container>
         </Grid>
 
-        <Grid item>
+        <Grid item sx={{mt: '5%'}}>
           <img src={bg_img_left} alt="bubbles" />
         </Grid>
 
