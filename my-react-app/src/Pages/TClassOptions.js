@@ -182,21 +182,18 @@ function TClassOptions() {
       <Sidebar />
 
       {/*Container holding buttons and text*/}
-      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '60px', height: '900px', marginBottom: '60px' }}>
+      <Container maxWidth="sm" style={{ background: containerColor, marginTop: '4%', height: 'fit-content', marginBottom: '4%', paddingTop: '2%', paddingBottom: '2%' }}>
+        <HeaderBox text={Class} />
         <Grid container spacing={4}
           direction="column"
           alignItems="center"
           justifyContent="center">
 
           <Grid item>
-            <HeaderBox text={Class} sx={{ fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '5%', marginLeft: '5%', color: textColor }} />
-          </Grid>
-
-          <Grid item>
             <Divider
               align="center"
               flexItem
-              style={{ marginTop: '0%', marginLeft: '0%' }}>
+            >
             </Divider>
           </Grid>
 
@@ -208,7 +205,7 @@ function TClassOptions() {
           </Grid>
 
           <Grid item>
-            <Typography align="center" sx={{ fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor }}>
+            <Typography align="center" sx={{ fontSize: 'Large', fontFamily: 'Courier New', paddingTop: '-10%', color: textColor, overflowWrap: 'break-word' }}>
               {ann}
 
             </Typography>

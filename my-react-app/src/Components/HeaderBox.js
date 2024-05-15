@@ -17,7 +17,7 @@ function HeaderBox({ text }) {
         <Box
           sx={{
             width: "100%",
-            padding: '5%',
+            padding: '4%',
             borderRadius: 1,
             display: "flex",
             bgcolor: "primary.main",
@@ -26,6 +26,7 @@ function HeaderBox({ text }) {
             fontFamily: "Courier New",
             fontSize: 28,
             textAlign: 'center',
+            justifyContent: 'center'
           }}
         >
             {text}

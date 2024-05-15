@@ -42,12 +42,5 @@ export const SidebarData = [
     path: "/UserProfile",
     icon: <IoIcons.IoIosContact />,
     cName: "nav-text",
-  },
-  {
-    title: "Settings",
-    path: "/UserAccountSettings",
-    icon: <IoIcons.IoIosCog />,
-    cName: "nav-text",
-  },
-
+  }
 ];

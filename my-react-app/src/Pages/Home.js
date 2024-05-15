@@ -12,7 +12,10 @@ import dark_bg from '.././Images/dark_bg.jpg';
 // handles darkmode toggle on the page
 import * as themes from '.././Config';
 
-import axiosInstance from '../helpers/axios';
+import axiosInstance from '../helpers/axios'
+
+// Used to make sure useState arrays have unique keys
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -40,8 +43,6 @@ function Home({ onLogout }) {
 
 
   useEffect(() => {
-
-    console.log(announcements);
 
     // If user is a teacher classes need to be fetched differently on the backend 
     if (cookies.account === 'teacher') {
@@ -193,22 +194,27 @@ function Home({ onLogout }) {
             </Typography>
 
             <Divider></Divider>
-            {console.log(announcements[0])}
-            {announcements[0] != '' ? (<></>) : (<Typography style={{ fontFamily: 'Courier New', paddingTop: '5%', color: textColor }}>Your teachers have not posted any announcements</Typography>)}
+            {announcements.length === 0 || announcements[0] === '' ? (
+              <Typography style={{ fontFamily: 'Courier New', paddingTop: '5%', color: textColor }}>
+                Your teachers have not posted any announcements
+              </Typography>
+            ) : (
+              <></>
+            )}
 
             <Typography sx={{ fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor }}>
-              {announcements.map((ann, index) => (
+              {announcements.map((ann) => (
                 ann ? (
-                  <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Grid item xs={12} sm={6} md={4} key={uuidv4()} style={{ display: 'flex', justifyContent: 'center' }}>
                     <Card variant="outlined" style={{ width: '80%', zIndex: 0, backgroundColor: buttonColor }}>
                       <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Typography style={{ fontFamily: 'Courier New', color: textColor }} variant="h5" component="div">
-                          {classes[index]}: {ann}
+                          {classes[announcements.indexOf(ann)]}: {ann}
                         </Typography>
                       </CardContent>
                     </Card>
                   </Grid>
-                ) : (<></>)
+                ) : (<React.Fragment key={uuidv4()} />)
               ))}
             </Typography>
           </div>

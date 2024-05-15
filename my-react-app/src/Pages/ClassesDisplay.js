@@ -126,42 +126,14 @@ function ClassesDisplay() {
           background: containerColor,
           marginTop: "75px",
           height: "fit-content",
-          width: "1000px",
-          
+          width: "50%",
+          paddingTop: '2%'
         }}
       >
-          {/* Theme proveider allows us to define multiple colors for use in our component (main and white)*/}
-          <ThemeProvider
-            theme={{
-              palette: {
-                primary: {
-                  main: "#009688",
-                  white: "#FFFFFF",
-                },
-              },
-            }}
-          >
-            <Box
-              sx={{
-                width: "50%",
-                padding: "3%",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 1,
-                display: "flex",
-                bgcolor: "primary.main",
-                color: "primary.white",
-                zIndex: "0",
-                fontFamily: "Courier New",
-                fontSize: 28,
-                textAlign: "center",
-              }}
-            >
-              Your Classes
-            </Box>
-          </ThemeProvider>
-        
-        <Grid container spacing={4} direction="column">
+
+        <HeaderBox text={"Classes"}></HeaderBox>
+
+        <Grid container spacing={4} direction="column" style={{ marginTop: '2%' }}>
           <Grid
             container
             spacing={3}
@@ -214,7 +186,6 @@ function ClassesDisplay() {
                   <ButtonBase
                     onClick={() => handleClickClass(classItem.Cid)}
                     style={{
-                      width: "100%",
                       paddingLeft: "10%",
                       paddingTop: "10%",
                     }}
@@ -224,7 +195,6 @@ function ClassesDisplay() {
                       style={{
                         backgroundColor: buttonColor,
                         color: clickColor,
-                        width: "100%",
                         zIndex: 0,
                       }}
                     >

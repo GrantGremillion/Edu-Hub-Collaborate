@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // Other imports remain the same
-import { Button, Grid, Container, Box, TextField, Typography, Paper } from '@mui/material';
+import { Button, Grid, Container, Box, Divider, Typography, Paper } from '@mui/material';
 import HeaderBox from '../Components/HeaderBox';
 import Sidebar from '../Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
@@ -107,9 +107,9 @@ function UserProfile({ themeToggle }) {
             // Add more media queries as needed for different breakpoints
         },
         paperStyle: {
-            padding: '16px',
-            width: '50%', // Use full width to maintain consistent size
+            padding: '5%',
             marginBottom: theme.spacing(5),
+            width: '110%',
             backgroundColor: isDarkMode ? themes.darkButton : themes.normalButton,
         },
         buttonStyle: {
@@ -127,6 +127,21 @@ function UserProfile({ themeToggle }) {
         }
     };
 
+
+    //Darkmode Theme
+    if (themes.DARKMODE) {
+        var containerColor = themes.darkContainer;
+        var buttonColor = themes.darkButton;
+        var textColor = themes.darkText;
+        var background = dark_bg;
+    }
+    else {
+        containerColor = themes.normalContainer;
+        buttonColor = themes.normalButton;
+        textColor = themes.normalText;
+        background = bg;
+    }
+
     return (
         <Box sx={{ position: 'relative', minHeight: '100vh' }}>
             <Box
@@ -143,54 +158,71 @@ function UserProfile({ themeToggle }) {
                 }}
             />
             <Sidebar />
-            <Container sx={profileStyles.containerStyle} >
-                <Box sx={profileStyles.headerBoxWrapperStyle}>
-                    <HeaderBox text={'User Profile'} />
-                </Box>
+            <Container maxWidth="sm" style={{ background: containerColor, marginTop: '4%', height: 'fit-content', marginBottom: '4%', paddingTop: '2%', paddingBottom: '2%' }}>
+
+                <HeaderBox text={'User Profile'} />
 
 
-                <Grid container direction="row" sx={{ marginTop: '5%' }}>
+                <Grid container spacing={1} sx={{ marginTop: '5%' }}>
+                    {/* First Row */}
+                    <Grid item xs={4} style={{marginRight: '-22%', marginLeft: '5%'}}>
+                        <Paper elevation={3} sx={profileStyles.paperStyle} >
+                            <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
+                                variant="h6"
+                                sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>User Name:
+                            </Typography>
+                            <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
+                                sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>{displayName || "No display name set yet!"}
+                            </Typography>
+                        </Paper>
+                    </Grid>
 
-                    <Paper elevation={3} sx={profileStyles.paperStyle} >
-                        <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
-                            variant="h6"
-                            sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>Display Name:</Typography>
-                        <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
-                            sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>{displayName || "No display name set yet!"}</Typography>
-                    </Paper>
+                    <Grid item xs={4} style={{marginBottom: '5%'}}>
+                        <Divider orientation="vertical"/>
+                    </Grid>
 
-                    <Paper elevation={3} sx={profileStyles.paperStyle}>
-                        <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
-                            variant="h6"
-                            sx={{ fontFamily: "Courier New", fontWeight: "bold" }}> Email:</Typography>
-                        <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
-                            sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>{cookies.email}</Typography>
-                    </Paper>
+                    <Grid item xs={4} style={{marginLeft: '7%'}}>
+                        <Grid item>
+                            <Paper elevation={3} sx={profileStyles.paperStyle}>
+                                <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
+                                    variant="h6"
+                                    sx={{ fontFamily: "Courier New", fontWeight: "bold" }}> Email:</Typography>
+                                <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
+                                    sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>{cookies.email}</Typography>
+                            </Paper>
+                        </Grid>
+
+                    </Grid>
+
+                    {/* Second Row */}
+                    <Grid item xs={12}>
+                        <Paper elevation={3} sx={{ padding: '5%', marginBottom: theme.spacing(5), backgroundColor: isDarkMode ? themes.darkButton : themes.normalButton }}>
+                            <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
+                                variant="h6"
+                                sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>Bio:</Typography>
+                            <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
+                                sx={{ fontFamily: "Courier New", fontWeight: "bold" }} >{bio || "No bio set yet!"}</Typography>
+                        </Paper>
+
+                    </Grid>
                 </Grid>
 
 
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button
+                        variant="contained"
+                        onClick={handleEditProfileClick}
+                        sx={profileStyles.buttonStyle}
+                    >
+                        Edit Profile
+                    </Button>
+                </Grid>
 
-                <Paper elevation={3} sx={profileStyles.paperStyle}>
-                    <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
-                        variant="h6"
-                        sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>Bio:</Typography>
-                    <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
-                        sx={{ fontFamily: "Courier New", fontWeight: "bold" }} >{bio || "No bio set yet!"}</Typography>
-                </Paper>
-
-                <Button
-                    variant="contained"
-                    onClick={handleEditProfileClick}
-                    sx={profileStyles.buttonStyle}
-                >
-                    Edit Profile
-                </Button>
-
-                <Grid item xs={2}>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Button size="small" onClick={handleChangePasswordClick}
                         style={{
                             color: themes.DARKMODE ? themes.darkText : themes.normalText,
-                            width: '200px',
+                            width: 'fit-content',
                             background: themes.DARKMODE ? themes.darkButton : themes.normalButton
                         }}
                         sx={{
@@ -208,7 +240,7 @@ function UserProfile({ themeToggle }) {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginTop: "12.5%",
+                            marginTop: "7%",
                             bgcolor: isDarkMode ? themes.darkButton : themes.normalButton,
                             color: 'primary.white',
                             p: 1,

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import Sidebar from '../Components/Sidebar';
 import axiosInstance from '../helpers/axios';
+import HeaderBox from '../Components/HeaderBox';
 
 function JoinClass() {
   const [cookies] = useCookies(['userID']);
@@ -27,7 +28,17 @@ function JoinClass() {
       .then(res => {
         if (res.data.Status === "Success") {
           navigate('/ClassesDisplay');
-        } else {
+        }
+
+        else if (res.data.Status === "Class not found") {
+          alert("Invalid Access Key");
+        }
+
+        else if (res.data.Status === "Server Side Error") {
+          alert("Already In Class");
+        }
+
+        else {
           console.log("Failed");
         }
       })
@@ -55,19 +66,6 @@ function JoinClass() {
     borderRadius: theme.shape.borderRadius,
     width: "fit-content"
 
-  };
-
-  const headerBoxStyles = {
-    width: '100%', // full width
-    textAlign: 'center', // center the text
-    backgroundColor: themes.darkButton, // Use the green color from your themes
-    color: '#ffffff', // Assuming white text
-    padding: theme.spacing(2), // Adjust the padding
-    fontWeight: 'bold', // Make the font bold
-    fontSize: isSmallScreen ? '1.5rem' : '2rem', // Adjust font size larger, responsive to screen size
-    borderRadius: theme.shape.borderRadius, // optional: if you want rounded corners
-    boxShadow: theme.shadows[1], // optional: if you want some shadow effect
-    marginBottom: "5%"
   };
 
 
@@ -102,8 +100,8 @@ function JoinClass() {
 
       <Container container sx={containerStyles}>
 
-        <Grid item xs={12}>
-          <Typography sx={headerBoxStyles}>Student Classes</Typography>
+        <Grid item xs={12} style={{marginBottom: '10%'}}>
+          <HeaderBox text={'Join Class'} ></HeaderBox>
         </Grid>
 
         <Grid item xs={12}>
