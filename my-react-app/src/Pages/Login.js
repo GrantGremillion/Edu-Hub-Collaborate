@@ -153,7 +153,7 @@ function Login({ onLogin }) {
               justifyContent="center">
 
               <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%' }}>
-                <HeaderBox text={'Login to your account'} sx={{ width: '100%' }} />
+                <HeaderBox text={'Login to your account'} />
               </Grid>
               <Grid item xs={12} >
                 <TextField label="College Email" variant="filled" fullWidth autoComplete="email"

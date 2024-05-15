@@ -9,3 +9,7 @@ fix announcments bug on home page
 store profile pictures in a folder rather than github
 
 resize text based on screen size
+
+fix all warnings in console
+
+fix change password pop-up on login
