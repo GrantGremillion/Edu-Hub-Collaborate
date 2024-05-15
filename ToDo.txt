@@ -1,5 +1,11 @@
 Don't allow students to join the same class twice
 
-Allow the student to leave a class
+Fix pages that don't auto-scroll to top
 
-Allow a teacher to delete a class
+add username to login
+
+fix announcments bug on home page
+
+store profile pictures in a folder rather than github
+
+resize text based on screen size
