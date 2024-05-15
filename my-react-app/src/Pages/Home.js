@@ -144,9 +144,6 @@ function Home({ onLogout }) {
                 console.error('Error fetching events:', error);
               });
 
-
-
-
           } else {
             alert(res.data.Status);
           }
@@ -196,7 +193,8 @@ function Home({ onLogout }) {
             </Typography>
 
             <Divider></Divider>
-            {announcements.length != 0 ? (<></>) : (<Typography style={{ fontFamily: 'Courier New', paddingTop: '5%', color: textColor }}>Your teachers have not posted any announcements</Typography>)}
+            {console.log(announcements[0])}
+            {announcements[0] != '' ? (<></>) : (<Typography style={{ fontFamily: 'Courier New', paddingTop: '5%', color: textColor }}>Your teachers have not posted any announcements</Typography>)}
 
             <Typography sx={{ fontSize: 'x-large', fontFamily: 'Courier New', paddingTop: '4%', color: textColor }}>
               {announcements.map((ann, index) => (

@@ -26,7 +26,6 @@ function HeaderBox({ text }) {
             fontFamily: "Courier New",
             fontSize: 28,
             textAlign: 'center',
-            
           }}
         >
             {text}

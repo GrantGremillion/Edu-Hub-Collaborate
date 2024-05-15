@@ -4,8 +4,6 @@ Fix pages that don't auto-scroll to top
 
 add username to login
 
-fix announcments bug on home page
-
 store profile pictures in a folder rather than github
 
 resize text based on screen size
@@ -13,3 +11,5 @@ resize text based on screen size
 fix all warnings in console
 
 fix change password pop-up on login
+
+fix login not working randomly
