@@ -3,16 +3,34 @@ const router = express.Router();
 const db = require("../database.cjs");
 const bcrypt = require("bcrypt");
 
+
+function CreateAccountWithUsername(name, req, res) {
+  const checkNameQuery = "SELECT * FROM Tlogin WHERE name = ?";
+  db.query(checkNameQuery, [name], (err, rows) => {
+
+    // If the email already exists in the database
+    if (rows.length > 0) {
+      return "Username taken";
+    }
+
+    // Hashing the users password
+    bcrypt.hash(req.body.password, 5, (err, hashedPassword) => {
+
+      const insertUserQuery =
+        "INSERT INTO Tlogin (name, password, verified) VALUES (?, ?, true)";
+      db.query(
+        insertUserQuery,
+        [name, hashedPassword],
+        () => {
+          return "Success";
+        }
+      );
+    });
+  });
+}
+
 ////// Create Teacher Account API //////
 router.post("/create_Taccount", (req, res) => {
-  // pattern that email must match to be valid
-  // "example@example.edu"
-  var pattern = /^[^@]+@[^@]+\.(edu)$/i;
-
-  // check if email is valid before querying to database
-  if (!pattern.test(req.body.email)) {
-    return res.json({ Status: "Please enter a valid edu email" });
-  }
 
   // Check if password is long enough
   if (req.body.password.length < 6) {
@@ -24,6 +42,18 @@ router.post("/create_Taccount", (req, res) => {
   // Check that passwords match from user
   if (req.body.password != req.body.cpassword) {
     return res.json({ Status: "Password mismatch" });
+  }
+
+  // pattern that email must match to be valid
+  // "example@example.edu"
+  var pattern = /^[^@]+@[^@]+\.(edu)$/i;
+
+  // check if email is valid before querying to database
+  if (!pattern.test(req.body.email)) {
+    const name = req.body.email;
+    CreateAccountWithUsername(name, req, res);
+    return res.json({ Status: "Success" });
+
   }
 
   // Check if email already exists in the database
@@ -169,9 +199,17 @@ router.post("/login", (req, res) => {
   });
 
   function checkTeacherAccount() {
-    // Query to search for teacher account
-    const teacherSql =
+
+    let teacherSql;
+
+    if (email.indexOf('@') === -1) {
+      teacherSql =
+      "SELECT Tid, name, password, verified FROM Tlogin WHERE name = ?";
+      
+    } else {
+      teacherSql =
       "SELECT Tid, email, password, verified FROM Tlogin WHERE email = ?";
+    }
 
     db.query(teacherSql, [email], (teacherErr, teacherData) => {
       if (teacherErr) {
@@ -233,8 +271,7 @@ router.post("/get_profile", (req, res) => {
     getStudentProfile();
   }
 
-  else 
-  {
+  else {
     getTeacherProfile();
   }
 

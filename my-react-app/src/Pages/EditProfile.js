@@ -16,25 +16,25 @@ function EditProfile() {
     const [bio, setBio] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
     const [preview, setPreview] = useState(null);
-    const [cookies] = useCookies(['email','userID']);
+    const [cookies] = useCookies(['email', 'userID']);
 
 
 
     useEffect(() => {
-        axiosInstance.post('/account/get_profile', {ID: cookies.userID, account: cookies.account})
+        axiosInstance.post('/account/get_profile', { ID: cookies.userID, account: cookies.account })
 
-        // testing 
-        .then(res => {
-          if (res.data.Status === "Success") {
-            setDisplayName(res.data.Profile[0].name);
-            setBio(res.data.Profile[0].bio);
-            
-          }
-          else {
-            alert(res.data.Status);
-          }
-  
-        });
+            // testing 
+            .then(res => {
+                if (res.data.Status === "Success") {
+                    setDisplayName(res.data.Profile[0].name);
+                    setBio(res.data.Profile[0].bio);
+
+                }
+                else {
+                    alert(res.data.Status);
+                }
+
+            });
     }, []);
 
 
@@ -77,40 +77,47 @@ function EditProfile() {
 
     const handleApplyChanges = async () => {
 
-        if (displayName.length < 1 || bio.length < 1) {
-            alert('Please enter a display name and or bio');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('displayName', displayName);
-        formData.append('bio', bio);
-        // Assuming userEmail is the email address of the logged-in user.
-        formData.append('email', cookies.email);
-        if (profilePicture) {
-            formData.append('profilePicture', profilePicture);
-        }
-
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/account/edit-profile`, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json',
-                    // Don't set Content-Type when FormData is used; it sets the boundary parameter automatically
-                },
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                alert('Profile updated successfully!');
-                navigate('/UserProfile');
-            } else {
-                alert(`Failed to update profile: ${result.message}`);
+        if (displayName && bio) {
+            if (displayName.length < 1 || bio.length < 1) {
+                alert('Please enter a display name and or bio');
+                return;
             }
-        } catch (error) {
-            console.error('Error updating profile:', error);
-            alert('An error occurred while updating the profile.');
+
+            const formData = new FormData();
+            formData.append('displayName', displayName);
+            formData.append('bio', bio);
+            // Assuming userEmail is the email address of the logged-in user.
+            formData.append('email', cookies.email);
+            if (profilePicture) {
+                formData.append('profilePicture', profilePicture);
+            }
+
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/account/edit-profile`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json',
+                        // Don't set Content-Type when FormData is used; it sets the boundary parameter automatically
+                    },
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Profile updated successfully!');
+                    navigate('/UserProfile');
+                } else {
+                    alert(`Failed to update profile: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('An error occurred while updating the profile.');
+            }
+        }
+
+        else
+        {
+            alert('Please fill out all forms');
         }
     };
 
@@ -218,16 +225,6 @@ function EditProfile() {
                         </Box>
                     )}
 
-                    <Grid item xs={12} justifyContent="center" alignContent="center" display='flex'>
-                        <Button
-                            variant="contained"
-                            component="label"
-                            sx={buttonStyles} // Use buttonStyles
-                        >
-                            Upload Profile Picture
-                            <input type="file" hidden onChange={handleProfilePictureChange} />
-                        </Button>
-                    </Grid>
 
                     <Grid item xs={12} display='flex' justifyContent="center">
                         <Button

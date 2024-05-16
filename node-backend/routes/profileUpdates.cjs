@@ -19,13 +19,24 @@ const upload = multer({ storage: storage });
 
 router.post('/edit-profile', upload.single('profilePicture'), async (req, res) => {
   const { displayName, bio, email } = req.body;
+
+  let queries;
+
+  if (email.indexOf('@') === -1){
+    queries = [
+      `UPDATE Slogin SET name = ?, bio = ?, profilePicture = ? WHERE name = ?`,
+      `UPDATE Tlogin SET name = ?, bio = ?, profilePicture = ? WHERE name = ?`
+    ];
+  }
+  else{
+    queries = [
+      `UPDATE Slogin SET name = ?, bio = ?, profilePicture = ? WHERE email = ?`,
+      `UPDATE Tlogin SET name = ?, bio = ?, profilePicture = ? WHERE email = ?`
+    ];
+  }
+    
   const profilePicturePath = req.file ? `/uploads/${req.file.filename}` : null; // Adjust path as necessary
 
-  // Try updating both student and teacher tables
-  const queries = [
-    `UPDATE Slogin SET name = ?, bio = ?, profilePicture = ? WHERE email = ?`,
-    `UPDATE Tlogin SET name = ?, bio = ?, profilePicture = ? WHERE email = ?`
-  ];
 
   try {
     const promises = queries.map(query =>

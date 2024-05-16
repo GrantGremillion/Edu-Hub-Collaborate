@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('../database.cjs')
+const bcrypt = require("bcrypt");
 
 
 
@@ -36,9 +37,27 @@ router.post('/change-password', async (req, res) => {
   // teacher account
   else if (req.body.account === 'teacher') {
 
+    let oldPW;
+    let newPW;
+
+    bcrypt.hash(req.body.oldPW, 5, (err, oldHashedPassword) => {
+      if (err) {
+        return res.json({ Status: "Server Side Error" });
+      }
+      oldPW = oldHashedPassword;
+      console.log(oldPW);
+    });
+
+    bcrypt.hash(req.body.newPW, 5, (err, newHashedPassword) => {
+      if (err) {
+        return res.json({ Status: "Server Side Error" });
+      }
+      newPW = newHashedPassword
+    });
+
     const checkPasswordSQL = "UPDATE Tlogin SET password = ? WHERE Tid = ? AND password = ?";
 
-    db.query(checkPasswordSQL, [req.body.newPW, req.body.id, req.body.oldPW], (err, data) => {
+    db.query(checkPasswordSQL, [newPW, req.body.id, oldPW], (err, data) => {
 
       if (data.changedRows === 0) {
         return res.json({ Status: "Incorrect old password" });

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 // Material UI components
-import { Button, Grid, Container, Box, Divider } from '@mui/material';
+import { Button, Grid, Container, Box, Divider, Typography } from '@mui/material';
 
 // Our own custom-built components 
 import HeaderBox from '.././Components/HeaderBox';
@@ -74,15 +74,22 @@ function AccountSelection() {
         </Grid>
         <Grid item sx={{ marginTop: '5%', width: '50%' }}>
           {/* Container and Grid organizes HeaderBox and Buttons */}
-          <Container maxWidth='sm' style={{ background: containerColor, height: '650px', marginBottom: '75px' }} >
+          <Container maxWidth='sm' style={{ background: containerColor, height: 'fit-content', marginBottom: '75px' }} >
             <Grid container spacing={5}
               direction="column"
               alignItems="center"
               justifyContent="center">
 
-              <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '5%' }}>
+              <Grid item xs={12} style={{ marginTop: '5%', marginBottom: '2%' }}>
                 <HeaderBox text={'Select your account type'}></HeaderBox>
               </Grid>
+
+              <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Box style={{ width: '50%', background: buttonColor}}>
+                  <Typography sx={{fontFamily: 'Courier New', fontSize: 'medium', textAlign: 'center'}}> If you are on the website for viewing/testing purposes, please start by creating a teacher account with a username</Typography>
+                </Box>
+              </Grid>
+
 
               <Grid item xs={1}>
                 <Button variant="contained" size="large" onClick={handleStudentClick} style={{ width: '200px', background: buttonColor, color: textColor }} sx={{ fontFamily: 'Courier New', fontSize: 'large' }} >

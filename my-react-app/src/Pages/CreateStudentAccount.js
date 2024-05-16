@@ -144,7 +144,7 @@ function CreateStudentAccount() {
               <Grid item xs={12}>
                 <TextField
                   variant="filled"
-                  label="College Email"
+                  label="Email / Username"
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

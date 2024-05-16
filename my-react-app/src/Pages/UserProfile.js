@@ -9,6 +9,8 @@ import dark_bg from '../Images/dark_bg.jpg';
 import { useCookies } from "react-cookie";
 import { useTheme } from '@mui/material/styles';
 
+import axiosInstance from '../helpers/axios';
+
 import * as themes from '.././Config';
 import darkModeImg from './dark.png';
 import lightModeImg from './light.png';
@@ -37,35 +39,21 @@ function UserProfile({ themeToggle }) {
     }
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            const userEmail = cookies.email; // Make sure this is the correct key for the email
-            console.log('Fetching data for email:', userEmail);
+        axiosInstance.post('/account/get_profile', {ID: cookies.userID, account: cookies.account})
 
-            if (!userEmail) {
-                console.log("No email found in cookies.");
-                return; // Exit if no email is found
-            }
-
-            const fetchUrl = `${process.env.REACT_APP_API_URL}/getUserProfile?email=${encodeURIComponent(userEmail)}`;
-            console.log('Fetch URL:', fetchUrl);
-
-            try {
-                const response = await fetch(fetchUrl);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user data');
-                }
-                const userData = await response.json();
-                console.log('Fetched user data:', userData);
-
-                setDisplayName(userData.displayName);
-                setBio(userData.bio);
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
-
-        fetchUserData();
-    }, [cookies.email]);
+        // testing 
+        .then(res => {
+          if (res.data.Status === "Success") {
+            setDisplayName(res.data.Profile[0].name);
+            setBio(res.data.Profile[0].bio);
+            
+          }
+          else {
+            alert(res.data.Status);
+          }
+  
+        });
+    }, []);
 
     const handleEditProfileClick = () => {
         navigate("/EditProfile");
@@ -188,7 +176,7 @@ function UserProfile({ themeToggle }) {
                                     variant="h6"
                                     sx={{ fontFamily: "Courier New", fontWeight: "bold" }}> Email:</Typography>
                                 <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
-                                    sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>{cookies.email}</Typography>
+                                    sx={{ fontFamily: "Courier New", fontWeight: "bold" }}>{cookies.email.indexOf('@') === -1  ? 'None' : cookies.email}</Typography>
                             </Paper>
                         </Grid>
 
@@ -227,23 +215,7 @@ function UserProfile({ themeToggle }) {
                     </Button>
                 </Grid>
 
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button 
-                        variant="contained"
-                        onClick={handleChangePasswordClick}
-                        style={{
-                            color: themes.DARKMODE ? themes.darkText : themes.normalText,
-                            width: 'fit-content',
-                            background: themes.DARKMODE ? themes.darkButton : themes.normalButton
-                        }}
-                        sx={{
-                            fontFamily: 'Courier New',
-                            fontSize: 'large',
-                            marginTop: '5%'
-                        }} >
-                        Change Password
-                    </Button>
-                </Grid>
+                
 
 
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
