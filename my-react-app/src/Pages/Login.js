@@ -185,14 +185,14 @@ function Login({ onLogin }) {
                     }}
                   />
                 ) : (
-                  <div>
-                    <TextField
-                      label="Password"
-                      variant="filled"
-                      type={showPassword ? 'text' : 'password'}
-                      onChange={e => setCredentials({ ...credentials, password: e.target.value })}
-                    />
-                  </div>
+                  
+                  <TextField
+                    label="Password"
+                    variant="filled"
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                  />
+                  
                 )}
               </Grid>
 

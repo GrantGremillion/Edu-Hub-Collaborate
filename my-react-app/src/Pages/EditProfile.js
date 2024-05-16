@@ -8,6 +8,7 @@ import bg from '../Images/bg.jpg';
 import dark_bg from '../Images/dark_bg.jpg';
 import * as themes from '../Config';
 import { useCookies } from "react-cookie";
+import axiosInstance from '../helpers/axios';
 
 function EditProfile() {
     const navigate = useNavigate();
@@ -15,13 +16,26 @@ function EditProfile() {
     const [bio, setBio] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
     const [preview, setPreview] = useState(null);
-    const [cookies] = useCookies(['email']);
+    const [cookies] = useCookies(['email','userID']);
+
 
 
     useEffect(() => {
-        // Ensure the email from cookies is available
-        console.log("User's email from cookies:", cookies.email);
-    }, [cookies.email]);
+        axiosInstance.post('/account/get_profile', {ID: cookies.userID, account: cookies.account})
+
+        // testing 
+        .then(res => {
+          if (res.data.Status === "Success") {
+            setDisplayName(res.data.Profile[0].name);
+            setBio(res.data.Profile[0].bio);
+            
+          }
+          else {
+            alert(res.data.Status);
+          }
+  
+        });
+    }, []);
 
 
     // Theme handling
@@ -62,8 +76,6 @@ function EditProfile() {
     };
 
     const handleApplyChanges = async () => {
-
-        console.log(displayName);
 
         if (displayName.length < 1 || bio.length < 1) {
             alert('Please enter a display name and or bio');

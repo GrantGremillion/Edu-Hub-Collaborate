@@ -1,4 +1,3 @@
-Don't allow students to join the same class twice
 
 Fix pages that don't auto-scroll to top
 

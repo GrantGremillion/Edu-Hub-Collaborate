@@ -222,4 +222,51 @@ router.post("/login", (req, res) => {
   }
 });
 
+
+
+router.post("/get_profile", (req, res) => {
+
+  const id = req.body.ID;
+  const account = req.body.account;
+
+  if (account == 'student') {
+    getStudentProfile();
+  }
+
+  else 
+  {
+    getTeacherProfile();
+  }
+
+
+  function getStudentProfile() {
+    const getStudentProfileSql = "SELECT name, bio FROM Slogin WHERE Sid = ?";
+
+    db.query(getStudentProfileSql, [id], (studentErr, studentData) => {
+
+      if (studentErr) {
+        return res.status(500).json({ error: studentErr.message });
+      }
+      else {
+        return res.json({ Status: "Success", Profile: studentData });
+      }
+    });
+  }
+
+  function getTeacherProfile() {
+    const getTeacherProfileSql = "SELECT name, bio FROM Tlogin WHERE Tid = ?";
+
+    db.query(getTeacherProfileSql, [id], (teacherErr, teacherData) => {
+
+      if (teacherErr) {
+        return res.status(500).json({ error: teacherErr.message });
+      }
+      else {
+        return res.json({ Status: "Success", Profile: teacherData });
+      }
+    });
+  }
+});
+
+
 module.exports = router;

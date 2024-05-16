@@ -165,7 +165,7 @@ function UserProfile({ themeToggle }) {
 
                 <Grid container spacing={1} sx={{ marginTop: '5%' }}>
                     {/* First Row */}
-                    <Grid item xs={4} style={{marginRight: '-22%', marginLeft: '5%'}}>
+                    <Grid item xs={4} style={{ marginRight: '-22%', marginLeft: '5%' }}>
                         <Paper elevation={3} sx={profileStyles.paperStyle} >
                             <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
                                 variant="h6"
@@ -177,11 +177,11 @@ function UserProfile({ themeToggle }) {
                         </Paper>
                     </Grid>
 
-                    <Grid item xs={4} style={{marginBottom: '5%'}}>
-                        <Divider orientation="vertical"/>
+                    <Grid item xs={4} style={{ marginBottom: '5%' }}>
+                        <Divider orientation="vertical" />
                     </Grid>
 
-                    <Grid item xs={4} style={{marginLeft: '7%'}}>
+                    <Grid item xs={4} style={{ marginLeft: '7%' }}>
                         <Grid item>
                             <Paper elevation={3} sx={profileStyles.paperStyle}>
                                 <Typography style={{ color: themes.DARKMODE ? themes.darkText : themes.normalText }}
@@ -212,14 +212,25 @@ function UserProfile({ themeToggle }) {
                     <Button
                         variant="contained"
                         onClick={handleEditProfileClick}
-                        sx={profileStyles.buttonStyle}
+                        style={{
+                            color: themes.DARKMODE ? themes.darkText : themes.normalText,
+                            width: 'fit-content',
+                            background: themes.DARKMODE ? themes.darkButton : themes.normalButton
+                        }}
+                        sx={{
+                            fontFamily: 'Courier New',
+                            fontSize: 'large',
+                            marginTop: '5%'
+                        }}
                     >
                         Edit Profile
                     </Button>
                 </Grid>
 
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button size="small" onClick={handleChangePasswordClick}
+                    <Button 
+                        variant="contained"
+                        onClick={handleChangePasswordClick}
                         style={{
                             color: themes.DARKMODE ? themes.darkText : themes.normalText,
                             width: 'fit-content',
@@ -234,21 +245,22 @@ function UserProfile({ themeToggle }) {
                     </Button>
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginTop: "7%",
-                            bgcolor: isDarkMode ? themes.darkButton : themes.normalButton,
-                            color: 'primary.white',
-                            p: 1,
-                            borderRadius: 1,
-                            cursor: 'pointer', // To show it's clickable
-                        }}
+
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button
+                        variant="contained"
                         onClick={handleThemeToggle}
-                    >
+                        style={{
+                            color: themes.DARKMODE ? themes.darkText : themes.normalText,
+                            width: 'fit-content',
+                            background: themes.DARKMODE ? themes.darkButton : themes.normalButton
+                        }}
+                        sx={{
+                            fontFamily: 'Courier New',
+                            fontSize: 'large',
+                            marginTop: '5%'
+                        }} >
+                        
                         <img
                             src={isDarkMode ? darkModeImg : lightModeImg}
                             alt="Toggle Theme"
@@ -265,7 +277,7 @@ function UserProfile({ themeToggle }) {
                         >
                             CHANGE THEME
                         </Typography>
-                    </Box>
+                    </Button>
                 </Grid>
 
             </Container>

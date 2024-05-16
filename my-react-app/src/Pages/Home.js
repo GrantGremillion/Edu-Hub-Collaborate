@@ -108,7 +108,6 @@ function Home({ onLogout }) {
             const classesArray = [];
             const announcementsArray = [];
             res.data.classes.forEach(obj => {
-              console.log(obj);
               const keys = Object.keys(obj);
 
               classesArray.push(obj[keys[1]]);
