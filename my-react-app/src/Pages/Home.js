@@ -222,7 +222,7 @@ function Home({ onLogout }) {
         <Box sx={{ height: 'fit-content', width: '100%', marginTop: '5%', bgcolor: containerColor }} >
           <div style={{ textAlign: 'center' }}>
             <Typography variant='h4' gutterBottom sx={{ fontFamily: 'Courier New', paddingTop: '3%', color: textColor }}>
-              Upcomming Events
+              Upcoming Events
             </Typography>
 
             <Divider></Divider>
