@@ -19,4 +19,8 @@ Enviornments Used: Google Cloud Platform, Linux
 Technology/Applications/Services Used: MySQL, Express, React, Node.js, Google Cloud Virtual Machines
 
 
+<h2>Full Video Demo</h2>
 
+This video will walk you through all major features for the Edu Hub Collaborate website:
+
+https://drive.google.com/file/d/1b01_0WMCPtyW-3omkA2dek9Puac1ELYo/view
